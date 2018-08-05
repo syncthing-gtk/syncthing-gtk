@@ -10,7 +10,7 @@ from __future__ import unicode_literals
 from gi.repository import GObject
 from syncthing_gtk.tools import init_logging, set_logging_level
 from syncthing_gtk.daemon import Daemon
-import os, logging, urllib
+import os, logging, urllib.parse
 log = logging.getLogger("SyncthingPlugin")
 
 # Output options
@@ -115,8 +115,8 @@ class NautiluslikeExtension(GObject.GObject):
 		if hasattr(file, "get_location"):
 			if not file.get_location().get_path() is None:
 				return file.get_location().get_path().decode('utf-8')
-		return urllib.unquote(file.get_uri().replace("file://", ""))
-	
+		return urllib.parse.unquote(file.get_uri().replace("file://", ""))
+
 	### Daemon callbacks
 	def cb_connected(self, *a):
 		"""
