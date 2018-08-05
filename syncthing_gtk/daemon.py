@@ -568,9 +568,9 @@ class Daemon(GObject.GObject, TimerManager):
 				log.warning("My ID has been changed on the fly")
 			self._my_id = data["myID"]
 			self.emit('my-id-changed', self._my_id)
-			version = get_header(data[HTTP_HEADERS], "X-Syncthing-Version")
+			version = get_header(data[HTTP_HEADERS], b"X-Syncthing-Version")
 			if version:
-				self._syncthing_cb_version_known(version)
+				self._syncthing_cb_version_known(version.decode())
 			else:
 				RESTRequest(self, "system/version", self._syncthing_cb_version).start()
 		
@@ -691,7 +691,7 @@ class Daemon(GObject.GObject, TimerManager):
 			return
 		elif isinstance(exception, HTTPCode):
 			# HTTP 404 may acually mean old daemon version
-			version = get_header(exception.headers, "X-Syncthing-Version")
+			version = get_header(exception.headers, b"X-Syncthing-Version")
 			if version != None and not compare_version(version, MIN_VERSION):
 				self._epoch += 1
 				msg = "daemon is too old"
@@ -1093,10 +1093,10 @@ class RESTRequest(Gio.SocketClient):
 	
 	def _parse_csrf(self, response):
 		for d in response:
-			if d.startswith("Set-Cookie:"):
-				for c in d.split(":", 1)[1].split(";"):
-					if c.strip().startswith("CSRF-Token-"):
-						self._CSRFtoken = c.strip(" \r\n")
+			if d.startswith(b"Set-Cookie:"):
+				for c in d.split(b":", 1)[1].split(b";"):
+					if c.strip().startswith(b"CSRF-Token-"):
+						self._CSRFtoken = c.strip(b" \r\n").decode()
 						log.verbose("Got new cookie: %s", self._CSRFtoken)
 						break
 				if self._CSRFtoken != None:
@@ -1136,10 +1136,10 @@ class RESTRequest(Gio.SocketClient):
 			self._connection.get_input_stream().read_bytes_async(102400, 1, None, self._response)
 			return
 		self._connection.close(None)
-		response, self._buffer = (b"".join(self._buffer)).decode("utf-8"), []
+		response, self._buffer = (b"".join(self._buffer)), []
 		if self._parent._CSRFtoken is None and self._parent._api_key is None:
 			# I wanna cookie!
-			self._parse_csrf(response.split("\n"))
+			self._parse_csrf(response.split(b"\n"))
 			if self._parent._CSRFtoken == None:
 				# This is pretty fatal and likely to fail again,
 				# so request is not repeated automatically
@@ -1317,11 +1317,11 @@ class EventPollLoop(RESTRequest):
 			return
 		
 		buffer = response.get_data()
-		assert type(buffer) == str
+		assert type(buffer) == bytes
 		headers, response = self._split_headers(buffer)
 		if headers is None: return
-		headers = { x : y.strip() for (x,y) in [ h.split(":", 1) for h in headers if ":" in h ] }
-		if "Transfer-Encoding" not in headers or headers["Transfer-Encoding"] != "chunked":
+		headers = { x : y.strip() for (x,y) in [ h.split(b":", 1) for h in headers if b":" in h ] }
+		if b"Transfer-Encoding" not in headers or headers[b"Transfer-Encoding"] != b"chunked":
 			# Something just went horribly wrong
 			self._error(InvalidHTTPResponse(buffer))
 			return
