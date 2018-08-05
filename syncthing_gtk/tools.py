@@ -57,7 +57,7 @@ if IS_WINDOWS:
 
 """ Localization lambdas """
 _ = lambda a: _uc(gettext.gettext(a))
-_uc = lambda b: b if type(b) == unicode else b.decode("utf-8")
+_uc = lambda b: b if type(b) == str else b.decode("utf-8")
 
 def luhn_b32generate(s):
 	"""
@@ -130,10 +130,10 @@ def get_header(headers, key):
 	Returns value of single header parsed from headers array or None
 	if header is not found
 	"""
-	if not key.endswith(":"): key = "%s:" % (key,)
+	if not key.endswith(b":"): key = b"%s:" % (key,)
 	for h in headers:
 		if h.startswith(key):
-			return h.split(" ", 1)[-1]
+			return h.split(b" ", 1)[-1]
 	return None
 
 class Timezone(tzinfo):
@@ -234,10 +234,10 @@ def init_logging():
 	old_log = logging.Logger._log
 	def _log(self, level, msg, args, exc_info=None, extra=None):
 		args = tuple([
-			(c if type(c) is unicode else str(c).decode("utf-8"))
+			(c if type(c) is str else str(c).decode("utf-8"))
 			for c in args
 		])
-		msg = msg if type(msg) is unicode else str(msg).decode("utf-8")
+		msg = msg if type(msg) is str else str(msg).decode("utf-8")
 		old_log(self, level, msg, args, exc_info, extra)
 	logging.Logger._log = _log
 
