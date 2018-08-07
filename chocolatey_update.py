@@ -14,7 +14,11 @@ Requirements:
 from __future__ import unicode_literals, print_function
 
 import re, os, json
-from urllib import request # Py3
+try:
+	from urllib import request # Py3
+except ImportError:
+	import urllib2 as request  # Py2
+	from io import open
 
 
 print("Retrieving last version...")
