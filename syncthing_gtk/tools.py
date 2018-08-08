@@ -233,11 +233,8 @@ def init_logging():
 	# Wrap Logger._log in something that can handle utf-8 exceptions
 	old_log = logging.Logger._log
 	def _log(self, level, msg, args, exc_info=None, extra=None):
-		args = tuple([
-			(c if type(c) is str else str(c).decode("utf-8"))
-			for c in args
-		])
-		msg = msg if type(msg) is str else str(msg).decode("utf-8")
+		args = tuple([str(c) for c in args])
+		msg = str(msg)
 		old_log(self, level, msg, args, exc_info, extra)
 	logging.Logger._log = _log
 
@@ -370,7 +367,7 @@ def get_config_dir():
 			return windows.get_unicode_home()
 		except Exception:
 			pass
-        from gi.repository import GLib
+	from gi.repository import GLib
 	confdir = GLib.get_user_config_dir()
 	if confdir is None or IS_XP:
 		if IS_WINDOWS:
