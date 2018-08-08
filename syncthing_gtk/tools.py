@@ -6,6 +6,8 @@ Various stuff that I don't care to fit anywhere else.
 """
 
 from __future__ import unicode_literals
+
+from gettext import gettext as _
 from base64 import b32decode
 from datetime import tzinfo, timedelta
 from subprocess import Popen
@@ -54,10 +56,6 @@ portable_mode_enabled = False
 if IS_WINDOWS:
 	# On Windows, WMI and pywin32 libraries are reqired
 	import wmi, winreg
-
-""" Localization lambdas """
-_ = lambda a: _uc(gettext.gettext(a))
-_uc = lambda b: b if type(b) == str else b.decode("utf-8")
 
 def luhn_b32generate(s):
 	"""
