@@ -1,0 +1,32 @@
+Source: syncthing-gtk
+Section: net
+Priority: optional
+Maintainer: Jelmer Vernooĳ <jelmer@debian.org>
+Build-Depends: dh-python, python-all, debhelper (>= 11)
+Standards-Version: 4.2.1
+Vcs-Git: https://salsa.debian.org/jelmer/syncthing-gtk.git
+Vcs-Browser: https://salsa.debian.org/jelmer/syncthing-gtk
+Homepage: https://github.com/syncthing/syncthing-gtk
+
+Package: syncthing-gtk
+Recommends: syncthing (>= 0.13), git1.2-appindicator3-0.1
+Architecture: all
+Depends: ${python:Depends}, ${misc:Depends}, python-gobject | python-gi, python-dateutil, python-bcrypt, libgtk-3-0, gir1.2-gtk-3.0, gir-1.2-glib-2.0, git1.2-notify-0.7, python-gi-cairo, gir1.2-rsvg-2.0
+Description: GTK3-based GUI and notification area icon for syncthing
+ GTK3 & Python based GUI and notification area icon for Syncthing.
+ .
+ Supported Syncthing features
+ .
+  * Everything what WebUI can display
+  * Adding / editing / deleting nodes
+  * Adding / editing / deleting repositories
+  * Restart / shutdown server
+  * Editing daemon settings
+ .
+ Additional features
+ .
+  * First run wizard for initial configuration
+  * Running Syncthing daemon in background
+  * Half-automatic setup for new nodes and repositories
+  * Nautilus (a.k.a. Files), Nemo and Caja integration
+  * Desktop notifications

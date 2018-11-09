@@ -1,0 +1,5 @@
+syncthing-gtk (0.9.4.2-1) UNRELEASED; urgency=medium
+
+  * Initial release. (Closes: #829561)
+
+ -- Jelmer Vernooĳ <jelmer@debian.org>  Fri, 09 Nov 2018 20:56:34 +0000
