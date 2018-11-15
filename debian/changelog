@@ -1,4 +1,4 @@
-syncthing-gtk (0.9.4.2-1) UNRELEASED; urgency=medium
+syncthing-gtk (0.9.4.2-1) unstable; urgency=low
 
   * Initial release. (Closes: #829561)
 
