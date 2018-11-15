@@ -1,3 +1,11 @@
+syncthing-gtk (0.9.4.2-2) UNRELEASED; urgency=medium
+
+  [ Steve Langasek ]
+  * Fix typo in dependencies: gir-1.2-glib-2.0 => gir1.2-glib2.0.
+    Closes: #913771
+
+ -- Jelmer Vernooĳ <jelmer@debian.org>  Thu, 15 Nov 2018 01:50:16 +0000
+
 syncthing-gtk (0.9.4.2-1) unstable; urgency=low
 
   * Initial release. (Closes: #829561)
