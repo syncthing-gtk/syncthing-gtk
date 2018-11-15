@@ -12,6 +12,7 @@ Package: syncthing-gtk
 Recommends: syncthing (>= 0.13), gir1.2-appindicator3-0.1
 Architecture: all
 Depends: ${python:Depends}, ${misc:Depends}, python-gobject | python-gi, python-dateutil, python-bcrypt, libgtk-3-0, gir1.2-gtk-3.0, gir1.2-glib-2.0, gir1.2-notify-0.7, python-gi-cairo, gir1.2-rsvg-2.0
+Enhances: nautilus, nemo, caja
 Description: GTK3-based GUI and notification area icon for syncthing
  A GTK3-based GUI for Syncthing that supports:
  .
