@@ -1,4 +1,4 @@
-syncthing-gtk (0.9.4.3-1) UNRELEASED; urgency=medium
+syncthing-gtk (0.9.4.3-1) unstable; urgency=medium
 
   * Add Enhances: nautilus, nemo, caja. Closes: #913650
   * add gitlab ci configuration.
