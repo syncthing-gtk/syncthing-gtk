@@ -1,4 +1,4 @@
-syncthing-gtk (0.9.4.4-1) UNRELEASED; urgency=medium
+syncthing-gtk (0.9.4.4-1) unstable; urgency=medium
 
   * New upstream release.
   * Add suggests for nemo-python, python-nautilus or python-caja.
@@ -6,7 +6,7 @@ syncthing-gtk (0.9.4.4-1) UNRELEASED; urgency=medium
   * Bump debhelper from old 11 to 12.
   * Remove obsolete fields Name from debian/upstream/metadata.
 
- -- Jelmer Vernooĳ <jelmer@debian.org>  Thu, 05 Sep 2019 01:36:21 +0000
+ -- Jelmer Vernooĳ <jelmer@debian.org>  Sat, 21 Sep 2019 21:10:56 +0000
 
 syncthing-gtk (0.9.4.3-1) unstable; urgency=medium
 
