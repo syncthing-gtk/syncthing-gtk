@@ -4,6 +4,7 @@ syncthing-gtk (0.9.4.4-1) UNRELEASED; urgency=medium
   * Add suggests for nemo-python, python-nautilus or python-caja.
     Closes: #939576
   * Bump debhelper from old 11 to 12.
+  * Remove obsolete fields Name from debian/upstream/metadata.
 
  -- Jelmer Vernooĳ <jelmer@debian.org>  Thu, 05 Sep 2019 01:36:21 +0000
 
