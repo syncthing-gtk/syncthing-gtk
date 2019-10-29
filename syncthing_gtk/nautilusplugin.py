@@ -13,6 +13,7 @@ from gi.repository import GObject
 
 from syncthing_gtk.daemon import Daemon
 from syncthing_gtk.tools import init_logging, set_logging_level
+from syncthing_gtk.stignoreparser import load_repo_ignore_regex
 
 log = logging.getLogger("SyncthingPlugin")
 
@@ -60,6 +61,9 @@ class NautiluslikeExtension(GObject.GObject):
         # List (cache) for files that plugin were asked about
         self.files = {}
         self.downloads = set()
+        # List of all ignore patterns and paths
+        self.ignore_patterns = {}
+        self.ignore_paths = {}
         # Connect to Daemon object signals
         self.daemon.connect("connected", self.cb_connected)
         self.daemon.connect("connection-error", self.cb_syncthing_con_error)
@@ -101,7 +105,7 @@ class NautiluslikeExtension(GObject.GObject):
 
     def _get_parent_repo_state(self, path):
         """
-        If file belongs to any known repository, returns state of if.
+        If file belongs to any known repository, returns path of if.
         Returns None otherwise.
         """
         # TODO: Probably convert to absolute paths and check for '/' at
@@ -110,6 +114,45 @@ class NautiluslikeExtension(GObject.GObject):
             if path.startswith(x + os.path.sep):
                 return self.repos[x]
         return None
+
+    def _get_parent_repo_state(self, path):
+        """self.repos
+        If file belongs to any known repository, returns state of if.
+        Returns None otherwise.
+        """
+        repo = self._get_parent_repo_path(path)
+        if repo != None:
+            return self.repos[repo]
+        return None
+
+    def _is_ignored_path(self, path):
+        log.info("Check for ignore path: " + path)
+        # Get repo
+        repo = self._get_parent_repo_path(path)
+        if repo == None:
+            return False
+        # Check if the path is known already
+        if path in self.ignore_paths[repo]:
+            log.debug("Found ignore-path value for " + path)
+            return self.ignore_paths[repo][path]
+        is_ignored = False
+        # Check existing paths first, if the current path is within a known ignored path
+        for ignorePath in self.ignore_paths[repo]:
+            if self.ignore_paths[repo][ignorePath] and path.startswith(ignorePath + os.path.sep):
+                log.debug("Found ignore-path " + ignorePath + " for " + path)
+                is_ignored = True
+        # Check patterns for repo
+        for regex in self.ignore_patterns[repo]:
+            # Performance advantage to check exclude before match (for the case is_ignored == True)
+            if regex['exclude']:
+                if is_ignored and regex['compiled'].match(path):
+                    is_ignored = False
+            else:
+                if not is_ignored and regex['compiled'].match(path):
+                    is_ignored = True
+        self.ignore_paths[repo][path] = is_ignored
+        log.debug("Path %s is %s ignored" % (path, "NOT" if not is_ignored else ""))
+        return is_ignored
 
     def _get_path(self, file):
         """Returns path for provided FileInfo object"""
@@ -174,6 +217,10 @@ class NautiluslikeExtension(GObject.GObject):
         self.path_to_rid[path] = rid
         self.repos[path] = STATE_OFFLINE
         self._invalidate(path)
+        # Read current patterns for repo and clear ignore path states
+        self.ignore_patterns[path] = load_repo_ignore_regex(path)
+        self.ignore_paths[path] = {}
+        # TODO On init: Add filewatcher for .stignore file in repo (if exist) - or check periodically instead of this reload above
         # Store repo id in dict of associated devices
         self.rid_to_dev[rid] = set()
         for d in r["devices"]:
@@ -250,6 +297,9 @@ class NautiluslikeExtension(GObject.GObject):
             if realpath in self.downloads:
                 file.add_emblem("syncthing-active")
                 return NautiluslikeExtension._plugin_module.OperationResult.COMPLETE
+        elif filename.startswith(".st"):
+            # Don't add emblem, its stored only locally e.g. .stignore .stversions .stfolder
+            pass
         elif path in self.repos:
             # Determine what emblem should be used
             state = self.repos[path]
@@ -271,7 +321,9 @@ class NautiluslikeExtension(GObject.GObject):
                 pass
             elif state in (STATE_IDLE, STATE_SYNCING):
                 # File manager probably shouldn't care about folder being scanned
-                file.add_emblem("syncthing")
+                if not self._is_ignored_path(path):
+                    file.add_emblem("syncthing")
+                # TODO add special emblem for: ignored files, folder having non-ignored files
             else:
                 # Default (i-have-no-idea-what-happened) state
                 file.add_emblem("syncthing-offline")
