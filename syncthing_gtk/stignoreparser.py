@@ -21,7 +21,7 @@ def convert_ignore_patterns_to_regex(patterns):
 def read_ignore_file(filepath):
 	"""
 	Reads pattern from .stignore file (reads also #include content)
-	"""	
+	"""
 	patterns = []
 	if not os.path.isfile(filepath):
 		return patterns
@@ -39,7 +39,7 @@ def read_ignore_file(filepath):
 def parse_ignore_pattern(line):
 	"""
 	Reads pattern from .stignore file (reads also #include content)
-	"""		
+	"""
 	isExclude = False
 	isCaseInsensitive = False
 	isDeletable = False
@@ -68,5 +68,14 @@ def parse_ignore_pattern(line):
 		line = '.*?/' + line
 	line = line.replace('\*\*', '.*?').replace('\*','[^/]*?').replace('\?','[^/]').replace('\[', '[').replace('\]', ']')
 	line = line + '$'
-	compiled_regex = { 'compiled': re.compile(line, flags), 'exclude': isExclude }
+	excludeParents = []
+	if isExclude:
+		# Split pattern by path sep to find parent folder matches
+		pathParts = line.split("\/")
+		pathPart = ""
+		for pathFolder in pathParts:
+			if not pathFolder == "":
+				pathPart = pathPart + "\/" + pathFolder + "$"
+				excludeParents.append(re.compile(pathPart, flags))
+	compiled_regex = { 'compiled': re.compile(line, flags), 'exclude': isExclude, 'excludeParents': excludeParents }
 	return compiled_regex
