@@ -369,7 +369,11 @@ class NautiluslikeExtension(GObject.GObject):
                     file.add_emblem("syncthing-ignorepartial")
             else:
                 # Default (i-have-no-idea-what-happened) state
-                file.add_emblem("syncthing-offline")
+                if not self._is_ignored_path(path):
+                    file.add_emblem("syncthing-offline")
+                elif self._is_ignoredpartial_path(path):
+                    file.add_emblem("syncthing-ignorepartial-offline")
+
         return NautiluslikeExtension._plugin_module.OperationResult.COMPLETE
 
     # MenuProvider stuff
