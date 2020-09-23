@@ -1,3 +1,7 @@
 version=4
 opts=filenamemangle=s/.+\/v?(\d\S+)\.tar\.gz/syncthing-gtk-$1\.tar\.gz/ \
   https://github.com/syncthing/syncthing-gtk/tags .*/v?(\d\S+)\.tar\.gz
+
+opts="mode=git, pgpmode=none, pretty=0.9.4.4+ds+git%cd+%h, repack, compression=xz" \
+ https://salsa.debian.org/debian/syncthing-gtk \
+ heads/python3-port
