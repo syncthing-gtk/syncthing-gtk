@@ -218,7 +218,7 @@ class IntroPage(Page):
 			all_buttons = [ b for b in self.dialog.quit_button.get_parent().get_children()
 				if isinstance(b, Gtk.Button) and b is not self.dialog.quit_button ]
 			# order is 'apply, next, back, finish, cancel'
-			next_label = all_buttons[1].get_label().decode("utf-8").replace("_", "")
+			next_label = all_buttons[1].get_label().replace("_", "")
 		except: pass
 		# TODO: Temporal solution, remove later
 		changed_line = _("Continue this wizard to create a Syncthing configuration file or abort it to exit.")
@@ -734,7 +734,7 @@ class SaveSettingsPage(Page):
 					))
 			self.ct_textnode(xml, gui, "user", self.parent.syncthing_options["user"])
 			self.ct_textnode(xml, gui, "password", bcrypt.hashpw(
-				str(self.parent.syncthing_options["password"]).encode("utf-8"),
+				self.parent.syncthing_options["password"],
 				bcrypt.gensalt()
 			))
 			self.ct_textnode(xml, gui, "apikey", self.apikey)
@@ -750,8 +750,8 @@ class SaveSettingsPage(Page):
 			return False
 		try:
 			# Write XML back to file
-			with open(self.parent.st_configfile, "w") as f:
-				f.write(xml.toxml().encode("utf-8"))
+			with open(self.parent.st_configfile, "w", encoding="utf-8") as f:
+				f.write(xml.toxml())
 		except Exception as e:
 			self.parent.output_line("syncthing-gtk: %s" % (traceback.format_exc(),))
 			self.parent.error(self,
