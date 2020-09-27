@@ -568,9 +568,9 @@ class Daemon(GObject.GObject, TimerManager):
 				log.warning("My ID has been changed on the fly")
 			self._my_id = data["myID"]
 			self.emit('my-id-changed', self._my_id)
-			version = get_header(data[HTTP_HEADERS], b"X-Syncthing-Version")
+			version = get_header(data[HTTP_HEADERS], "X-Syncthing-Version")
 			if version:
-				self._syncthing_cb_version_known(version.decode())
+				self._syncthing_cb_version_known(version)
 			else:
 				RESTRequest(self, "system/version", self._syncthing_cb_version).start()
 		
@@ -691,7 +691,7 @@ class Daemon(GObject.GObject, TimerManager):
 			return
 		elif isinstance(exception, HTTPCode):
 			# HTTP 404 may actually mean old daemon version
-			version = get_header(exception.headers, b"X-Syncthing-Version")
+			version = get_header(exception.headers, "X-Syncthing-Version")
 			if version != None and not compare_version(version, MIN_VERSION):
 				self._epoch += 1
 				msg = "daemon is too old"
@@ -1160,7 +1160,7 @@ class RESTRequest(Gio.SocketClient):
 		except IndexError: # No data
 			rdata = { }
 		except ValueError: # Not a JSON
-			rdata = {'data' : response }
+			rdata = {'data' : response.decode('utf-8', errors='ignore') }
 		if type(rdata) == dict:
 			rdata[HTTP_HEADERS] = headers
 		self._callback(rdata, *self._callback_data)
@@ -1168,8 +1168,8 @@ class RESTRequest(Gio.SocketClient):
 	def _split_headers(self, buffer):
 		try:
 			headers, response = buffer.split(b"\r\n\r\n", 1)
-			headers = headers.split(b"\r\n")
-			code = int(headers[0].split(b" ")[1])
+			headers = headers.decode('utf-8', errors='ignore').split("\r\n")
+			code = int(headers[0].split(" ")[1])
 			if code == 401:
 				self._error(HTTPAuthException(buffer))
 				return None, None
@@ -1320,8 +1320,8 @@ class EventPollLoop(RESTRequest):
 		assert type(buffer) == bytes
 		headers, response = self._split_headers(buffer)
 		if headers is None: return
-		headers = { x : y.strip() for (x,y) in [ h.split(b":", 1) for h in headers if b":" in h ] }
-		if b"Transfer-Encoding" not in headers or headers[b"Transfer-Encoding"] != b"chunked":
+		headers = { x : y.strip() for (x,y) in [ h.split(":", 1) for h in headers if ":" in h ] }
+		if "Transfer-Encoding" not in headers or headers["Transfer-Encoding"] != "chunked":
 			# Something just went horribly wrong
 			self._error(InvalidHTTPResponse(buffer))
 			return
