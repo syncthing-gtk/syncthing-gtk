@@ -413,12 +413,12 @@ def get_executable():
 	if IS_WINDOWS:
 		return os.path.join(get_install_path(), "syncthing-gtk.exe")
 	else:
-		executable = __main__.__file__.decode("utf-8")
+		executable = __main__.__file__
 		if not os.path.isabs(executable):
-			cwd = os.getcwd().decode("utf-8")
+			cwd = os.getcwd()
 			executable = os.path.normpath(os.path.join(cwd, executable))
 		if executable.endswith(".py"):
-			executable = "/usr/bin/env python2 %s" % (executable,)
+			executable = "/usr/bin/env python3 %s" % (executable,)
 		return executable
 
 def is_ran_on_startup(program_name):
@@ -492,9 +492,9 @@ def set_run_on_startup(enabled, program_name, executable, icon="", description="
 				# Already exists
 				pass
 			try:
-				with open(desktopfile, "w") as f:
+				with open(desktopfile, "w", encoding='utf-8') as f:
 					desktop_contents = DESKTOP_FILE % (program_name, executable, icon, description)
-					f.write(desktop_contents.encode('utf-8'))
+					f.write(desktop_contents)
 			except Exception as e:
 				# IO errors or out of disk space... Not really
 				# expected, but may happen
