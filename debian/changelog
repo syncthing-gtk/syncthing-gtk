@@ -1,10 +1,11 @@
-syncthing-gtk (0.9.4.4+ds+git20200927+d09a2ef-2) UNRELEASED; urgency=medium
+syncthing-gtk (0.9.4.4+ds+git20200927+d09a2ef-2) unstable; urgency=medium
 
+  * Reintroduce the package to Debian.
   * Switch to a Debian fork based on a Python 3 port.
   * Update debian/watch.
   * Build with Python 3.
 
- -- Andrej Shadura <andrewsh@debian.org>  Sun, 27 Sep 2020 14:23:34 +0200
+ -- Andrej Shadura <andrewsh@debian.org>  Wed, 04 Nov 2020 12:31:41 +0100
 
 syncthing-gtk (0.9.4.4-2) unstable; urgency=medium
 
