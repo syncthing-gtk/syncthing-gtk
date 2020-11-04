@@ -1,7 +1,8 @@
 Source: syncthing-gtk
 Section: net
 Priority: optional
-Maintainer: Jelmer Vernooĳ <jelmer@debian.org>
+Maintainer: Andrej Shadura <andrewsh@debian.org>
+Uploaders: Jelmer Vernooĳ <jelmer@debian.org>
 Build-Depends: dh-python, python3-all, debhelper-compat (= 12)
 Standards-Version: 4.2.1
 Vcs-Git: https://salsa.debian.org/jelmer/syncthing-gtk.git
