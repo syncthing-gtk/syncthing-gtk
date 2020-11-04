@@ -4,7 +4,16 @@ Upstream-Contact: Kozec
 Source: https://github.com/syncthing/syncthing-gtk
 
 Files: *
-Copyright: 2014-2018 The Syncthing Developers
+Copyright:
+ 2014—2019 The Syncthing Developers
+ 2018      Daniel Alley <dalley@redhat.com>
+ 2020      Andrej Shadura <andrewsh@debian.org>
+License: GPL-2+
+
+Files: debian/*
+Copyright:
+ 2018—2020 Jelmer Vernooĳ <jelmer@debian.org>
+ 2020      Andrej Shadura <andrewsh@debian.org>
 License: GPL-2+
 
 License: GPL-2+
