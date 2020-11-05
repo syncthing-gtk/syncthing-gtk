@@ -1,3 +1,9 @@
+syncthing-gtk (0.9.4.4+ds+git20200927+d09a2ef-3) unstable; urgency=medium
+
+  * Rebuild with no changes to the source.
+
+ -- Andrej Shadura <andrewsh@debian.org>  Thu, 05 Nov 2020 08:54:40 +0100
+
 syncthing-gtk (0.9.4.4+ds+git20200927+d09a2ef-2) unstable; urgency=medium
 
   * Reintroduce the package to Debian.
