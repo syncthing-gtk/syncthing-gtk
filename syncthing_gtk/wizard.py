@@ -674,7 +674,7 @@ class SaveSettingsPage(Page):
 		try:
 			s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 			s.bind((self.parent.syncthing_options["listen_ip"], port))
-			s.listen(0.1)
+			s.listen(0)
 			s.close()
 			# Good, port is available
 			self.parent.output_line("syncthing-gtk: chosen port %s" % (port,))
