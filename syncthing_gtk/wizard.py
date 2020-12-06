@@ -734,9 +734,9 @@ class SaveSettingsPage(Page):
 					))
 			self.ct_textnode(xml, gui, "user", self.parent.syncthing_options["user"])
 			self.ct_textnode(xml, gui, "password", bcrypt.hashpw(
-				self.parent.syncthing_options["password"],
+				self.parent.syncthing_options["password"].encode('utf8'),
 				bcrypt.gensalt()
-			))
+			).decode('utf8'))
 			self.ct_textnode(xml, gui, "apikey", self.apikey)
 			gui.setAttribute("enabled", "true")
 			gui.setAttribute("tls", "false")
