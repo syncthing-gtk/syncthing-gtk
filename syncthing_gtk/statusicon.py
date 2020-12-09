@@ -457,14 +457,19 @@ class StatusIconAppIndicator(StatusIconDBus):
 		
 		try:
 			import gi
-			gi.require_version('AppIndicator3', '0.1')
-			from gi.repository import AppIndicator3 as appindicator
-			
-			self._status_active  = appindicator.IndicatorStatus.ACTIVE
-			self._status_passive = appindicator.IndicatorStatus.PASSIVE
+			gi.require_version('AyatanaAppIndicator3', '0.1')
+			from gi.repository import AyatanaAppIndicator3 as appindicator
 		except (ImportError, ValueError):
-			raise NotImplementedError
+			try:
+				import gi
+				gi.require_version('AppIndicator3', '0.1')
+				from gi.repository import AppIndicator3 as appindicator
+			except (ImportError, ValueError):
+				raise NotImplementedError
 		
+		self._status_active  = appindicator.IndicatorStatus.ACTIVE
+		self._status_passive = appindicator.IndicatorStatus.PASSIVE
+
 		category = appindicator.IndicatorCategory.APPLICATION_STATUS
 		# Whatever icon is set here will be used as a tooltip icon during the entire time to icon is shown
 		self._tray = appindicator.Indicator.new("syncthing-gtk", self._get_icon(), category)
