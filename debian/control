@@ -26,8 +26,8 @@ Depends:
  libgtk-3-0,
  python3-bcrypt,
  python3-dateutil,
+ python3-gi,
  python3-gi-cairo,
- python3-gobject | python3-gi,
  ${misc:Depends},
  ${python3:Depends},
 Enhances:
