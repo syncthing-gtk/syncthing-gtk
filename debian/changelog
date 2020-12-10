@@ -1,4 +1,4 @@
-syncthing-gtk (0.9.4.4+ds+git20201209+c46fbd8-1) UNRELEASED; urgency=medium
+syncthing-gtk (0.9.4.4+ds+git20201209+c46fbd8-1) unstable; urgency=medium
 
   [ Rowan Thorpe ]
   * Encode the password before applying bcrypt.
@@ -10,7 +10,7 @@ syncthing-gtk (0.9.4.4+ds+git20201209+c46fbd8-1) UNRELEASED; urgency=medium
   * Wrap and sort debian/control.
   * Bump debhelper from old 12 to 13.
 
- -- Andrej Shadura <andrewsh@debian.org>  Thu, 10 Dec 2020 09:49:22 +0100
+ -- Andrej Shadura <andrewsh@debian.org>  Thu, 10 Dec 2020 10:00:02 +0100
 
 syncthing-gtk (0.9.4.4+ds+git20200927+d09a2ef-3) unstable; urgency=medium
 
