@@ -1,2 +1,4 @@
-Repository: https://github.com/syncthing/syncthing-gtk
+Bug-Database: https://github.com/syncthing/syncthing-gtk/issues
+Bug-Submit: https://github.com/syncthing/syncthing-gtk/issues/new
+Repository: https://github.com/syncthing/syncthing-gtk.git
 Repository-Browse: https://github.com/syncthing/syncthing-gtk
