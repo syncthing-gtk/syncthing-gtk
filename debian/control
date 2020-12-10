@@ -2,19 +2,40 @@ Source: syncthing-gtk
 Section: net
 Priority: optional
 Maintainer: Andrej Shadura <andrewsh@debian.org>
-Uploaders: Jelmer Vernooĳ <jelmer@debian.org>
-Build-Depends: dh-python, python3-all, debhelper-compat (= 12)
+Uploaders:
+ Jelmer Vernooĳ <jelmer@debian.org>,
+Build-Depends:
+ debhelper-compat (= 12),
+ dh-python,
+ python3-all,
 Standards-Version: 4.2.1
 Vcs-Git: https://salsa.debian.org/jelmer/syncthing-gtk.git
 Vcs-Browser: https://salsa.debian.org/jelmer/syncthing-gtk
 Homepage: https://github.com/syncthing/syncthing-gtk
 
 Package: syncthing-gtk
-Recommends: syncthing (>= 0.14.50), gir1.2-appindicator3-0.1
+Recommends:
+ gir1.2-appindicator3-0.1,
+ syncthing (>= 0.14.50),
 Architecture: all
-Depends: ${python3:Depends}, ${misc:Depends}, python3-gobject | python3-gi, python3-dateutil, python3-bcrypt, libgtk-3-0, gir1.2-gtk-3.0, gir1.2-glib-2.0, gir1.2-notify-0.7, python3-gi-cairo, gir1.2-rsvg-2.0
-Enhances: nautilus, nemo, caja
-Suggests: nemo-python | python3-nautilus | python3-caja
+Depends:
+ gir1.2-glib-2.0,
+ gir1.2-gtk-3.0,
+ gir1.2-notify-0.7,
+ gir1.2-rsvg-2.0,
+ libgtk-3-0,
+ python3-bcrypt,
+ python3-dateutil,
+ python3-gi-cairo,
+ python3-gobject | python3-gi,
+ ${misc:Depends},
+ ${python3:Depends},
+Enhances:
+ caja,
+ nautilus,
+ nemo,
+Suggests:
+ nemo-python | python3-nautilus | python3-caja,
 Description: GTK3-based GUI and notification area icon for syncthing
  A GTK3-based GUI for Syncthing that supports:
  .
