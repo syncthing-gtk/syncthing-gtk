@@ -5,7 +5,7 @@ Maintainer: Andrej Shadura <andrewsh@debian.org>
 Uploaders:
  Jelmer Vernooĳ <jelmer@debian.org>,
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  dh-python,
  python3-all,
 Standards-Version: 4.2.1
