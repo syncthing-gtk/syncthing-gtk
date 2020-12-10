@@ -15,7 +15,7 @@ Homepage: https://github.com/syncthing/syncthing-gtk
 
 Package: syncthing-gtk
 Recommends:
- gir1.2-appindicator3-0.1,
+ gir1.2-ayatanaappindicator3-0.1 | gir1.2-appindicator3-0.1,
  syncthing (>= 0.14.50),
 Architecture: all
 Depends:
