@@ -63,7 +63,7 @@ class UIBuilder(Gtk.Builder):
 	def condition_met(self, cond):
 		"""
 		Returns True if condition is met. Empty condition is True.
-		Spaces at begining or end of expressions are stripped.
+		Spaces at beginning or end of expressions are stripped.
 		
 		Supports simple |, & and !
 		operators, but no parenthesis.
@@ -171,7 +171,7 @@ class UIBuilder(Gtk.Builder):
 				element.removeChild(elseem)
 			merge_with_parent(element, element)
 		else:
-			# Remove this element, but merge ELSE elemnets, if any
+			# Remove this element, but merge ELSE elements, if any
 			log.debug("Removed node %s", condition)
 			for elseem in getElementsByTagNameCI(element, "else"):
 				merge_with_parent(elseem, element)

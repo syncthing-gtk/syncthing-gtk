@@ -190,7 +190,7 @@ def WinConfiguration():
 				if value > 0xFFFF:
 					raise ValueError("Overflow")
 				if value < 0:
-					# This basicaly prevents storing anything >0xFFFF to registry.
+					# This basically prevents storing anything >0xFFFF to registry.
 					# Luckily, that shouldn't be needed, largest thing stored as int is 20
 					value = 0xFFFF + (-value)
 				winreg.SetValueEx(r, name, 0, winreg.REG_DWORD, int(value))
