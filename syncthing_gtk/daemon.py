@@ -65,7 +65,7 @@ class Daemon(GObject.GObject, TimerManager):
 			Emitted if connection to daemon fails.
 				reason:		Daemon.REFUSED if connection is refused and
 							daemon probably offline. Connection will be
-							retried automaticaly.
+							retried automatically.
 							Daemon.UNKNOWN for all other problems.
 							Connection can be reinitiated by calling
 							reconnect() in this case.
