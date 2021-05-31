@@ -44,7 +44,7 @@ if __name__ == "__main__":
 	init_logging()
 	config = Configuration()
 	
-	# Force dark theme if reqested
+	# Force dark theme if requested
 	if config["force_dark_theme"]:
 		os.environ["GTK_THEME"] = "Adwaita:dark"
 	if config["language"] not in ("", "None", None):

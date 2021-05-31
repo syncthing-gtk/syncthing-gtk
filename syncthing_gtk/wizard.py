@@ -330,7 +330,7 @@ class FindDaemonPage(Page):
 						'target' : target_folder_link
 					}
 				else:
-					# Binary was found, but it was too old to be ussable
+					# Binary was found, but it was too old to be usable
 					title = _("Syncthing daemon is too old.")
 					message += _("Syncthing-GTK needs Syncthing daemon %(min)s or newer, but only %(actual)s were found.") % {
 						'min' : MIN_ST_VERSION,
@@ -416,7 +416,7 @@ class FindDaemonPage(Page):
 					_("Version:") + " " + self.version_string
 				)
 		else:
-			# Found daemon binary too old to be ussable.
+			# Found daemon binary too old to be usable.
 			# Just ignore it and try to find better one.
 			log.info("Binary in %s is too old", bin_path)
 			self.ignored_version = self.version_string
