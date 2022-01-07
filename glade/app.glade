@@ -19,17 +19,15 @@
 			<child>
 				<object class="GtkMenuButton" id="app-menu-button">
 					<property name="visible">True</property>
-					<property if="is_windows" name="relief">none</property>
-					<property if="!is_windows" name="relief">half</property>
+					<property name="relief">half</property>
 					<property name="menu-model">app-menu</property>
 					<property name="use-popover">True</property>
 					<style><class name="image-button"/></style>
 					<child>
 						<object class="GtkImage" id="app-menu-button-icon">
 							<property name="visible">True</property>
-							<property if="!is_windows" name="icon-name">syncthing-gtk</property>
-							<property if="!is_windows" name="icon-size">1</property>
-							<property if="is_windows"  name="file">icons/24x24/apps/syncthing-gtk.png</property>
+							<property name="icon_name">list-add-symbolic</property>
+							<property name="icon-size">1</property>
 						</object>
 					</child>
 				</object>
@@ -213,28 +211,12 @@
 <menu id="app-menu">
 	<section>
 		<item>
-			<attribute name="label" translatable="yes">Open _Web Interface</attribute>
-			<attribute name="action">app.webui</attribute>
+			<attribute name="label" translatable="yes">Add Shared _Folder</attribute>
+			<attribute name="action">app.add_folder</attribute>
 		</item>
 		<item>
-			<attribute name="label" translatable="yes">Display _Daemon Output</attribute>
-			<attribute name="action">app.daemon_output</attribute>
-		</item>
-	</section>
-	<section>
-		<item>
-			<attribute name="label" translatable="yes">UI _Settings</attribute>
-			<attribute name="action">app.preferences</attribute>
-		</item>
-	</section>
-	<section>
-		<item>
-			<attribute name="label" translatable="yes">_About</attribute>
-			<attribute name="action">app.about</attribute>
-		</item>
-		<item>
-			<attribute name="label" translatable="yes">_Quit</attribute>
-			<attribute name="action">app.quit</attribute>
+			<attribute name="label" translatable="yes">Add _Device</attribute>
+			<attribute name="action">app.add_device</attribute>
 		</item>
 	</section>
 </menu>
@@ -244,18 +226,8 @@
 <menu id="edit-menu">
 	<section>
 		<item>
-			<attribute name="label" translatable="yes">Add Shared _Folder</attribute>
-			<attribute name="action">app.add_folder</attribute>
-		</item>
-		<item>
-			<attribute name="label" translatable="yes">Add _Device</attribute>
-			<attribute name="action">app.add_device</attribute>
-		</item>
-	</section>
-	<section>
-		<item>
-			<attribute name="label" translatable="yes">Daemon _Settings</attribute>
-			<attribute name="action">app.daemon_preferences</attribute>
+			<attribute name="label" translatable="yes">Open _Web Interface</attribute>
+			<attribute name="action">app.webui</attribute>
 		</item>
 		<item>
 			<attribute name="label" translatable="yes">Show _ID</attribute>
@@ -270,6 +242,26 @@
 		<item>
 			<attribute name="label" translatable="yes">_Restart Daemon</attribute>
 			<attribute name="action">app.daemon_restart</attribute>
+		</item>
+		<item>
+			<attribute name="label" translatable="yes">Daemon _Settings</attribute>
+			<attribute name="action">app.daemon_preferences</attribute>
+		</item>
+		<item>
+			<attribute name="label" translatable="yes">See _Logs</attribute>
+			<attribute name="action">app.daemon_output</attribute>
+		</item>
+	</section>
+	<section>
+		<item>
+			<attribute name="label" translatable="yes">_Preferences</attribute>
+			<attribute name="action">app.preferences</attribute>
+		</item>
+	</section>
+	<section>
+		<item>
+			<attribute name="label" translatable="yes">_About</attribute>
+			<attribute name="action">app.about</attribute>
 		</item>
 	</section>
 </menu>
@@ -671,15 +663,14 @@
 <IF condition="traditional_header">
 	<object class="GtkImage" id="app-menu-button-icon">
 		<property name="visible">True</property>
-		<property if="!is_windows" name="icon-name">syncthing-gtk</property>
-		<property if="!is_windows" name="icon-size">1</property>
-		<property if="is_windows"  name="pixbuf">icons/16x16/apps/syncthing-gtk.png</property>
+		<property name="icon-name">list-add-symbolic</property>
+		<property name="icon-size">1</property>
 	</object>
 </IF>
 
 <object class="GtkImage" id="edit-menu-button-icon">
 	<property name="visible">True</property>
-	<property name="icon_name">emblem-system-symbolic</property>
+	<property name="icon_name">open-menu-symbolic</property>
 </object>
 
 <object class="GtkImage" id="menu-add-folder-image">
