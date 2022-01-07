@@ -322,12 +322,10 @@ class App(Gtk.Application, TimerManager):
 	def setup_widgets(self):
 		self.builder = UIBuilder()
 		# Set conditions for UIBuilder
-		icons_in_menu = self.config["icons_in_menu"]
 		if self.use_headerbar: 		self.builder.enable_condition("header_bar")
 		if not self.use_headerbar:	self.builder.enable_condition("traditional_header")
 		if IS_WINDOWS: 				self.builder.enable_condition("is_windows")
 		if IS_GNOME:  				self.builder.enable_condition("is_gnome")
-		if icons_in_menu:			self.builder.enable_condition("icons_in_menu")
 		# Fix icon path
 		self.builder.replace_icon_path("icons/", self.iconpath)
 		# Load glade file
