@@ -28,7 +28,7 @@
 						<object class="GtkImage" id="app-menu-button-icon">
 							<property name="visible">True</property>
 							<property if="!is_windows" name="icon-name">syncthing-gtk</property>
-							<property if="!is_windows" name="icon-size">24</property>
+							<property if="!is_windows" name="icon-size">1</property>
 							<property if="is_windows"  name="file">icons/24x24/apps/syncthing-gtk.png</property>
 						</object>
 					</child>
@@ -672,7 +672,7 @@
 	<object class="GtkImage" id="app-menu-button-icon">
 		<property name="visible">True</property>
 		<property if="!is_windows" name="icon-name">syncthing-gtk</property>
-		<property if="!is_windows" name="icon-size">16</property>
+		<property if="!is_windows" name="icon-size">1</property>
 		<property if="is_windows"  name="pixbuf">icons/16x16/apps/syncthing-gtk.png</property>
 	</object>
 </IF>
