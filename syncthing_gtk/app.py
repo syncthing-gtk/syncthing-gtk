@@ -322,13 +322,11 @@ class App(Gtk.Application, TimerManager):
 	def setup_widgets(self):
 		self.builder = UIBuilder()
 		# Set conditions for UIBuilder
-		old_gtk = ((Gtk.get_major_version(), Gtk.get_minor_version()) < (3, 12)) and not IS_WINDOWS
 		icons_in_menu = self.config["icons_in_menu"]
 		if self.use_headerbar: 		self.builder.enable_condition("header_bar")
 		if not self.use_headerbar:	self.builder.enable_condition("traditional_header")
 		if IS_WINDOWS: 				self.builder.enable_condition("is_windows")
 		if IS_GNOME:  				self.builder.enable_condition("is_gnome")
-		if old_gtk:					self.builder.enable_condition("old_gtk")
 		if icons_in_menu:			self.builder.enable_condition("icons_in_menu")
 		# Fix icon path
 		self.builder.replace_icon_path("icons/", self.iconpath)
@@ -352,11 +350,10 @@ class App(Gtk.Application, TimerManager):
 				submenu.add(menuitem)
 			self[limitmenu].show_all()
 		
-		if not old_gtk:
-			if not self["edit-menu-icon"] is None:
-				if not Gtk.IconTheme.get_default().has_icon(self["edit-menu-icon"].get_icon_name()[0]):
-					# If requested icon is not found in default theme, replace it with emblem-system-symbolic
-					self["edit-menu-icon"].set_from_icon_name("emblem-system-symbolic", self["edit-menu-icon"].get_icon_name()[1])
+		if not self["edit-menu-icon"] is None:
+			if not Gtk.IconTheme.get_default().has_icon(self["edit-menu-icon"].get_icon_name()[0]):
+				# If requested icon is not found in default theme, replace it with emblem-system-symbolic
+				self["edit-menu-icon"].set_from_icon_name("emblem-system-symbolic", self["edit-menu-icon"].get_icon_name()[1])
 		
 		# Set window title in way that even Gnome can understand
 		icon = os.path.join(self.iconpath, "syncthing-gtk.png")
