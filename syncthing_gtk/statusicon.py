@@ -23,10 +23,9 @@ log = logging.getLogger("StatusIcon")
 
 #                | KDE5            | MATE      | Unity      | Cinnamon   | Cairo-Dock (classic) | Cairo-Dock (modern) | KDE4      |
 #----------------+-----------------+-----------+------------+------------+----------------------+---------------------+-----------+
-# StatusIconKDE4 | excellent       | usable³   | very good⁵ | usable³    | usable³              | excellent           | excellent |
 # StatusIconQt5  | very good (KF5) | -         | -          | -          | -                    | -                   | -         |
 # StatusIconAppI | good²           | none      | excellent  | none       | none                 | excellent           | good²     |
-# StatusIconGTK3 | none            | excellent | none       | very good¹ | very good¹           | none                | good⁴     |
+# StatusIconGTK3 | good            | excellent | none       | very good¹ | very good¹           | none                | good⁴     |
 #
 # Notes:
 #  - StatusIconQt5:
@@ -217,12 +216,6 @@ class StatusIconGTK3(StatusIcon):
 				# Unity fakes SysTray support but actually hides all icons...
 				raise NotImplementedError
 		
-			if IS_KDE:
-				# While the GTK backend works fine on KDE 4, the StatusIconKDE4 backend will achieve better
-				# results and should be available on any standard KDE 4 installation
-				# (since several KDE applications depend on it)
-				raise NotImplementedError
-		
 		self._tray = Gtk.StatusIcon()
 		
 		self._tray.connect("activate", self._on_click)
@@ -252,7 +245,7 @@ class StatusIconGTK3(StatusIcon):
 		# by a fallback icon
 		is_embedded = self._tray.is_embedded() or not self._tray.get_visible()
 		# On some desktops, above check fails but tray is always visible
-		is_embedded = is_embedded or IS_LXQT or IS_CINNAMON
+		is_embedded = is_embedded or IS_KDE or IS_LXQT or IS_CINNAMON
 		if is_embedded != self.get_property("active"):
 			self.set_property("active", is_embedded)
 	
@@ -392,62 +385,6 @@ class StatusIconQt(StatusIconDBus):
 		
 		return menu_qt
 
-class StatusIconKDE4(StatusIconQt):
-	"""
-	PyKDE5.kdeui.KStatusNotifierItem based status icon backend
-	"""
-	def __init__(self, *args, **kwargs):
-		StatusIcon.__init__(self, *args, **kwargs)
-		
-		try:
-			import PyQt4.Qt     as qt
-			import PyQt4.QtGui  as qtgui
-			import PyKDE4.kdeui as kdeui
-			
-			self._set_qt_types(
-				QAction = qtgui.QAction,
-				QMenu   = kdeui.KMenu,
-				QIcon   = qtgui.QIcon,
-				QImage  = qtgui.QImage,
-				QPixmap = qtgui.QPixmap
-			)
-			
-			self._status_active  = kdeui.KStatusNotifierItem.Active
-			self._status_passive = kdeui.KStatusNotifierItem.Passive
-		except ImportError:
-			raise NotImplementedError
-		
-		if "GNOME_DESKTOP_SESSION_ID" in os.environ:
-			del os.environ["GNOME_DESKTOP_SESSION_ID"]
-		# Create Qt GUI application (required by the KdeUI libraries)
-		# We force "--style=motif" here to prevent Qt to load platform theme
-		# integration libraries for "Gtk+" style that cause GTK 3 to abort like this:
-		#   Gtk-ERROR **: GTK+ 2.x symbols detected. Using GTK+ 2.x and GTK+ 3 in the same process is not supported
-		self._qt_app = qt.QApplication([sys.argv[0], "--style=motif"])
-		
-		# Keep reference to KMenu object to prevent SegFault...
-		self._kde_menu = self._get_popupmenu()
-		
-		self._tray = kdeui.KStatusNotifierItem("syncthing-gtk", None)
-		self._tray.setStandardActionsEnabled(False) # Prevent KDE quit item from showing
-		self._tray.setContextMenu(self._kde_menu)
-		self._tray.setCategory(kdeui.KStatusNotifierItem.ApplicationStatus)
-		self._tray.setTitle(self.TRAY_TITLE)
-		
-		self._tray.activateRequested.connect(self._on_click)
-	
-	def _set_visible(self, active):
-		StatusIcon._set_visible(self, active)
-		
-		self._tray.setStatus(self._status_active if active else self._status_passive)
-	
-	def set(self, icon=None, text=""):
-		StatusIcon.set(self, icon, text)
-		
-		self._tray.setIconByName(self._get_icon(icon))
-		self._tray.setToolTip(self._get_icon(icon), self._get_text(text), "")
-
-
 class StatusIconAppIndicator(StatusIconDBus):
 	"""
 	Unity's AppIndicator3.Indicator based status icon backend
@@ -536,10 +473,10 @@ class StatusIconProxy(StatusIcon):
 		self.set_property("active", active)
 	
 	def _load_fallback(self):
-		if IS_UNITY or IS_KDE:
-			status_icon_backends = [StatusIconAppIndicator, StatusIconKDE4, StatusIconDummy]
+		if IS_KDE:
+			status_icon_backends = [StatusIconAppIndicator, StatusIconQt5, StatusIconDummy]
 		else:
-			status_icon_backends = [StatusIconKDE4, StatusIconAppIndicator, StatusIconDummy]
+			status_icon_backends = [StatusIconAppIndicator, StatusIconDummy]
 		
 		if not self._status_fb:
 			for StatusIconBackend in status_icon_backends:
