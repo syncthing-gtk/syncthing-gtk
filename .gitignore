@@ -4,3 +4,4 @@ syncthing.exe
 *.exe
 *.zip
 *.nupkg
+*.mo
