@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="3.8"/>
+  <requires lib="gtk+" version="3.12"/>
 <!-- Main window -->
 <object class="GtkWindow" id="window">
 	<property name="default-width">900</property>
@@ -15,13 +15,13 @@
 		<object class="GtkHeaderBar" id="header">
 			<property name="visible">True</property>
 			<property name="show-close-button">True</property>
-			<IF condition="!is_gnome | old_gtk">
+			<IF condition="!is_gnome">
 			<child>
 				<object class="GtkMenuButton" id="app-menu-button">
 					<property name="visible">True</property>
 					<property if="is_windows" name="relief">none</property>
 					<property if="!is_windows" name="relief">half</property>
-					<IF condition="icons_in_menu | old_gtk">
+					<IF condition="icons_in_menu">
 						<property name="popup">app-menu-icons</property>
 					<ELSE>
 						<property name="menu-model">app-menu</property>
@@ -56,7 +56,7 @@
 					<property name="sensitive">False</property>
 					<property name="valign">center</property>
 					<property name="image">edit-menu-button-icon</property>
-					<IF condition="icons_in_menu | old_gtk">
+					<IF condition="icons_in_menu">
 						<property name="popup">edit-menu-icons</property>
 					<ELSE>
 						<property name="menu-model">edit-menu</property>
@@ -66,8 +66,7 @@
 					<child>
 						<object class="GtkImage" id="edit-menu-icon">
 							<property name="visible">True</property>
-							<property if="old_gtk" name="icon_name">emblem-system-symbolic</property>
-							<property if="!old_gtk" name="icon_name">open-menu-symbolic</property>
+							<property name="icon_name">open-menu-symbolic</property>
 							<property name="icon-size">1</property>
 						</object>
 					</child>
@@ -100,7 +99,7 @@
 						<property name="visible">True</property>
 						<property name="valign">center</property>
 						<property name="image">app-menu-button-icon</property>
-						<IF condition="icons_in_menu | old_gtk">
+						<IF condition="icons_in_menu">
 							<property name="popup">app-menu-icons</property>
 						<ELSE>
 							<property name="menu-model">app-menu</property>
@@ -130,7 +129,7 @@
 				        <property name="sensitive">False</property>
 						<property name="valign">center</property>
 						<property name="image">edit-menu-button-icon</property>
-						<IF condition="icons_in_menu | old_gtk">
+						<IF condition="icons_in_menu">
 							<property name="popup">edit-menu-icons</property>
 						<ELSE>
 							<property name="menu-model">edit-menu</property>
@@ -227,7 +226,7 @@
 </object>
 <!-- /Main window -->
 
-<IF condition="icons_in_menu | old_gtk">
+<IF condition="icons_in_menu">
 	<!-- Application menu (left one) -->
 	<object class="GtkMenu" id="app-menu-icons">
 		<property name="visible">True</property>
