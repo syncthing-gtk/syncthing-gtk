@@ -21,12 +21,8 @@
 					<property name="visible">True</property>
 					<property if="is_windows" name="relief">none</property>
 					<property if="!is_windows" name="relief">half</property>
-					<IF condition="icons_in_menu">
-						<property name="popup">app-menu-icons</property>
-					<ELSE>
-						<property name="menu-model">app-menu</property>
-						<property name="use-popover">True</property>
-					</ELSE></IF>
+					<property name="menu-model">app-menu</property>
+					<property name="use-popover">True</property>
 					<style><class name="image-button"/></style>
 					<child>
 						<object class="GtkImage" id="app-menu-button-icon">
@@ -55,13 +51,8 @@
 					<property name="visible">True</property>
 					<property name="sensitive">False</property>
 					<property name="valign">center</property>
-					<property name="image">edit-menu-button-icon</property>
-					<IF condition="icons_in_menu">
-						<property name="popup">edit-menu-icons</property>
-					<ELSE>
-						<property name="menu-model">edit-menu</property>
-						<property name="use-popover">True</property>
-					</ELSE></IF>
+					<property name="menu-model">edit-menu</property>
+					<property name="use-popover">True</property>
 					<style><class name="image-button"/></style>
 					<child>
 						<object class="GtkImage" id="edit-menu-icon">
@@ -99,12 +90,8 @@
 						<property name="visible">True</property>
 						<property name="valign">center</property>
 						<property name="image">app-menu-button-icon</property>
-						<IF condition="icons_in_menu">
-							<property name="popup">app-menu-icons</property>
-						<ELSE>
-							<property name="menu-model">app-menu</property>
-							<property name="use-popover">True</property>
-						</ELSE></IF>
+						<property name="menu-model">app-menu</property>
+						<property name="use-popover">True</property>
 				      </object>
 				      <packing>
 				        <property name="expand">False</property>
@@ -129,12 +116,8 @@
 				        <property name="sensitive">False</property>
 						<property name="valign">center</property>
 						<property name="image">edit-menu-button-icon</property>
-						<IF condition="icons_in_menu">
-							<property name="popup">edit-menu-icons</property>
-						<ELSE>
-							<property name="menu-model">edit-menu</property>
-							<property name="use-popover">True</property>
-						</ELSE></IF>
+						<property name="menu-model">edit-menu</property>
+						<property name="use-popover">True</property>
 				      </object>
 				      <packing>
 				        <property name="expand">False</property>
@@ -226,180 +209,6 @@
 </object>
 <!-- /Main window -->
 
-<IF condition="icons_in_menu">
-	<!-- Application menu (left one) -->
-	<object class="GtkMenu" id="app-menu-icons">
-		<property name="visible">True</property>
-		<property name="can_focus">False</property>
-		<child>
-			<object class="GtkImageMenuItem" id="menu-webui">
-				<property name="visible">True</property>
-				<property name="can_focus">False</property>
-				<property name="label" translatable="yes">Open _Web Interface</property>
-				<property name="always_show_image">True</property>
-				<property name="use_underline">True</property>
-				<property name="image">menu-webui-image</property>
-				<property name="action-name">app.webui</property>
-			</object>
-		</child>
-
-		<child>
-			<object class="GtkImageMenuItem" id="menu-daemon-output">
-				<property name="visible">True</property>
-				<property name="can_focus">False</property>
-				<property name="label" translatable="yes">Display _Daemon Output</property>
-				<property name="use_underline">True</property>
-				<property name="always_show_image">True</property>
-				<property name="image">menu-daemon-output-image</property>
-				<property name="action-name">app.daemon_output</property>
-			</object>
-		</child>
-		
-		<child>
-			<object class="GtkSeparatorMenuItem" id="menu-separator15">
-				<property name="visible">True</property>
-				<property name="can_focus">False</property>
-			</object>
-		</child>
-		
-		<child>
-			<object class="GtkImageMenuItem" id="ui-settings">
-				<property name="label" translatable="yes">UI _Settings</property>
-				<property name="visible">True</property>
-				<property name="can_focus">False</property>
-				<property name="use_underline">True</property>
-				<property name="image">menu-ui-settings-image</property>
-				<property name="use_stock">False</property>
-				<property name="always_show_image">True</property>
-				<property name="action-name">app.preferences</property>
-			</object>
-		</child>
-		
-		<child>
-			<object class="GtkImageMenuItem" id="menu-about">
-				<property name="visible">True</property>
-				<property name="can_focus">False</property>
-				<property name="label">gtk-about</property>
-				<property name="always_show_image">True</property>
-				<property name="use_underline">True</property>
-				<property name="use_stock">True</property>
-				<property name="action-name">app.about</property>
-			</object>
-		</child>
-		
-		<child>
-			<object class="GtkImageMenuItem" id="menu-exit">
-				<property name="visible">True</property>
-				<property name="can_focus">False</property>
-				<property name="label">gtk-quit</property>
-				<property name="always_show_image">True</property>
-				<property name="use_underline">True</property>
-				<property name="use_stock">True</property>
-				<property name="action-name">app.quit</property>
-			</object>
-		</child>
-	</object>
-	<!-- /Application menu (left one) -->
-
-	<!-- Edit menu (Right one) -->
-	<object class="GtkMenu" id="edit-menu-icons">
-		<property name="visible">True</property>
-		<property name="can_focus">False</property>
-		<child>
-			<object class="GtkImageMenuItem" id="menu-add-folder">
-				<property name="visible">True</property>
-				<property name="can_focus">False</property>
-				<property name="label" translatable="yes">Add Shared _Folder</property>
-				<property name="use_underline">True</property>
-				<property name="image">menu-add-folder-image</property>
-				<property name="use_stock">False</property>
-				<property name="always_show_image">True</property>
-				<property name="action-name">app.add_folder</property>
-			</object>
-		</child>
-		
-		<child>
-			<object class="GtkImageMenuItem" id="menu-add-device">
-				<property name="visible">True</property>
-				<property name="can_focus">False</property>
-				<property name="label" translatable="yes">Add _Device</property>
-				<property name="use_underline">True</property>
-				<property name="image">menu-add-device-image</property>
-				<property name="use_stock">False</property>
-				<property name="always_show_image">True</property>
-				<property name="action-name">app.add_device</property>
-			</object>
-		</child>
-		
-		<child>
-			<object class="GtkSeparatorMenuItem" id="menu-separator1">
-				<property name="visible">True</property>
-				<property name="can_focus">False</property>
-			</object>
-		</child>
-		
-		<child>
-			<object class="GtkImageMenuItem" id="menu-settings">
-				<property name="label" translatable="yes">Daemon _Settings</property>
-				<property name="visible">True</property>
-				<property name="can_focus">False</property>
-				<property name="use_underline">True</property>
-				<property name="image">menu-daemon-settings-image</property>
-				<property name="use_stock">False</property>
-				<property name="always_show_image">True</property>
-				<property name="action-name">app.daemon_preferences</property>
-			</object>
-		</child>
-		
-		<child>
-			<object class="GtkImageMenuItem" id="menu-show-id">
-				<property name="visible">True</property>
-				<property name="can_focus">False</property>
-				<property name="label" translatable="yes">Show _ID</property>
-				<property name="use_underline">True</property>
-				<property name="image">menu-show-id-image</property>
-				<property name="use_stock">False</property>
-				<property name="always_show_image">True</property>
-				<property name="action-name">app.show_id</property>
-			</object>
-		</child>
-
-		<child>
-		  <object class="GtkSeparatorMenuItem" id="menu-separator2">
-			<property name="visible">True</property>
-			<property name="can_focus">False</property>
-		  </object>
-		</child>
-		
-		<child>
-			<object class="GtkImageMenuItem" id="menu-shutdown">
-				<property name="visible">True</property>
-				<property name="can_focus">False</property>
-				<property name="label" translatable="yes">Sh_utdown Daemon</property>
-				<property name="use_underline">True</property>
-				<property name="image">menu-shutdown-image</property>
-				<property name="use_stock">False</property>
-				<property name="always_show_image">True</property>
-				<property name="action-name">app.daemon_shutdown</property>
-			</object>
-		</child>
-		
-		<child>
-			<object class="GtkImageMenuItem" id="menu-restart">
-				<property name="visible">True</property>
-				<property name="can_focus">False</property>
-				<property name="label" translatable="yes">_Restart Daemon</property>
-				<property name="use_underline">True</property>
-				<property name="image">menu-restart-image</property>
-				<property name="use_stock">False</property>
-				<property name="always_show_image">True</property>
-				<property name="action-name">app.daemon_restart</property>
-			</object>
-		</child>
-	</object>
-	<!-- Edit menu (Right one) -->
-
-</IF>
 <!-- Application popover menu (left one) -->
 <menu id="app-menu">
 	<section>
@@ -477,7 +286,6 @@
 			<property name="label" translatable="yes">Override Remote Changes</property>
 			<property name="use_underline">True</property>
 			<property name="use_stock">True</property>
-			<property name="always_show_image">True</property>
 			<property name="image">menu-popup-override-image</property>
 			<signal name="activate" handler="cb_menu_popup_override" swapped="no"/>
 		</object>
@@ -489,7 +297,6 @@
 			<property name="label" translatable="yes">Override Local Changes</property>
 			<property name="use_underline">True</property>
 			<property name="use_stock">True</property>
-			<property name="always_show_image">True</property>
 			<property name="image">menu-popup-revert-image</property>
 			<signal name="activate" handler="cb_menu_popup_revert" swapped="no"/>
 		</object>
@@ -507,7 +314,6 @@
 			<property name="label">gtk-edit</property>
 			<property name="use_underline">True</property>
 			<property name="use_stock">True</property>
-			<property name="always_show_image">True</property>
 			<signal name="activate" handler="cb_menu_popup_edit_folder" swapped="no"/>
 		</object>
 	</child>
@@ -517,7 +323,6 @@
 			<property name="can_focus">False</property>
 			<property name="label" translatable="yes">Edit _Ignore Patterns</property>
 			<property name="use_underline">True</property>
-			<property name="image">menu-popup-edit-ignored-image</property>
 			<property name="always_show_image">True</property>
 			<signal name="activate" handler="cb_menu_popup_edit_ignored" swapped="no"/>
 		</object>
@@ -885,7 +690,7 @@
 </object>
 
 <!-- App & edit icon menu images -->
-<IF condition="traditional_header | icons_in_menu">
+<IF condition="traditional_header">
 	<object class="GtkImage" id="menu-add-device-image">
 		<property name="visible">True</property>
 		<property name="can_focus">False</property>
