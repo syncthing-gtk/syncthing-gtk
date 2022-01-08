@@ -1,3 +1,15 @@
+syncthing-gtk (0.9.4.4+ds+git20220108+9023143f8b93-1) unstable; urgency=medium
+
+  * Cherry-pick patches from upstream pull requests.
+  * Drop KDE 4 support.
+  * Reshuffle menu items to better match GNOME HIG.
+  * Add a list of folders to the indicator menu.
+  * Use dh-sequence-python3.
+  * Generate locales.
+  * Generate and install upstream changelog.
+
+ -- Andrej Shadura <andrewsh@debian.org>  Sat, 08 Jan 2022 19:48:03 +0100
+
 syncthing-gtk (0.9.4.4+ds+git20201209+c46fbd8-1) unstable; urgency=medium
 
   [ Rowan Thorpe ]
