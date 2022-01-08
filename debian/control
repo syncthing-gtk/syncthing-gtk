@@ -7,6 +7,7 @@ Uploaders:
 Build-Depends:
  debhelper-compat (= 13),
  dh-sequence-python3,
+ appstream,
  python3-all,
 Standards-Version: 4.2.1
 Vcs-Git: https://salsa.debian.org/jelmer/syncthing-gtk.git

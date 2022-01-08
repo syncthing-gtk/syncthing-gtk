@@ -5,3 +5,6 @@
 
 execute_before_dh_auto_build:
 	./generate-locales.sh
+
+execute_before_dh_installchangelogs:
+	appstreamcli metainfo-to-news --format=text $(firstword $(wildcard debian/*/usr/share/metainfo/*.xml)) changelog.rst
