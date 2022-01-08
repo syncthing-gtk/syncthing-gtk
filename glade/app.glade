@@ -450,6 +450,21 @@
 			<signal name="activate" handler="do_activate" swapped="no"/>
 		</object>
 	</child>
+
+	<child>
+		<object class="GtkMenuItem" id="menu-si-folders">
+			<property name="label" translatable="yes">Folders</property>
+			<property name="visible">True</property>
+			<property name="can_focus">False</property>
+			<property name="use_underline">True</property>
+			<child type="submenu">
+				<object class="GtkMenu" id="menu-si-folders-sub">
+					<property name="visible">True</property>
+					<property name="can_focus">False</property>
+				</object>
+			</child>
+		</object>
+	</child>
 	
 	<child>
 		<object class="GtkSeparatorMenuItem" id="menu-si-separator1">
