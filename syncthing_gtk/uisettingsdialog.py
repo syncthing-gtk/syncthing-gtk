@@ -23,7 +23,7 @@ import os, logging
 log = logging.getLogger("UISettingsDialog")
 
 VALUES = [ "vautostart_daemon", "vautokill_daemon", "vminimize_on_start",
-		"vautostart", "vuse_old_header", "vicons_in_menu",
+		"vautostart", "vuse_old_header",
 		"vforce_dark_theme", "vdaemon_priority", "vfolder_as_path",
 		"vnotification_for_update", "vnotification_for_folder",
 		"vnotification_for_error", "vst_autoupdate", "vsyncthing_binary",
@@ -57,7 +57,7 @@ FM_DATA = {
 
 class UISettingsDialog(EditorDialog):
 	SETTING_NEEDS_RESTART = [
-		"vuse_old_header", "vforce_dark_theme", "vicons_in_menu",
+		"vuse_old_header", "vforce_dark_theme",
 		"vicon_theme", "vlanguage"
 	]
 	
@@ -84,8 +84,6 @@ class UISettingsDialog(EditorDialog):
 		if IS_UNITY or IS_GNOME:
 			self["vuse_old_header"].set_visible(False)
 			self["vuse_old_header"].set_no_show_all(True)
-			self["vicons_in_menu"].set_visible(False)
-			self["vicons_in_menu"].set_no_show_all(True)
 		if IS_GNOME:
 			self["vautostart"].set_visible(False)
 			self["vautostart"].set_no_show_all(True)
