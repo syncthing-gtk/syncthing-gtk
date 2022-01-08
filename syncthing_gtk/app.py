@@ -1475,6 +1475,7 @@ class App(Gtk.Application, TimerManager):
             # Reuse existing box
             box = self.folders[folder_id]
             box.set_title(title)
+            box['menuitem'].set_label(title)
         else:
             # Create new box
             box = InfoBox(self, title, Gtk.Image.new_from_icon_name("drive-harddisk", Gtk.IconSize.LARGE_TOOLBAR))
@@ -1508,6 +1509,12 @@ class App(Gtk.Application, TimerManager):
             box.connect("doubleclick", self.cb_browse_folder)
             box.connect("enter-notify-event", self.cb_box_mouse_enter)
             box.connect("leave-notify-event", self.cb_box_mouse_leave)
+
+            menuitem = Gtk.MenuItem(label=title)
+            self["menu-si-folders-sub"].append(menuitem)
+            menuitem.show()
+            menuitem.connect("activate", self.cb_browse_folder_menu, box)
+            box.add_hidden_value("menuitem", menuitem)
             self.folders[folder_id] = box
             self.folders_never_loaded = False
         # Set values
@@ -1581,7 +1588,7 @@ class App(Gtk.Application, TimerManager):
 
     def clear(self):
         """Clears folder and device lists."""
-        for i in ("devicelist", "folderlist"):
+        for i in ("devicelist", "folderlist", "menu-si-folders-sub"):
             for c in [] + self[i].get_children():
                 self[i].remove(c)
                 c.destroy()
@@ -1950,6 +1957,10 @@ class App(Gtk.Application, TimerManager):
     def cb_menu_popup_browse_folder(self, *a):
         """Handler for 'browse' folder context menu item"""
         self.cb_browse_folder(self.rightclick_box)
+
+    def cb_browse_folder_menu(self, menuitem, box, *a):
+        """ Handler for folder status icon menu item """
+        self.cb_browse_folder(box)
 
     def cb_browse_folder(self, box, *a):
         """Handler for 'browse' action"""
