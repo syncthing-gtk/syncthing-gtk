@@ -615,7 +615,7 @@
 		<object class="GtkImageMenuItem" id="menu-si-daemon-output">
 			<property name="visible">True</property>
 			<property name="can_focus">False</property>
-			<property name="label" translatable="yes">Display _Daemon Output</property>
+			<property name="label" translatable="yes">See _Logs</property>
 			<property name="use_underline">True</property>
 			<property name="always_show_image">True</property>
 			<property name="image">menu-si-daemon-output-image</property>
@@ -627,7 +627,7 @@
 		<object class="GtkImageMenuItem" id="menu-si-ui-settings">
 			<property name="visible">True</property>
 			<property name="can_focus">False</property>
-			<property name="label" translatable="yes">UI _Settings</property>
+			<property name="label" translatable="yes">_Preferences</property>
 			<property name="use_underline">True</property>
 			<property name="always_show_image">True</property>
 			<property name="image">menu-si-ui-settings-image</property>
