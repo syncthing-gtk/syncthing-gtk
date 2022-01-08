@@ -35,7 +35,6 @@ class _Configuration(object):
 		"minimize_on_start"			: (bool, False),
 		"folder_as_path"			: (bool, True),
 		"use_old_header"			: (bool, False),
-		"icons_in_menu"				: (bool, True),
 		"animate_icon"				: (bool, True),
 		"notification_for_update"	: (bool, True),
 		"notification_for_folder"	: (bool, False),
