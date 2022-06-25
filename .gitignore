@@ -17,3 +17,7 @@ syncthing.exe
 
 .mypy_cache
 .vscode
+
+*.egg-info
+dist
+*.rpm
