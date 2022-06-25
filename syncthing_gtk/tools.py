@@ -228,13 +228,6 @@ def init_logging():
 	def verbose(self, msg, *args, **kwargs):
 		return self.log(15, msg, *args, **kwargs)
 	logging.Logger.verbose = verbose
-	# Wrap Logger._log in something that can handle utf-8 exceptions
-	old_log = logging.Logger._log
-	def _log(self, level, msg, args, exc_info=None, extra=None):
-		args = tuple([str(c) for c in args])
-		msg = str(msg)
-		old_log(self, level, msg, args, exc_info, extra)
-	logging.Logger._log = _log
 
 def make_portable():
 	"""
