@@ -475,7 +475,7 @@ class Daemon(GObject.GObject, TimerManager):
 		# Use my own device for totals, if it is already known
 		# It it is not known, just skip totals for now
 		if not self._my_id is None:
-			cons[self._my_id] = data["total"]
+			cons[self._my_id].update(data["total"])
 		
 		for id in cons:
 			# Load device data
