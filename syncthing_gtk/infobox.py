@@ -123,7 +123,7 @@ class InfoBox(Gtk.Container):
 
     # GtkWidget-related stuff
     def do_add(self, widget):
-        if not widget is None:
+        if widget is not None:
             if self.child is None:
                 self.child = widget
                 self.children = [self.header, self.child]
@@ -139,10 +139,10 @@ class InfoBox(Gtk.Container):
         return (Gtk.Widget.get_type())
 
     def do_forall(self, include_internals, callback, *callback_parameters):
-        if not callback is None:
+        if callback is not None:
             if hasattr(self, 'children'):  # No idea why this happens...
                 for c in self.children:
-                    if not c is None:
+                    if c is not None:
                         callback(c, *callback_parameters)
 
     def do_get_request_mode(self):
@@ -163,7 +163,7 @@ class InfoBox(Gtk.Container):
         # Use max of preferred widths from children;
         # Use sum of preferred height from children.
         for c in self.children:
-            if not c is None:
+            if c is not None:
                 if c != self.rev or self.rev.get_reveal_child() or self.rev.get_child_revealed():
                     mw, nw = c.get_preferred_width()
                     mh, nh = c.get_preferred_height()
@@ -192,7 +192,7 @@ class InfoBox(Gtk.Container):
 
         # Allocate children as VBox does, always use all available width
         for c in self.children:
-            if not c is None:
+            if c is not None:
                 if c.get_visible():
                     min_size, nat_size = c.get_preferred_size()
                     child_allocation.width = allocation.width - \
@@ -239,7 +239,7 @@ class InfoBox(Gtk.Container):
         cr.stroke()
 
         # Background
-        if not self.background is None:
+        if self.background is not None:
             # Use set background color
             cr.set_source_rgba(*self.background)
             cr.rectangle(
@@ -257,7 +257,7 @@ class InfoBox(Gtk.Container):
         cr.fill()
 
         for c in self.children:
-            if not c is None:
+            if c is not None:
                 self.propagate_draw(c, cr)
 
     # InfoBox logic
@@ -393,9 +393,9 @@ class InfoBox(Gtk.Container):
         Converts color from AABBCC or #AABBCC format to tuple of floats
         """
         hx = hx.lstrip('#')
-        l = len(hx)
-        color = [float(int(hx[i:i+l//3], 16)) /
-                 255.0 for i in range(0, l, l//3)]
+        hlen = len(hx)
+        color = [float(int(hx[i:i + hlen // 3], 16)) /
+                 255.0 for i in range(0, hlen, hlen // 3)]
         while len(color) < 4:
             color.append(1.0)
         return color
@@ -424,7 +424,7 @@ class InfoBox(Gtk.Container):
         return (self.color == (r, g, b, a))
 
     def set_dark_color(self, r, g, b, a):
-        """ 
+        """
         Overrides background color, inverts icon colors and darkens some borders
         """
         # Override background
@@ -464,7 +464,7 @@ class InfoBox(Gtk.Container):
 
     def set_bg_color(self, r, g, b, a):
         """ Expects floats """
-        if self.dark_color == None:
+        if self.dark_color is None:
             self.background = (r, g, b, a)
         col = Gdk.RGBA(r, g, b, a)
         for key in self.value_widgets:
@@ -489,8 +489,8 @@ class InfoBox(Gtk.Container):
         if icon.endswith(".svg"):
             # Icon is svg file
             key = icon if self.dark_color is None else icon + "-dark"
-            if not key in svg_cache:
-                if not self.dark_color is None:
+            if key not in svg_cache:
+                if self.dark_color is not None:
                     # Recolor svg for dark theme
                     with open(os.path.join(self.app.iconpath, icon), "r") as f:
                         svg_source = f.read()

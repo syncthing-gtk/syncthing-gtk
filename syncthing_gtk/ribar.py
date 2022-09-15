@@ -147,10 +147,10 @@ class RIBar(RevealerClass):
         b = Gtk.Button.new_from_stock(label) if use_stock \
             else Gtk.Button.new_with_label(label)
         b.set_use_underline(True)
-        if not icon_name is None:
+        if icon_name is not None:
             icon_widget = Gtk.Image()
             icon_widget.set_from_icon_name(icon_name, Gtk.IconSize.BUTTON)
-        if not icon_widget is None:
+        if icon_widget is not None:
             b.set_image(icon_widget)
             b.set_always_show_image(True)
         return b

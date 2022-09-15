@@ -146,7 +146,7 @@ class FolderEditorDialog(EditorDialog):
                     "vpath": self.check_path,
                     "vcommand": self.check_command,
                 }
-                if self.id != None:
+                if self.id is not None:
                     try:
                         v = [x for x in self.config["folders"]
                              if x["id"] == self.id][0]
@@ -154,7 +154,7 @@ class FolderEditorDialog(EditorDialog):
                         self.is_new = False
                     except IndexError:
                         pass
-                if not self.path is None:
+                if self.path is not None:
                     self.set_value("path", self.path)
                     self["vpath"].set_sensitive(False)
                 self.set_value("versioning", "simple")
@@ -317,6 +317,6 @@ class FolderEditorDialog(EditorDialog):
         if "vdevices" in self:  # ... only if there are checkboxes here
             for child in self["vdevices"].get_children():
                 if child.get_tooltip_text() == nid:
-                    l = child.get_children()[0]  # Label in checkbox
-                    l.set_markup("<b>%s</b>" % (l.get_label()))
+                    label = child.get_children()[0]  # Label in checkbox
+                    label.set_markup("<b>%s</b>" % (label.get_label()))
                     child.set_active(True)
