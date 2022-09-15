@@ -9,69 +9,73 @@ Most of drawing code is ported from
 https://github.com/syncthing/syncthing/blob/master/gui/scripts/syncthing/core/directives/identiconDirective.js"""
 
 
-from gi.repository import Gtk
-from syncthing_gtk.infobox import InfoBox
 import re
 
-class IdentIcon(Gtk.DrawingArea):
-	def __init__(self, device_id):
-		Gtk.DrawingArea.__init__(self)
-		self.value = re.sub(r'[\W_]', "", device_id, 1)
-		self.color = (1, 1, 0.95, 1)		# icon color, rgba
-		self.size = 5
-	
-	def set_color_hex(self, hx):
-		""" Expects AABBCC or #AABBCC format """
-		self.set_color(*InfoBox.hex2color(hx))
-		
-	def set_color(self, r, g, b, a):
-		""" Expects floats """
-		self.color = (r, g, b, a)
-		self.queue_draw()
+from gi.repository import Gtk
 
-	def do_get_preferred_width(self):
-		# Icon scales to whatever you give, but preferred
-		# size is always 22x22
-		return (22, 22)
-	
-	def do_get_preferred_height(self):
-		# Rectangle...
-		return self.do_get_preferred_width()
-	
-	def do_get_request_mode(self):
-		return Gtk.SizeRequestMode.CONSTANT_SIZE
-	
-	def do_draw(self, cr):
-		def fill_rect_at(row, col, ox, oy, rs):
-			cr.rectangle(
-					ox + (col * rs),
-					oy + (row * rs),
-					rs, rs
-			)
-			cr.fill()
-		
-		def should_fill_rect_at(row, col):
-			return not (ord(self.value[row + col * self.size]) % 2)
-		
-		def should_mirror_rect_at(row, col):
-			return not (self.size % 2 and col == middle_col)
-		
-		def mirror_col_for(col):
-			return self.size - col - 1
-		
-		# Prepare stuff
-		allocation	= self.get_allocation()
-		rect_size	= min(allocation.width, allocation.height) / self.size
-		offset_x	= (allocation.width // 2) - (rect_size * self.size // 2)
-		offset_y	= (allocation.height // 2) - (rect_size * self.size // 2)
-		middle_col	= self.size // 2
-		
-		# Set color
-		cr.set_source_rgba(*self.color)
-		# Do drawing
-		for row in range(0, self.size):
-			for col in range(0, middle_col + 1):
-				if should_fill_rect_at(row, col):
-					fill_rect_at(row, col, offset_x, offset_y, rect_size)
-					if should_mirror_rect_at(row, col):
-						fill_rect_at(row, mirror_col_for(col), offset_x, offset_y, rect_size)
+from syncthing_gtk.infobox import InfoBox
+
+
+class IdentIcon(Gtk.DrawingArea):
+    def __init__(self, device_id):
+        Gtk.DrawingArea.__init__(self)
+        self.value = re.sub(r'[\W_]', "", device_id, 1)
+        self.color = (1, 1, 0.95, 1)		# icon color, rgba
+        self.size = 5
+
+    def set_color_hex(self, hx):
+        """ Expects AABBCC or #AABBCC format """
+        self.set_color(*InfoBox.hex2color(hx))
+
+    def set_color(self, r, g, b, a):
+        """ Expects floats """
+        self.color = (r, g, b, a)
+        self.queue_draw()
+
+    def do_get_preferred_width(self):
+        # Icon scales to whatever you give, but preferred
+        # size is always 22x22
+        return (22, 22)
+
+    def do_get_preferred_height(self):
+        # Rectangle...
+        return self.do_get_preferred_width()
+
+    def do_get_request_mode(self):
+        return Gtk.SizeRequestMode.CONSTANT_SIZE
+
+    def do_draw(self, cr):
+        def fill_rect_at(row, col, ox, oy, rs):
+            cr.rectangle(
+                ox + (col * rs),
+                oy + (row * rs),
+                rs, rs
+            )
+            cr.fill()
+
+        def should_fill_rect_at(row, col):
+            return not (ord(self.value[row + col * self.size]) % 2)
+
+        def should_mirror_rect_at(row, col):
+            return not (self.size % 2 and col == middle_col)
+
+        def mirror_col_for(col):
+            return self.size - col - 1
+
+        # Prepare stuff
+        allocation = self.get_allocation()
+        rect_size = min(allocation.width, allocation.height) / self.size
+        offset_x = (allocation.width // 2) - (rect_size * self.size // 2)
+        offset_y = (allocation.height // 2) - (rect_size * self.size // 2)
+        middle_col = self.size // 2
+
+        # Set color
+        cr.set_source_rgba(*self.color)
+        # Do drawing
+        for row in range(0, self.size):
+            for col in range(0, middle_col + 1):
+                if should_fill_rect_at(row, col):
+                    fill_rect_at(row, col, offset_x, offset_y, rect_size)
+                    if should_mirror_rect_at(row, col):
+                        fill_rect_at(row, mirror_col_for(col),
+                                     offset_x, offset_y, rect_size)
