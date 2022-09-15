@@ -8,7 +8,6 @@ import codecs
 import logging
 import msvcrt
 import os
-import sys
 import winreg
 
 import win32api
@@ -16,8 +15,6 @@ import win32pipe
 import win32process
 from gi.repository import Gdk, GLib, Gtk
 from win32com.shell import shell, shellcon
-
-from syncthing_gtk.tools import get_config_dir
 
 
 log = logging.getLogger("windows.py")
@@ -52,7 +49,7 @@ def enable_localization():
         loc = locale.getdefaultlocale()[0]
     except Exception:
         pass
-    if not 'LANGUAGE' in os.environ:
+    if 'LANGUAGE' not in os.environ:
         os.environ['LANGUAGE'] = loc
 
 
@@ -137,7 +134,7 @@ class WinPopenReader:
             self._buffer += data
         # If there is read_async callback and buffer has some data,
         # send them right away
-        if not self._waits_for_read is None and len(self._buffer) > 0:
+        if self._waits_for_read is not None and len(self._buffer) > 0:
             r = WinPopenReader.Results(self._buffer)
             self._buffer = ""
             callback, data = self._waits_for_read
@@ -149,7 +146,7 @@ class WinPopenReader:
         return False
 
     def read_bytes_async(self, size, trash, cancel, callback, data=()):
-        if self._waits_for_read != None:
+        if self._waits_for_read is not None:
             raise Exception("Already reading")
         self._buffer_size = size
         self._waits_for_read = (callback, data)
@@ -217,7 +214,7 @@ def WinConfiguration():
                     value = 0xFFFF + (-value)
                 winreg.SetValueEx(r, name, 0, winreg.REG_DWORD, int(value))
             elif tp in (list, tuple):
-                if not value is None:  # None is default value for window_position
+                if value is not None:  # None is default value for window_position
                     winreg.SetValueEx(r, "%s_size" %
                                       (name,), 0, winreg.REG_DWORD, len(value))
                     for i in range(0, len(value)):

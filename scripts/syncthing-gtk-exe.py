@@ -2,7 +2,6 @@
 # Note: this one is used by Windows
 import os
 import sys
-import winreg
 
 
 if __name__ == "__main__":
@@ -18,7 +17,7 @@ if __name__ == "__main__":
         data_path = os.path.join(os.getcwd(), "data")
         config_dir = os.path.join(data_path, "syncthing-gtk")
         if not os.path.exists(config_dir):
-            print "creating", config_dir
+            print("creating " + config_dir)
             os.makedirs(config_dir)
         os.environ["LOCALAPPDATA"] = data_path
         os.environ["APPDATA"] = data_path
@@ -33,7 +32,6 @@ if __name__ == "__main__":
             os.chdir(path)
         os.environ["PATH"] = path
 
-    import cairo
     import gi
     gi.require_version('Gtk', '3.0')
     gi.require_version('Rsvg', '2.0')

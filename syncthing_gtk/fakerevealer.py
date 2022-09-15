@@ -37,11 +37,9 @@ class FakeRevealer(Gtk.HBox):
 
     def set_transition_duration(self, d):
         """ You wish... """
-        pass
 
     def get_transition_type(self):
         return Gtk.Revealer.TransitionType.NONE
 
     def set_transition_type(self, t):
         """ Nobody gives orders to ME! """
-        pass

@@ -38,7 +38,7 @@ class IDDialog(object):
         return self.builder.get_object(name)
 
     def show(self, parent=None):
-        if not parent is None:
+        if parent is not None:
             self["dialog"].set_transient_for(parent)
         self["dialog"].show_all()
 
@@ -69,7 +69,7 @@ class IDDialog(object):
                                   self.device_id)
         api_key = self.app.daemon.get_api_key()
         opener = urllib.request.build_opener(DummyHTTPSHandler(self.ssl_ctx))
-        if not api_key is None:
+        if api_key is not None:
             opener.addheaders = [("X-API-Key", api_key)]
         a = opener.open(uri)
         data = a.read()
@@ -135,6 +135,6 @@ class DummyHTTPSHandler(urllib.request.HTTPSHandler):
         return self.do_open(self.getConnection, req)
 
     def getConnection(self, host, timeout=300):
-        if not self.ctx is None:
+        if self.ctx is not None:
             return http.client.HTTPSConnection(host, context=self.ctx)
         return True

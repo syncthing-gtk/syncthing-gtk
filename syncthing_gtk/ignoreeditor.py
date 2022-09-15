@@ -30,7 +30,7 @@ class IgnoreEditor(object):
         return self.builder.get_object(name)
 
     def show(self, parent=None):
-        if not parent is None:
+        if parent is not None:
             self["dialog"].set_transient_for(parent)
         self["dialog"].show_all()
 

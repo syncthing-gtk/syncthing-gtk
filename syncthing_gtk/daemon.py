@@ -338,7 +338,7 @@ class Daemon(GObject.GObject, TimerManager):
         self._my_id = None
         self._read_config()
 
-    ### Internal stuff ###
+    # Internal stuff
 
     def _read_config(self):
         # Read syncthing config to get connection url
@@ -365,7 +365,7 @@ class Daemon(GObject.GObject, TimerManager):
         try:
             tls = xml.getElementsByTagName("configuration")[0] \
                 .getElementsByTagName("gui")[0].getAttribute("tls")
-        except Exception as e:
+        except Exception:
             pass
         self._tls = False
         self._cert = None
@@ -396,7 +396,7 @@ class Daemon(GObject.GObject, TimerManager):
                 .getElementsByTagName("gui")[0] \
                 .getElementsByTagName("apikey")[0] \
                 .firstChild.nodeValue
-        except Exception as e:
+        except Exception:
             # API key can be none
             pass
 
@@ -410,7 +410,7 @@ class Daemon(GObject.GObject, TimerManager):
 
     def _get_device_data(self, nid):
         """ Returns dict with device data, creating it if needed """
-        if not nid in self._device_data:
+        if nid not in self._device_data:
             self._device_data[nid] = {
                 "inBytesTotal": 0, "outBytesTotal": 0,
                 "inbps": 0, "outbps": 0, "clientVersion": "?",
@@ -444,7 +444,7 @@ class Daemon(GObject.GObject, TimerManager):
             rid = r["id"]
             for n in r["devices"]:
                 nid = n["deviceID"]
-                if not nid in device_folders:
+                if nid not in device_folders:
                     device_folders[nid] = []
                 device_folders[nid].append(rid)
 
@@ -463,7 +463,7 @@ class Daemon(GObject.GObject, TimerManager):
             self.emit("folder-added", rid, r)
             self._request_folder_data(rid)
 
-    ### Callbacks ###
+    # Callbacks
 
     def _syncthing_cb_shutdown(self, data, reason):
         """ Callback for 'shutdown' AND 'restart' request """
@@ -500,7 +500,7 @@ class Daemon(GObject.GObject, TimerManager):
         cons = data["connections"]
         # Use my own device for totals, if it is already known
         # It it is not known, just skip totals for now
-        if not self._my_id is None:
+        if self._my_id is not None:
             cons[self._my_id].update(data["total"])
 
         for id in cons:
@@ -519,7 +519,7 @@ class Daemon(GObject.GObject, TimerManager):
                 cons[id]["outbps"] = 0.0
             # Store updated device_data
             for key in cons[id]:
-                if not key in ('clientVersion', 'connected'):		# Don't want copy those
+                if key not in ('clientVersion', 'connected'):		# Don't want copy those
                     if cons[id][key] != "":							# Happens for 'total'
                         device_data[key] = cons[id][key]
 
@@ -556,7 +556,7 @@ class Daemon(GObject.GObject, TimerManager):
                 t = parsetime(data[nid]["lastSeen"])
                 if t < NEVER:
                     t = None
-                if not nid in self._last_seen or self._last_seen[nid] != t:
+                if nid not in self._last_seen or self._last_seen[nid] != t:
                     self._last_seen[nid] = t
                     self.emit('last-seen-changed', nid, t)
 
@@ -579,7 +579,7 @@ class Daemon(GObject.GObject, TimerManager):
                 self.emit("device-sync-finished", nid)
         else:
             # Syncing
-            if not nid in self._syncing_devices:
+            if nid not in self._syncing_devices:
                 self._syncing_devices.add(nid)
                 self.emit("device-sync-started", nid, sync)
             else:
@@ -595,7 +595,7 @@ class Daemon(GObject.GObject, TimerManager):
             return
 
         if self._my_id != data["myID"]:
-            if self._my_id != None:
+            if self._my_id is not None:
                 # Can myID be ever changed?
                 log.warning("My ID has been changed on the fly")
             self._my_id = data["myID"]
@@ -664,7 +664,7 @@ class Daemon(GObject.GObject, TimerManager):
             self.emit("connection-error", Daemon.OLD_VERSION,
                       msg, Exception(msg))
             return
-        if self._my_id != None:
+        if self._my_id is not None:
             device = self._get_device_data(self._my_id)
             if version != device["clientVersion"]:
                 device["clientVersion"] = version
@@ -677,7 +677,7 @@ class Daemon(GObject.GObject, TimerManager):
     def _syncthing_cb_folder_data(self, data, rid):
         state = data['state']
         if state in ('error', 'stopped'):
-            if not rid in self._stopped_folders:
+            if rid not in self._stopped_folders:
                 self._stopped_folders.add(rid)
                 reason = data["invalid"] or data["error"]
                 self.emit("folder-stopped", rid, reason)
@@ -734,7 +734,7 @@ class Daemon(GObject.GObject, TimerManager):
         elif isinstance(exception, HTTPCode):
             # HTTP 404 may actually mean old daemon version
             version = get_header(exception.headers, "X-Syncthing-Version")
-            if version != None and not compare_version(version, MIN_VERSION):
+            if version is not None and not compare_version(version, MIN_VERSION):
                 self._epoch += 1
                 msg = "daemon is too old"
                 self.emit("connection-error", Daemon.OLD_VERSION,
@@ -774,22 +774,22 @@ class Daemon(GObject.GObject, TimerManager):
         """
         if state != "syncing" and rid in self._syncing_folders:
             self._syncing_folders.discard(rid)
-            if not rid in self._stopped_folders:
+            if rid not in self._stopped_folders:
                 self.emit("folder-sync-finished", rid)
         if state != "scanning" and rid in self._scanning_folders:
             self._scanning_folders.discard(rid)
-            if not rid in self._stopped_folders:
+            if rid not in self._stopped_folders:
                 self.emit("folder-scan-finished", rid)
         if state == "syncing":
-            if not rid in self._stopped_folders:
+            if rid not in self._stopped_folders:
                 if rid in self._syncing_folders:
                     self.emit("folder-sync-progress", rid, progress)
                 else:
                     self._syncing_folders.add(rid)
                     self.emit("folder-sync-started", rid)
         elif state == "scanning":
-            if not rid in self._stopped_folders:
-                if not rid in self._scanning_folders:
+            if rid not in self._stopped_folders:
+                if rid not in self._scanning_folders:
                     self._scanning_folders.add(rid)
                     self.emit("folder-scan-started", rid)
 
@@ -867,7 +867,7 @@ class Daemon(GObject.GObject, TimerManager):
         else:
             log.warning("Unhandled event type: %s", e)
 
-    ### External stuff ###
+    # External stuff
 
     def reconnect(self):
         """
@@ -888,7 +888,7 @@ class Daemon(GObject.GObject, TimerManager):
         """
         def reload_config_cb(config):
             self._parse_dev_n_folders(config)
-            if not callback is None:
+            if callback is not None:
                 callback()
             RESTRequest(self, "system/config/insync",
                         self._syncthing_cb_config_in_sync).start()
@@ -952,7 +952,7 @@ class Daemon(GObject.GObject, TimerManager):
         error_callback(exception) on failure
         """
         def r_filter(data, *a):
-            if "ignore" in data and not data["ignore"] is None:
+            if "ignore" in data and data["ignore"] is not None:
                 callback("\n".join(data["ignore"]).strip(" \t\n"), *a)
             else:
                 callback("", *a)
@@ -1020,7 +1020,7 @@ class Daemon(GObject.GObject, TimerManager):
         Returns daemon version or "unknown" if daemon version is not yet
         known
         """
-        if self._my_id == None:
+        if self._my_id is None:
             return "unknown"
         device = self._get_device_data(self._my_id)
         if "clientVersion" in device:
@@ -1082,7 +1082,6 @@ class Daemon(GObject.GObject, TimerManager):
         """
         No longer needed.
         """
-        pass
 
     def set_refresh_interval(self, i):
         """ Sets interval used mainly by event querying timer """
