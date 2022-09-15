@@ -5,9 +5,12 @@ See syncthing_gtk/nautilusplugin.py for more info
 """
 
 from gi.repository import Nemo
+
 from syncthing_gtk.nautilusplugin import NautiluslikeExtension
+
 
 NautiluslikeExtension.set_plugin_module(Nemo)
 
+
 class SyncthingNemo(NautiluslikeExtension, Nemo.InfoProvider, Nemo.MenuProvider):
-	pass
+    pass
