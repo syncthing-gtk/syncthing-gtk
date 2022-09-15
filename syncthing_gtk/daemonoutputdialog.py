@@ -25,7 +25,7 @@ class DaemonOutputDialog(object):
         return self.builder.get_object(name)
 
     def show_with_lines(self, lines, parent=None):
-        if not parent is None:
+        if parent is not None:
             self["dialog"].set_transient_for(parent)
         self["dialog"].show_all()
         self["tvOutput"].get_buffer().set_text("\n".join(lines))
@@ -35,7 +35,7 @@ class DaemonOutputDialog(object):
             self["dialog"].set_modal(False)
         else:
             self["dialog"].set_transient_for(parent)
-        if not title is None:
+        if title is not None:
             self["dialog"].set_title(title)
         self["dialog"].show_all()
         self["tvOutput"].get_buffer().set_text(

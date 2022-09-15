@@ -9,7 +9,6 @@ Syncthing-GTK - StatusIcon
 import locale
 import logging
 import os
-import sys
 
 from gi.repository import GLib, GObject, Gtk
 
@@ -164,7 +163,6 @@ class StatusIcon(GObject.GObject):
         """
         @internal
         """
-        pass
 
     def do_get_property(self, property):
         if property.name == "active":

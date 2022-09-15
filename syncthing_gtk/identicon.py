@@ -2,7 +2,7 @@
 """
 Syncthing-GTK - Ident Icon
 
-Custom widget derived from Gtk.DrawingArea. 
+Custom widget derived from Gtk.DrawingArea.
 Draws Ident Icon on transparent background.
 
 Most of drawing code is ported from

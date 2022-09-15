@@ -155,7 +155,7 @@ class StDownloader(GObject.GObject):
                 sha = tag["object"]["sha"]
                 if name.startswith("v"):
                     commits_by_version[name] = sha
-                if not sha in tags_by_commit:
+                if sha not in tags_by_commit:
                     tags_by_commit[sha] = []
                 tags_by_commit[sha].append(name)
 
@@ -274,7 +274,7 @@ class StDownloader(GObject.GObject):
         try:
             # Get response from async call
             response = stream.read_bytes_finish(result)
-            if response == None:
+            if response is None:
                 raise Exception("No data received")
             # 0b of data read indicates end of file
             if response.get_size() > 0:

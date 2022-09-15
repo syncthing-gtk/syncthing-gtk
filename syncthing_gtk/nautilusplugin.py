@@ -145,7 +145,7 @@ class NautiluslikeExtension(GObject.GObject):
         self.online_nids.add(nid)
         # Mark any repo attached to this device online
         for rid in self.rid_to_dev:
-            if not rid in self.onlide_rids:
+            if rid not in self.onlide_rids:
                 if nid in self.rid_to_dev[rid]:
                     log.debug("Repo '%s' now online", rid)
                     self.onlide_rids.add(rid)
