@@ -20,7 +20,7 @@ VALUES = ["vlistenAddresses", "vlocalAnnounceEnabled", "vupnpEnabled",
 
 class DaemonSettingsDialog(EditorDialog):
     def __init__(self, app):
-        EditorDialog.__init__(self, app, "daemon-settings.glade",
+        EditorDialog.__init__(self, app, "daemon-settings.ui",
                               _("Syncthing Daemon Settings"))
 
     # @Overrides

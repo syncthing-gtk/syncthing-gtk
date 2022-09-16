@@ -32,10 +32,9 @@ class DeviceEditorDialog(EditorDialog):
     }
 
     def __init__(self, app, is_new, id=None):
-        EditorDialog.__init__(self, app,
-                              "device-edit.glade",
-                              "New Device" if is_new else "Edit Device"
-                              )
+        EditorDialog.__init__(
+            self, app, "device-edit.ui",
+            "New Device" if is_new else "Edit Device")
         self.id = id
         self.is_new = is_new
 

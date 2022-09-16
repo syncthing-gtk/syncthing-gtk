@@ -25,7 +25,7 @@ if __name__ == "__main__":
     else:
         # Running from /program files
         path = "."
-        if not os.path.exists("./app.glade"):
+        if not os.path.exists("./app.ui"):
             # Usually
             from syncthing_gtk.tools import get_install_path
             path = get_install_path()

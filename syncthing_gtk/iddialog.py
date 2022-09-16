@@ -47,10 +47,10 @@ class IDDialog(object):
         self["dialog"].destroy()
 
     def setup_widgets(self):
-        # Load glade file
+        # Load ui file
         self.builder = UIBuilder()
         self.builder.add_from_file(os.path.join(
-            self.app.gladepath, "device-id.glade"))
+            self.app.uipath, "device-id.ui"))
         self.builder.connect_signals(self)
         self["vID"].set_text(self.device_id)
 

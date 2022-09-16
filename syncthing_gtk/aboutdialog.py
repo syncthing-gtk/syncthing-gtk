@@ -13,8 +13,8 @@ from syncthing_gtk.uibuilder import UIBuilder
 class AboutDialog(object):
     """ Standard looking about dialog """
 
-    def __init__(self, app, gladepath, iconpath):
-        self.gladepath = gladepath
+    def __init__(self, app, uipath, iconpath):
+        self.uipath = uipath
         self.iconpath = iconpath
         self.setup_widgets(app)
 
@@ -35,8 +35,8 @@ class AboutDialog(object):
         self.builder = UIBuilder()
         # Fix icon path
         self.builder.replace_icon_path("icons/", self.iconpath)
-        # Load glade file
-        self.builder.add_from_file(os.path.join(self.gladepath, "about.glade"))
+        # Load ui file
+        self.builder.add_from_file(os.path.join(self.uipath, "about.ui"))
         self.builder.connect_signals(self)
         self.dialog = self.builder.get_object("dialog")
         # Get app version

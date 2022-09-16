@@ -89,7 +89,7 @@ include_files += [(os.path.join(gnome_dll_path, "share/locale", x, "LC_MESSAGES"
                    "share/locale/" + x + "/LC_MESSAGES/gtk30.mo") for x in enabled_gtk_locales]
 
 # Data files
-include_files += [x for x in os.listdir(".") if x.endswith(".glade")]
+include_files += [x for x in os.listdir(".") if x.endswith(".ui")]
 include_files += ["./icons"]
 d = [(x, x) for x in find_mos("locale/")]
 include_files += d

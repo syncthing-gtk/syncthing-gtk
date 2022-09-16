@@ -42,4 +42,4 @@ if __name__ == "__main__":
         os.path.join(os.getcwd(), "icons/32x32/status"))
 
     from syncthing_gtk.app import App
-    App("./glade", "./icons").run(sys.argv)
+    App("./ui", "./icons").run(sys.argv)

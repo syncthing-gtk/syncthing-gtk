@@ -74,7 +74,7 @@ class UISettingsDialog(EditorDialog):
     ]
 
     def __init__(self, app):
-        EditorDialog.__init__(self, app, "ui-settings.glade",
+        EditorDialog.__init__(self, app, "ui-settings.ui",
                               _("UI Settings"))
         self.app = app
 

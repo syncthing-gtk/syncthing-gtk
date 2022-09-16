@@ -3,7 +3,7 @@
 Syncthing-GTK - tools
 
 Wrapper around GTKBuilder. Allows using conditional (<IF>) tags in
-glade files.
+ui files.
 
 Usage:
     - Crete instance
@@ -37,7 +37,7 @@ class UIBuilder(Gtk.Builder):
 
     def add_from_file(self, filename):
         """ Builds UI from file """
-        log.debug("Loading glade file %s", filename)
+        log.debug("Loading ui file %s", filename)
         if len(self.conditions) == 0 and not IS_WINDOWS and get_locale_dir() is None:
             # There is no need to do any magic in this case; Just use
             # Gtk.Builder directly

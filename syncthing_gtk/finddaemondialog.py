@@ -25,7 +25,7 @@ class FindDaemonDialog(EditorDialog):
     RESPONSE_QUIT = 2
 
     def __init__(self, app):
-        EditorDialog.__init__(self, app, "find-daemon.glade",
+        EditorDialog.__init__(self, app, "find-daemon.ui",
                               _("Can't invoke the daemon"))
         self.app = app
         exe = "syncthing.exe" if IS_WINDOWS else _("Syncthing binary")
