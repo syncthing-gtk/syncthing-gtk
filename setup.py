@@ -86,7 +86,7 @@ def find_mos(parent, lst=[]):
 
 if __name__ == "__main__":
     data_files = [
-        ('share/syncthing-gtk', glob.glob("glade/*.glade")),
+        ('share/syncthing-gtk', glob.glob("ui/*.ui")),
         ('share/syncthing-gtk', glob.glob("scripts/syncthing-plugin-*.py")),
         ('share/syncthing-gtk/icons', [
             "icons/%s.svg" % x for x in (

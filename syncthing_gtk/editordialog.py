@@ -40,7 +40,7 @@ class EditorDialog(GObject.GObject):
     SETTING_NEEDS_RESTART = []
     RESTART_NEEDED_WIDGET = "lblRestartNeeded"
 
-    def __init__(self, app, gladefile, title):
+    def __init__(self, app, uifile, title):
         GObject.GObject.__init__(self)
         self.app = app
         self.config = None
@@ -51,7 +51,7 @@ class EditorDialog(GObject.GObject):
         self.original_labels = {}
         # Used by get_widget_id
         self.widget_to_id = {}
-        self.setup_widgets(gladefile, title)
+        self.setup_widgets(uifile, title)
         # Move entire dialog content to ScrolledWindow if screen height
         # is too small
         if Gdk.Screen.get_default().height() < 900:
@@ -90,7 +90,7 @@ class EditorDialog(GObject.GObject):
 
     def get_widget_id(self, w):
         """
-        Returns glade file ID for specified widget or None, if widget
+        Returns ui file ID for specified widget or None, if widget
         is not known.
         """
         if w not in self.widget_to_id:
@@ -131,10 +131,10 @@ class EditorDialog(GObject.GObject):
         self["editor"].hide()
         self["editor"].destroy()
 
-    def setup_widgets(self, gladefile, title):
-        # Load glade file
+    def setup_widgets(self, uifile, title):
+        # Load ui file
         self.builder = UIBuilder()
-        self.builder.add_from_file(os.path.join(self.app.gladepath, gladefile))
+        self.builder.add_from_file(os.path.join(self.app.uipath, uifile))
         self.builder.connect_signals(self)
         self["editor"].set_title(title)
         # Disable everything until configuration is loaded

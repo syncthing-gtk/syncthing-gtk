@@ -40,7 +40,7 @@ MAX_PORT = 8100
 
 
 class Wizard(Gtk.Assistant):
-    def __init__(self, gladepath="/usr/share/syncthing-gtk",
+    def __init__(self, uipath="/usr/share/syncthing-gtk",
                  iconpath="/usr/share/syncthing-gtk/icons", config=None):
         # Init
         Gtk.Assistant.__init__(self)
@@ -48,7 +48,7 @@ class Wizard(Gtk.Assistant):
             self.config = config
         else:
             self.config = Configuration()
-        self.gladepath = gladepath
+        self.uipath = uipath
         self.iconpath = iconpath
         self.syncthing_options = {}
         self.lines = []					# Daemon and wizard output,

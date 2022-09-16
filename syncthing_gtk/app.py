@@ -114,7 +114,7 @@ class App(Gtk.Application, TimerManager):
     after start.
     """
 
-    def __init__(self, gladepath="/usr/share/syncthing-gtk",
+    def __init__(self, uipath="/usr/share/syncthing-gtk",
                  iconpath="/usr/share/syncthing-gtk/icons"):
         Gtk.Application.__init__(self,
                                  application_id="me.kozec.syncthingtk",
@@ -123,7 +123,7 @@ class App(Gtk.Application, TimerManager):
         # Setup Gtk.Application
         self.setup_commandline()
         # Set variables
-        self.gladepath = gladepath
+        self.uipath = uipath
         self.iconpath = iconpath
         self.builder = None
         self.rightclick_box = None
@@ -214,7 +214,7 @@ class App(Gtk.Application, TimerManager):
             self.show_wizard()
         elif is_option("about"):
             from syncthing_gtk.aboutdialog import AboutDialog
-            ad = AboutDialog(self, self.gladepath, self.iconpath)
+            ad = AboutDialog(self, self.uipath, self.iconpath)
             ad.run([])
             sys.exit(0)
 
@@ -364,10 +364,10 @@ class App(Gtk.Application, TimerManager):
             self.builder.enable_condition("is_gnome")
         # Fix icon path
         self.builder.replace_icon_path("icons/", self.iconpath)
-        # Load glade file
-        self.builder.add_from_file(os.path.join(self.gladepath, "app.glade"))
+        # Load ui file
+        self.builder.add_from_file(os.path.join(self.uipath, "app.ui"))
         self.builder.connect_signals(self)
-        # Dunno how to do this from glade
+        # Dunno how to do this from ui-file
         if self.use_headerbar and IS_GNOME:
             self.set_app_menu(self["app-menu"])
 
@@ -487,7 +487,7 @@ class App(Gtk.Application, TimerManager):
 
     def show_wizard(self):
         from syncthing_gtk.wizard import Wizard
-        self.wizard = Wizard(self.gladepath, self.iconpath, self.config)
+        self.wizard = Wizard(self.uipath, self.iconpath, self.config)
         self.wizard.connect('cancel', self.cb_wizard_finished)
         self.wizard.connect('close', self.cb_wizard_finished)
         self.wizard.show()
@@ -1877,7 +1877,7 @@ class App(Gtk.Application, TimerManager):
 
     def cb_about(self, *a):
         from syncthing_gtk.aboutdialog import AboutDialog
-        AboutDialog(self, self.gladepath, self.iconpath).show(self["window"])
+        AboutDialog(self, self.uipath, self.iconpath).show(self["window"])
 
     def cb_delete_event(self, *e):
         # Hide main window

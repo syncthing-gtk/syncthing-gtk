@@ -32,10 +32,9 @@ VERSIONING_TYPES = {'simple', 'staggered', 'trashcan', 'external'}
 
 class FolderEditorDialog(EditorDialog):
     def __init__(self, app, is_new, id=None, path=None):
-        EditorDialog.__init__(self, app,
-                              "folder-edit.glade",
-                              "New Shared Folder" if is_new else "Edit Shared Folder"
-                              )
+        EditorDialog.__init__(
+            self, app, "folder-edit.ui",
+            "New Shared Folder" if is_new else "Edit Shared Folder")
         self.id = id
         self.path = path
         self.is_new = is_new

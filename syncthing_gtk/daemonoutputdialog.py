@@ -49,10 +49,10 @@ class DaemonOutputDialog(object):
         self["dialog"].destroy()
 
     def setup_widgets(self):
-        # Load glade file
+        # Load ui file
         self.builder = UIBuilder()
         self.builder.add_from_file(os.path.join(
-            self.app.gladepath, "daemon-output.glade"))
+            self.app.uipath, "daemon-output.ui"))
         self.builder.connect_signals(self)
         self["tvOutput"].connect('size-allocate', self.scroll)
 
