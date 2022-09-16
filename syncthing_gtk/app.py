@@ -1498,7 +1498,7 @@ class App(Gtk.Application, TimerManager):
                     self["window"].move(x, y)
                 GLib.idle_add(move_back)
 
-    def show_folder(self, id, label, path, folder_type, ignore_perms, rescan_interval, fswatcher_enabled, shared):
+    def show_folder(self, folder_id, label, path, folder_type, ignore_perms, rescan_interval, fswatcher_enabled, shared):
         """ Shared is expected to be list """
         assert type(folder_type) != bool
         display_path = path
@@ -1506,14 +1506,14 @@ class App(Gtk.Application, TimerManager):
             if display_path.lower().replace("\\", "/").startswith(os.path.expanduser("~").lower()):
                 display_path = "~%s" % display_path[len(
                     os.path.expanduser("~")):]
-        title = id
+        title = folder_id
         if self.config["folder_as_path"]:
             title = display_path
         if label not in (None, ""):
             title = label
-        if id in self.folders:
+        if folder_id in self.folders:
             # Reuse existing box
-            box = self.folders[id]
+            box = self.folders[folder_id]
             box.set_title(title)
             box['menuitem'].set_label(title)
         else:
@@ -1521,7 +1521,7 @@ class App(Gtk.Application, TimerManager):
             box = InfoBox(self, title, Gtk.Image.new_from_icon_name(
                 "drive-harddisk", Gtk.IconSize.LARGE_TOOLBAR))
             # Add visible lines
-            box.add_value("id",				"version.svg",	_("Folder ID"),			id)
+            box.add_value("id",				"version.svg",	_("Folder ID"),			folder_id)
             box.add_value("path",			"folder.svg",	_("Path"))
             box.add_value("global",			"global.svg",	_(
                 "Global State"),		"? items, ?B")
@@ -1550,7 +1550,7 @@ class App(Gtk.Application, TimerManager):
             # Window border will dissapear without this on Windows
             GLib.idle_add(box.show_all)
             self["folderlist"].pack_start(box, False, False, 3)
-            box.set_open(id in self.open_boxes or self.folders_never_loaded)
+            box.set_open(folder_id in self.open_boxes or self.folders_never_loaded)
             box.connect('right-click', self.cb_popup_menu_folder)
             box.connect('doubleclick', self.cb_browse_folder)
             box.connect('enter-notify-event', self.cb_box_mouse_enter)
@@ -1561,10 +1561,10 @@ class App(Gtk.Application, TimerManager):
             menuitem.show()
             menuitem.connect('activate', self.cb_browse_folder_menu, box)
             box.add_hidden_value("menuitem", menuitem)
-            self.folders[id] = box
+            self.folders[folder_id] = box
             self.folders_never_loaded = False
         # Set values
-        box.set_value("id",		id)
+        box.set_value("id",		folder_id)
         box.set_value("path",	display_path)
         if folder_type == "receiveonly":
             box.set_value("folder_type",	_("Receive Only"))
