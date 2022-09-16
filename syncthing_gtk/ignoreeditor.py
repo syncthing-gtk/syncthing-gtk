@@ -38,9 +38,9 @@ class IgnoreEditor(object):
         self["dialog"].destroy()
 
     def setup_widgets(self):
-        # Load glade file
+        # Load ui file
         self.builder = UIBuilder()
-        self.builder.add_from_file(os.path.join(self.app.gladepath, "ignore-editor.glade"))
+        self.builder.add_from_file(os.path.join(self.app.uipath, "ignore-editor.ui"))
         self.builder.connect_signals(self)
         self["lblLocation"].set_markup(
             '%s <a href="file://%s">%s</a>'

@@ -77,7 +77,7 @@ class UISettingsDialog(EditorDialog):
     SETTING_NEEDS_RESTART = ["vuse_old_header", "vforce_dark_theme", "vicon_theme", "vlanguage"]
 
     def __init__(self, app):
-        EditorDialog.__init__(self, app, "ui-settings.glade", _("UI Settings"))
+        EditorDialog.__init__(self, app, "ui-settings.ui", _("UI Settings"))
         self.app = app
 
     def run(self):

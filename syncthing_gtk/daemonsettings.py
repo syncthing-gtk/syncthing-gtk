@@ -27,7 +27,7 @@ VALUES = [
 
 class DaemonSettingsDialog(EditorDialog):
     def __init__(self, app):
-        EditorDialog.__init__(self, app, "daemon-settings.glade", _("Syncthing Daemon Settings"))
+        EditorDialog.__init__(self, app, "daemon-settings.ui", _("Syncthing Daemon Settings"))
 
     # @Overrides
     def get_value(self, key):

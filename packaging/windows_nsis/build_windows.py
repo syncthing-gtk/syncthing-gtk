@@ -95,7 +95,7 @@ include_files += [
 ]
 
 # Data files
-include_files += [x for x in os.listdir(".") if x.endswith(".glade")]
+include_files += [x for x in os.listdir(".") if x.endswith(".ui")]
 include_files += ["./icons"]
 d = [(x, x) for x in find_mos("locale/")]
 include_files += d

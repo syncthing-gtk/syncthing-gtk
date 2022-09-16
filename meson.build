@@ -13,7 +13,7 @@ project_data_dir = get_option('datadir') / project_name
 license = files('LICENSE')
 
 subdir('doc')
-subdir('glade')
+subdir('ui')
 subdir('icons')
 subdir('locale')
 # subdir('scripts')

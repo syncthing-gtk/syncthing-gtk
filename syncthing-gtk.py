@@ -94,7 +94,7 @@ if __name__ == "__main__":
         data_path = Path(__file__).parent
         locale_path = data_path / "locale"
         icons_path = data_path / "icons"
-        glade_path = data_path / "glade"
+        ui_path = data_path / "ui"
 
         data_path = data_path / "data"
         if not data_path.exists():
@@ -113,12 +113,12 @@ if __name__ == "__main__":
         data_path = Path(__file__).parent
         locale_path = data_path / "locale"
         icons_path = data_path / "icons"
-        glade_path = data_path / "glade"
+        ui_path = data_path / "ui"
 
     elif data_path := find_installation_directory():
         locale_path = data_path / "locale"
         icons_path = data_path / "icons"
-        glade_path = data_path
+        ui_path = data_path
 
     elif IS_WINDOWS:
         # Running from C:/program files
@@ -126,7 +126,7 @@ if __name__ == "__main__":
         data_path = Path(get_install_path())
         locale_path = data_path / "locale"
         icons_path = data_path / "icons"
-        glade_path = data_path / "glade"
+        ui_path = data_path / "ui"
 
         os.environ["PATH"] = str(data_path)
         os.chdir(data_path)
@@ -152,4 +152,4 @@ if __name__ == "__main__":
             Gtk.IconTheme.get_default().prepend_search_path(os.environ["APPDIR"] + subpath)
 
     init_locale(str(locale_path))
-    App(str(glade_path), str(icons_path)).run(sys.argv)
+    App(str(ui_path), str(icons_path)).run(sys.argv)
