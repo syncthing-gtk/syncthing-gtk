@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: syncthing-gtk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-12 19:35+0100\n"
+"POT-Creation-Date: 2023-06-27 13:15+0200\n"
 "PO-Revision-Date: 2018-08-29 07:20+0000\n"
 "Last-Translator: xearonet\n"
 "Language-Team: Polish (http://www.transifex.com/syncthing-gtk/syncthing-gtk/"
@@ -23,25 +23,25 @@ msgstr ""
 "(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: glade/about.glade:7
+#: ui/about.ui:7
 msgid "About Syncthing-GTK"
 msgstr "O Syncthing-GTK"
 
-#: glade/about.glade:68
+#: ui/about.ui:68
 msgid "<span size=\"large\"><b>Syncthing-GTK</b></span>"
 msgstr ""
 
-#: glade/about.glade:84
+#: ui/about.ui:84
 #, fuzzy
 msgid "(version)"
 msgstr "Wersja"
 
-#: glade/about.glade:97
+#: ui/about.ui:97
 #, fuzzy
 msgid "GUI and notification area icon for Syncthing"
 msgstr "Ikona Syncthing dla GTK GUI i panelu powiadomień"
 
-#: glade/about.glade:112
+#: ui/about.ui:112
 msgid ""
 "<b>Code&amp;UI © 2016 Kozec</b>\n"
 "\n"
@@ -64,7 +64,7 @@ msgid ""
 "<b>ambidot</b>\n"
 msgstr ""
 
-#: glade/about.glade:145
+#: ui/about.ui:145
 msgid ""
 "<small>This program comes with absolutely no warranty.\n"
 "See the <a href=\"http://www.gnu.org/licenses/old-licenses/gpl-2.0."
@@ -72,189 +72,188 @@ msgid ""
 "small>"
 msgstr ""
 
-#: glade/app.glade:216 glade/app.glade:606
+#: ui/app.ui:216 ui/app.ui:606
 msgid "Open _Web Interface"
 msgstr "Otwórz interfejs _Web"
 
-#: glade/app.glade:220
+#: ui/app.ui:220
 msgid "Display _Daemon Output"
 msgstr "Pokaż wyjście _Demona"
 
-#: glade/app.glade:226
+#: ui/app.ui:226
 msgid "UI _Settings"
 msgstr "_Ustawienia UI"
 
-#: glade/app.glade:232
+#: ui/app.ui:232
 msgid "_About"
 msgstr "_O"
 
-#: glade/app.glade:236
+#: ui/app.ui:236
 msgid "_Quit"
 msgstr "_Wyjdź"
 
-#: glade/app.glade:247
+#: ui/app.ui:247
 msgid "Add Shared _Folder"
 msgstr "Dodaj współdzielony _Folder"
 
-#: glade/app.glade:251
+#: ui/app.ui:251
 msgid "Add _Device"
 msgstr "Dodaj _Urządzenie"
 
-#: glade/app.glade:257
+#: ui/app.ui:257
 msgid "Daemon _Settings"
 msgstr "_Ustawienia demona"
 
-#: glade/app.glade:261 glade/app.glade:392 glade/app.glade:592
+#: ui/app.ui:261 ui/app.ui:392 ui/app.ui:592
 msgid "Show _ID"
 msgstr "Pokaż _ID"
 
-#: glade/app.glade:267
+#: ui/app.ui:267
 msgid "Sh_utdown Daemon"
 msgstr "_Wyłącz demona"
 
-#: glade/app.glade:271
+#: ui/app.ui:271
 msgid "_Restart Daemon"
 msgstr "_Restartuj demona"
 
-#: glade/app.glade:286
+#: ui/app.ui:286
 msgid "Override Remote Changes"
 msgstr "Nadpisz zdalne zmiany"
 
-#: glade/app.glade:297
+#: ui/app.ui:297
 #, fuzzy
 msgid "Override Local Changes"
 msgstr "Nadpisz zdalne zmiany"
 
-#: glade/app.glade:324
+#: ui/app.ui:324
 msgid "Edit _Ignore Patterns"
 msgstr "Edytuj wzorce _Ignorowania"
 
-#: glade/app.glade:351
+#: ui/app.ui:351
 msgid "_Rescan"
 msgstr "_Przeskanuj"
 
-#: glade/app.glade:363
+#: ui/app.ui:363
 msgid "_Browse"
 msgstr "_Przeglądaj"
 
-#: glade/app.glade:404
+#: ui/app.ui:404
 msgid "gtk-media-pause"
 msgstr ""
 
-#: glade/app.glade:415
+#: ui/app.ui:415
 msgid "Resume"
 msgstr "Wznów"
 
-#: glade/app.glade:445
+#: ui/app.ui:445
 msgid "Connecting to daemon..."
 msgstr "Łącznie do demona..."
 
-#: glade/app.glade:455 syncthing_gtk/app.py:1380
+#: ui/app.ui:455 syncthing_gtk/app.py:1380
 msgid "Show Window"
 msgstr "Pokaż okno"
 
-#: glade/app.glade:473
+#: ui/app.ui:473
 msgid "S_top Syncthing"
 msgstr "_Zatrzymaj Syncthing"
 
-#: glade/app.glade:487
+#: ui/app.ui:487
 msgid "Resume Sync_thing"
 msgstr "Wznów Sync_thing"
 
-#: glade/app.glade:499 glade/daemon-settings.glade:335
+#: ui/app.ui:499 ui/daemon-settings.ui:335
 msgid "_Incoming Rate Limit"
 msgstr "Ograniczenie prędkości _pobierania"
 
-#: glade/app.glade:513 glade/app.glade:555
+#: ui/app.ui:513 ui/app.ui:555
 msgid "_Unlimited"
 msgstr "_Nielimitowane"
 
-#: glade/app.glade:522 glade/app.glade:564
+#: ui/app.ui:522 ui/app.ui:564
 msgid "_Other"
 msgstr "_Inne"
 
-#: glade/app.glade:541
+#: ui/app.ui:541
 msgid "_Outgoing Rate Limit"
 msgstr "Ograniczenie prędkości _wysyłania"
 
-#: glade/app.glade:618
+#: ui/app.ui:618
 msgid "See _Logs"
 msgstr ""
 
-#: glade/app.glade:630
+#: ui/app.ui:630
 msgid "_Preferences"
 msgstr ""
 
-#: glade/daemon-output.glade:7
+#: ui/daemon-output.ui:7
 msgid "Daemon Output"
 msgstr "Wyjście demona"
 
-#: glade/daemon-settings.glade:106
+#: ui/daemon-settings.ui:106
 msgid "Sync Protocol Listen Addresses"
 msgstr "Adres nasłuchu protokołu synchronizacji"
 
-#: glade/daemon-settings.glade:136
+#: ui/daemon-settings.ui:136
 msgid "Enable Local _Discovery"
 msgstr "Włącz lokalne _odnajdywanie"
 
-#: glade/daemon-settings.glade:153
+#: ui/daemon-settings.ui:153
 msgid "Enable _UPnP"
 msgstr "Włącz _UPnP"
 
-#: glade/daemon-settings.glade:171
+#: ui/daemon-settings.ui:171
 msgid "Local Discovery _Port"
 msgstr "_Port lokalnego odnajdywania"
 
-#: glade/daemon-settings.glade:212
+#: ui/daemon-settings.ui:212
 msgid "Outgoing _Rate Limit"
 msgstr "Ograniczenie prędkości _wysyłania"
 
-#: glade/daemon-settings.glade:229
+#: ui/daemon-settings.ui:229
 msgid "Open browser with _WebUI when daemon is starting"
 msgstr "Otwórz przeglądarkę z interfejsem _Web kiedy demon startuje"
 
-#: glade/daemon-settings.glade:246
+#: ui/daemon-settings.ui:246
 msgid "Enable _Anonymous Usage Reporting"
 msgstr "Włącz _anonimowe raportowanie użycia"
 
-#: glade/daemon-settings.glade:262
+#: ui/daemon-settings.ui:262
 msgid "Enable _Global Discovery"
 msgstr "Włącz _globalne odnajdowanie"
 
-#: glade/daemon-settings.glade:281
+#: ui/daemon-settings.ui:281
 msgid "Global Discovery _Servers"
 msgstr "_Serwery globalnego odnajdowania"
 
-#: glade/device-edit.glade:22 syncthing_gtk/app.py:1580
+#: ui/device-edit.ui:22 syncthing_gtk/app.py:1580
 msgid "All Data"
 msgstr "Wszystkie dane"
 
-#: glade/device-edit.glade:26 glade/folder-edit.glade:78
-#: syncthing_gtk/app.py:1582
+#: ui/device-edit.ui:26 ui/folder-edit.ui:78 syncthing_gtk/app.py:1582
 msgid "Off"
 msgstr "Wyłączono"
 
-#: glade/device-edit.glade:30 syncthing_gtk/app.py:1584
+#: ui/device-edit.ui:30 syncthing_gtk/app.py:1584
 msgid "Metadata Only"
 msgstr "Tylko metadane"
 
-#: glade/device-edit.glade:101
+#: ui/device-edit.ui:101
 msgid "Device _ID"
 msgstr "_ID urządzenia"
 
-#: glade/device-edit.glade:131
+#: ui/device-edit.ui:131
 msgid "Device _Name"
 msgstr "_Nazwa urządzenia"
 
-#: glade/device-edit.glade:161
+#: ui/device-edit.ui:161
 msgid "Shown instead of Device ID in the cluster status."
 msgstr "Pokaż zamiast ID urządzenia w statusie grupy."
 
-#: glade/device-edit.glade:175
+#: ui/device-edit.ui:175
 msgid "_Addresses"
 msgstr "_Adres"
 
-#: glade/device-edit.glade:205
+#: ui/device-edit.ui:205
 msgid ""
 "Enter comma separated \"ip:port\" addresses or \"dynamic\" to perform "
 "automatic discovery of the address."
@@ -262,19 +261,19 @@ msgstr ""
 "Wprowadź rozdzielone przecinkiem adresy \"ip:port\" lub wpisz \"dynamic\" "
 "aby użyć automatycznego wykrywania adresu."
 
-#: glade/device-edit.glade:232
+#: ui/device-edit.ui:232
 msgid "Share _Folders"
 msgstr "_Foldery współdzielone"
 
-#: glade/device-edit.glade:249
+#: ui/device-edit.ui:249
 msgid "Select the folders to share with this device"
 msgstr "Wybierz foldery do współdzielenia z tym urządzeniem"
 
-#: glade/device-edit.glade:260
+#: ui/device-edit.ui:260
 msgid "_Introducer"
 msgstr "_Wprowadzający"
 
-#: glade/device-edit.glade:279
+#: ui/device-edit.ui:279
 msgid ""
 "Any devices configured on an introducer device will be added to this device "
 "as well."
@@ -282,93 +281,93 @@ msgstr ""
 "Każde urządzenie dodane na urządzeniu wprowadzającego będzie dodane również "
 "na tym urządzeniu."
 
-#: glade/device-edit.glade:293
+#: ui/device-edit.ui:293
 msgid "_Compression"
 msgstr "_Kompresja"
 
-#: glade/device-id.glade:14
+#: ui/device-id.ui:14
 msgid "Device Identification"
 msgstr "Identyfikacja urządzenia"
 
-#: glade/device-id.glade:68
+#: ui/device-id.ui:68
 msgid "XYZ-123-ABC"
 msgstr "XYZ-123-ABC"
 
-#: glade/find-daemon.glade:7 syncthing_gtk/finddaemondialog.py:27
+#: ui/find-daemon.ui:7 syncthing_gtk/finddaemondialog.py:27
 msgid "Can't invoke the daemon"
 msgstr "Nie mogę połączyć się z demonem"
 
-#: glade/find-daemon.glade:126 glade/ui-settings.glade:909
+#: ui/find-daemon.ui:126 ui/ui-settings.ui:909
 msgid "_Browse..."
 msgstr "_Przeglądaj"
 
-#: glade/find-daemon.glade:179
+#: ui/find-daemon.ui:179
 msgid "_Download..."
 msgstr "_Pobieranie..."
 
-#: glade/folder-edit.glade:44
+#: ui/folder-edit.ui:44
 msgctxt "In File Pull Order combobox"
 msgid "Random"
 msgstr "Losowy"
 
-#: glade/folder-edit.glade:48
+#: ui/folder-edit.ui:48
 msgctxt "In File Pull Order combobox"
 msgid "Alphabetic"
 msgstr "Alfabetycznie"
 
-#: glade/folder-edit.glade:52
+#: ui/folder-edit.ui:52
 msgctxt "In File Pull Order combobox"
 msgid "Smallest First"
 msgstr "Mniejsze najpierw"
 
-#: glade/folder-edit.glade:56
+#: ui/folder-edit.ui:56
 msgctxt "In File Pull Order combobox"
 msgid "Largest First"
 msgstr "Większe najpierw"
 
-#: glade/folder-edit.glade:60
+#: ui/folder-edit.ui:60
 msgctxt "In File Pull Order combobox"
 msgid "Oldest First"
 msgstr "Najpierw najstarsze"
 
-#: glade/folder-edit.glade:64
+#: ui/folder-edit.ui:64
 msgctxt "In File Pull Order combobox"
 msgid "Newest First"
 msgstr "Najpierw najnowsze"
 
-#: glade/folder-edit.glade:82
+#: ui/folder-edit.ui:82
 msgid "Simple"
 msgstr "Prosty"
 
-#: glade/folder-edit.glade:86
+#: ui/folder-edit.ui:86
 msgid "Staggered"
 msgstr "Rozbity"
 
-#: glade/folder-edit.glade:90
+#: ui/folder-edit.ui:90
 msgid "Trashcan"
 msgstr "Kosz"
 
-#: glade/folder-edit.glade:94
+#: ui/folder-edit.ui:94
 msgid "External"
 msgstr "Zewnętrzny"
 
-#: glade/folder-edit.glade:171
+#: ui/folder-edit.ui:171
 msgid "Folder _Label"
 msgstr "_Etykieta folderu"
 
-#: glade/folder-edit.glade:190
+#: ui/folder-edit.ui:190
 msgid "Generate Random"
 msgstr ""
 
-#: glade/folder-edit.glade:205
+#: ui/folder-edit.ui:205
 msgid "Short identifier for the folder. Must be the same on all devices."
 msgstr "Krótka nazwa folderu. Musi być taka sama na wszystkich urządzeniach."
 
-#: glade/folder-edit.glade:219
+#: ui/folder-edit.ui:219
 msgid "_Path"
 msgstr "_Ścieżka"
 
-#: glade/folder-edit.glade:237
+#: ui/folder-edit.ui:237
 msgid ""
 "Path to the folder on the local computer. Will be created if it does not "
 "exist."
@@ -376,36 +375,36 @@ msgstr ""
 "Ścieżka do folderu na lokalnym komputerze. Jeśli nie istnieje, zostanie "
 "stworzony."
 
-#: glade/folder-edit.glade:251
+#: ui/folder-edit.ui:251
 msgid "Rescan _Interval"
 msgstr "_Interwał skanowania"
 
-#: glade/folder-edit.glade:269 glade/folder-edit.glade:1092
+#: ui/folder-edit.ui:269 ui/folder-edit.ui:1092
 msgid "5"
 msgstr ""
 
-#: glade/folder-edit.glade:298
+#: ui/folder-edit.ui:298
 msgid "Monitor filesystem for _changes"
 msgstr "Monitoruj system plików dla _zmian"
 
-#: glade/folder-edit.glade:332
+#: ui/folder-edit.ui:332
 msgid "Browse..."
 msgstr "Przeglądanie..."
 
-#: glade/folder-edit.glade:355
+#: ui/folder-edit.ui:355
 msgid "Folder _ID"
 msgstr "_ID folderu"
 
-#: glade/folder-edit.glade:385
+#: ui/folder-edit.ui:385
 msgid ""
 "Optional descriptive label for the folder. Can be different on each device."
 msgstr "Opcjonalna nazwa dla folderu. Może być inna na każdym urządzeniu."
 
-#: glade/folder-edit.glade:408
+#: ui/folder-edit.ui:408
 msgid "_Send Only Folder"
 msgstr "Folder tylko do _wysyłania"
 
-#: glade/folder-edit.glade:429
+#: ui/folder-edit.ui:429
 msgid ""
 "Files are protected from changes made on other devices, but changes made on "
 "this device will be sent to the rest of the cluster."
@@ -413,12 +412,12 @@ msgstr ""
 "Pliki są zabezpieczone przed zmianami zrobionymi na innych urządzeniach ale "
 "zmiany z tego urządzenia zostaną rozesłane na inne urządzenia w grupie."
 
-#: glade/folder-edit.glade:453
+#: ui/folder-edit.ui:453
 #, fuzzy
 msgid "_Receive Only Folder"
 msgstr "Folder tylko do _wysyłania"
 
-#: glade/folder-edit.glade:474
+#: ui/folder-edit.ui:474
 #, fuzzy
 msgid ""
 "Changes from other devices are applied to files on this device, but changes "
@@ -427,23 +426,23 @@ msgstr ""
 "Pliki są zabezpieczone przed zmianami zrobionymi na innych urządzeniach ale "
 "zmiany z tego urządzenia zostaną rozesłane na inne urządzenia w grupie."
 
-#: glade/folder-edit.glade:493
+#: ui/folder-edit.ui:493
 msgid "_Folder Settings"
 msgstr "Ustawienia _folderu"
 
-#: glade/folder-edit.glade:514
+#: ui/folder-edit.ui:514
 msgid "Select the devices to share this folder with."
 msgstr "Wybierz urządzenie aby współdzielić z nim ten folder."
 
-#: glade/folder-edit.glade:566
+#: ui/folder-edit.ui:566
 msgid "Share With _Devices"
 msgstr "Współdziel z _urządzeniem"
 
-#: glade/folder-edit.glade:588
+#: ui/folder-edit.ui:588
 msgid "Versioning _Mode"
 msgstr "_Tryb wersjonowania"
 
-#: glade/folder-edit.glade:643
+#: ui/folder-edit.ui:643
 msgid ""
 "Files are moved to date stamped versions in a .stversions folder when "
 "replaced or deleted by syncthing."
@@ -451,15 +450,15 @@ msgstr ""
 "Pliki są datowane i przenoszone do folderu .stversions, kiedy zmieni je lub "
 "usunie syncthing."
 
-#: glade/folder-edit.glade:658
+#: ui/folder-edit.ui:658
 msgid "_Keep Versions"
 msgstr "_Zachowuj wersje"
 
-#: glade/folder-edit.glade:695
+#: ui/folder-edit.ui:695
 msgid "The number of old versions to keep, per file."
 msgstr "Liczba wersji pliku do zachowania."
 
-#: glade/folder-edit.glade:724
+#: ui/folder-edit.ui:724
 msgid ""
 "Files are moved to date stamped versions in a .stversions folder when "
 "replaced or deleted by syncthing. Versions are automatically deleted if they "
@@ -480,15 +479,15 @@ msgstr ""
 "dniach pliku, nowa wersja co 1 dzień, później co tydzień aż do maksymalnego "
 "wieku pliku."
 
-#: glade/folder-edit.glade:741
+#: ui/folder-edit.ui:741
 msgid "Ma_ximum Age"
 msgstr "Ma_ksymalny wiek"
 
-#: glade/folder-edit.glade:780
+#: ui/folder-edit.ui:780
 msgid "Versions _Path"
 msgstr "Ścieżka _wersji"
 
-#: glade/folder-edit.glade:812
+#: ui/folder-edit.ui:812
 msgid ""
 "Path where versions should be stored (leave empty for the default ."
 "stversions folder)."
@@ -496,22 +495,22 @@ msgstr ""
 "Ścieżka, gdzie pliki wersji mają być przechowywane (zostaw puste dla "
 "domyślnego folderu .stversions)."
 
-#: glade/folder-edit.glade:840
+#: ui/folder-edit.ui:840
 msgid ""
 "Files are moved to .stversions folder when replaced or deleted by Syncthing"
 msgstr ""
 "Pliki są przenoszone do folderu .stversions, kiedy zmieni je lub usunie "
 "Syncthing."
 
-#: glade/folder-edit.glade:854
+#: ui/folder-edit.ui:854
 msgid "Clean out _after"
 msgstr "Oczyść _po"
 
-#: glade/folder-edit.glade:893
+#: ui/folder-edit.ui:893
 msgid "The number of days to keep files in the trash can."
 msgstr "Liczb dni trzymania plików w koszu."
 
-#: glade/folder-edit.glade:922
+#: ui/folder-edit.ui:922
 msgid ""
 "An external command handles the versioning. It has to remove the file from "
 "the synced folder."
@@ -519,11 +518,11 @@ msgstr ""
 "Zewnętrzna komenda odpowiedzialna za wersjonowanie. Musi usuwać plik z "
 "synchronizowanego folderu."
 
-#: glade/folder-edit.glade:937
+#: ui/folder-edit.ui:937
 msgid "Command"
 msgstr "Komenda"
 
-#: glade/folder-edit.glade:970
+#: ui/folder-edit.ui:970
 msgid ""
 "The first command line parameter is the folder path and the second parameter "
 "is the relative path in the folder."
@@ -531,15 +530,15 @@ msgstr ""
 "Pierwszy parametr w linii komend jest ścieżką folderu a drugi relatywną "
 "ścieżką wewnątrz tego folderu."
 
-#: glade/folder-edit.glade:1007
+#: ui/folder-edit.ui:1007
 msgid "File _Versioning"
 msgstr "_Wersjonowanie pliku"
 
-#: glade/folder-edit.glade:1037
+#: ui/folder-edit.ui:1037
 msgid "Ignore P_ermissions"
 msgstr "Ignoruj _uprawnienia"
 
-#: glade/folder-edit.glade:1058
+#: ui/folder-edit.ui:1058
 msgid ""
 "File permission bits are ignored when looking for changes. Use on FAT "
 "filesystems."
@@ -547,23 +546,23 @@ msgstr ""
 "Uprawnienia plików będą ignorowane przy szukaniu zmian. Użyj w systemie "
 "plików FAT."
 
-#: glade/folder-edit.glade:1073
+#: ui/folder-edit.ui:1073
 msgid "Minimum Free Disk Space"
 msgstr "Minimalna ilość wolnego miejsca"
 
-#: glade/folder-edit.glade:1112
+#: ui/folder-edit.ui:1112
 msgid "File Pull _Order"
 msgstr "_Kolejność pobierania plików"
 
-#: glade/folder-edit.glade:1160 glade/ui-settings.glade:1046
+#: ui/folder-edit.ui:1160 ui/ui-settings.ui:1046
 msgid "_Advanced"
 msgstr "_Zaawansowane"
 
-#: glade/ignore-editor.glade:8
+#: ui/ignore-editor.ui:8
 msgid "Ignore Patterns"
 msgstr "Wzorce ignorowania"
 
-#: glade/ignore-editor.glade:99
+#: ui/ignore-editor.ui:99
 msgid ""
 "See <a href=\"http://docs.syncthing.net/users/ignoring.html\">Syncthing "
 "documentation</a> for list of supported patterns"
@@ -571,144 +570,144 @@ msgstr ""
 "Zobacz <a href=\"http://docs.syncthing.net/users/ignoring."
 "html\">dokumentację Syncthing</a> aby zobaczyć listę wspieranych wyrażeń."
 
-#: glade/ignore-editor.glade:114
+#: ui/ignore-editor.ui:114
 msgid "File location: "
 msgstr "Położenie pliku:"
 
-#: glade/ui-settings.glade:27 glade/ui-settings.glade:49
+#: ui/ui-settings.ui:27 ui/ui-settings.ui:49
 msgid "Default"
 msgstr ""
 
-#: glade/ui-settings.glade:31
+#: ui/ui-settings.ui:31
 msgid "Black"
 msgstr ""
 
-#: glade/ui-settings.glade:35
+#: ui/ui-settings.ui:35
 msgid "White"
 msgstr ""
 
-#: glade/ui-settings.glade:107
+#: ui/ui-settings.ui:107
 msgid "Lowest"
 msgstr "Najniższy"
 
-#: glade/ui-settings.glade:111
+#: ui/ui-settings.ui:111
 msgid "Low"
 msgstr "Niski"
 
-#: glade/ui-settings.glade:115
+#: ui/ui-settings.ui:115
 msgid "Normal"
 msgstr "Normalny"
 
-#: glade/ui-settings.glade:119
+#: ui/ui-settings.ui:119
 msgid "Above Normal"
 msgstr "Powyżej normalnego"
 
-#: glade/ui-settings.glade:126
+#: ui/ui-settings.ui:126
 msgid "Syncthing-GTK Settings"
 msgstr "Ustawienia Syncthing-GTK"
 
-#: glade/ui-settings.glade:149
+#: ui/ui-settings.ui:149
 msgid "Please, restart Syncthing-GTK to apply all changed settings"
 msgstr ""
 "Uruchom ponownie Syncthing-GTK aby zastosować wszystkie zmiany konfiguracji"
 
-#: glade/ui-settings.glade:217
+#: ui/ui-settings.ui:217
 msgid "When starting and Syncthing daemon is not running..."
 msgstr "Kiedy startuje ale demon Syncthing nie działa...."
 
-#: glade/ui-settings.glade:228
+#: ui/ui-settings.ui:228
 msgid "... _wait for daemon"
 msgstr "... _czekaj na demona"
 
-#: glade/ui-settings.glade:246
+#: ui/ui-settings.ui:246
 msgid "... start daemon in _background"
 msgstr "… _uruchom demona w tle"
 
-#: glade/ui-settings.glade:264
+#: ui/ui-settings.ui:264
 msgid "... _ask me what to do"
 msgstr "... _zapytaj mnie co robić"
 
-#: glade/ui-settings.glade:285
+#: ui/ui-settings.ui:285
 msgid "When exiting after daemon was started in background..."
 msgstr "Kiedy wychodzi a demon był uruchomiony w tle..."
 
-#: glade/ui-settings.glade:296
+#: ui/ui-settings.ui:296
 msgid "... terminate _daemon"
 msgstr "… _zakończ demona"
 
-#: glade/ui-settings.glade:314
+#: ui/ui-settings.ui:314
 msgid "... leave daemon _running"
 msgstr "... _pozostaw demona uruchomionego"
 
-#: glade/ui-settings.glade:332
+#: ui/ui-settings.ui:332
 msgid "... ask me w_hat to do"
 msgstr "... zapytaj mnie co _robić"
 
-#: glade/ui-settings.glade:350
+#: ui/ui-settings.ui:350
 msgid "Us_e traditional window header"
 msgstr "Użyj tradycyjnego nagłówka okna"
 
-#: glade/ui-settings.glade:371
+#: ui/ui-settings.ui:371
 msgid "Display desktop notifications for..."
 msgstr "Wyświetlaj powiadomienia dla..."
 
-#: glade/ui-settings.glade:382
+#: ui/ui-settings.ui:382
 msgid "... file updates"
 msgstr "... zaktualizowanych plików"
 
-#: glade/ui-settings.glade:399
+#: ui/ui-settings.ui:399
 msgid "... errors"
 msgstr "... błędów"
 
-#: glade/ui-settings.glade:416
+#: ui/ui-settings.ui:416
 msgid "... synchronization completion"
 msgstr "... ukończenia synchronizacji"
 
-#: glade/ui-settings.glade:433
+#: ui/ui-settings.ui:433
 msgid "Start Syncthing-GTK when I login to my desktop"
 msgstr "Uruchom Syncthing-GTK wraz z logowaniem do systemu"
 
-#: glade/ui-settings.glade:450
+#: ui/ui-settings.ui:450
 msgid "Minimize to _tray on start"
 msgstr "Minimalizuj do _obszaru powiadomień przy starcie"
 
-#: glade/ui-settings.glade:466
+#: ui/ui-settings.ui:466
 msgid "Display paths in directories panel"
 msgstr "Wyświetl ścieżki w panelu katalogów"
 
-#: glade/ui-settings.glade:482
+#: ui/ui-settings.ui:482
 msgid "Force _dark theme"
 msgstr "_Wymuś ciemny motyw"
 
-#: glade/ui-settings.glade:523
+#: ui/ui-settings.ui:523
 msgid "Tray icon style"
 msgstr ""
 
-#: glade/ui-settings.glade:536
+#: ui/ui-settings.ui:536
 msgid "Language"
 msgstr ""
 
-#: glade/ui-settings.glade:575
+#: ui/ui-settings.ui:575
 msgid "_Interface"
 msgstr "_Interfejs"
 
-#: glade/ui-settings.glade:594
+#: ui/ui-settings.ui:594
 msgid "Integrate Syncthing with filemanagers"
 msgstr "Zintegruj Syncthing z menedżerami plików"
 
-#: glade/ui-settings.glade:609
+#: ui/ui-settings.ui:609
 msgid "Nemo (Cinamon Desktop)"
 msgstr "Nemo (Cinnamon)"
 
-#: glade/ui-settings.glade:626
+#: ui/ui-settings.ui:626
 msgid "Nautilus (Ubuntu/GNOME)"
 msgstr "Nautilus (GNOME)"
 
-#: glade/ui-settings.glade:642
+#: ui/ui-settings.ui:642
 msgid "Caja (MATE Desktop)"
 msgstr "Caja (MATE)"
 
-#: glade/ui-settings.glade:681
+#: ui/ui-settings.ui:681
 msgid ""
 "<b>Note:</b> You may need to restart your filemanager after toggling "
 "integration."
@@ -716,15 +715,15 @@ msgstr ""
 "<b>Informacja:</b> Ponowne uruchomienie menedżera plików może być konieczne "
 "po włączeniu integracji."
 
-#: glade/ui-settings.glade:701
+#: ui/ui-settings.ui:701
 msgid "_Integration"
 msgstr "_Integracja"
 
-#: glade/ui-settings.glade:731
+#: ui/ui-settings.ui:731
 msgid "Keep Syncthing binary up-to-date"
 msgstr "Utrzymuj binarkę Syncthing zawsze aktualną"
 
-#: glade/ui-settings.glade:751
+#: ui/ui-settings.ui:751
 msgid ""
 "If enabled, Syncthing-GTK will automatically check for new daemon releases "
 "and replace binary with latest version."
@@ -732,11 +731,11 @@ msgstr ""
 "Jeśli włączone, Syncthing-GTK będzie automatycznie sprawdzał nową wersję "
 "demona, jeśli znajdzie to go zaktualizuje."
 
-#: glade/ui-settings.glade:766
+#: ui/ui-settings.ui:766
 msgid "Daemon process priority"
 msgstr "Priorytet procesu demona"
 
-#: glade/ui-settings.glade:802
+#: ui/ui-settings.ui:802
 msgid ""
 "Priority will be used only if \"<i>start daemon in background</i>\" option "
 "is checked on \"<i>Interface</i>\" page."
@@ -744,11 +743,11 @@ msgstr ""
 "Priorytet będzie użyty tylko jeśli zaznaczono opcję \"<i>uruchom demona w "
 "tle</i>\" na karcie \"<i>Interfejs</i>\"."
 
-#: glade/ui-settings.glade:817
+#: ui/ui-settings.ui:817
 msgid "Maximum number of CPU cores"
 msgstr "Maksymalna liczba rdzeni procesora"
 
-#: glade/ui-settings.glade:835
+#: ui/ui-settings.ui:835
 msgid ""
 "Sets the maximum number of CPU cores for daemon to use. This value will be "
 "used only if \"<i>start daemon in background</i>\" option is checked on "
@@ -758,11 +757,11 @@ msgstr ""
 "wartość będzie użyta tylko jeśli zaznaczono opcję \"<i>uruchom demona w tle</"
 "i>\" na karcie \"<i>Interfejs</i>\"."
 
-#: glade/ui-settings.glade:873
+#: ui/ui-settings.ui:873
 msgid "Daemon"
 msgstr "Demon"
 
-#: glade/ui-settings.glade:896
+#: ui/ui-settings.ui:896
 msgid ""
 "This binary will be started when syncthing daemon is not running and "
 "\"<i>start daemon in background</i>\" option is checked on \"<i>Interface</"
@@ -772,15 +771,15 @@ msgstr ""
 "\"<i>uruchom demona w tle</i>\" będzie zaznaczona na karcie \"<i>Interfejs</"
 "i>\"."
 
-#: glade/ui-settings.glade:928
+#: ui/ui-settings.ui:928
 msgid "Syncthing binary location"
 msgstr "Położenie binarki Syncthing"
 
-#: glade/ui-settings.glade:958
+#: ui/ui-settings.ui:958
 msgid "Daemon arguments and variables"
 msgstr "Zmienne oraz argumenty demona"
 
-#: glade/ui-settings.glade:988
+#: ui/ui-settings.ui:988
 msgid ""
 "Space-separated list of arguments and environment variables passed when "
 "starting above binary\n"
@@ -806,7 +805,7 @@ msgstr ""
 "Przykład:\n"
 "<i>STTRACE=\"all\" logger-t /var/log/syncthing.log ! -logflags=10</i>"
 
-#: glade/ui-settings.glade:1012
+#: ui/ui-settings.ui:1012
 msgid ""
 "<b>Warning:</b> Changing settings on this page may prevent you from using "
 "Syncthing-GTK"
@@ -1384,79 +1383,79 @@ msgstr "Wybierz folder dla nowego folderu"
 msgid "File location:"
 msgstr "Położenie pliku:"
 
-#: syncthing_gtk/notifications.py:122 syncthing_gtk/notifications.py:123
+#: syncthing_gtk/notifications.py:125 syncthing_gtk/notifications.py:126
 #, python-format
 msgid "Accept device \"%s\""
 msgstr ""
 
-#: syncthing_gtk/notifications.py:124
+#: syncthing_gtk/notifications.py:127
 #, python-format
 msgid "Ignore device \"%s\""
 msgstr ""
 
-#: syncthing_gtk/notifications.py:126
+#: syncthing_gtk/notifications.py:129
 msgid "Unknown Device"
 msgstr ""
 
-#: syncthing_gtk/notifications.py:127
+#: syncthing_gtk/notifications.py:130
 #, python-format
 msgid "Device \"%s\" is trying to connect to syncthing daemon."
 msgstr "Urządzenie \"%s\" próbuje się połączyć do demona Syncthing."
 
-#: syncthing_gtk/notifications.py:170 syncthing_gtk/notifications.py:171
+#: syncthing_gtk/notifications.py:173 syncthing_gtk/notifications.py:174
 #, python-format
 msgid "Accept folder \"%s\""
 msgstr ""
 
-#: syncthing_gtk/notifications.py:172
+#: syncthing_gtk/notifications.py:175
 #, fuzzy, python-format
 msgid "Ignore folder \"%s\""
 msgstr "Wzorce ignorowania"
 
-#: syncthing_gtk/notifications.py:178
+#: syncthing_gtk/notifications.py:181
 #, fuzzy
 msgid "Folder rejected"
 msgstr "Typ folderu"
 
-#: syncthing_gtk/notifications.py:179
+#: syncthing_gtk/notifications.py:182
 #, fuzzy, python-format
 msgid "Unexpected folder \"%(folder)s\" sent from device \"%(device)s\"."
 msgstr "Nieoczekiwany ID folderu wysłany z urządzenia \"%s\"."
 
-#: syncthing_gtk/notifications.py:211
+#: syncthing_gtk/notifications.py:214
 #, fuzzy, python-format
 msgid "Completed synchronization in \"%s\""
 msgstr "... ukończenia synchronizacji"
 
-#: syncthing_gtk/notifications.py:213
+#: syncthing_gtk/notifications.py:216
 #, python-format
 msgid "Updates in folder \"%s\""
 msgstr ""
 
-#: syncthing_gtk/notifications.py:225
+#: syncthing_gtk/notifications.py:228
 #, python-format
 msgid "%(hostname)s: Downloaded '%(filename)s' to reflect remote changes."
 msgstr ""
 "%(hostname)s: Pobrano '%(filename)s' aby zsynchronizować zdalne zmiany."
 
-#: syncthing_gtk/notifications.py:229
+#: syncthing_gtk/notifications.py:232
 #, python-format
 msgid "%(hostname)s: Deleted '%(filename)s' to reflect remote changes."
 msgstr ""
 "%(hostname)s: Usunięto '%(filename)s' aby zsynchronizować zdalne zmiany."
 
-#: syncthing_gtk/notifications.py:231
+#: syncthing_gtk/notifications.py:234
 #, python-format
 msgid "%(hostname)s: Downloaded %(updated)s files to reflect remote changes."
 msgstr "%(hostname)s: Pobrano '%(updated)s' aby zsynchronizować zdalne zmiany."
 
-#: syncthing_gtk/notifications.py:233
+#: syncthing_gtk/notifications.py:236
 #, python-format
 msgid "%(hostname)s: Deleted %(deleted)s files to reflect remote changes."
 msgstr ""
 "%(hostname)s: Usunięto '%(deleted)s' aby zsynchronizować zdalne zmiany."
 
-#: syncthing_gtk/notifications.py:236
+#: syncthing_gtk/notifications.py:239
 #, python-format
 msgid ""
 "%(hostname)s: downloaded %(updated)s files and deleted %(deleted)s files to "
@@ -1465,22 +1464,22 @@ msgstr ""
 "%(hostname)s: pobrano '%(updated)s' i usunięto %(deleted)s aby "
 "zsynchronizować zdalne zmiany."
 
-#: syncthing_gtk/notifications.py:263
+#: syncthing_gtk/notifications.py:266
 #, python-format
 msgid "Conflicting file in \"%s\""
 msgstr ""
 
-#: syncthing_gtk/notifications.py:264
+#: syncthing_gtk/notifications.py:267
 #, python-format
 msgid "Conflict in path \"%s\" detected."
 msgstr ""
 
-#: syncthing_gtk/notifications.py:268
+#: syncthing_gtk/notifications.py:271
 #, fuzzy
 msgid "Open Conflicting file in filemanager"
 msgstr "Zintegruj Syncthing z menedżerami plików"
 
-#: syncthing_gtk/notifications.py:343
+#: syncthing_gtk/notifications.py:346
 msgid "An error occurred in Syncthing!"
 msgstr ""
 

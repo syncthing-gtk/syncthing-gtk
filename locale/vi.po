@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: syncthing-gtk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-12 19:35+0100\n"
+"POT-Creation-Date: 2023-06-27 13:15+0200\n"
 "PO-Revision-Date: 2017-09-22 18:48+0000\n"
 "Last-Translator: kozec <kozec2@kozec.com>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/syncthing-gtk/syncthing-"
@@ -20,24 +20,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: glade/about.glade:7
+#: ui/about.ui:7
 msgid "About Syncthing-GTK"
 msgstr ""
 
-#: glade/about.glade:68
+#: ui/about.ui:68
 msgid "<span size=\"large\"><b>Syncthing-GTK</b></span>"
 msgstr ""
 
-#: glade/about.glade:84
+#: ui/about.ui:84
 #, fuzzy
 msgid "(version)"
 msgstr "Phiên bản"
 
-#: glade/about.glade:97
+#: ui/about.ui:97
 msgid "GUI and notification area icon for Syncthing"
 msgstr ""
 
-#: glade/about.glade:112
+#: ui/about.ui:112
 msgid ""
 "<b>Code&amp;UI © 2016 Kozec</b>\n"
 "\n"
@@ -60,7 +60,7 @@ msgid ""
 "<b>ambidot</b>\n"
 msgstr ""
 
-#: glade/about.glade:145
+#: ui/about.ui:145
 msgid ""
 "<small>This program comes with absolutely no warranty.\n"
 "See the <a href=\"http://www.gnu.org/licenses/old-licenses/gpl-2.0."
@@ -68,189 +68,188 @@ msgid ""
 "small>"
 msgstr ""
 
-#: glade/app.glade:216 glade/app.glade:606
+#: ui/app.ui:216 ui/app.ui:606
 msgid "Open _Web Interface"
 msgstr "Mở _giao diện web"
 
-#: glade/app.glade:220
+#: ui/app.ui:220
 msgid "Display _Daemon Output"
 msgstr "Hiển thị _đầu ra chương trình nền"
 
-#: glade/app.glade:226
+#: ui/app.ui:226
 msgid "UI _Settings"
 msgstr "Cài đặt _UI"
 
-#: glade/app.glade:232
+#: ui/app.ui:232
 msgid "_About"
 msgstr "_Thông tin về"
 
-#: glade/app.glade:236
+#: ui/app.ui:236
 msgid "_Quit"
 msgstr "_Thoát"
 
-#: glade/app.glade:247
+#: ui/app.ui:247
 msgid "Add Shared _Folder"
 msgstr "Thêm thư mục _đã ch.sẻ"
 
-#: glade/app.glade:251
+#: ui/app.ui:251
 msgid "Add _Device"
 msgstr "Thêm _thiết bị"
 
-#: glade/app.glade:257
+#: ui/app.ui:257
 msgid "Daemon _Settings"
 msgstr "Cài đặt _ch.trình nền"
 
-#: glade/app.glade:261 glade/app.glade:392 glade/app.glade:592
+#: ui/app.ui:261 ui/app.ui:392 ui/app.ui:592
 msgid "Show _ID"
 msgstr "Hiển thị _ID"
 
-#: glade/app.glade:267
+#: ui/app.ui:267
 msgid "Sh_utdown Daemon"
 msgstr "T_ắt chương trình nền"
 
-#: glade/app.glade:271
+#: ui/app.ui:271
 msgid "_Restart Daemon"
 msgstr "_Kh.động lại ch.trình nền"
 
-#: glade/app.glade:286
+#: ui/app.ui:286
 msgid "Override Remote Changes"
 msgstr "Ghi đè các thay đổi từ xa"
 
-#: glade/app.glade:297
+#: ui/app.ui:297
 #, fuzzy
 msgid "Override Local Changes"
 msgstr "Ghi đè các thay đổi từ xa"
 
-#: glade/app.glade:324
+#: ui/app.ui:324
 msgid "Edit _Ignore Patterns"
 msgstr "Chỉnh sửa _các q.luật bỏ qua"
 
-#: glade/app.glade:351
+#: ui/app.ui:351
 msgid "_Rescan"
 msgstr "_Quét lại"
 
-#: glade/app.glade:363
+#: ui/app.ui:363
 msgid "_Browse"
 msgstr "_Tìm kiếm"
 
-#: glade/app.glade:404
+#: ui/app.ui:404
 msgid "gtk-media-pause"
 msgstr ""
 
-#: glade/app.glade:415
+#: ui/app.ui:415
 msgid "Resume"
 msgstr ""
 
-#: glade/app.glade:445
+#: ui/app.ui:445
 msgid "Connecting to daemon..."
 msgstr "Đang k.nối với ch.trình nền..."
 
-#: glade/app.glade:455 syncthing_gtk/app.py:1380
+#: ui/app.ui:455 syncthing_gtk/app.py:1380
 msgid "Show Window"
 msgstr "Hiện cửa sổ"
 
-#: glade/app.glade:473
+#: ui/app.ui:473
 msgid "S_top Syncthing"
 msgstr "D_ừng Syncthing"
 
-#: glade/app.glade:487
+#: ui/app.ui:487
 msgid "Resume Sync_thing"
 msgstr "Tiếp tục Sync_thing"
 
-#: glade/app.glade:499 glade/daemon-settings.glade:335
+#: ui/app.ui:499 ui/daemon-settings.ui:335
 msgid "_Incoming Rate Limit"
 msgstr "_Giới hạn t.độ đầu vào"
 
-#: glade/app.glade:513 glade/app.glade:555
+#: ui/app.ui:513 ui/app.ui:555
 msgid "_Unlimited"
 msgstr "_Không giới hạn"
 
-#: glade/app.glade:522 glade/app.glade:564
+#: ui/app.ui:522 ui/app.ui:564
 msgid "_Other"
 msgstr "_Khác"
 
-#: glade/app.glade:541
+#: ui/app.ui:541
 msgid "_Outgoing Rate Limit"
 msgstr ""
 
-#: glade/app.glade:618
+#: ui/app.ui:618
 msgid "See _Logs"
 msgstr ""
 
-#: glade/app.glade:630
+#: ui/app.ui:630
 msgid "_Preferences"
 msgstr ""
 
-#: glade/daemon-output.glade:7
+#: ui/daemon-output.ui:7
 msgid "Daemon Output"
 msgstr "Đầu ra ch.trình nền"
 
-#: glade/daemon-settings.glade:106
+#: ui/daemon-settings.ui:106
 msgid "Sync Protocol Listen Addresses"
 msgstr "Đồng bộ các đ.chỉ lắng nghe giao thức"
 
-#: glade/daemon-settings.glade:136
+#: ui/daemon-settings.ui:136
 msgid "Enable Local _Discovery"
 msgstr "Bật dò tìm _cục bộ"
 
-#: glade/daemon-settings.glade:153
+#: ui/daemon-settings.ui:153
 msgid "Enable _UPnP"
 msgstr "Bật _UPnP"
 
-#: glade/daemon-settings.glade:171
+#: ui/daemon-settings.ui:171
 msgid "Local Discovery _Port"
 msgstr "Cổng _dò tìm cục bộ"
 
-#: glade/daemon-settings.glade:212
+#: ui/daemon-settings.ui:212
 msgid "Outgoing _Rate Limit"
 msgstr ""
 
-#: glade/daemon-settings.glade:229
+#: ui/daemon-settings.ui:229
 msgid "Open browser with _WebUI when daemon is starting"
 msgstr "Mở trình duyệt với _WebUI khi ch.trình nền khởi động"
 
-#: glade/daemon-settings.glade:246
+#: ui/daemon-settings.ui:246
 msgid "Enable _Anonymous Usage Reporting"
 msgstr "Bật _báo cáo sử dụng ẩn danh"
 
-#: glade/daemon-settings.glade:262
+#: ui/daemon-settings.ui:262
 msgid "Enable _Global Discovery"
 msgstr "Bật _dò tìm toàn cầu"
 
-#: glade/daemon-settings.glade:281
+#: ui/daemon-settings.ui:281
 msgid "Global Discovery _Servers"
 msgstr "Các máy chủ dò tìm _toàn cầu"
 
-#: glade/device-edit.glade:22 syncthing_gtk/app.py:1580
+#: ui/device-edit.ui:22 syncthing_gtk/app.py:1580
 msgid "All Data"
 msgstr "T.cả dữ liệu"
 
-#: glade/device-edit.glade:26 glade/folder-edit.glade:78
-#: syncthing_gtk/app.py:1582
+#: ui/device-edit.ui:26 ui/folder-edit.ui:78 syncthing_gtk/app.py:1582
 msgid "Off"
 msgstr "Tắt"
 
-#: glade/device-edit.glade:30 syncthing_gtk/app.py:1584
+#: ui/device-edit.ui:30 syncthing_gtk/app.py:1584
 msgid "Metadata Only"
 msgstr "Chỉ siêu dữ liệu"
 
-#: glade/device-edit.glade:101
+#: ui/device-edit.ui:101
 msgid "Device _ID"
 msgstr "ID _thiết bị"
 
-#: glade/device-edit.glade:131
+#: ui/device-edit.ui:131
 msgid "Device _Name"
 msgstr "Tên _thiết bị"
 
-#: glade/device-edit.glade:161
+#: ui/device-edit.ui:161
 msgid "Shown instead of Device ID in the cluster status."
 msgstr "Hiển thị thay cho ID thiết bị trong trạng thái cụm."
 
-#: glade/device-edit.glade:175
+#: ui/device-edit.ui:175
 msgid "_Addresses"
 msgstr "_Các địa chỉ"
 
-#: glade/device-edit.glade:205
+#: ui/device-edit.ui:205
 msgid ""
 "Enter comma separated \"ip:port\" addresses or \"dynamic\" to perform "
 "automatic discovery of the address."
@@ -258,147 +257,147 @@ msgstr ""
 "Nhập các địa chỉ ngăn cách bởi dấu phẩy \"ip:port\" hoặc \"dynamic\" để tiến "
 "hành dò tìm địa chỉ tự động."
 
-#: glade/device-edit.glade:232
+#: ui/device-edit.ui:232
 msgid "Share _Folders"
 msgstr "Chia sẻ _thư mục"
 
-#: glade/device-edit.glade:249
+#: ui/device-edit.ui:249
 msgid "Select the folders to share with this device"
 msgstr "Chọn các thư mục để chia sẻ với thiết bị này"
 
-#: glade/device-edit.glade:260
+#: ui/device-edit.ui:260
 msgid "_Introducer"
 msgstr "_Thiết bị giới thiệu"
 
-#: glade/device-edit.glade:279
+#: ui/device-edit.ui:279
 msgid ""
 "Any devices configured on an introducer device will be added to this device "
 "as well."
 msgstr ""
 "Bất kỳ thiết bị nào liên kết với thiết bị giới thiệu cũng sẽ được thêm vào."
 
-#: glade/device-edit.glade:293
+#: ui/device-edit.ui:293
 msgid "_Compression"
 msgstr "_Nén"
 
-#: glade/device-id.glade:14
+#: ui/device-id.ui:14
 msgid "Device Identification"
 msgstr "Danh tính thiết bị"
 
-#: glade/device-id.glade:68
+#: ui/device-id.ui:68
 msgid "XYZ-123-ABC"
 msgstr "XYZ-123-ABC"
 
-#: glade/find-daemon.glade:7 syncthing_gtk/finddaemondialog.py:27
+#: ui/find-daemon.ui:7 syncthing_gtk/finddaemondialog.py:27
 msgid "Can't invoke the daemon"
 msgstr "Không thể gọi ch.trình nền"
 
-#: glade/find-daemon.glade:126 glade/ui-settings.glade:909
+#: ui/find-daemon.ui:126 ui/ui-settings.ui:909
 msgid "_Browse..."
 msgstr "_Tìm kiếm..."
 
-#: glade/find-daemon.glade:179
+#: ui/find-daemon.ui:179
 msgid "_Download..."
 msgstr "_Tải xuống..."
 
-#: glade/folder-edit.glade:44
+#: ui/folder-edit.ui:44
 msgctxt "In File Pull Order combobox"
 msgid "Random"
 msgstr ""
 
-#: glade/folder-edit.glade:48
+#: ui/folder-edit.ui:48
 msgctxt "In File Pull Order combobox"
 msgid "Alphabetic"
 msgstr ""
 
-#: glade/folder-edit.glade:52
+#: ui/folder-edit.ui:52
 msgctxt "In File Pull Order combobox"
 msgid "Smallest First"
 msgstr ""
 
-#: glade/folder-edit.glade:56
+#: ui/folder-edit.ui:56
 msgctxt "In File Pull Order combobox"
 msgid "Largest First"
 msgstr ""
 
-#: glade/folder-edit.glade:60
+#: ui/folder-edit.ui:60
 msgctxt "In File Pull Order combobox"
 msgid "Oldest First"
 msgstr ""
 
-#: glade/folder-edit.glade:64
+#: ui/folder-edit.ui:64
 msgctxt "In File Pull Order combobox"
 msgid "Newest First"
 msgstr ""
 
-#: glade/folder-edit.glade:82
+#: ui/folder-edit.ui:82
 msgid "Simple"
 msgstr "Đơn giản"
 
-#: glade/folder-edit.glade:86
+#: ui/folder-edit.ui:86
 msgid "Staggered"
 msgstr "Theo thời gian"
 
-#: glade/folder-edit.glade:90
+#: ui/folder-edit.ui:90
 msgid "Trashcan"
 msgstr "Kiểu thùng rác"
 
-#: glade/folder-edit.glade:94
+#: ui/folder-edit.ui:94
 msgid "External"
 msgstr "Kiểu ngoại vi"
 
-#: glade/folder-edit.glade:171
+#: ui/folder-edit.ui:171
 msgid "Folder _Label"
 msgstr ""
 
-#: glade/folder-edit.glade:190
+#: ui/folder-edit.ui:190
 msgid "Generate Random"
 msgstr ""
 
-#: glade/folder-edit.glade:205
+#: ui/folder-edit.ui:205
 msgid "Short identifier for the folder. Must be the same on all devices."
 msgstr "Tên tắt cho thư mục. Phải trùng khớp trên tất cả thiết bị."
 
-#: glade/folder-edit.glade:219
+#: ui/folder-edit.ui:219
 msgid "_Path"
 msgstr "_Đường dẫn"
 
-#: glade/folder-edit.glade:237
+#: ui/folder-edit.ui:237
 msgid ""
 "Path to the folder on the local computer. Will be created if it does not "
 "exist."
 msgstr "Đường dẫn đến thư mục trên máy cục bộ. Sẽ tạo mới nếu chưa hiện hữu."
 
-#: glade/folder-edit.glade:251
+#: ui/folder-edit.ui:251
 msgid "Rescan _Interval"
 msgstr "Khoảng thời gian _quét lại"
 
-#: glade/folder-edit.glade:269 glade/folder-edit.glade:1092
+#: ui/folder-edit.ui:269 ui/folder-edit.ui:1092
 msgid "5"
 msgstr ""
 
-#: glade/folder-edit.glade:298
+#: ui/folder-edit.ui:298
 msgid "Monitor filesystem for _changes"
 msgstr "Kiểm soát các thay đổi của _hệ thống tập tin"
 
-#: glade/folder-edit.glade:332
+#: ui/folder-edit.ui:332
 msgid "Browse..."
 msgstr "Duyệt tìm..."
 
-#: glade/folder-edit.glade:355
+#: ui/folder-edit.ui:355
 msgid "Folder _ID"
 msgstr "ID _thư mục"
 
-#: glade/folder-edit.glade:385
+#: ui/folder-edit.ui:385
 msgid ""
 "Optional descriptive label for the folder. Can be different on each device."
 msgstr ""
 
-#: glade/folder-edit.glade:408
+#: ui/folder-edit.ui:408
 msgid "_Send Only Folder"
 msgstr ""
 
-#: glade/folder-edit.glade:429
+#: ui/folder-edit.ui:429
 msgid ""
 "Files are protected from changes made on other devices, but changes made on "
 "this device will be sent to the rest of the cluster."
@@ -406,11 +405,11 @@ msgstr ""
 "Các tập tin sẽ được b.vệ khỏi những th.đổi trên các th.bị khác, nhưng những "
 "th.đổi trên th.bị này sẽ được chuyển tới các máy cụm còn lại."
 
-#: glade/folder-edit.glade:453
+#: ui/folder-edit.ui:453
 msgid "_Receive Only Folder"
 msgstr ""
 
-#: glade/folder-edit.glade:474
+#: ui/folder-edit.ui:474
 #, fuzzy
 msgid ""
 "Changes from other devices are applied to files on this device, but changes "
@@ -419,23 +418,23 @@ msgstr ""
 "Các tập tin sẽ được b.vệ khỏi những th.đổi trên các th.bị khác, nhưng những "
 "th.đổi trên th.bị này sẽ được chuyển tới các máy cụm còn lại."
 
-#: glade/folder-edit.glade:493
+#: ui/folder-edit.ui:493
 msgid "_Folder Settings"
 msgstr ""
 
-#: glade/folder-edit.glade:514
+#: ui/folder-edit.ui:514
 msgid "Select the devices to share this folder with."
 msgstr "Chọn các th.bị để chia sẻ th.mục này."
 
-#: glade/folder-edit.glade:566
+#: ui/folder-edit.ui:566
 msgid "Share With _Devices"
 msgstr "Chia sẻ với _các th.bị"
 
-#: glade/folder-edit.glade:588
+#: ui/folder-edit.ui:588
 msgid "Versioning _Mode"
 msgstr ""
 
-#: glade/folder-edit.glade:643
+#: ui/folder-edit.ui:643
 msgid ""
 "Files are moved to date stamped versions in a .stversions folder when "
 "replaced or deleted by syncthing."
@@ -443,15 +442,15 @@ msgstr ""
 "Các tập tin sẽ được chuyển tới các ph.bản được đ.dấu ngày tháng trong th."
 "mục .stversions khi bị th.thế hoặc xoá bởi Syncthing."
 
-#: glade/folder-edit.glade:658
+#: ui/folder-edit.ui:658
 msgid "_Keep Versions"
 msgstr "_Giữ lại các ph.bản"
 
-#: glade/folder-edit.glade:695
+#: ui/folder-edit.ui:695
 msgid "The number of old versions to keep, per file."
 msgstr "Số phiên bản cũ cần giữ lại với mỗi tập tin."
 
-#: glade/folder-edit.glade:724
+#: ui/folder-edit.ui:724
 msgid ""
 "Files are moved to date stamped versions in a .stversions folder when "
 "replaced or deleted by syncthing. Versions are automatically deleted if they "
@@ -473,15 +472,15 @@ msgstr ""
 "tiên là mỗi ngày, cho đến khi th.hạn tối đa mỗi ph.bản được giữ lại là mỗi "
 "tuần."
 
-#: glade/folder-edit.glade:741
+#: ui/folder-edit.ui:741
 msgid "Ma_ximum Age"
 msgstr "Th_ời hạn tối đa"
 
-#: glade/folder-edit.glade:780
+#: ui/folder-edit.ui:780
 msgid "Versions _Path"
 msgstr "Đ.dẫn đến _các ph.bản"
 
-#: glade/folder-edit.glade:812
+#: ui/folder-edit.ui:812
 msgid ""
 "Path where versions should be stored (leave empty for the default ."
 "stversions folder)."
@@ -489,22 +488,22 @@ msgstr ""
 "Đường dẫn nơi các ph.bản được lưu trữ (th.mục mặc định sẽ là .stversions nếu "
 "để trống)."
 
-#: glade/folder-edit.glade:840
+#: ui/folder-edit.ui:840
 msgid ""
 "Files are moved to .stversions folder when replaced or deleted by Syncthing"
 msgstr ""
 "Các tập tin sẽ được chuyển tới th.mục .stversions khi bị th.thế hoặc xoá bởi "
 "Syncthing"
 
-#: glade/folder-edit.glade:854
+#: ui/folder-edit.ui:854
 msgid "Clean out _after"
 msgstr "Xoá sạch _sau"
 
-#: glade/folder-edit.glade:893
+#: ui/folder-edit.ui:893
 msgid "The number of days to keep files in the trash can."
 msgstr "Số ngày giữ tập tin trong thùng rác."
 
-#: glade/folder-edit.glade:922
+#: ui/folder-edit.ui:922
 msgid ""
 "An external command handles the versioning. It has to remove the file from "
 "the synced folder."
@@ -512,11 +511,11 @@ msgstr ""
 "Một lệnh ngoại vi chịu trách nhiệm phiên bản hoá. Nó phải loại bỏ tập tin ra "
 "khỏi thư mục đã đồng bộ."
 
-#: glade/folder-edit.glade:937
+#: ui/folder-edit.ui:937
 msgid "Command"
 msgstr "Lệnh"
 
-#: glade/folder-edit.glade:970
+#: ui/folder-edit.ui:970
 msgid ""
 "The first command line parameter is the folder path and the second parameter "
 "is the relative path in the folder."
@@ -524,15 +523,15 @@ msgstr ""
 "Tham số dòng lệnh đầu tiên là đường dẫn thư mục và tham số thứ hai là đường "
 "dẫn tương đối trong thư mục."
 
-#: glade/folder-edit.glade:1007
+#: ui/folder-edit.ui:1007
 msgid "File _Versioning"
 msgstr ""
 
-#: glade/folder-edit.glade:1037
+#: ui/folder-edit.ui:1037
 msgid "Ignore P_ermissions"
 msgstr "Bỏ qua c-ác giấy phép"
 
-#: glade/folder-edit.glade:1058
+#: ui/folder-edit.ui:1058
 msgid ""
 "File permission bits are ignored when looking for changes. Use on FAT "
 "filesystems."
@@ -540,23 +539,23 @@ msgstr ""
 "Các ph.tử g.phép tập tin sẽ được bỏ qua khi t.kiếm th.đổi. Dùng trên h.thống "
 "tập tin FAT."
 
-#: glade/folder-edit.glade:1073
+#: ui/folder-edit.ui:1073
 msgid "Minimum Free Disk Space"
 msgstr ""
 
-#: glade/folder-edit.glade:1112
+#: ui/folder-edit.ui:1112
 msgid "File Pull _Order"
 msgstr ""
 
-#: glade/folder-edit.glade:1160 glade/ui-settings.glade:1046
+#: ui/folder-edit.ui:1160 ui/ui-settings.ui:1046
 msgid "_Advanced"
 msgstr "_Nâng cao"
 
-#: glade/ignore-editor.glade:8
+#: ui/ignore-editor.ui:8
 msgid "Ignore Patterns"
 msgstr "Bỏ qua các q.luật"
 
-#: glade/ignore-editor.glade:99
+#: ui/ignore-editor.ui:99
 msgid ""
 "See <a href=\"http://docs.syncthing.net/users/ignoring.html\">Syncthing "
 "documentation</a> for list of supported patterns"
@@ -564,143 +563,143 @@ msgstr ""
 "Xem <a href=\"http://docs.syncthing.net/users/ignoring.html\">Tài liệu "
 "Syncthing</a> để biết danh sách các quy luật được hỗ trợ."
 
-#: glade/ignore-editor.glade:114
+#: ui/ignore-editor.ui:114
 msgid "File location: "
 msgstr "Vị trí tập tin:"
 
-#: glade/ui-settings.glade:27 glade/ui-settings.glade:49
+#: ui/ui-settings.ui:27 ui/ui-settings.ui:49
 msgid "Default"
 msgstr ""
 
-#: glade/ui-settings.glade:31
+#: ui/ui-settings.ui:31
 msgid "Black"
 msgstr ""
 
-#: glade/ui-settings.glade:35
+#: ui/ui-settings.ui:35
 msgid "White"
 msgstr ""
 
-#: glade/ui-settings.glade:107
+#: ui/ui-settings.ui:107
 msgid "Lowest"
 msgstr "Thấp nhất"
 
-#: glade/ui-settings.glade:111
+#: ui/ui-settings.ui:111
 msgid "Low"
 msgstr "Thấp"
 
-#: glade/ui-settings.glade:115
+#: ui/ui-settings.ui:115
 msgid "Normal"
 msgstr "Bình thường"
 
-#: glade/ui-settings.glade:119
+#: ui/ui-settings.ui:119
 msgid "Above Normal"
 msgstr "Hơn mức b.thường"
 
-#: glade/ui-settings.glade:126
+#: ui/ui-settings.ui:126
 msgid "Syncthing-GTK Settings"
 msgstr "Cài đặt Syncthing-GTK"
 
-#: glade/ui-settings.glade:149
+#: ui/ui-settings.ui:149
 msgid "Please, restart Syncthing-GTK to apply all changed settings"
 msgstr ""
 
-#: glade/ui-settings.glade:217
+#: ui/ui-settings.ui:217
 msgid "When starting and Syncthing daemon is not running..."
 msgstr "Khi khởi động và chương trình nền Syncthing không chạy..."
 
-#: glade/ui-settings.glade:228
+#: ui/ui-settings.ui:228
 msgid "... _wait for daemon"
 msgstr "...  _đợi chương trình nền"
 
-#: glade/ui-settings.glade:246
+#: ui/ui-settings.ui:246
 msgid "... start daemon in _background"
 msgstr "... khởi động chương trình trong _chế độ nền "
 
-#: glade/ui-settings.glade:264
+#: ui/ui-settings.ui:264
 msgid "... _ask me what to do"
 msgstr "... _hỏi tôi phải làm gì"
 
-#: glade/ui-settings.glade:285
+#: ui/ui-settings.ui:285
 msgid "When exiting after daemon was started in background..."
 msgstr "Khi thoát sau khi chương trình được khởi động ở chế độ nền..."
 
-#: glade/ui-settings.glade:296
+#: ui/ui-settings.ui:296
 msgid "... terminate _daemon"
 msgstr "... tắt _chương trình nền"
 
-#: glade/ui-settings.glade:314
+#: ui/ui-settings.ui:314
 msgid "... leave daemon _running"
 msgstr "... để chương trình nền _tiếp tục chạy"
 
-#: glade/ui-settings.glade:332
+#: ui/ui-settings.ui:332
 msgid "... ask me w_hat to do"
 msgstr "... hỏi tôi p-hải làm gì"
 
-#: glade/ui-settings.glade:350
+#: ui/ui-settings.ui:350
 msgid "Us_e traditional window header"
 msgstr "S_ử dụng đầu đề cửa sổ truyền thống"
 
-#: glade/ui-settings.glade:371
+#: ui/ui-settings.ui:371
 msgid "Display desktop notifications for..."
 msgstr "Hiển thị th.báo trên desktop cho..."
 
-#: glade/ui-settings.glade:382
+#: ui/ui-settings.ui:382
 msgid "... file updates"
 msgstr "... cập nhật tập tin"
 
-#: glade/ui-settings.glade:399
+#: ui/ui-settings.ui:399
 msgid "... errors"
 msgstr "... lỗi"
 
-#: glade/ui-settings.glade:416
+#: ui/ui-settings.ui:416
 msgid "... synchronization completion"
 msgstr "... hoàn tất đồng bộ"
 
-#: glade/ui-settings.glade:433
+#: ui/ui-settings.ui:433
 msgid "Start Syncthing-GTK when I login to my desktop"
 msgstr "Khởi chạy Syncthing-GTK khi tôi đ.nhập vào desktop"
 
-#: glade/ui-settings.glade:450
+#: ui/ui-settings.ui:450
 msgid "Minimize to _tray on start"
 msgstr "Thu nhỏ vào _khay khi khởi chạy"
 
-#: glade/ui-settings.glade:466
+#: ui/ui-settings.ui:466
 msgid "Display paths in directories panel"
 msgstr "Hiện đ.dẫn trong danh sách th.mục"
 
-#: glade/ui-settings.glade:482
+#: ui/ui-settings.ui:482
 msgid "Force _dark theme"
 msgstr "Bắt dùng _phông nền tối"
 
-#: glade/ui-settings.glade:523
+#: ui/ui-settings.ui:523
 msgid "Tray icon style"
 msgstr ""
 
-#: glade/ui-settings.glade:536
+#: ui/ui-settings.ui:536
 msgid "Language"
 msgstr ""
 
-#: glade/ui-settings.glade:575
+#: ui/ui-settings.ui:575
 msgid "_Interface"
 msgstr "_Giao diện"
 
-#: glade/ui-settings.glade:594
+#: ui/ui-settings.ui:594
 msgid "Integrate Syncthing with filemanagers"
 msgstr "Tích hợp Syncthing với các trình q.lý tập tin"
 
-#: glade/ui-settings.glade:609
+#: ui/ui-settings.ui:609
 msgid "Nemo (Cinamon Desktop)"
 msgstr "Nemo (Cinamon Desktop)"
 
-#: glade/ui-settings.glade:626
+#: ui/ui-settings.ui:626
 msgid "Nautilus (Ubuntu/GNOME)"
 msgstr "Nautilus (Ubuntu/GNOME)"
 
-#: glade/ui-settings.glade:642
+#: ui/ui-settings.ui:642
 msgid "Caja (MATE Desktop)"
 msgstr "Caja (MATE Desktop)"
 
-#: glade/ui-settings.glade:681
+#: ui/ui-settings.ui:681
 msgid ""
 "<b>Note:</b> You may need to restart your filemanager after toggling "
 "integration."
@@ -708,15 +707,15 @@ msgstr ""
 "<b>Ghi chú:</b> Có thể bạn sẽ cần khởi động lại trình quản lý tập tin sau "
 "khi tích hợp."
 
-#: glade/ui-settings.glade:701
+#: ui/ui-settings.ui:701
 msgid "_Integration"
 msgstr "_Tích hợp"
 
-#: glade/ui-settings.glade:731
+#: ui/ui-settings.ui:731
 msgid "Keep Syncthing binary up-to-date"
 msgstr "Giữ cho ch.trình chạy Syncthing luôn cập nhật"
 
-#: glade/ui-settings.glade:751
+#: ui/ui-settings.ui:751
 msgid ""
 "If enabled, Syncthing-GTK will automatically check for new daemon releases "
 "and replace binary with latest version."
@@ -724,11 +723,11 @@ msgstr ""
 "Nếu bật, Syncthing-GTK sẽ tự động k.tra bản phát hành ch.trình nền mới và "
 "thay thế ch.trình chạy với ph.bản mới nhất."
 
-#: glade/ui-settings.glade:766
+#: ui/ui-settings.ui:766
 msgid "Daemon process priority"
 msgstr "Độ ưu tiên của q.trình chạy nền"
 
-#: glade/ui-settings.glade:802
+#: ui/ui-settings.ui:802
 msgid ""
 "Priority will be used only if \"<i>start daemon in background</i>\" option "
 "is checked on \"<i>Interface</i>\" page."
@@ -736,11 +735,11 @@ msgstr ""
 "Độ ưu tiên sẽ chỉ được dùng nếu như tuỳ chọn \"<i>khởi động chương trình ở "
 "chế độ nền</i>\" được đánh dấu trên trang \"<i>Giao diện</i>\"."
 
-#: glade/ui-settings.glade:817
+#: ui/ui-settings.ui:817
 msgid "Maximum number of CPU cores"
 msgstr "Số nhân CPU tối đa"
 
-#: glade/ui-settings.glade:835
+#: ui/ui-settings.ui:835
 msgid ""
 "Sets the maximum number of CPU cores for daemon to use. This value will be "
 "used only if \"<i>start daemon in background</i>\" option is checked on "
@@ -750,11 +749,11 @@ msgstr ""
 "nếu như t.chọn \"<i>khởi động chương trình ở chế độ nền</i>\" được đánh dấu "
 "trên trang \"<i>Giao diện</i>\"."
 
-#: glade/ui-settings.glade:873
+#: ui/ui-settings.ui:873
 msgid "Daemon"
 msgstr ""
 
-#: glade/ui-settings.glade:896
+#: ui/ui-settings.ui:896
 msgid ""
 "This binary will be started when syncthing daemon is not running and "
 "\"<i>start daemon in background</i>\" option is checked on \"<i>Interface</"
@@ -764,15 +763,15 @@ msgstr ""
 "chọn \"<i>khởi chạy chương trình ở chế độ nền</i>\" được đánh dấu trên trang "
 "\"<i>Giao diện</i>\"."
 
-#: glade/ui-settings.glade:928
+#: ui/ui-settings.ui:928
 msgid "Syncthing binary location"
 msgstr "Vị trí ch.trình chạy Syncthing"
 
-#: glade/ui-settings.glade:958
+#: ui/ui-settings.ui:958
 msgid "Daemon arguments and variables"
 msgstr ""
 
-#: glade/ui-settings.glade:988
+#: ui/ui-settings.ui:988
 msgid ""
 "Space-separated list of arguments and environment variables passed when "
 "starting above binary\n"
@@ -787,7 +786,7 @@ msgid ""
 "  <i>STTRACE=\"all\" logger -t /var/log/syncthing.log ! -logflags=10</i>"
 msgstr ""
 
-#: glade/ui-settings.glade:1012
+#: ui/ui-settings.ui:1012
 msgid ""
 "<b>Warning:</b> Changing settings on this page may prevent you from using "
 "Syncthing-GTK"
@@ -1361,97 +1360,97 @@ msgstr "Chọn thư mục cho thư mục mới"
 msgid "File location:"
 msgstr "Vị trí tập tin:"
 
-#: syncthing_gtk/notifications.py:122 syncthing_gtk/notifications.py:123
+#: syncthing_gtk/notifications.py:125 syncthing_gtk/notifications.py:126
 #, python-format
 msgid "Accept device \"%s\""
 msgstr ""
 
-#: syncthing_gtk/notifications.py:124
+#: syncthing_gtk/notifications.py:127
 #, python-format
 msgid "Ignore device \"%s\""
 msgstr ""
 
-#: syncthing_gtk/notifications.py:126
+#: syncthing_gtk/notifications.py:129
 msgid "Unknown Device"
 msgstr ""
 
-#: syncthing_gtk/notifications.py:127
+#: syncthing_gtk/notifications.py:130
 #, python-format
 msgid "Device \"%s\" is trying to connect to syncthing daemon."
 msgstr ""
 
-#: syncthing_gtk/notifications.py:170 syncthing_gtk/notifications.py:171
+#: syncthing_gtk/notifications.py:173 syncthing_gtk/notifications.py:174
 #, python-format
 msgid "Accept folder \"%s\""
 msgstr ""
 
-#: syncthing_gtk/notifications.py:172
+#: syncthing_gtk/notifications.py:175
 #, fuzzy, python-format
 msgid "Ignore folder \"%s\""
 msgstr "Bỏ qua các q.luật"
 
-#: syncthing_gtk/notifications.py:178
+#: syncthing_gtk/notifications.py:181
 msgid "Folder rejected"
 msgstr ""
 
-#: syncthing_gtk/notifications.py:179
+#: syncthing_gtk/notifications.py:182
 #, python-format
 msgid "Unexpected folder \"%(folder)s\" sent from device \"%(device)s\"."
 msgstr ""
 
-#: syncthing_gtk/notifications.py:211
+#: syncthing_gtk/notifications.py:214
 #, fuzzy, python-format
 msgid "Completed synchronization in \"%s\""
 msgstr "... hoàn tất đồng bộ"
 
-#: syncthing_gtk/notifications.py:213
+#: syncthing_gtk/notifications.py:216
 #, python-format
 msgid "Updates in folder \"%s\""
 msgstr ""
 
-#: syncthing_gtk/notifications.py:225
+#: syncthing_gtk/notifications.py:228
 #, python-format
 msgid "%(hostname)s: Downloaded '%(filename)s' to reflect remote changes."
 msgstr ""
 
-#: syncthing_gtk/notifications.py:229
+#: syncthing_gtk/notifications.py:232
 #, python-format
 msgid "%(hostname)s: Deleted '%(filename)s' to reflect remote changes."
 msgstr ""
 
-#: syncthing_gtk/notifications.py:231
+#: syncthing_gtk/notifications.py:234
 #, python-format
 msgid "%(hostname)s: Downloaded %(updated)s files to reflect remote changes."
 msgstr ""
 
-#: syncthing_gtk/notifications.py:233
+#: syncthing_gtk/notifications.py:236
 #, python-format
 msgid "%(hostname)s: Deleted %(deleted)s files to reflect remote changes."
 msgstr ""
 
-#: syncthing_gtk/notifications.py:236
+#: syncthing_gtk/notifications.py:239
 #, python-format
 msgid ""
 "%(hostname)s: downloaded %(updated)s files and deleted %(deleted)s files to "
 "reflect remote changes."
 msgstr ""
 
-#: syncthing_gtk/notifications.py:263
+#: syncthing_gtk/notifications.py:266
 #, python-format
 msgid "Conflicting file in \"%s\""
 msgstr ""
 
-#: syncthing_gtk/notifications.py:264
+#: syncthing_gtk/notifications.py:267
 #, python-format
 msgid "Conflict in path \"%s\" detected."
 msgstr ""
 
-#: syncthing_gtk/notifications.py:268
+#: syncthing_gtk/notifications.py:271
 #, fuzzy
 msgid "Open Conflicting file in filemanager"
 msgstr "Tích hợp Syncthing với các trình q.lý tập tin"
 
-#: syncthing_gtk/notifications.py:343
+#: syncthing_gtk/notifications.py:346
 msgid "An error occurred in Syncthing!"
 msgstr ""
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: syncthing-gtk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-12 19:35+0100\n"
+"POT-Creation-Date: 2023-06-27 13:15+0200\n"
 "PO-Revision-Date: 2018-08-24 17:12+0000\n"
 "Last-Translator: Dz Chen <wsxy162@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/syncthing-gtk/"
@@ -20,25 +20,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: glade/about.glade:7
+#: ui/about.ui:7
 msgid "About Syncthing-GTK"
 msgstr "关于 Syncthing-GTK"
 
-#: glade/about.glade:68
+#: ui/about.ui:68
 msgid "<span size=\"large\"><b>Syncthing-GTK</b></span>"
 msgstr ""
 
-#: glade/about.glade:84
+#: ui/about.ui:84
 #, fuzzy
 msgid "(version)"
 msgstr "版本"
 
-#: glade/about.glade:97
+#: ui/about.ui:97
 #, fuzzy
 msgid "GUI and notification area icon for Syncthing"
 msgstr "Syncthing 的 GTK GUI 和通知区域图标"
 
-#: glade/about.glade:112
+#: ui/about.ui:112
 msgid ""
 "<b>Code&amp;UI © 2016 Kozec</b>\n"
 "\n"
@@ -61,7 +61,7 @@ msgid ""
 "<b>ambidot</b>\n"
 msgstr ""
 
-#: glade/about.glade:145
+#: ui/about.ui:145
 msgid ""
 "<small>This program comes with absolutely no warranty.\n"
 "See the <a href=\"http://www.gnu.org/licenses/old-licenses/gpl-2.0."
@@ -69,189 +69,188 @@ msgid ""
 "small>"
 msgstr ""
 
-#: glade/app.glade:216 glade/app.glade:606
+#: ui/app.ui:216 ui/app.ui:606
 msgid "Open _Web Interface"
 msgstr "打开 _Web 界面"
 
-#: glade/app.glade:220
+#: ui/app.ui:220
 msgid "Display _Daemon Output"
 msgstr "显示守护程序输出(_D)"
 
-#: glade/app.glade:226
+#: ui/app.ui:226
 msgid "UI _Settings"
 msgstr "UI 设置(_S)"
 
-#: glade/app.glade:232
+#: ui/app.ui:232
 msgid "_About"
 msgstr "关于(_A)"
 
-#: glade/app.glade:236
+#: ui/app.ui:236
 msgid "_Quit"
 msgstr "退出(_Q)"
 
-#: glade/app.glade:247
+#: ui/app.ui:247
 msgid "Add Shared _Folder"
 msgstr "添加共享文件夹(_F)"
 
-#: glade/app.glade:251
+#: ui/app.ui:251
 msgid "Add _Device"
 msgstr "添加设备(_D)"
 
-#: glade/app.glade:257
+#: ui/app.ui:257
 msgid "Daemon _Settings"
 msgstr "守护程序设置(_S)"
 
-#: glade/app.glade:261 glade/app.glade:392 glade/app.glade:592
+#: ui/app.ui:261 ui/app.ui:392 ui/app.ui:592
 msgid "Show _ID"
 msgstr "显示 _ID"
 
-#: glade/app.glade:267
+#: ui/app.ui:267
 msgid "Sh_utdown Daemon"
 msgstr "关闭守护程序(_U)"
 
-#: glade/app.glade:271
+#: ui/app.ui:271
 msgid "_Restart Daemon"
 msgstr "重启守护程序(_R)"
 
-#: glade/app.glade:286
+#: ui/app.ui:286
 msgid "Override Remote Changes"
 msgstr "替代远程更改"
 
-#: glade/app.glade:297
+#: ui/app.ui:297
 #, fuzzy
 msgid "Override Local Changes"
 msgstr "替代远程更改"
 
-#: glade/app.glade:324
+#: ui/app.ui:324
 msgid "Edit _Ignore Patterns"
 msgstr "编辑忽略模式(_I)"
 
-#: glade/app.glade:351
+#: ui/app.ui:351
 msgid "_Rescan"
 msgstr "重新扫描(_R)"
 
-#: glade/app.glade:363
+#: ui/app.ui:363
 msgid "_Browse"
 msgstr "浏览(_B)"
 
-#: glade/app.glade:404
+#: ui/app.ui:404
 msgid "gtk-media-pause"
 msgstr ""
 
-#: glade/app.glade:415
+#: ui/app.ui:415
 msgid "Resume"
 msgstr "继续"
 
-#: glade/app.glade:445
+#: ui/app.ui:445
 msgid "Connecting to daemon..."
 msgstr "正在连接到守护程序..."
 
-#: glade/app.glade:455 syncthing_gtk/app.py:1380
+#: ui/app.ui:455 syncthing_gtk/app.py:1380
 msgid "Show Window"
 msgstr "显示窗口"
 
-#: glade/app.glade:473
+#: ui/app.ui:473
 msgid "S_top Syncthing"
 msgstr "停止 Syncthing(_T)"
 
-#: glade/app.glade:487
+#: ui/app.ui:487
 msgid "Resume Sync_thing"
 msgstr "恢复 Sync_thing"
 
-#: glade/app.glade:499 glade/daemon-settings.glade:335
+#: ui/app.ui:499 ui/daemon-settings.ui:335
 msgid "_Incoming Rate Limit"
 msgstr "传入速度限制(_I)"
 
-#: glade/app.glade:513 glade/app.glade:555
+#: ui/app.ui:513 ui/app.ui:555
 msgid "_Unlimited"
 msgstr "无限制(_U)"
 
-#: glade/app.glade:522 glade/app.glade:564
+#: ui/app.ui:522 ui/app.ui:564
 msgid "_Other"
 msgstr "其它(_O)"
 
-#: glade/app.glade:541
+#: ui/app.ui:541
 msgid "_Outgoing Rate Limit"
 msgstr "传出速度限制(_O)"
 
-#: glade/app.glade:618
+#: ui/app.ui:618
 msgid "See _Logs"
 msgstr ""
 
-#: glade/app.glade:630
+#: ui/app.ui:630
 msgid "_Preferences"
 msgstr ""
 
-#: glade/daemon-output.glade:7
+#: ui/daemon-output.ui:7
 msgid "Daemon Output"
 msgstr "守护程序输出"
 
-#: glade/daemon-settings.glade:106
+#: ui/daemon-settings.ui:106
 msgid "Sync Protocol Listen Addresses"
 msgstr "同步协议监听地址"
 
-#: glade/daemon-settings.glade:136
+#: ui/daemon-settings.ui:136
 msgid "Enable Local _Discovery"
 msgstr "启用本地发现(_D)"
 
-#: glade/daemon-settings.glade:153
+#: ui/daemon-settings.ui:153
 msgid "Enable _UPnP"
 msgstr "启用 _UPnP"
 
-#: glade/daemon-settings.glade:171
+#: ui/daemon-settings.ui:171
 msgid "Local Discovery _Port"
 msgstr "本地发现端口(_P)"
 
-#: glade/daemon-settings.glade:212
+#: ui/daemon-settings.ui:212
 msgid "Outgoing _Rate Limit"
 msgstr "传出速度限制(_R)"
 
-#: glade/daemon-settings.glade:229
+#: ui/daemon-settings.ui:229
 msgid "Open browser with _WebUI when daemon is starting"
 msgstr "守护程序启动时打开 _WebUI 浏览页"
 
-#: glade/daemon-settings.glade:246
+#: ui/daemon-settings.ui:246
 msgid "Enable _Anonymous Usage Reporting"
 msgstr "启用匿名使用报告(_A)"
 
-#: glade/daemon-settings.glade:262
+#: ui/daemon-settings.ui:262
 msgid "Enable _Global Discovery"
 msgstr "启用全局发现(_G)"
 
-#: glade/daemon-settings.glade:281
+#: ui/daemon-settings.ui:281
 msgid "Global Discovery _Servers"
 msgstr "全局发现服务器(_S)"
 
-#: glade/device-edit.glade:22 syncthing_gtk/app.py:1580
+#: ui/device-edit.ui:22 syncthing_gtk/app.py:1580
 msgid "All Data"
 msgstr "所有数据"
 
-#: glade/device-edit.glade:26 glade/folder-edit.glade:78
-#: syncthing_gtk/app.py:1582
+#: ui/device-edit.ui:26 ui/folder-edit.ui:78 syncthing_gtk/app.py:1582
 msgid "Off"
 msgstr "关闭"
 
-#: glade/device-edit.glade:30 syncthing_gtk/app.py:1584
+#: ui/device-edit.ui:30 syncthing_gtk/app.py:1584
 msgid "Metadata Only"
 msgstr "仅元数据"
 
-#: glade/device-edit.glade:101
+#: ui/device-edit.ui:101
 msgid "Device _ID"
 msgstr "设备 _ID"
 
-#: glade/device-edit.glade:131
+#: ui/device-edit.ui:131
 msgid "Device _Name"
 msgstr "设备名称(_N)"
 
-#: glade/device-edit.glade:161
+#: ui/device-edit.ui:161
 msgid "Shown instead of Device ID in the cluster status."
 msgstr "显示以替代群集状态里的设备 ID。"
 
-#: glade/device-edit.glade:175
+#: ui/device-edit.ui:175
 msgid "_Addresses"
 msgstr "地址(_A)"
 
-#: glade/device-edit.glade:205
+#: ui/device-edit.ui:205
 msgid ""
 "Enter comma separated \"ip:port\" addresses or \"dynamic\" to perform "
 "automatic discovery of the address."
@@ -259,146 +258,146 @@ msgstr ""
 "输入逗号分隔的 \"ip:port\" 设置地址列表或者 \"dynamic\" 来执行地址的自动发"
 "现。"
 
-#: glade/device-edit.glade:232
+#: ui/device-edit.ui:232
 msgid "Share _Folders"
 msgstr "共享文件夹(_F)"
 
-#: glade/device-edit.glade:249
+#: ui/device-edit.ui:249
 msgid "Select the folders to share with this device"
 msgstr "选择共享给此设备的文件夹"
 
-#: glade/device-edit.glade:260
+#: ui/device-edit.ui:260
 msgid "_Introducer"
 msgstr "介绍人(_I)"
 
-#: glade/device-edit.glade:279
+#: ui/device-edit.ui:279
 msgid ""
 "Any devices configured on an introducer device will be added to this device "
 "as well."
 msgstr "在介绍人设备上配置的任何设备都也将会添加到此设备。"
 
-#: glade/device-edit.glade:293
+#: ui/device-edit.ui:293
 msgid "_Compression"
 msgstr "压缩(_C)"
 
-#: glade/device-id.glade:14
+#: ui/device-id.ui:14
 msgid "Device Identification"
 msgstr "设备标识"
 
-#: glade/device-id.glade:68
+#: ui/device-id.ui:68
 msgid "XYZ-123-ABC"
 msgstr "XYZ-123-ABC"
 
-#: glade/find-daemon.glade:7 syncthing_gtk/finddaemondialog.py:27
+#: ui/find-daemon.ui:7 syncthing_gtk/finddaemondialog.py:27
 msgid "Can't invoke the daemon"
 msgstr "无法调用守护程序"
 
-#: glade/find-daemon.glade:126 glade/ui-settings.glade:909
+#: ui/find-daemon.ui:126 ui/ui-settings.ui:909
 msgid "_Browse..."
 msgstr "浏览(_B)..."
 
-#: glade/find-daemon.glade:179
+#: ui/find-daemon.ui:179
 msgid "_Download..."
 msgstr "下载(_D)..."
 
-#: glade/folder-edit.glade:44
+#: ui/folder-edit.ui:44
 msgctxt "In File Pull Order combobox"
 msgid "Random"
 msgstr "随机"
 
-#: glade/folder-edit.glade:48
+#: ui/folder-edit.ui:48
 msgctxt "In File Pull Order combobox"
 msgid "Alphabetic"
 msgstr "字母顺序"
 
-#: glade/folder-edit.glade:52
+#: ui/folder-edit.ui:52
 msgctxt "In File Pull Order combobox"
 msgid "Smallest First"
 msgstr "小文件优先"
 
-#: glade/folder-edit.glade:56
+#: ui/folder-edit.ui:56
 msgctxt "In File Pull Order combobox"
 msgid "Largest First"
 msgstr "大文件优先"
 
-#: glade/folder-edit.glade:60
+#: ui/folder-edit.ui:60
 msgctxt "In File Pull Order combobox"
 msgid "Oldest First"
 msgstr "旧文件优先"
 
-#: glade/folder-edit.glade:64
+#: ui/folder-edit.ui:64
 msgctxt "In File Pull Order combobox"
 msgid "Newest First"
 msgstr "新文件优先"
 
-#: glade/folder-edit.glade:82
+#: ui/folder-edit.ui:82
 msgid "Simple"
 msgstr "简单"
 
-#: glade/folder-edit.glade:86
+#: ui/folder-edit.ui:86
 msgid "Staggered"
 msgstr "阶段"
 
-#: glade/folder-edit.glade:90
+#: ui/folder-edit.ui:90
 msgid "Trashcan"
 msgstr "垃圾桶"
 
-#: glade/folder-edit.glade:94
+#: ui/folder-edit.ui:94
 msgid "External"
 msgstr "外部"
 
-#: glade/folder-edit.glade:171
+#: ui/folder-edit.ui:171
 msgid "Folder _Label"
 msgstr "文件夹标签(_L)"
 
-#: glade/folder-edit.glade:190
+#: ui/folder-edit.ui:190
 msgid "Generate Random"
 msgstr ""
 
-#: glade/folder-edit.glade:205
+#: ui/folder-edit.ui:205
 msgid "Short identifier for the folder. Must be the same on all devices."
 msgstr "文件夹的短标识符。必须在全部设备上都相同。"
 
-#: glade/folder-edit.glade:219
+#: ui/folder-edit.ui:219
 msgid "_Path"
 msgstr "路径(_P)"
 
-#: glade/folder-edit.glade:237
+#: ui/folder-edit.ui:237
 msgid ""
 "Path to the folder on the local computer. Will be created if it does not "
 "exist."
 msgstr "本地计算机上的文件夹路径。文件夹将被创建如果它不存在。"
 
-#: glade/folder-edit.glade:251
+#: ui/folder-edit.ui:251
 msgid "Rescan _Interval"
 msgstr "扫描间隔(_I)"
 
-#: glade/folder-edit.glade:269 glade/folder-edit.glade:1092
+#: ui/folder-edit.ui:269 ui/folder-edit.ui:1092
 msgid "5"
 msgstr ""
 
-#: glade/folder-edit.glade:298
+#: ui/folder-edit.ui:298
 msgid "Monitor filesystem for _changes"
 msgstr "监控文件系统的更改(_C)"
 
-#: glade/folder-edit.glade:332
+#: ui/folder-edit.ui:332
 msgid "Browse..."
 msgstr "浏览..."
 
-#: glade/folder-edit.glade:355
+#: ui/folder-edit.ui:355
 msgid "Folder _ID"
 msgstr "文件夹 _ID"
 
-#: glade/folder-edit.glade:385
+#: ui/folder-edit.ui:385
 msgid ""
 "Optional descriptive label for the folder. Can be different on each device."
 msgstr "可选的文件夹说明性标签。在不同设备上可以不一致。"
 
-#: glade/folder-edit.glade:408
+#: ui/folder-edit.ui:408
 msgid "_Send Only Folder"
 msgstr "只发送的文件夹(_S)"
 
-#: glade/folder-edit.glade:429
+#: ui/folder-edit.ui:429
 msgid ""
 "Files are protected from changes made on other devices, but changes made on "
 "this device will be sent to the rest of the cluster."
@@ -406,12 +405,12 @@ msgstr ""
 "文件已防止其它设备上所做的更改，但此设备上所做的更改将被发送到群集里的其余设"
 "备。"
 
-#: glade/folder-edit.glade:453
+#: ui/folder-edit.ui:453
 #, fuzzy
 msgid "_Receive Only Folder"
 msgstr "只发送的文件夹(_S)"
 
-#: glade/folder-edit.glade:474
+#: ui/folder-edit.ui:474
 #, fuzzy
 msgid ""
 "Changes from other devices are applied to files on this device, but changes "
@@ -420,23 +419,23 @@ msgstr ""
 "文件已防止其它设备上所做的更改，但此设备上所做的更改将被发送到群集里的其余设"
 "备。"
 
-#: glade/folder-edit.glade:493
+#: ui/folder-edit.ui:493
 msgid "_Folder Settings"
 msgstr "文件夹设置(_F)"
 
-#: glade/folder-edit.glade:514
+#: ui/folder-edit.ui:514
 msgid "Select the devices to share this folder with."
 msgstr "选择此文件夹要共享给的设备。"
 
-#: glade/folder-edit.glade:566
+#: ui/folder-edit.ui:566
 msgid "Share With _Devices"
 msgstr "共享给设备(_D)"
 
-#: glade/folder-edit.glade:588
+#: ui/folder-edit.ui:588
 msgid "Versioning _Mode"
 msgstr "版本控制模式(_M)"
 
-#: glade/folder-edit.glade:643
+#: ui/folder-edit.ui:643
 msgid ""
 "Files are moved to date stamped versions in a .stversions folder when "
 "replaced or deleted by syncthing."
@@ -444,15 +443,15 @@ msgstr ""
 "当文件通过 syncthing 被替代或删除时移动到 .stversions 文件夹并加上日期戳作为"
 "版本号。"
 
-#: glade/folder-edit.glade:658
+#: ui/folder-edit.ui:658
 msgid "_Keep Versions"
 msgstr "保留版本(_K)"
 
-#: glade/folder-edit.glade:695
+#: ui/folder-edit.ui:695
 msgid "The number of old versions to keep, per file."
 msgstr "每个文件要保留的旧版本数量。"
 
-#: glade/folder-edit.glade:724
+#: ui/folder-edit.ui:724
 msgid ""
 "Files are moved to date stamped versions in a .stversions folder when "
 "replaced or deleted by syncthing. Versions are automatically deleted if they "
@@ -472,80 +471,80 @@ msgstr ""
 "一小时保存一个；对于最近 30 天的版本，每天保存一个；对于超过 30 天又小于最大"
 "寿命的版本，每 周保存一个。"
 
-#: glade/folder-edit.glade:741
+#: ui/folder-edit.ui:741
 msgid "Ma_ximum Age"
 msgstr "最长存在时间(_X)"
 
-#: glade/folder-edit.glade:780
+#: ui/folder-edit.ui:780
 msgid "Versions _Path"
 msgstr "版本路径(_P)"
 
-#: glade/folder-edit.glade:812
+#: ui/folder-edit.ui:812
 msgid ""
 "Path where versions should be stored (leave empty for the default ."
 "stversions folder)."
 msgstr "保留版本应该保存的路径（留空表示默认的 .stversions 文件夹）。"
 
-#: glade/folder-edit.glade:840
+#: ui/folder-edit.ui:840
 msgid ""
 "Files are moved to .stversions folder when replaced or deleted by Syncthing"
 msgstr "当通过 Syncthing 替代或删除文件时文件被移动到 .stversions 文件夹"
 
-#: glade/folder-edit.glade:854
+#: ui/folder-edit.ui:854
 msgid "Clean out _after"
 msgstr "该时间后清除："
 
-#: glade/folder-edit.glade:893
+#: ui/folder-edit.ui:893
 msgid "The number of days to keep files in the trash can."
 msgstr "在垃圾站中文件的保留天数"
 
-#: glade/folder-edit.glade:922
+#: ui/folder-edit.ui:922
 msgid ""
 "An external command handles the versioning. It has to remove the file from "
 "the synced folder."
 msgstr "处理文件版本控制的外部命令。它将从同步文件夹中移除文件。"
 
-#: glade/folder-edit.glade:937
+#: ui/folder-edit.ui:937
 msgid "Command"
 msgstr "命令"
 
-#: glade/folder-edit.glade:970
+#: ui/folder-edit.ui:970
 msgid ""
 "The first command line parameter is the folder path and the second parameter "
 "is the relative path in the folder."
 msgstr "第一个命令行参数是文件夹路径，第二个参数是文件夹里的相关路径。"
 
-#: glade/folder-edit.glade:1007
+#: ui/folder-edit.ui:1007
 msgid "File _Versioning"
 msgstr "文件版本控制(_V)"
 
-#: glade/folder-edit.glade:1037
+#: ui/folder-edit.ui:1037
 msgid "Ignore P_ermissions"
 msgstr "忽略权限(_E)"
 
-#: glade/folder-edit.glade:1058
+#: ui/folder-edit.ui:1058
 msgid ""
 "File permission bits are ignored when looking for changes. Use on FAT "
 "filesystems."
 msgstr "当寻找更改时忽略文件的权限位。用在 FAT 文件系统上。"
 
-#: glade/folder-edit.glade:1073
+#: ui/folder-edit.ui:1073
 msgid "Minimum Free Disk Space"
 msgstr "最低可用磁盘空间"
 
-#: glade/folder-edit.glade:1112
+#: ui/folder-edit.ui:1112
 msgid "File Pull _Order"
 msgstr "文件拉取顺序(_O)"
 
-#: glade/folder-edit.glade:1160 glade/ui-settings.glade:1046
+#: ui/folder-edit.ui:1160 ui/ui-settings.ui:1046
 msgid "_Advanced"
 msgstr "高级(_A)"
 
-#: glade/ignore-editor.glade:8
+#: ui/ignore-editor.ui:8
 msgid "Ignore Patterns"
 msgstr "忽略模式"
 
-#: glade/ignore-editor.glade:99
+#: ui/ignore-editor.ui:99
 msgid ""
 "See <a href=\"http://docs.syncthing.net/users/ignoring.html\">Syncthing "
 "documentation</a> for list of supported patterns"
@@ -553,157 +552,157 @@ msgstr ""
 "查看 <a href=\"http://docs.syncthing.net/users/ignoring.html\">Syncthing 文档"
 "</a> 获取支持模式的列表"
 
-#: glade/ignore-editor.glade:114
+#: ui/ignore-editor.ui:114
 msgid "File location: "
 msgstr "文件位置："
 
-#: glade/ui-settings.glade:27 glade/ui-settings.glade:49
+#: ui/ui-settings.ui:27 ui/ui-settings.ui:49
 msgid "Default"
 msgstr ""
 
-#: glade/ui-settings.glade:31
+#: ui/ui-settings.ui:31
 msgid "Black"
 msgstr ""
 
-#: glade/ui-settings.glade:35
+#: ui/ui-settings.ui:35
 msgid "White"
 msgstr ""
 
-#: glade/ui-settings.glade:107
+#: ui/ui-settings.ui:107
 msgid "Lowest"
 msgstr "最低"
 
-#: glade/ui-settings.glade:111
+#: ui/ui-settings.ui:111
 msgid "Low"
 msgstr "低"
 
-#: glade/ui-settings.glade:115
+#: ui/ui-settings.ui:115
 msgid "Normal"
 msgstr "正常"
 
-#: glade/ui-settings.glade:119
+#: ui/ui-settings.ui:119
 msgid "Above Normal"
 msgstr "高于正常"
 
-#: glade/ui-settings.glade:126
+#: ui/ui-settings.ui:126
 msgid "Syncthing-GTK Settings"
 msgstr "Syncthing-GTK 设置"
 
-#: glade/ui-settings.glade:149
+#: ui/ui-settings.ui:149
 msgid "Please, restart Syncthing-GTK to apply all changed settings"
 msgstr "请重启 Syncthing-GTK 来应用所有已更改的设置"
 
-#: glade/ui-settings.glade:217
+#: ui/ui-settings.ui:217
 msgid "When starting and Syncthing daemon is not running..."
 msgstr "当启动中且 Syncthing 守护程序未在运行时..."
 
-#: glade/ui-settings.glade:228
+#: ui/ui-settings.ui:228
 msgid "... _wait for daemon"
 msgstr "... 等待守护程序(_W)"
 
-#: glade/ui-settings.glade:246
+#: ui/ui-settings.ui:246
 msgid "... start daemon in _background"
 msgstr "... 在后台启动守护程序(_B)"
 
-#: glade/ui-settings.glade:264
+#: ui/ui-settings.ui:264
 msgid "... _ask me what to do"
 msgstr "... 询问我做什么(_A)"
 
-#: glade/ui-settings.glade:285
+#: ui/ui-settings.ui:285
 msgid "When exiting after daemon was started in background..."
 msgstr "当守护程序已在后台启动后退出时..."
 
-#: glade/ui-settings.glade:296
+#: ui/ui-settings.ui:296
 msgid "... terminate _daemon"
 msgstr "... 终止守护程序(_D)"
 
-#: glade/ui-settings.glade:314
+#: ui/ui-settings.ui:314
 msgid "... leave daemon _running"
 msgstr "... 离开并让守护程序运行(_R)"
 
-#: glade/ui-settings.glade:332
+#: ui/ui-settings.ui:332
 msgid "... ask me w_hat to do"
 msgstr "... 询问我做什么(_H)"
 
-#: glade/ui-settings.glade:350
+#: ui/ui-settings.ui:350
 msgid "Us_e traditional window header"
 msgstr "使用传统标题栏(_E)"
 
-#: glade/ui-settings.glade:371
+#: ui/ui-settings.ui:371
 msgid "Display desktop notifications for..."
 msgstr "显示桌面通知用于..."
 
-#: glade/ui-settings.glade:382
+#: ui/ui-settings.ui:382
 msgid "... file updates"
 msgstr "... 文件更新"
 
-#: glade/ui-settings.glade:399
+#: ui/ui-settings.ui:399
 msgid "... errors"
 msgstr "... 错误"
 
-#: glade/ui-settings.glade:416
+#: ui/ui-settings.ui:416
 msgid "... synchronization completion"
 msgstr "... 同步完成"
 
-#: glade/ui-settings.glade:433
+#: ui/ui-settings.ui:433
 msgid "Start Syncthing-GTK when I login to my desktop"
 msgstr "当我登录到桌面时启动 Syncthing-GTK"
 
-#: glade/ui-settings.glade:450
+#: ui/ui-settings.ui:450
 msgid "Minimize to _tray on start"
 msgstr "启动时最小化到托盘(_T)"
 
-#: glade/ui-settings.glade:466
+#: ui/ui-settings.ui:466
 msgid "Display paths in directories panel"
 msgstr "在目录面板中显示路径"
 
-#: glade/ui-settings.glade:482
+#: ui/ui-settings.ui:482
 msgid "Force _dark theme"
 msgstr "强制黑色主题(_D)"
 
-#: glade/ui-settings.glade:523
+#: ui/ui-settings.ui:523
 msgid "Tray icon style"
 msgstr ""
 
-#: glade/ui-settings.glade:536
+#: ui/ui-settings.ui:536
 msgid "Language"
 msgstr ""
 
-#: glade/ui-settings.glade:575
+#: ui/ui-settings.ui:575
 msgid "_Interface"
 msgstr "界面(_I)"
 
-#: glade/ui-settings.glade:594
+#: ui/ui-settings.ui:594
 msgid "Integrate Syncthing with filemanagers"
 msgstr "集成 Syncthing  到文件管理器"
 
-#: glade/ui-settings.glade:609
+#: ui/ui-settings.ui:609
 msgid "Nemo (Cinamon Desktop)"
 msgstr "Nemo（Cinamon 桌面）"
 
-#: glade/ui-settings.glade:626
+#: ui/ui-settings.ui:626
 msgid "Nautilus (Ubuntu/GNOME)"
 msgstr "Nautilus (Ubuntu/GNOME)"
 
-#: glade/ui-settings.glade:642
+#: ui/ui-settings.ui:642
 msgid "Caja (MATE Desktop)"
 msgstr "Caja（MATE 桌面）"
 
-#: glade/ui-settings.glade:681
+#: ui/ui-settings.ui:681
 msgid ""
 "<b>Note:</b> You may need to restart your filemanager after toggling "
 "integration."
 msgstr "<b>提示：</b> 您可能需要在切换集成后重启您的文件管理器。"
 
-#: glade/ui-settings.glade:701
+#: ui/ui-settings.ui:701
 msgid "_Integration"
 msgstr "集成(_I)"
 
-#: glade/ui-settings.glade:731
+#: ui/ui-settings.ui:731
 msgid "Keep Syncthing binary up-to-date"
 msgstr "保持 Syncthing 二进制文件为最新"
 
-#: glade/ui-settings.glade:751
+#: ui/ui-settings.ui:751
 msgid ""
 "If enabled, Syncthing-GTK will automatically check for new daemon releases "
 "and replace binary with latest version."
@@ -711,22 +710,22 @@ msgstr ""
 "如果启用，Syncthing-GTK 将自动检查新的守护程序发布并替换二进制文件为最新的版"
 "本。"
 
-#: glade/ui-settings.glade:766
+#: ui/ui-settings.ui:766
 msgid "Daemon process priority"
 msgstr "守护程序进程优先级"
 
-#: glade/ui-settings.glade:802
+#: ui/ui-settings.ui:802
 msgid ""
 "Priority will be used only if \"<i>start daemon in background</i>\" option "
 "is checked on \"<i>Interface</i>\" page."
 msgstr ""
 "优先级只在“<i>在后台启动守护程序</i>”选项在“<i>界面</i>”页面上已选中时使用。"
 
-#: glade/ui-settings.glade:817
+#: ui/ui-settings.ui:817
 msgid "Maximum number of CPU cores"
 msgstr "最大 CPU 核心数量"
 
-#: glade/ui-settings.glade:835
+#: ui/ui-settings.ui:835
 msgid ""
 "Sets the maximum number of CPU cores for daemon to use. This value will be "
 "used only if \"<i>start daemon in background</i>\" option is checked on "
@@ -735,11 +734,11 @@ msgstr ""
 "设置用于守护程序使用的 CPU 核心最大数量。此数值只在“<i>在后台启动守护程序</"
 "i>”选项在“<i>界面</i>”页面上已选中时使用。"
 
-#: glade/ui-settings.glade:873
+#: ui/ui-settings.ui:873
 msgid "Daemon"
 msgstr "守护程序"
 
-#: glade/ui-settings.glade:896
+#: ui/ui-settings.ui:896
 msgid ""
 "This binary will be started when syncthing daemon is not running and "
 "\"<i>start daemon in background</i>\" option is checked on \"<i>Interface</"
@@ -748,15 +747,15 @@ msgstr ""
 "此二进制文件将被启动当 syncthing 守护程序未在运行且“<i>在后台启动守护程序</"
 "i>”选项在“<i>界面</i>”页面中已选中。"
 
-#: glade/ui-settings.glade:928
+#: ui/ui-settings.ui:928
 msgid "Syncthing binary location"
 msgstr "Syncthing 二进制文件位置"
 
-#: glade/ui-settings.glade:958
+#: ui/ui-settings.ui:958
 msgid "Daemon arguments and variables"
 msgstr "守护程序参数和变量"
 
-#: glade/ui-settings.glade:988
+#: ui/ui-settings.ui:988
 msgid ""
 "Space-separated list of arguments and environment variables passed when "
 "starting above binary\n"
@@ -781,7 +780,7 @@ msgstr ""
 "示例：\n"
 "<i>STTRACE=\"all\" logger -t /var/log/syncthing.log ! -logflags=10</i>"
 
-#: glade/ui-settings.glade:1012
+#: ui/ui-settings.ui:1012
 msgid ""
 "<b>Warning:</b> Changing settings on this page may prevent you from using "
 "Syncthing-GTK"
@@ -1348,76 +1347,76 @@ msgstr "选择新文件夹"
 msgid "File location:"
 msgstr "文件未知："
 
-#: syncthing_gtk/notifications.py:122 syncthing_gtk/notifications.py:123
+#: syncthing_gtk/notifications.py:125 syncthing_gtk/notifications.py:126
 #, python-format
 msgid "Accept device \"%s\""
 msgstr ""
 
-#: syncthing_gtk/notifications.py:124
+#: syncthing_gtk/notifications.py:127
 #, python-format
 msgid "Ignore device \"%s\""
 msgstr ""
 
-#: syncthing_gtk/notifications.py:126
+#: syncthing_gtk/notifications.py:129
 msgid "Unknown Device"
 msgstr ""
 
-#: syncthing_gtk/notifications.py:127
+#: syncthing_gtk/notifications.py:130
 #, python-format
 msgid "Device \"%s\" is trying to connect to syncthing daemon."
 msgstr "设备“%s”正尝试连接到 syncthing 守护程序。"
 
-#: syncthing_gtk/notifications.py:170 syncthing_gtk/notifications.py:171
+#: syncthing_gtk/notifications.py:173 syncthing_gtk/notifications.py:174
 #, python-format
 msgid "Accept folder \"%s\""
 msgstr ""
 
-#: syncthing_gtk/notifications.py:172
+#: syncthing_gtk/notifications.py:175
 #, fuzzy, python-format
 msgid "Ignore folder \"%s\""
 msgstr "忽略模式"
 
-#: syncthing_gtk/notifications.py:178
+#: syncthing_gtk/notifications.py:181
 #, fuzzy
 msgid "Folder rejected"
 msgstr "文件夹类型"
 
-#: syncthing_gtk/notifications.py:179
+#: syncthing_gtk/notifications.py:182
 #, fuzzy, python-format
 msgid "Unexpected folder \"%(folder)s\" sent from device \"%(device)s\"."
 msgstr "从设备“%s”发来了意外的文件夹 ID。"
 
-#: syncthing_gtk/notifications.py:211
+#: syncthing_gtk/notifications.py:214
 #, fuzzy, python-format
 msgid "Completed synchronization in \"%s\""
 msgstr "... 同步完成"
 
-#: syncthing_gtk/notifications.py:213
+#: syncthing_gtk/notifications.py:216
 #, python-format
 msgid "Updates in folder \"%s\""
 msgstr ""
 
-#: syncthing_gtk/notifications.py:225
+#: syncthing_gtk/notifications.py:228
 #, python-format
 msgid "%(hostname)s: Downloaded '%(filename)s' to reflect remote changes."
 msgstr "%(hostname)s：已下载“%(filename)s”以反映远程更改。"
 
-#: syncthing_gtk/notifications.py:229
+#: syncthing_gtk/notifications.py:232
 #, python-format
 msgid "%(hostname)s: Deleted '%(filename)s' to reflect remote changes."
 msgstr "%(hostname)s：已删除“%(filename)s”以反映远程更改。"
 
-#: syncthing_gtk/notifications.py:231
+#: syncthing_gtk/notifications.py:234
 #, python-format
 msgid "%(hostname)s: Downloaded %(updated)s files to reflect remote changes."
 msgstr "%(hostname)s：已下载 %(updated)s 个文件以反映远程更改。"
 
-#: syncthing_gtk/notifications.py:233
+#: syncthing_gtk/notifications.py:236
 #, python-format
 msgid "%(hostname)s: Deleted %(deleted)s files to reflect remote changes."
 msgstr "%(hostname)s：已删除 %(deleted)s 个文件以反映远程更改。"
 
-#: syncthing_gtk/notifications.py:236
+#: syncthing_gtk/notifications.py:239
 #, python-format
 msgid ""
 "%(hostname)s: downloaded %(updated)s files and deleted %(deleted)s files to "
@@ -1426,22 +1425,22 @@ msgstr ""
 "%(hostname)s：已下载 %(updated)s 个文件、删除 %(deleted)s 个文件以反映远程更"
 "改。"
 
-#: syncthing_gtk/notifications.py:263
+#: syncthing_gtk/notifications.py:266
 #, python-format
 msgid "Conflicting file in \"%s\""
 msgstr ""
 
-#: syncthing_gtk/notifications.py:264
+#: syncthing_gtk/notifications.py:267
 #, python-format
 msgid "Conflict in path \"%s\" detected."
 msgstr ""
 
-#: syncthing_gtk/notifications.py:268
+#: syncthing_gtk/notifications.py:271
 #, fuzzy
 msgid "Open Conflicting file in filemanager"
 msgstr "集成 Syncthing  到文件管理器"
 
-#: syncthing_gtk/notifications.py:343
+#: syncthing_gtk/notifications.py:346
 msgid "An error occurred in Syncthing!"
 msgstr ""
 
