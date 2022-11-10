@@ -252,7 +252,6 @@ def init_locale(localedir=None):
 	global _localedir
 	_localedir = localedir
 	gettext.bindtextdomain(GETTEXT_DOMAIN, localedir)
-	gettext.bind_textdomain_codeset(GETTEXT_DOMAIN, "utf-8")
 	gettext.textdomain(GETTEXT_DOMAIN)
 
 def get_locale_dir():
