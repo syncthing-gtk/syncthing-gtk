@@ -410,7 +410,7 @@ def get_executable():
 			cwd = os.getcwd()
 			executable = os.path.normpath(os.path.join(cwd, executable))
 		if executable.endswith(".py"):
-			executable = "/usr/bin/env python3 %s" % (executable,)
+			executable = "/usr/bin/env python3 %s" % (shlex.quote(executable),)
 		return executable
 
 def is_ran_on_startup(program_name):
