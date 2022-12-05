@@ -20,6 +20,7 @@ if __name__ == "__main__":
         raise IOError("Could not find files in %r", paths)
 
     gi.require_version('Gtk', '3.0')
+    gi.require_version('Gdk', '3.0')
     gi.require_version('Rsvg', '2.0')
 
     from syncthing_gtk.tools import init_locale, init_logging
