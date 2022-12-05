@@ -1,3 +1,9 @@
+syncthing-gtk (0.9.4.4+ds+git20221205+12a9702d29ab-1) unstable; urgency=medium
+
+  * Pick up recent upstream development snapshot.
+
+ -- Andrej Shadura <andrewsh@debian.org>  Mon, 05 Dec 2022 16:00:03 +0100
+
 syncthing-gtk (0.9.4.4+ds+git20220108+9023143f8b93-1) unstable; urgency=medium
 
   * Cherry-pick patches from upstream pull requests.
