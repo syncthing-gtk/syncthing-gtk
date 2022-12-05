@@ -7,6 +7,7 @@ import gi
 
 if __name__ == "__main__":
     gi.require_version('Gtk', '3.0')
+    gi.require_version('Gdk', '3.0')
     gi.require_version('Rsvg', '2.0')
 
     from syncthing_gtk.tools import IS_WINDOWS, init_locale, init_logging
