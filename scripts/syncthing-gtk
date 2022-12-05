@@ -14,20 +14,21 @@ if __name__ == "__main__":
 			break
 	else:
 		raise IOError("Could not find files in %r", paths)
-	
+
 	gi.require_version('Gtk', '3.0')
+	gi.require_version('Gdk', '3.0')
 	gi.require_version('Rsvg', '2.0')
-	
+
 	from syncthing_gtk.tools import init_logging, init_locale
 	init_locale(localedir)
 	init_logging()
-	
+
 	if "APPDIR" in os.environ:
 		# Running as AppImage
 		from gi.repository import Gtk
 		Gtk.IconTheme.get_default().prepend_search_path(os.environ["APPDIR"])
 		Gtk.IconTheme.get_default().prepend_search_path(os.environ["APPDIR"] + "/usr/share/icons/hicolor/32x32/apps")
 		Gtk.IconTheme.get_default().prepend_search_path(os.environ["APPDIR"] + "/usr/share/icons/hicolor/32x32/status")
-	
+
 	from syncthing_gtk.app import App
 	App(path, os.path.join(path, "icons")).run(sys.argv)
