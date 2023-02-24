@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 """
 Syncthing-GTK - tools
 
@@ -12,7 +12,7 @@ Usage:
 	- Continue as usual
 """
 
-from __future__ import unicode_literals
+
 from gi.repository import Gtk
 from xml.dom import minidom
 from .tools import GETTEXT_DOMAIN, IS_WINDOWS
@@ -63,7 +63,7 @@ class UIBuilder(Gtk.Builder):
 	def condition_met(self, cond):
 		"""
 		Returns True if condition is met. Empty condition is True.
-		Spaces at begining or end of expressions are stripped.
+		Spaces at beginning or end of expressions are stripped.
 		
 		Supports simple |, & and !
 		operators, but no parenthesis.
@@ -106,7 +106,7 @@ class UIBuilder(Gtk.Builder):
 		# Now this will convert parsed DOM tree back to XML and fed it
 		# to Gtk.Builder XML parser.
 		# God probably kills kitten every time when method is called...
-		Gtk.Builder.add_from_string(self, self.xml.toxml("utf-8"))
+		Gtk.Builder.add_from_string(self, self.xml.toxml())
 	
 	def _find_translatables(self, node=None):
 		"""
@@ -171,7 +171,7 @@ class UIBuilder(Gtk.Builder):
 				element.removeChild(elseem)
 			merge_with_parent(element, element)
 		else:
-			# Remove this element, but merge ELSE elemnets, if any
+			# Remove this element, but merge ELSE elements, if any
 			log.debug("Removed node %s", condition)
 			for elseem in getElementsByTagNameCI(element, "else"):
 				merge_with_parent(elseem, element)

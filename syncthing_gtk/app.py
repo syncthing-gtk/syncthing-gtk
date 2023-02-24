@@ -1,11 +1,11 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 """
 Syncthing-GTK - App
 
 Main application window
 """
 
-from __future__ import unicode_literals
+
 import itertools
 import signal
 from gi.repository import Gtk, Gio, Gdk, GLib, GdkPixbuf
@@ -278,15 +278,15 @@ class App(Gtk.Application, TimerManager):
 			self.connect('handle-local-options', self.do_local_options)
 		else:
 			self.arguments = []
-		aso("window",	b"w", "Display window (don't start minimized)")
-		aso("minimized",b"m", "Hide window (start minimized)")
-		aso("header",	b"s", "Use classic window header")
-		aso("quit",		b"q", "Quit running instance (if any)")
-		aso("verbose",	b"v", "Be verbose")
-		aso("debug",	b"d", "Be more verbose (debug mode)")
-		aso("wizard",	b"1", "Run 'first start wizard' and exit")
-		aso("about",	b"a", "Display about dialog and exit")
-		aso("dump",		b"o", "Redirect captured daemon output to stdout")
+		aso("window",		ord('w'), "Display window (don't start minimized)")
+		aso("minimized",	ord('m'), "Hide window (start minimized)")
+		aso("header",		ord('s'), "Use classic window header")
+		aso("quit",			ord('q'), "Quit running instance (if any)")
+		aso("verbose",		ord('v'), "Be verbose")
+		aso("debug",		ord('d'), "Be more verbose (debug mode)")
+		aso("wizard",		ord('1'), "Run 'first start wizard' and exit")
+		aso("about",		ord('a'), "Display about dialog and exit")
+		aso("dump",			ord('o'), "Redirect captured daemon output to stdout")
 		aso("home", 0, "Overrides default syncthing configuration directory",
 				GLib.OptionArg.STRING)
 		aso("add-repo", 0,    "Opens 'add repository' dialog with specified path prefilled",
@@ -322,14 +322,10 @@ class App(Gtk.Application, TimerManager):
 	def setup_widgets(self):
 		self.builder = UIBuilder()
 		# Set conditions for UIBuilder
-		old_gtk = ((Gtk.get_major_version(), Gtk.get_minor_version()) < (3, 12)) and not IS_WINDOWS
-		icons_in_menu = self.config["icons_in_menu"]
 		if self.use_headerbar: 		self.builder.enable_condition("header_bar")
 		if not self.use_headerbar:	self.builder.enable_condition("traditional_header")
 		if IS_WINDOWS: 				self.builder.enable_condition("is_windows")
 		if IS_GNOME:  				self.builder.enable_condition("is_gnome")
-		if old_gtk:					self.builder.enable_condition("old_gtk")
-		if icons_in_menu:			self.builder.enable_condition("icons_in_menu")
 		# Fix icon path
 		self.builder.replace_icon_path("icons/", self.iconpath)
 		# Load glade file
@@ -352,11 +348,10 @@ class App(Gtk.Application, TimerManager):
 				submenu.add(menuitem)
 			self[limitmenu].show_all()
 		
-		if not old_gtk:
-			if not self["edit-menu-icon"] is None:
-				if not Gtk.IconTheme.get_default().has_icon(self["edit-menu-icon"].get_icon_name()[0]):
-					# If requested icon is not found in default theme, replace it with emblem-system-symbolic
-					self["edit-menu-icon"].set_from_icon_name("emblem-system-symbolic", self["edit-menu-icon"].get_icon_name()[1])
+		if not self["edit-menu-icon"] is None:
+			if not Gtk.IconTheme.get_default().has_icon(self["edit-menu-icon"].get_icon_name()[0]):
+				# If requested icon is not found in default theme, replace it with emblem-system-symbolic
+				self["edit-menu-icon"].set_from_icon_name("emblem-system-symbolic", self["edit-menu-icon"].get_icon_name()[1])
 		
 		# Set window title in way that even Gnome can understand
 		icon = os.path.join(self.iconpath, "syncthing-gtk.png")
@@ -774,11 +769,11 @@ class App(Gtk.Application, TimerManager):
 				ex = Gtk.Expander(label=_("More info"))
 				tbuf = Gtk.TextBuffer()
 				try:
-					tbuf.set_text(u'Server response:\n\'%s\'' % (exception.full_response,))
+					tbuf.set_text('Server response:\n\'%s\'' % (exception.full_response,))
 				except Exception:
 					# May happen when full_response can't be decoded
 					try:
-						tbuf.set_text(u'Server response:\n\'%s\'' % ((exception.full_response,),))
+						tbuf.set_text('Server response:\n\'%s\'' % ((exception.full_response,),))
 					except Exception:
 						# Shouldn't really happen
 						tbuf.set_text("<unparsable mess of data>")
@@ -1394,27 +1389,27 @@ class App(Gtk.Application, TimerManager):
 					self["window"].move(x, y)
 				GLib.idle_add(move_back)
 	
-	def show_folder(self, id, label, path, folder_type, ignore_perms, rescan_interval, fswatcher_enabled, shared):
+	def show_folder(self, folder_id, label, path, folder_type, ignore_perms, rescan_interval, fswatcher_enabled, shared):
 		""" Shared is expected to be list """
 		assert type(folder_type) != bool
 		display_path = path
 		if IS_WINDOWS:
 			if display_path.lower().replace("\\", "/").startswith(os.path.expanduser("~").lower()):
 				display_path = "~%s" % display_path[len(os.path.expanduser("~")):]
-		title = id
+		title = folder_id
 		if self.config["folder_as_path"]:
 			title = display_path
 		if label not in (None, ""):
 			title = label
-		if id in self.folders:
+		if folder_id in self.folders:
 			# Reuse existing box
-			box = self.folders[id]
+			box = self.folders[folder_id]
 			box.set_title(title)
 		else:
 			# Create new box
 			box = InfoBox(self, title, Gtk.Image.new_from_icon_name("drive-harddisk", Gtk.IconSize.LARGE_TOOLBAR))
 			# Add visible lines
-			box.add_value("id",				"version.svg",	_("Folder ID"),			id)
+			box.add_value("id",				"version.svg",	_("Folder ID"),			folder_id)
 			box.add_value("path",			"folder.svg",	_("Path"))
 			box.add_value("global",			"global.svg",	_("Global State"),		"? items, ?B")
 			box.add_value("local",			"home.svg",		_("Local State"),		"? items, ?B")
@@ -1438,15 +1433,15 @@ class App(Gtk.Application, TimerManager):
 			box.set_vexpand(False)
 			GLib.idle_add(box.show_all)	# Window border will dissapear without this on Windows
 			self["folderlist"].pack_start(box, False, False, 3)
-			box.set_open(id in self.open_boxes or self.folders_never_loaded)
+			box.set_open(folder_id in self.open_boxes or self.folders_never_loaded)
 			box.connect('right-click', self.cb_popup_menu_folder)
 			box.connect('doubleclick', self.cb_browse_folder)
 			box.connect('enter-notify-event', self.cb_box_mouse_enter)
 			box.connect('leave-notify-event', self.cb_box_mouse_leave)
-			self.folders[id] = box
+			self.folders[folder_id] = box
 			self.folders_never_loaded = False
 		# Set values
-		box.set_value("id",		id)
+		box.set_value("id",		folder_id)
 		box.set_value("path",	display_path)
 		if folder_type == "receiveonly":
 			box.set_value("folder_type",	_("Receive Only"))
@@ -2195,4 +2190,3 @@ class App(Gtk.Application, TimerManager):
 				self.cb_daemon_exit(self.process, -1)
 			else:
 				self.quit()
-

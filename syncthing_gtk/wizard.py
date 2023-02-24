@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 """
 Syncthing-GTK - 1st run wizard
 
@@ -6,7 +6,7 @@ Basically runs Syncthing daemon with -generate option and setups some
 values afterwards.
 """
 
-from __future__ import unicode_literals
+
 from gi.repository import Gtk, GLib, GdkPixbuf
 from syncthing_gtk.daemonoutputdialog import DaemonOutputDialog
 from syncthing_gtk.daemonprocess import DaemonProcess
@@ -99,7 +99,7 @@ class Wizard(Gtk.Assistant):
 		return index
 	
 	def only_page(self, page):
-		for r in xrange(1, page):
+		for r in range(1, page):
 			self.remove_page(r)
 		while self.get_n_pages() > 3:
 			self.remove_page(self.get_n_pages() - 2)
@@ -218,7 +218,7 @@ class IntroPage(Page):
 			all_buttons = [ b for b in self.dialog.quit_button.get_parent().get_children()
 				if isinstance(b, Gtk.Button) and b is not self.dialog.quit_button ]
 			# order is 'apply, next, back, finish, cancel'
-			next_label = all_buttons[1].get_label().decode("utf-8").replace("_", "")
+			next_label = all_buttons[1].get_label().replace("_", "")
 		except: pass
 		# TODO: Temporal solution, remove later
 		changed_line = _("Continue this wizard to create a Syncthing configuration file or abort it to exit.")
@@ -330,7 +330,7 @@ class FindDaemonPage(Page):
 						'target' : target_folder_link
 					}
 				else:
-					# Binary was found, but it was too old to be ussable
+					# Binary was found, but it was too old to be usable
 					title = _("Syncthing daemon is too old.")
 					message += _("Syncthing-GTK needs Syncthing daemon %(min)s or newer, but only %(actual)s were found.") % {
 						'min' : MIN_ST_VERSION,
@@ -416,7 +416,7 @@ class FindDaemonPage(Page):
 					_("Version:") + " " + self.version_string
 				)
 		else:
-			# Found daemon binary too old to be ussable.
+			# Found daemon binary too old to be usable.
 			# Just ignore it and try to find better one.
 			log.info("Binary in %s is too old", bin_path)
 			self.ignored_version = self.version_string
@@ -674,7 +674,7 @@ class SaveSettingsPage(Page):
 		try:
 			s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 			s.bind((self.parent.syncthing_options["listen_ip"], port))
-			s.listen(0.1)
+			s.listen()
 			s.close()
 			# Good, port is available
 			self.parent.output_line("syncthing-gtk: chosen port %s" % (port,))
@@ -734,9 +734,9 @@ class SaveSettingsPage(Page):
 					))
 			self.ct_textnode(xml, gui, "user", self.parent.syncthing_options["user"])
 			self.ct_textnode(xml, gui, "password", bcrypt.hashpw(
-				str(self.parent.syncthing_options["password"]).encode("utf-8"),
+				self.parent.syncthing_options["password"].encode('utf8'),
 				bcrypt.gensalt()
-			))
+			).decode('utf8'))
 			self.ct_textnode(xml, gui, "apikey", self.apikey)
 			gui.setAttribute("enabled", "true")
 			gui.setAttribute("tls", "false")
@@ -750,8 +750,8 @@ class SaveSettingsPage(Page):
 			return False
 		try:
 			# Write XML back to file
-			with open(self.parent.st_configfile, "w") as f:
-				f.write(xml.toxml().encode("utf-8"))
+			with open(self.parent.st_configfile, "w", encoding="utf-8") as f:
+				f.write(xml.toxml())
 		except Exception as e:
 			self.parent.output_line("syncthing-gtk: %s" % (traceback.format_exc(),))
 			self.parent.error(self,

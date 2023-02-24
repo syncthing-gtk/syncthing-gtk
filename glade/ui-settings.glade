@@ -462,23 +462,6 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkCheckButton" id="vicons_in_menu">
-                    <property name="label" translatable="yes">Use _icons in menu</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="use_underline">True</property>
-                    <property name="xalign">0</property>
-                    <property name="draw_indicator">True</property>
-                    <signal name="toggled" handler="ui_value_changed" swapped="no"/>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">4</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
                   <object class="GtkCheckButton" id="vfolder_as_path">
                     <property name="label" translatable="yes">Display paths in directories panel</property>
                     <property name="visible">True</property>
