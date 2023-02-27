@@ -33,11 +33,11 @@ VALUES = [ "vautostart_daemon", "vautokill_daemon", "vminimize_on_start",
 # Values for filemanager integration. Key is ID of checkbox widget
 FM_DATA = {
     "fmcb_nemo" : (
-        "nemo/extensions-3.0/libnemo-python.so",	# python plugin location, relative to /usr/lib
-        "Nemo python bindings",						# name or description of required package
-        "syncthing-plugin-nemo",					# plugin script filename, without extension
-        "nemo-python/extensions",					# script folder, relative to XDG_DATA_HOME
-        "Nemo"										# name
+        "nemo/extensions-3.0/libnemo-python.so",    # python plugin location, relative to /usr/lib
+        "Nemo python bindings",                     # name or description of required package
+        "syncthing-plugin-nemo",                    # plugin script filename, without extension
+        "nemo-python/extensions",                   # script folder, relative to XDG_DATA_HOME
+        "Nemo"                                      # name
     ),
     "fmcb_nautilus" : (
         "nautilus/extensions-3.0/libnautilus-python.so",
@@ -149,11 +149,11 @@ class UISettingsDialog(EditorDialog):
         if key == "vautostart_daemon":
             if   self["rbOnStartWait"].get_active() : self.set_value(key[1:], 0)
             elif self["rbOnStartRun"].get_active() : self.set_value(key[1:], 1)
-            else: return self.set_value(key[1:], 2)	# vOnStartAsk
+            else: return self.set_value(key[1:], 2) # vOnStartAsk
         elif key == "vautokill_daemon":
             if self["rbOnExitTerminate"].get_active() : return self.set_value(key[1:], 1)
             elif self["rbOnExitLeave"].get_active() : return self.set_value(key[1:], 0)
-            else: return self.set_value(key[1:], 2)	# vOnExitAsk
+            else: return self.set_value(key[1:], 2) # vOnExitAsk
         elif key == "vst_autoupdate":
             # Reset updatecheck timer when autoupdate is turned on
             if self["vst_autoupdate"].get_active():
@@ -259,7 +259,7 @@ def library_exists(name):
     Checks if there is specified so file installed in one of known prefixes
     """
     PREFIXES = [
-        "/usr/lib64",	# Fedora
+        "/usr/lib64", # Fedora
         "/usr/lib",
         "/usr/local/lib/",
         "/usr/x86_64-pc-linux-gnu/lib/",

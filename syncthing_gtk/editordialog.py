@@ -25,8 +25,8 @@ class EditorDialog(GObject.GObject):
             Emitted after dialog loads and parses configuration data
     """
     __gsignals__ = {
-        "close"	: (GObject.SIGNAL_RUN_FIRST, None, ()),
-        "loaded"	: (GObject.SIGNAL_RUN_FIRST, None, ()),
+        "close": (GObject.SIGNAL_RUN_FIRST, None, ()),
+        "loaded": (GObject.SIGNAL_RUN_FIRST, None, ()),
     }
 
     # Should be overridden by subclass
@@ -176,7 +176,7 @@ class EditorDialog(GObject.GObject):
         Creates structure of nested dicts, if they are not in place already.
         """
         if not type(keys) == list: keys = list(keys)
-        if len(keys) == 0 : return	# Done
+        if len(keys) == 0 : return  # Done
         key, rest = keys[0], keys[1:]
         if not key in parent :
             parent[key] = {}

@@ -40,8 +40,8 @@ class Wizard(Gtk.Assistant):
         self.gladepath = gladepath
         self.iconpath = iconpath
         self.syncthing_options = {}
-        self.lines = []					# Daemon and wizard output,
-                                        # maybe for error reports
+        # Daemon and wizard output, maybe for error reports
+        self.lines = []
         self.finished = False
         self.connect("prepare", self.prepare_page)
         # Find syncthing configuration directory
@@ -138,11 +138,11 @@ class Wizard(Gtk.Assistant):
         # Title
         l_title = WrappedLabel("<b>%s</b>" % (title,))
         l_title.props.margin_bottom = 15
-        page.attach(l_title,	0, 0, 2, 1)
+        page.attach(l_title, 0, 0, 2, 1)
         # Message
         l_message = WrappedLabel(message)
         l_message.props.margin_bottom = 15
-        page.attach(l_message,	0, 1, 2, 1)
+        page.attach(l_message, 0, 1, 2, 1)
         # Bugreport link
         if display_bugreport_link:
             github_link = '<a href="https://github.com/syncthing/syncthing-gtk/issues">GitHub</a>'
@@ -352,11 +352,11 @@ class FindDaemonPage(Page):
                 # Attach [ ] Download Syncthing checkbox
                 cb = Gtk.CheckButton(_("_Download Syncthing binary"), use_underline=True)
                 cb.connect("toggled", lambda cb, *a : self.parent.set_page_complete(page, cb.get_active()))
-                page.attach(cb,	0, 2, 2, 1)
+                page.attach(cb, 0, 2, 2, 1)
                 # Attach [ ] Autoupdate checkbox
                 cb = Gtk.CheckButton(_("Auto_update downloaded binary"), use_underline=True)
                 cb.connect("toggled", lambda cb, *a : self.parent.config.set("st_autoupdate", cb.get_active()))
-                page.attach(cb,	0, 3, 2, 1)
+                page.attach(cb, 0, 3, 2, 1)
                 page.show_all()
                 # Add Download page
                 self.parent.insert(DownloadSTPage())
@@ -433,9 +433,9 @@ class DownloadSTPage(Page):
         self.pb = Gtk.ProgressBar()
         self.label.props.margin_bottom = 15
         self.target = None
-        self.attach(self.label,		0, 0, 1, 1)
-        self.attach(self.version,	0, 1, 1, 1)
-        self.attach(self.pb,		0, 2, 1, 1)
+        self.attach(self.label,     0, 0, 1, 1)
+        self.attach(self.version,   0, 1, 1, 1)
+        self.attach(self.pb,        0, 2, 1, 1)
 
     def prepare(self):
         # Determine which Syncthing to use
@@ -443,8 +443,8 @@ class DownloadSTPage(Page):
         # Report error on unsupported platforms
         if suffix is None or tag is None:
             pd = "%s %s %s" % (
-                platform.uname()[0], platform.uname()[2],	# OS, version
-                platform.uname()[4])						# architecture
+                platform.uname()[0], platform.uname()[2],   # OS, version
+                platform.uname()[4])                        # architecture
             self.parent.error(self,
                 _("Cannot download Syncthing daemon."),
                 _("This platform (%s) is not supported") % (pd,),
@@ -646,8 +646,8 @@ class SaveSettingsPage(Page):
         """ Displayed while settings are being saved """
         self.label = WrappedLabel("<b>" + _("Saving settings...") + "</b>" + "\n\n")
         self.status = Gtk.Label(_("Checking for available port..."))
-        self.attach(self.label,		0, 0, 1, 1)
-        self.attach(self.status,	0, 1, 1, 1)
+        self.attach(self.label, 0, 0, 1, 1)
+        self.attach(self.status, 0, 1, 1, 1)
 
     def prepare(self):
         GLib.idle_add(self.check_port, DEFAULT_PORT)

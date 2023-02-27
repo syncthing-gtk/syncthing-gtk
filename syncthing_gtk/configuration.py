@@ -26,35 +26,35 @@ class _Configuration(object):
     # and default values for those keys.
     # Format: key : (type, default)
     REQUIRED_KEYS = {
-        "autostart_daemon"			: (int, 2),	# 0 - wait for daemon, 1 - autostart, 2 - ask
-        "autokill_daemon"			: (int, 2),	# 0 - never kill, 1 - always kill, 2 - ask
-        "daemon_priority"			: (int, 0), # uses nice values
-        "max_cpus"					: (int, 0), # 0 for all cpus
-        "syncthing_binary"			: (str, "/usr/bin/syncthing"),
-        "syncthing_arguments"		: (str, ""),
-        "minimize_on_start"			: (bool, False),
-        "folder_as_path"			: (bool, True),
-        "use_old_header"			: (bool, False),
-        "animate_icon"				: (bool, True),
-        "notification_for_update"	: (bool, True),
-        "notification_for_folder"	: (bool, False),
-        "notification_for_error"	: (bool, True),
-        "st_autoupdate"				: (bool, False),
-        "last_updatecheck"			: (datetime, LONG_AGO),
-        "window_position"			: (tuple, None),
-        "infobox_style"				: (str, 'font_weight="bold" font_size="large"'),
-        "icon_theme"				: (str, 'syncthing'),
-        "force_dark_theme"			: (bool, False),	# Windows-only
-        "language"					: (str, ""),		# Windows-only
-        "file_browser"				: (str, "explore"),	# Windows-only
+        "autostart_daemon":         (int, 2), # 0 - wait for daemon, 1 - autostart, 2 - ask
+        "autokill_daemon":          (int, 2), # 0 - never kill, 1 - always kill, 2 - ask
+        "daemon_priority":          (int, 0), # uses nice values
+        "max_cpus":                 (int, 0), # 0 for all cpus
+        "syncthing_binary":         (str, "/usr/bin/syncthing"),
+        "syncthing_arguments":      (str, ""),
+        "minimize_on_start":        (bool, False),
+        "folder_as_path":           (bool, True),
+        "use_old_header":           (bool, False),
+        "animate_icon":             (bool, True),
+        "notification_for_update":  (bool, True),
+        "notification_for_folder":  (bool, False),
+        "notification_for_error":   (bool, True),
+        "st_autoupdate":            (bool, False),
+        "last_updatecheck":         (datetime, LONG_AGO),
+        "window_position":          (tuple, None),
+        "infobox_style":            (str, 'font_weight="bold" font_size="large"'),
+        "icon_theme":               (str, 'syncthing'),
+        "force_dark_theme":         (bool, False), # Windows-only
+        "language":                 (str, ""), # Windows-only
+        "file_browser":             (str, "explore"), # Windows-only
     }
 
     # Overrides some default values on Windows
     WINDOWS_OVERRIDE = {
-        "syncthing_binary"			: (str, "C:\\Program Files\\Syncthing\\syncthing.exe"),
-        "autokill_daemon"			: (int, 1),
-        "use_old_header"			: (bool, False),
-        "st_autoupdate"				: (bool, True),
+        "syncthing_binary": (str, "C:\\Program Files\\Syncthing\\syncthing.exe"),
+        "autokill_daemon":  (int, 1),
+        "use_old_header":   (bool, False),
+        "st_autoupdate":    (bool, True),
     }
 
     def __init__(self):

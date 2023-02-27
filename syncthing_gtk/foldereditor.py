@@ -13,7 +13,7 @@ from syncthing_gtk.editordialog import EditorDialog, strip_v
 import os, re, logging
 log = logging.getLogger("FolderEditor")
 
-COLOR_NEW				= "#A0A0A0"
+COLOR_NEW = "#A0A0A0"
 # Regexp to generate folder id from filename
 RE_GEN_ID = re.compile("([a-zA-Z0-9\-\._]{1,64}).*")
 VALUES = [ "vlabel", "vid", "vpath", "vreadOnly", "vreceiveOnly", "vignorePerms",
@@ -41,7 +41,7 @@ class FolderEditorDialog(EditorDialog):
         if not self.is_new: return
         # Prepare dialog
         d = Gtk.FileChooserDialog(
-            _("Select Folder for new Folder"),	# fuck me...
+            _("Select Folder for new Folder"),  # fuck me...
             self["editor"],
             Gtk.FileChooserAction.SELECT_FOLDER,
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
@@ -207,7 +207,7 @@ class FolderEditorDialog(EditorDialog):
 
     #@Overrides
     def store_value(self, key, w):
-        if key == "vdevices":	# Still very special case
+        if key == "vdevices":    # Still very special case
             devices = [ {
                         "deviceID" : b.get_tooltip_text(),
                         } for b in self["vdevices"].get_children()
@@ -295,9 +295,9 @@ class FolderEditorDialog(EditorDialog):
 
     def mark_device(self, nid):
         """ Marks (checks) checkbox for specified device """
-        if "vdevices" in self:	# ... only if there are checkboxes here
+        if "vdevices" in self:    # ... only if there are checkboxes here
             for child in self["vdevices"].get_children():
                 if child.get_tooltip_text() == nid:
-                    l = child.get_children()[0]	# Label in checkbox
+                    l = child.get_children()[0]    # Label in checkbox
                     l.set_markup("<b>%s</b>" % (l.get_label()))
                     child.set_active(True)

@@ -40,41 +40,41 @@ import os, webbrowser, sys, time, logging, shutil, re
 log = logging.getLogger("App")
 
 # Internal version used by updater (if enabled)
-INTERNAL_VERSION		= "v0.9.4.4"
+INTERNAL_VERSION = "v0.9.4.4"
 # Minimal Syncthing version supported by App
-MIN_ST_VERSION			= "0.14.50"
+MIN_ST_VERSION = "0.14.50"
 
-COLOR_DEVICE			= "#707070"					# Dark-gray
-COLOR_DEVICE_SYNCING	= "#2A89C8"					# Blue
-COLOR_DEVICE_CONNECTED	= "#2AAB61"					# Green
-COLOR_DEVICE_OFFLINE	= COLOR_DEVICE				# Dark-gray
-COLOR_DEVICE_ERROR		= "#87000B"					# Red
-COLOR_OWN_DEVICE		= "#C0C0C0"					# Light-gray
-COLOR_FOLDER			= "#9246B1"					# Dark-purple
-COLOR_FOLDER_SYNCING	= COLOR_DEVICE_SYNCING		# Blue
-COLOR_FOLDER_SCANNING	= COLOR_DEVICE_SYNCING		# Blue
-COLOR_FOLDER_IDLE		= COLOR_DEVICE_CONNECTED	# Green
-COLOR_FOLDER_STOPPED	= COLOR_DEVICE_ERROR		# Red
-COLOR_FOLDER_OFFLINE	= COLOR_DEVICE_OFFLINE		# Dark-gray
-COLOR_NEW				= COLOR_OWN_DEVICE			# Light-gray
-SI_FRAMES				= 12 # Number of animation frames for status icon
+COLOR_DEVICE = "#707070"    # Dark-gray
+COLOR_DEVICE_SYNCING = "#2A89C8"    # Blue
+COLOR_DEVICE_CONNECTED = "#2AAB61"    # Green
+COLOR_DEVICE_OFFLINE = COLOR_DEVICE    # Dark-gray
+COLOR_DEVICE_ERROR = "#87000B"    # Red
+COLOR_OWN_DEVICE = "#C0C0C0"    # Light-gray
+COLOR_FOLDER = "#9246B1"    # Dark-purple
+COLOR_FOLDER_SYNCING = COLOR_DEVICE_SYNCING    # Blue
+COLOR_FOLDER_SCANNING = COLOR_DEVICE_SYNCING    # Blue
+COLOR_FOLDER_IDLE = COLOR_DEVICE_CONNECTED    # Green
+COLOR_FOLDER_STOPPED = COLOR_DEVICE_ERROR    # Red
+COLOR_FOLDER_OFFLINE = COLOR_DEVICE_OFFLINE    # Dark-gray
+COLOR_NEW = COLOR_OWN_DEVICE    # Light-gray
+SI_FRAMES = 12     # Number of animation frames for status icon
 
 # Response IDs
-RESPONSE_RESTART			= 256
-RESPONSE_FIX_ADD_FOLDER		= 257
-RESPONSE_FIX_IGNORE_FOLDER	= 258
-RESPONSE_FIX_ADD_DEVICE		= 259
-RESPONSE_FIX_IGNORE_DEV		= 260
-RESPONSE_QUIT				= 261
-RESPONSE_START_DAEMON		= 271
-RESPONSE_SLAIN_DAEMON		= 272
-RESPONSE_SPARE_DAEMON		= 273
-RESPONSE_UR_ALLOW			= 274
-RESPONSE_UR_FORBID			= 275
+RESPONSE_RESTART            = 256
+RESPONSE_FIX_ADD_FOLDER     = 257
+RESPONSE_FIX_IGNORE_FOLDER  = 258
+RESPONSE_FIX_ADD_DEVICE     = 259
+RESPONSE_FIX_IGNORE_DEV     = 260
+RESPONSE_QUIT               = 261
+RESPONSE_START_DAEMON       = 271
+RESPONSE_SLAIN_DAEMON       = 272
+RESPONSE_SPARE_DAEMON       = 273
+RESPONSE_UR_ALLOW           = 274
+RESPONSE_UR_FORBID          = 275
 
 # RI's
-REFRESH_INTERVAL_DEFAULT	= 1
-REFRESH_INTERVAL_TRAY		= 5
+REFRESH_INTERVAL_DEFAULT    = 1
+REFRESH_INTERVAL_TRAY       = 5
 
 # If daemon dies twice in this interval, broken settings are assumed
 RESTART_TOO_FREQUENT_INTERVAL = 5
@@ -117,7 +117,7 @@ class App(Gtk.Application, TimerManager):
             not IS_UNITY and (not self.config["use_old_header"] or IS_GNOME)
             and (Gtk.get_major_version(), Gtk.get_minor_version()) >= (3, 10) )
 
-        self.daemon = None	# Created by setup_connection method
+        self.daemon = None    # Created by setup_connection method
         # If enabled (by -o argument), daemon output is captured and printed
         # to stdout
         self.dump_daemon_output = None
@@ -127,19 +127,19 @@ class App(Gtk.Application, TimerManager):
         self.connect_dialog = None
         # Used when upgrading from incompatible version
         self.restart_after_update = None
-        self.dark_color = None			# RGBA. None by default, changes with dark themes
-        self.recv_limit = -1			# Used mainly to prevent menu handlers from recursing
-        self.send_limit = -1			# -//-
-        self.ur_question_shown = False	# Used to prevent showing 'Do you want usage reporting'
-                                        # question more than once until ST-GTK is restarted.
-        self.home_dir_override = None	# If set by '--home'
+        self.dark_color = None    # RGBA. None by default, changes with dark themes
+        self.recv_limit = -1    # Used mainly to prevent menu handlers from recursing
+        self.send_limit = -1    # -//-
+        self.ur_question_shown = False    # Used to prevent showing 'Do you want usage reporting'
+                                          # question more than once until ST-GTK is restarted.
+        self.home_dir_override = None    # If set by '--home'
         self.wizard = None
         self.widgets = {}
         self.error_boxes = []
-        self.error_messages = set([])	# Holds set of already displayed error messages
+        self.error_messages = set([])    # Holds set of already displayed error messages
         self.folders = {}
         self.devices = {}
-        self.open_boxes = set([])		# Holds set of expanded device/folder boxes
+        self.open_boxes = set([])    # Holds set of expanded device/folder boxes
         self.devices_never_loaded = True
         self.folders_never_loaded = True
         self.sync_animation = 0
@@ -278,15 +278,15 @@ class App(Gtk.Application, TimerManager):
             self.connect('handle-local-options', self.do_local_options)
         else:
             self.arguments = []
-        aso("window",		ord('w'), "Display window (don't start minimized)")
-        aso("minimized",	ord('m'), "Hide window (start minimized)")
-        aso("header",		ord('s'), "Use classic window header")
-        aso("quit",			ord('q'), "Quit running instance (if any)")
-        aso("verbose",		ord('v'), "Be verbose")
-        aso("debug",		ord('d'), "Be more verbose (debug mode)")
-        aso("wizard",		ord('1'), "Run 'first start wizard' and exit")
-        aso("about",		ord('a'), "Display about dialog and exit")
-        aso("dump",			ord('o'), "Redirect captured daemon output to stdout")
+        aso("window",   ord('w'), "Display window (don't start minimized)")
+        aso("minimized",ord('m'), "Hide window (start minimized)")
+        aso("header",   ord('s'), "Use classic window header")
+        aso("quit",     ord('q'), "Quit running instance (if any)")
+        aso("verbose",  ord('v'), "Be verbose")
+        aso("debug",    ord('d'), "Be more verbose (debug mode)")
+        aso("wizard",   ord('1'), "Run 'first start wizard' and exit")
+        aso("about",    ord('a'), "Display about dialog and exit")
+        aso("dump",     ord('o'), "Redirect captured daemon output to stdout")
         aso("home", 0, "Overrides default syncthing configuration directory",
                 GLib.OptionArg.STRING)
         aso("add-repo", 0,    "Opens 'add repository' dialog with specified path prefilled",
@@ -322,10 +322,10 @@ class App(Gtk.Application, TimerManager):
     def setup_widgets(self):
         self.builder = UIBuilder()
         # Set conditions for UIBuilder
-        if self.use_headerbar: 		self.builder.enable_condition("header_bar")
-        if not self.use_headerbar:	self.builder.enable_condition("traditional_header")
-        if IS_WINDOWS: 				self.builder.enable_condition("is_windows")
-        if IS_GNOME:  				self.builder.enable_condition("is_gnome")
+        if self.use_headerbar:      self.builder.enable_condition("header_bar")
+        if not self.use_headerbar:  self.builder.enable_condition("traditional_header")
+        if IS_WINDOWS:              self.builder.enable_condition("is_windows")
+        if IS_GNOME:                self.builder.enable_condition("is_gnome")
         # Fix icon path
         self.builder.replace_icon_path("icons/", self.iconpath)
         # Load glade file
@@ -942,12 +942,12 @@ class App(Gtk.Application, TimerManager):
                 self["server-name"].set_markup("<b>%s</b>" % (device.get_title(),))
             # Modify values
             device.clear_values()
-            device.add_value("ram",		"ram.svg",		_("RAM Utilization"),	"")
-            device.add_value("cpu",		"cpu.svg",		_("CPU Utilization"),	"")
-            device.add_value("inbps",	"dl_rate.svg",	_("Download Rate"),		"0 B/s (0 B)")
-            device.add_value("outbps",	"up_rate.svg",	_("Upload Rate"),		"0 B/s (0 B)")
-            device.add_value("announce",	"announce.svg",	_("Announce Server"),	"")
-            device.add_value("version",	"version.svg",	_("Version"),			None)
+            device.add_value("ram", "ram.svg", _("RAM Utilization"), "")
+            device.add_value("cpu", "cpu.svg", _("CPU Utilization"), "")
+            device.add_value("inbps", "dl_rate.svg", _("Download Rate"), "0 B/s (0 B)")
+            device.add_value("outbps", "up_rate.svg", _("Upload Rate"), "0 B/s (0 B)")
+            device.add_value("announce", "announce.svg", _("Announce Server"), "")
+            device.add_value("version", "version.svg", _("Version"), None)
             device.show_all()
             # Expand my own device box right after startup
             if self.devices_never_loaded:
@@ -983,7 +983,7 @@ class App(Gtk.Application, TimerManager):
 
     def cb_syncthing_device_data_changed(self, daemon, nid, address, client_version,
             inbps, outbps, inbytes, outbytes):
-        if nid in self.devices:	# Should be always
+        if nid in self.devices:    # Should be always
             device = self.devices[nid]
             # Update strings
             device["address"] = address
@@ -994,7 +994,7 @@ class App(Gtk.Application, TimerManager):
             device['outbps'] = "%s/s (%s)" % (sizeof_fmt(outbps), sizeof_fmt(outbytes))
 
     def cb_syncthing_last_seen_changed(self, daemon, nid, dt):
-        if nid in self.devices:	# Should be always
+        if nid in self.devices:    # Should be always
             device = self.devices[nid]
             if dt is None:
                 device['last-seen'] = _("Never")
@@ -1003,7 +1003,7 @@ class App(Gtk.Application, TimerManager):
                 device['last-seen'] = str(dtf)
 
     def cb_syncthing_device_paused_resumed(self, daemon, nid, paused):
-        if nid in self.devices:	# Should be always
+        if nid in self.devices:    # Should be always
             device = self.devices[nid]
             device.set_status(_("Paused") if paused else _("Disconnected"))
             device.set_color_hex(COLOR_DEVICE_OFFLINE)
@@ -1016,7 +1016,7 @@ class App(Gtk.Application, TimerManager):
         self.set_status(True)
 
     def cb_syncthing_device_state_changed(self, daemon, nid, connected):
-        if nid in self.devices:	# Should be always
+        if nid in self.devices:    # Should be always
             device = self.devices[nid]
             if device["connected"] != connected:
                 device["connected"] = connected
@@ -1067,15 +1067,15 @@ class App(Gtk.Application, TimerManager):
             )
 
     def cb_syncthing_folder_data_changed(self, daemon, rid, data):
-        if rid in self.folders:	# Should be always
+        if rid in self.folders:    # Should be always
             folder = self.folders[rid]
             global_files = data["globalFiles"] + data["globalSymlinks"]
             local_files = data["localFiles"] + data["localSymlinks"]
             need_files = data["needFiles"] + data["needSymlinks"] + data.get("receiveOnlyTotalItems", 0)
             need_bytes = data["needBytes"] + data.get("receiveOnlyChangedBytes", 0)
             folder["global"] = "%s %s, %s" % (global_files, _("Files"), sizeof_fmt(data["globalBytes"]))
-            folder["local"]	 = "%s %s, %s" % (local_files, _("Files"), sizeof_fmt(data["localBytes"]))
-            folder["oos"]	 = "%s %s, %s" % (need_files, _("Files"), sizeof_fmt(need_bytes))
+            folder["local"] = "%s %s, %s" % (local_files, _("Files"), sizeof_fmt(data["localBytes"]))
+            folder["oos"] = "%s %s, %s" % (need_files, _("Files"), sizeof_fmt(need_bytes))
             if folder["folder_type_s"] in ("sendonly", "receiveonly"):
                 can_override = (need_files > 0)
                 if can_override != folder["can_override"]:
@@ -1086,7 +1086,7 @@ class App(Gtk.Application, TimerManager):
                     self.cb_syncthing_folder_up_to_date(None, rid)
 
     def cb_syncthing_folder_up_to_date(self, daemon, rid):
-        if rid in self.folders:	# Should be always
+        if rid in self.folders:    # Should be always
             folder = self.folders[rid]
             title = _("Up to Date")
             if folder["can_override"]:
@@ -1094,7 +1094,7 @@ class App(Gtk.Application, TimerManager):
             self.cb_syncthing_folder_state_changed(daemon, rid, 1.0, COLOR_FOLDER_IDLE, title)
 
     def cb_syncthing_folder_state_changed(self, daemon, rid, percentage, color, text):
-        if rid in self.folders:	# Should be always
+        if rid in self.folders:    # Should be always
             folder = self.folders[rid]
             folder.set_color_hex(color)
             folder.set_status(text, percentage)
@@ -1102,7 +1102,7 @@ class App(Gtk.Application, TimerManager):
             self.set_status(True)
 
     def cb_syncthing_folder_stopped(self, daemon, rid, message):
-        if rid in self.folders:	# Should be always
+        if rid in self.folders:    # Should be always
             folder = self.folders[rid]
             folder.set_color_hex(COLOR_FOLDER_STOPPED)
             folder.set_status(_("Stopped"), 0)
@@ -1112,7 +1112,7 @@ class App(Gtk.Application, TimerManager):
             folder.show_value('error')
 
     def cb_syncthing_folder_error(self, daemon, rid, errors):
-        if rid in self.folders:	# Should be always
+        if rid in self.folders:    # Should be always
             folder = self.folders[rid]
             message = "%(path)s: %(error)s" % errors[-1]
             folder.add_value("error", "dialog-error", _("Error"), message)
@@ -1368,7 +1368,7 @@ class App(Gtk.Application, TimerManager):
             if self.is_visible():
                 self.connect_dialog.show_all()
             else:
-                cb.show()	# Keep this one visible, even if dialog is not
+                cb.show()    # Keep this one visible, even if dialog is not
             # Update notification icon menu so user can start daemon from there
             self["menu-si-shutdown"].set_visible(False)
             self["menu-si-resume"].set_visible(True)
@@ -1409,15 +1409,15 @@ class App(Gtk.Application, TimerManager):
             # Create new box
             box = InfoBox(self, title, Gtk.Image.new_from_icon_name("drive-harddisk", Gtk.IconSize.LARGE_TOOLBAR))
             # Add visible lines
-            box.add_value("id",				"version.svg",	_("Folder ID"),			folder_id)
-            box.add_value("path",			"folder.svg",	_("Path"))
-            box.add_value("global",			"global.svg",	_("Global State"),		"? items, ?B")
-            box.add_value("local",			"home.svg",		_("Local State"),		"? items, ?B")
-            box.add_value("oos",			"dl_rate.svg",	_("Out Of Sync"),		"? items, ?B")
-            box.add_value("folder_type",	"lock.svg",		_("Folder Type"))
-            box.add_value("ignore",			"ignore.svg",	_("Ignore Permissions"))
-            box.add_value("rescan",			"rescan.svg",	_("Rescan Interval"))
-            box.add_value("shared",			"shared.svg",	_("Shared With"))
+            box.add_value("id", "version.svg", _("Folder ID"), folder_id)
+            box.add_value("path", "folder.svg", _("Path"))
+            box.add_value("global", "global.svg", _("Global State"), "? items, ?B")
+            box.add_value("local", "home.svg", _("Local State"), "? items, ?B")
+            box.add_value("oos", "dl_rate.svg", _("Out Of Sync"), "? items, ?B")
+            box.add_value("folder_type", "lock.svg", _("Folder Type"))
+            box.add_value("ignore", "ignore.svg", _("Ignore Permissions"))
+            box.add_value("rescan", "rescan.svg", _("Rescan Interval"))
+            box.add_value("shared", "shared.svg", _("Shared With"))
             # Add hidden stuff
             box.add_hidden_value("folder_type_s", folder_type)
             box.add_hidden_value("override_title", "")
@@ -1431,7 +1431,7 @@ class App(Gtk.Application, TimerManager):
                 box.set_dark_color(*self.dark_color)
             box.set_color_hex(COLOR_FOLDER)
             box.set_vexpand(False)
-            GLib.idle_add(box.show_all)	# Window border will dissapear without this on Windows
+            GLib.idle_add(box.show_all) # Window border will dissapear without this on Windows
             self["folderlist"].pack_start(box, False, False, 3)
             box.set_open(folder_id in self.open_boxes or self.folders_never_loaded)
             box.connect('right-click', self.cb_popup_menu_folder)
@@ -1441,21 +1441,21 @@ class App(Gtk.Application, TimerManager):
             self.folders[folder_id] = box
             self.folders_never_loaded = False
         # Set values
-        box.set_value("id",		folder_id)
-        box.set_value("path",	display_path)
+        box.set_value("id", folder_id)
+        box.set_value("path", display_path)
         if folder_type == "receiveonly":
-            box.set_value("folder_type",	_("Receive Only"))
+            box.set_value("folder_type", _("Receive Only"))
         elif folder_type == "sendonly":
-            box.set_value("folder_type",	_("Send Only"))
+            box.set_value("folder_type", _("Send Only"))
         else:
-            box.set_value("folder_type",	_("Send & Receive"))
-        box.set_value("ignore",	_("Yes") if ignore_perms else _("No"))
-        box.set_value("rescan",	"%s s%s" % (
+            box.set_value("folder_type", _("Send & Receive"))
+        box.set_value("ignore", _("Yes") if ignore_perms else _("No"))
+        box.set_value("rescan", "%s s%s" % (
             rescan_interval, " " + _("(watch)") if fswatcher_enabled else "" ))
-        box.set_value("shared",	", ".join([ n.get_title() for n in shared ]))
+        box.set_value("shared", ", ".join([ n.get_title() for n in shared ]))
         box.set_value("can_override", False)
-        box.set_visible("id",		self.config["folder_as_path"] or label not in (None, ""))
-        box.set_visible("ignore",	ignore_perms)
+        box.set_visible("id", self.config["folder_as_path"] or label not in (None, ""))
+        box.set_visible("ignore", ignore_perms)
         return box
 
     def show_device(self, id, name, compression, introducer, used):
@@ -1472,14 +1472,14 @@ class App(Gtk.Application, TimerManager):
             # Create new box
             box = InfoBox(self, name, IdentIcon(id))
             # Add visible lines
-            box.add_value("address",	"address.svg",	_("Address"),			None)
-            box.add_value("sync",		"sync.svg",		_("Synchronization"),	"0%", visible=False)
-            box.add_value("compress",	"compress.svg",	_("Compression"))
-            box.add_value("inbps",		"dl_rate.svg",	_("Download Rate"),		"0 B/s (0 B)", visible=False)
-            box.add_value("outbps",		"up_rate.svg",	_("Upload Rate"),		"0 B/s (0 B)", visible=False)
-            box.add_value("introducer",	"thumb_up.svg",	_("Introducer"))
-            box.add_value("version",	"version.svg",	_("Version"),			None, visible=False)
-            box.add_value('last-seen',	"clock.svg",	_("Last Seen"),			_("Never"))
+            box.add_value("address", "address.svg", _("Address"), None)
+            box.add_value("sync", "sync.svg", _("Synchronization"), "0%", visible=False)
+            box.add_value("compress", "compress.svg", _("Compression"))
+            box.add_value("inbps", "dl_rate.svg", _("Download Rate"), "0 B/s (0 B)", visible=False)
+            box.add_value("outbps", "up_rate.svg", _("Upload Rate"), "0 B/s (0 B)", visible=False)
+            box.add_value("introducer", "thumb_up.svg", _("Introducer"))
+            box.add_value("version", "version.svg", _("Version"), None, visible=False)
+            box.add_value('last-seen', "clock.svg", _("Last Seen"), _("Never"))
             # Add hidden stuff
             box.add_hidden_value("id", id)
             box.add_hidden_value("connected", False)
@@ -1493,7 +1493,7 @@ class App(Gtk.Application, TimerManager):
             box.set_vexpand(False)
             box.set_open(id in self.open_boxes)
             box.get_icon().set_size_request(22, 22)
-            GLib.idle_add(box.show_all)	# Window border will dissapear without this on Windows
+            GLib.idle_add(box.show_all)    # Window border will dissapear without this on Windows
             self["devicelist"].pack_start(box, False, False, 3)
             box.connect('right-click', self.cb_popup_menu_device)
             box.connect('enter-notify-event', self.cb_box_mouse_enter)
@@ -1503,8 +1503,8 @@ class App(Gtk.Application, TimerManager):
         if compression in (True, "always"): box.set_value("compress", _("All Data"))
         elif compression in (False, "never"): box.set_value("compress", _("Off"))
         else: box.set_value("compress", _("Metadata Only"))
-        box.set_value("introducer",	_("Yes") if introducer else _("No"))
-        box.set_value('last-seen',	_("Never"))
+        box.set_value("introducer", _("Yes") if introducer else _("No"))
+        box.set_value('last-seen', _("Never"))
         return box
 
     def clear(self):
@@ -1635,7 +1635,7 @@ class App(Gtk.Application, TimerManager):
                 # Always kill subprocess on windows
                 self.process.kill()
                 self.process = None
-            elif self.config["autokill_daemon"] == 2:	# Ask
+            elif self.config["autokill_daemon"] == 2:    # Ask
                 d = Gtk.MessageDialog(
                     self["window"],
                     Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
@@ -1645,8 +1645,8 @@ class App(Gtk.Application, TimerManager):
                         _("Shutdown Syncthing daemon as well?")
                         )
                     )
-                d.add_button("gtk-yes",	RESPONSE_SLAIN_DAEMON)
-                d.add_button("gtk-no",	RESPONSE_SPARE_DAEMON)
+                d.add_button("gtk-yes", RESPONSE_SLAIN_DAEMON)
+                d.add_button("gtk-no", RESPONSE_SPARE_DAEMON)
                 cb = Gtk.CheckButton(_("Always do same; Don't show this window again"))
                 d.get_content_area().pack_end(cb, False, False, 2)
                 d.connect("response", self.cb_kill_daemon_response, cb)
@@ -2012,7 +2012,7 @@ class App(Gtk.Application, TimerManager):
 
     def cb_menu_shutdown(self, event, *a):
         """ Handler for 'Shutdown' menu item """
-        self.process = None	# Prevent app from restarting daemon
+        self.process = None    # Prevent app from restarting daemon
         self.daemon.shutdown()
 
     def cb_menu_resume(self, event, *a):

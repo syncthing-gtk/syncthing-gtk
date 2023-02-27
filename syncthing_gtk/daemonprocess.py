@@ -23,19 +23,19 @@ elif not HAS_SUBPROCESS:
 
 class DaemonProcess(GObject.GObject):
     __gsignals__ = {
-        # line(text)	- emitted when process outputs full line
-        "line"			: (GObject.SIGNAL_RUN_FIRST, None, (object,)),
-        # exit(code)	- emitted when process exits
-        "exit"			: (GObject.SIGNAL_RUN_FIRST, None, (int,)),
+        # line(text) - emitted when process outputs full line
+        "line": (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        # exit(code) - emitted when process exits
+        "exit": (GObject.SIGNAL_RUN_FIRST, None, (int,)),
         # failed(exception) - emitted if process fails to start
-        "failed"		: (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        "failed": (GObject.SIGNAL_RUN_FIRST, None, (object,)),
     }
-    SCROLLBACK_SIZE = 500	# Maximum number of output lines stored in memory
-    PRIORITY_LOWEST		= 19
-    PRIORITY_LOW		= 10
-    PRIORITY_NORMAL		= 0
-    PRIORITY_HIGH		= -10
-    PRIORITY_HIGHEST	= -20
+    SCROLLBACK_SIZE = 500    # Maximum number of output lines stored in memory
+    PRIORITY_LOWEST = 19
+    PRIORITY_LOW = 10
+    PRIORITY_NORMAL = 0
+    PRIORITY_HIGH = -10
+    PRIORITY_HIGHEST = -20
 
     def __init__(self, cmdline, priority=PRIORITY_NORMAL, max_cpus=0, env={}):
         """ cmdline should be list of arguments """
@@ -43,7 +43,7 @@ class DaemonProcess(GObject.GObject):
         self.cmdline = cmdline
         self.priority = priority
         self.env = { x:env[x] for x in env }
-        self.env["STNORESTART"] = "1"	# see syncthing --help
+        self.env["STNORESTART"] = "1"    # see syncthing --help
         self.env["STNOUPGRADE"] = "1"
         if max_cpus > 0:
             self.env["GOMAXPROCS"] = str(max_cpus)
