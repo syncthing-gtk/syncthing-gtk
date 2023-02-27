@@ -1122,7 +1122,7 @@ class App(Gtk.Application, TimerManager):
 		"""
 		Returns True if there is at least one device connected to daemon
 		"""
-		for box in self.devices.values():
+		for box in list(self.devices.values()):
 			if box["online"] and box["id"] != self.daemon.get_my_id():
 				return True
 		return False
@@ -1259,11 +1259,11 @@ class App(Gtk.Application, TimerManager):
 						to_hilight.add(d)
 				to_hilight.add(box)
 			if box["id"] in self.devices and box["id"] != self.daemon.get_my_id():
-				for f in self.folders.values():
+				for f in list(self.folders.values()):
 					if box in f["devices"]:
 						to_hilight.add(f)
 				to_hilight.add(box)
-		for box in itertools.chain(self.devices.values(), self.folders.values()):
+		for box in itertools.chain(list(self.devices.values()), list(self.folders.values())):
 			box.set_hilight(box in to_hilight)
 	
 	def is_visible(self):
@@ -1753,9 +1753,9 @@ class App(Gtk.Application, TimerManager):
 			# Set dark color based on current window background
 			self.dark_color = (color.red, color.green, color.blue, 1.0)
 			# Recolor all boxes
-			for box in self.folders.values():
+			for box in list(self.folders.values()):
 				box.set_dark_color(*self.dark_color)
-			for box in self.devices.values():
+			for box in list(self.devices.values()):
 				box.set_dark_color(*self.dark_color)
 	
 	def cb_box_mouse_enter(self, box, *a):

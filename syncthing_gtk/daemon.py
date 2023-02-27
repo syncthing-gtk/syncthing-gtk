@@ -1014,7 +1014,7 @@ class Daemon(GObject.GObject, TimerManager):
 	
 	def revert(self, folder_id):
 		""" Asks daemon to revert local changes made in specified folder """
-		id_enc = urllib.quote(folder_id.encode('utf-8'))
+		id_enc = urllib.parse.quote(folder_id.encode('utf-8'))
 		RESTPOSTRequest(self, "db/revert?folder=%s" % (id_enc,), {}, lambda *a: a, lambda *a: log.error(a), folder_id).start()
 	
 	def request_events(self):
