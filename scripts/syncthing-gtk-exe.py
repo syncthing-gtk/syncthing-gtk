@@ -15,7 +15,7 @@ if __name__ == "__main__":
 		data_path = os.path.join(os.getcwd(), "data")
 		config_dir = os.path.join(data_path, "syncthing-gtk")
 		if not os.path.exists(config_dir):
-			print "creating", config_dir
+			print("creating", config_dir)
 			os.makedirs(config_dir)
 		os.environ["LOCALAPPDATA"] = data_path
 		os.environ["APPDATA"] = data_path

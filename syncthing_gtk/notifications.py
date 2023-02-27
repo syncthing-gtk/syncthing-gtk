@@ -319,7 +319,7 @@ if HAS_DESKTOP_NOTIFY:
 		def clear_notifications(self):
 			# Clear download list and close related notifications
 			for dct in [self.notify_devices, self.notify_folders]:
-				for obj in dct.values():
+				for obj in list(dct.values()):
 					obj.close_notification()
 				dct = {}
 

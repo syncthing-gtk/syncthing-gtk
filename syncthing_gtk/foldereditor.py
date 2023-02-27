@@ -173,7 +173,7 @@ class FolderEditorDialog(EditorDialog):
 		if key == "vdevices":
 			# Very special case
 			nids = [ n["deviceID"] for n in self.get_value("devices") ]
-			for device in self.app.devices.values():
+			for device in list(self.app.devices.values()):
 				if device["id"] != self.app.daemon.get_my_id():
 					b = Gtk.CheckButton(device.get_title(), False)
 					b.set_tooltip_text(device["id"])

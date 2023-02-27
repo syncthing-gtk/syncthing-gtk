@@ -93,7 +93,7 @@ class DeviceEditorDialog(EditorDialog):
 					if n["deviceID"] == self.id and r["id"] not in rids:
 						rids.append(r["id"])
 			# Create CheckButtons
-			for folder in reversed(sorted(self.app.folders.values(), key=lambda x : x["id"])):
+			for folder in reversed(sorted(list(self.app.folders.values()), key=lambda x : x["id"])):
 				b = Gtk.CheckButton(folder["path"], False)
 				b.set_tooltip_text(folder["id"])
 				self["vfolders"].pack_start(b, False, False, 0)
