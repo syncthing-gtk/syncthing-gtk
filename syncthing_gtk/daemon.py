@@ -13,7 +13,7 @@ from gi.repository import Gio, GLib, GObject
 from syncthing_gtk.http import (
     RESTRequest, RESTPOSTRequest, EventPollLoop,
     InvalidConfigurationException,TLSUnsupportedException, TLSErrorException,
-    HTTPError, InvalidHTTPResponse,	HTTPCode, HTTPAuthException, ConnectionRestarted,
+    HTTPError, InvalidHTTPResponse, HTTPCode, HTTPAuthException, ConnectionRestarted,
     HTTP_HEADERS
 )
 from syncthing_gtk.timermanager import TimerManager
@@ -51,173 +51,173 @@ class Daemon(GObject.GObject, TimerManager):
         disconnected (reason, message)
             Emitted after connection to daemon is lost. Connection can
             be reinitiated by calling reconnect()
-                reason :	Daemon.SHUTDOWN if connection is closed
+                reason:     Daemon.SHUTDOWN if connection is closed
                             after calling shutdown()
                             Daemon.RESTART if connection is closed
                             after calling restart()
                             Daemon.UNEXPECTED for all other cases
-                message:	generated error message
+                message:    generated error message
 
         config-loaded(config)
             Emitted while connection do daemon is being created, when
             configuration is loaded from daemon.
-                config:		decoded /rest/config YAML file
+                config:     decoded /rest/config YAML file
 
         connection-error (reason, message, exception)
             Emitted if connection to daemon fails.
-                reason:		Daemon.REFUSED if connection is refused and
+                reason:     Daemon.REFUSED if connection is refused and
                             daemon probably offline. Connection will be
                             retried automatically.
                             Daemon.UNKNOWN for all other problems.
                             Connection can be reinitiated by calling
                             reconnect() in this case.
-                message:	generated error message
-                exception:	Exeception that caused problem or None
+                message:    generated error message
+                exception:  Exeception that caused problem or None
 
         my-id-changed (my_id, replaced)
             Emitted when ID is retrieved from device or when ID changes
             after client connects to another device
-                my_id:		ID of device that is instance connected to.
+                my_id:      ID of device that is instance connected to.
 
         error (message)
             Emitted every time when daemon generates error readable by
             WebUI (/rest/errors call)
-                message:	Error message sent by daemon
+                message:    Error message sent by daemon
 
         folder-rejected(device_id, folder_id, label)
             Emitted when daemon detects unexpected folder from known
             device.
-                device_id:	id of device that send unexpected folder id
-                folder_id:	id of unexpected folder
-                label:		label of unexpected folder or None
+                device_id:  id of device that send unexpected folder id
+                folder_id:  id of unexpected folder
+                label:      label of unexpected folder or None
 
         device-rejected(device_id, device_name, address)
             Emitted when daemon detects connection from unknown device
-                device_id:		device id
-                device_name:	device name
-                address:		address which connection come from
+                device_id:      device id
+                device_name:    device name
+                address:        address which connection come from
 
         device-added (id, name, used, data)
             Emited when new device is loaded from configuration
-                id:		id of loaded device
-                name:	name of loaded device (may be None)
-                used:	true if there is any folder shared with this device
-                data:	dict with rest of device data
+                id:     id of loaded device
+                name:   name of loaded device (may be None)
+                used:   true if there is any folder shared with this device
+                data:   dict with rest of device data
 
         device-connected (id)
             Emitted when daemon connects to remote device
-                id:			id of device
+                id:     id of device
 
         device-disconnected (id)
             Emitted when daemon loses connection to remote device
-                id:			id of device
+                id:     id of device
 
         device-discovered (id, addresses)
             # TODO: What this event does?
-                id:			id of device
-                addresses:	list of device addresses
+                id:     id of device
+                addresses:  list of device addresses
 
         device-data-changed (id, address, version, inbps, outbps, inbytes, outbytes)
             Emitted when device data changes
-                id:			id of device
-                address:	address of remote device
-                version:	daemon version of remote device
-                inbps:		download rate
-                outbps:	upload rate
-                inbytes:	total number of bytes downloaded
-                outbytes:	total number of bytes uploaded
+                id:         id of device
+                address:    address of remote device
+                version:    daemon version of remote device
+                inbps:      download rate
+                outbps:     upload rate
+                inbytes:    total number of bytes downloaded
+                outbytes:   total number of bytes uploaded
 
         last-seen-changed (id, last_seen)
             Emitted when daemon reported 'last seen' value for device changes
             or when is this value received for first time
-                id:			id of device
-                last_seen:	datetime object or None, if device was never seen
+                id:         id of device
+                last_seen:  datetime object or None, if device was never seen
 
         device-paused (id):
             Emitted when synchronization with device is paused
-                id:		id of folder
+                id: id of folder
 
         device-resumed (id):
             Emitted when synchronization with device is resumed
-                id:		id of folder
+                id: id of folder
 
         device-sync-started (id, progress):
             Emitted after device synchronization is started
-                id:			id of folder
-                progress:	synchronization progress (0.0 to 1.0)
+                id:         id of folder
+                progress:   synchronization progress (0.0 to 1.0)
 
         device-sync-progress (id, progress):
             Emitted repeatedly while device is being synchronized
-                id:			id of folder
-                progress:	synchronization progress (0.0 to 1.0)
+                id:         id of folder
+                progress:   synchronization progress (0.0 to 1.0)
 
         device-sync-finished (id):
             Emitted after device synchronization is finished
-                id:		id of folder
+                id: id of folder
 
         folder-added (id, data)
             Emitted when new folder is loaded from configuration
-                id:		id of loaded folder
-                data:	dict with rest of folder data
+                id:     id of loaded folder
+                data:   dict with rest of folder data
 
         folder-error (id, errors)
             Emitted when when a folder cannot be successfully synchronized
-                id:		id of loaded folder
-                errors:	list with errors
+                id:     id of loaded folder
+                errors:list with errors
 
         folder-data-changed (id, data):
             Emitted when change in folder data (/rest/model call)
             is detected and successfully loaded.
-                id:		id of folder
-                data:	dict with loaded data
+                id:     id of folder
+                data:   dict with loaded data
 
         folder-data-failed (id):
             Emitted when daemon fails to load folder data (/rest/model call),
             most likely because folder was just added and syncthing
             daemon needs to be restarted
-                id:		id of folder
+                id: id of folder
 
         folder-scan-progress (id, progress):
             Emitted repeatedly while folder is being scanned
-                id:			id of folder
-                progress:	scan progress (0.0 to 1.0)
+                id:         id of folder
+                progress:   scan progress (0.0 to 1.0)
 
         folder-sync-progress (id, progress):
             Emitted repeatedly while folder is being synchronized
-                id:			id of folder
-                progress:	synchronization progress (0.0 to 1.0)
+                id:         id of folder
+                progress:   synchronization progress (0.0 to 1.0)
 
         folder-sync-finished (id):
             Emitted after folder synchronization is finished
-                id:		id of folder
+                id: id of folder
 
         folder-scan-started (id):
             Emitted after folder scan is started
-                id:		id of folder
+                id: id of folder
 
         folder-scan-finished (id):
             Emitted after folder scan is finished
-                id:		id of folder
+                id: id of folder
 
         folder-stopped (id, message):
             Emitted when folder enters 'stopped' state.
             No 'folder-sync', 'folder-sync-progress' and 'folder-scan-started'
             events are emitted after folder enters this state, until
             reconnect() is called.
-                id:			id of folder
-                message:	error message
+                id:         id of folder
+                message:    error message
 
         item-started (folder_id, filename, time):
             Emitted when synchronization of file starts
-                folder_id:	id of folder that contains file
-                filename:	synchronized file
-                time:		event timestamp
+                folder_id:  id of folder that contains file
+                filename:   synchronized file
+                time:       event timestamp
 
         item-updated (folder_id, filename, time):
             Emited when change in local file is detected (LocalIndexUpdated event)
-                folder_id:	id of folder that contains file
-                filename:	updated file
-                time:		event timestamp
+                folder_id:  id of folder that contains file
+                filename:   updated file
+                time:       event timestamp
 
         startup-complete():
             Emited when daemon initialization is complete.
@@ -225,64 +225,64 @@ class Daemon(GObject.GObject, TimerManager):
         system-data-updated (ram_ussage, cpu_ussage, d_failed, d_total)
             Emitted every time when system information is received
             from daemon.
-                ram_ussage:	memory ussage in bytes
-                cpu_ussage:	CPU ussage in percent (0.0 to 100.0)
-                d_failed:	Number of discovery servers that daemon failed to
+                ram_ussage: memory ussage in bytes
+                cpu_ussage: CPU ussage in percent (0.0 to 100.0)
+                d_failed:   Number of discovery servers that daemon failed to
                             connect to
-                d_total:	Total number of discovery servers
+                d_total:    Total number of discovery servers
     """
 
 
     __gsignals__ = {
-        "config-out-of-sync"	: (GObject.SIGNAL_RUN_FIRST, None, ()),
-        "config-saved"			: (GObject.SIGNAL_RUN_FIRST, None, ()),
-        "connected"				: (GObject.SIGNAL_RUN_FIRST, None, ()),
-        "disconnected"			: (GObject.SIGNAL_RUN_FIRST, None, (int, object)),
-        "config-loaded"			: (GObject.SIGNAL_RUN_FIRST, None, (object,)),
-        "connection-error"		: (GObject.SIGNAL_RUN_FIRST, None, (int, object, object)),
-        "error"					: (GObject.SIGNAL_RUN_FIRST, None, (object,)),
-        "folder-rejected"		: (GObject.SIGNAL_RUN_FIRST, None, (object,object,object)),
-        "device-rejected"		: (GObject.SIGNAL_RUN_FIRST, None, (object,object,object)),
-        "my-id-changed"			: (GObject.SIGNAL_RUN_FIRST, None, (object,)),
-        "device-added"			: (GObject.SIGNAL_RUN_FIRST, None, (object, object, bool, object)),
-        "device-connected"		: (GObject.SIGNAL_RUN_FIRST, None, (object,)),
-        "device-disconnected"	: (GObject.SIGNAL_RUN_FIRST, None, (object,)),
-        "device-discovered"		: (GObject.SIGNAL_RUN_FIRST, None, (object,object,)),
-        "device-data-changed"	: (GObject.SIGNAL_RUN_FIRST, None, (object, object, object, float, float, object, object)),
-        "last-seen-changed"		: (GObject.SIGNAL_RUN_FIRST, None, (object, object)),
-        "device-paused"			: (GObject.SIGNAL_RUN_FIRST, None, (object,)),
-        "device-resumed"		: (GObject.SIGNAL_RUN_FIRST, None, (object,)),
-        "device-sync-started"	: (GObject.SIGNAL_RUN_FIRST, None, (object, float)),
-        "device-sync-progress"	: (GObject.SIGNAL_RUN_FIRST, None, (object, float)),
-        "device-sync-finished"	: (GObject.SIGNAL_RUN_FIRST, None, (object,)),
-        "folder-added"			: (GObject.SIGNAL_RUN_FIRST, None, (object, object)),
-        "folder-error"			: (GObject.SIGNAL_RUN_FIRST, None, (object, object)),
-        "folder-data-changed"	: (GObject.SIGNAL_RUN_FIRST, None, (object, object)),
-        "folder-data-failed"	: (GObject.SIGNAL_RUN_FIRST, None, (object,)),
-        "folder-sync-finished"	: (GObject.SIGNAL_RUN_FIRST, None, (object,)),
-        "folder-sync-progress"	: (GObject.SIGNAL_RUN_FIRST, None, (object, float)),
-        "folder-sync-started"	: (GObject.SIGNAL_RUN_FIRST, None, (object,)),
-        "folder-scan-finished"	: (GObject.SIGNAL_RUN_FIRST, None, (object,)),
-        "folder-scan-started"	: (GObject.SIGNAL_RUN_FIRST, None, (object,)),
-        "folder-scan-progress"	: (GObject.SIGNAL_RUN_FIRST, None, (object, float)),
-        "folder-stopped"		: (GObject.SIGNAL_RUN_FIRST, None, (object,object)),
-        "item-started"			: (GObject.SIGNAL_RUN_FIRST, None, (object,object,object)),
-        "item-updated"			: (GObject.SIGNAL_RUN_FIRST, None, (object,object,object)),
-        "startup-complete"		: (GObject.SIGNAL_RUN_FIRST, None, ()),
-        "system-data-updated"	: (GObject.SIGNAL_RUN_FIRST, None, (int, float, int, int)),
+        "config-out-of-sync":   (GObject.SIGNAL_RUN_FIRST, None, ()),
+        "config-saved":         (GObject.SIGNAL_RUN_FIRST, None, ()),
+        "connected":            (GObject.SIGNAL_RUN_FIRST, None, ()),
+        "disconnected":         (GObject.SIGNAL_RUN_FIRST, None, (int, object)),
+        "config-loaded":        (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        "connection-error":     (GObject.SIGNAL_RUN_FIRST, None, (int, object, object)),
+        "error":                (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        "folder-rejected":      (GObject.SIGNAL_RUN_FIRST, None, (object,object,object)),
+        "device-rejected":      (GObject.SIGNAL_RUN_FIRST, None, (object,object,object)),
+        "my-id-changed":        (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        "device-added":         (GObject.SIGNAL_RUN_FIRST, None, (object, object, bool, object)),
+        "device-connected":     (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        "device-disconnected":  (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        "device-discovered":    (GObject.SIGNAL_RUN_FIRST, None, (object,object,)),
+        "device-data-changed":  (GObject.SIGNAL_RUN_FIRST, None, (object, object, object, float, float, object, object)),
+        "last-seen-changed":    (GObject.SIGNAL_RUN_FIRST, None, (object, object)),
+        "device-paused":        (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        "device-resumed":       (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        "device-sync-started":  (GObject.SIGNAL_RUN_FIRST, None, (object, float)),
+        "device-sync-progress": (GObject.SIGNAL_RUN_FIRST, None, (object, float)),
+        "device-sync-finished": (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        "folder-added":         (GObject.SIGNAL_RUN_FIRST, None, (object, object)),
+        "folder-error":         (GObject.SIGNAL_RUN_FIRST, None, (object, object)),
+        "folder-data-changed":  (GObject.SIGNAL_RUN_FIRST, None, (object, object)),
+        "folder-data-failed":   (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        "folder-sync-finished": (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        "folder-sync-progress": (GObject.SIGNAL_RUN_FIRST, None, (object, float)),
+        "folder-sync-started":  (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        "folder-scan-finished": (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        "folder-scan-started":  (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        "folder-scan-progress": (GObject.SIGNAL_RUN_FIRST, None, (object, float)),
+        "folder-stopped":       (GObject.SIGNAL_RUN_FIRST, None, (object,object)),
+        "item-started":         (GObject.SIGNAL_RUN_FIRST, None, (object,object,object)),
+        "item-updated":         (GObject.SIGNAL_RUN_FIRST, None, (object,object,object)),
+        "startup-complete":     (GObject.SIGNAL_RUN_FIRST, None, ()),
+        "system-data-updated":  (GObject.SIGNAL_RUN_FIRST, None, (int, float, int, int)),
     }
 
     # Constants for 'reason' parameter of disconnected event
-    UNEXPECTED	= 0 # connection closed by daemon
-    SHUTDOWN	= 1
-    RESTART		= 2
+    UNEXPECTED = 0 # connection closed by daemon
+    SHUTDOWN = 1
+    RESTART = 2
 
     # Constants for 'reason' parameter of connection-error event
-    REFUSED			= 1
-    NOT_AUTHORIZED	= 2
-    OLD_VERSION		= 3
-    TLS_UNSUPPORTED	= 4
-    UNKNOWN			= 255
+    REFUSED = 1
+    NOT_AUTHORIZED = 2
+    OLD_VERSION = 3
+    TLS_UNSUPPORTED = 4
+    UNKNOWN = 255
 
     def __init__(self, syncthing_configxml=None):
         GObject.GObject.__init__(self)
@@ -425,7 +425,7 @@ class Daemon(GObject.GObject, TimerManager):
         # Parse devices
         for n in sorted(config["devices"], key=lambda x : x["name"].lower()):
             nid = n["deviceID"]
-            self._get_device_data(nid)	# Creates dict with device data
+            self._get_device_data(nid)    # Creates dict with device data
             used = (nid in device_folders) and (len(device_folders[nid]) > 0)
             self.emit("device-added", nid, n["name"], used, n)
 
@@ -491,8 +491,8 @@ class Daemon(GObject.GObject, TimerManager):
                 cons[id]["outbps"] = 0.0
             # Store updated device_data
             for key in cons[id]:
-                if not key in ('clientVersion', 'connected'):		# Don't want copy those
-                    if cons[id][key] != "":							# Happens for 'total'
+                if not key in ('clientVersion', 'connected'):    # Don't want copy those
+                    if cons[id][key] != "":    # Happens for 'total'
                         device_data[key] = cons[id][key]
 
             if "clientVersion" in cons[id] and cons[id]["clientVersion"] != "":
@@ -680,7 +680,7 @@ class Daemon(GObject.GObject, TimerManager):
     def _syncthing_cb_config_error(self, exception, command):
         self.cancel_all()
         if isinstance(exception, GLib.GError):
-            if exception.code in (0, 39, 34, 45):	# Connection Refused / Cannot connect to destination
+            if exception.code in (0, 39, 34, 45):    # Connection Refused / Cannot connect to destination
                 # It usually means that daemon is not yet fully started or not running at all.
                 epoch = self._epoch
                 self.emit("connection-error", Daemon.REFUSED, exception.message, exception)

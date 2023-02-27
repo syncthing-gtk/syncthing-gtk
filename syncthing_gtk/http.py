@@ -285,7 +285,7 @@ class EventPollLoop(RESTRequest):
             self._connection.close(None)
         if self._epoch == self._parent._epoch:
             if isinstance(exception, GLib.GError):
-                if exception.code in (0, 39, 34):	# Connection terminated unexpectedly, Connection Refused
+                if exception.code in (0, 39, 34):    # Connection terminated unexpectedly, Connection Refused
                     self._parent._disconnected(message=str(exception))
                     return
             self._parent.timer(None, 1, self.start)
@@ -367,7 +367,7 @@ class EventPollLoop(RESTRequest):
                 if self._chunk_size < 1:
                     # Zero-sized chunk means end of transfer
                     return self._resend_request()
-                self._chunk_size += 2	# 2b for following \r\n
+                self._chunk_size += 2    # 2b for following \r\n
             except (ValueError, IndexError):
                 self._chunk_size = -1
                 self._connection.get_input_stream().read_bytes_async(100, 1, None, self._chunk)

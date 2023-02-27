@@ -76,8 +76,8 @@ class FindDaemonDialog(EditorDialog):
             self["btDownload"].set_sensitive(False)
             # Set message
             pd = "%s %s" % (
-                platform.uname()[0],	# OS
-                platform.uname()[4])	# architecture
+                platform.uname()[0],    # OS
+                platform.uname()[4])    # architecture
             self["lblDownloadProgress"].set_markup("%s %s" % (
                     _("Cannot download Syncthing daemon."),
                     _("This platform (%s) is not supported") % (pd,),

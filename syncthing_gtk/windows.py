@@ -48,13 +48,13 @@ def is_shutting_down():
 
 def nice_to_priority_class(nice):
     """ Converts nice value to windows priority class """
-    if nice <= -20:	# PRIORITY_HIGHEST
+    if nice <= -20: # PRIORITY_HIGHEST
         return win32process.HIGH_PRIORITY_CLASS,
-    if nice <= -10:	# PRIORITY_HIGH
+    if nice <= -10: # PRIORITY_HIGH
         return win32process.ABOVE_NORMAL_PRIORITY_CLASS
-    if nice >= 10:	# PRIORITY_LOW
+    if nice >= 10: # PRIORITY_LOW
         return win32process.BELOW_NORMAL_PRIORITY_CLASS
-    if nice >= 19:	# PRIORITY_LOWEST
+    if nice >= 19: # PRIORITY_LOWEST
         return win32process.IDLE_PRIORITY_CLASS
     # PRIORITY_NORMAL
     return win32process.NORMAL_PRIORITY_CLASS
@@ -195,7 +195,8 @@ def WinConfiguration():
                     value = 0xFFFF + (-value)
                 winreg.SetValueEx(r, name, 0, winreg.REG_DWORD, int(value))
             elif tp in (list, tuple):
-                if not value is None:	# None is default value for window_position
+                # None is default value for window_position
+                if not value is None:
                     winreg.SetValueEx(r, "%s_size" % (name,), 0, winreg.REG_DWORD, len(value))
                     for i in range(0, len(value)):
                         self._store(r, "%s_%s" % (name, i), type(value[i]), value[i])

@@ -18,8 +18,8 @@ log = logging.getLogger("StDownloader")
 CHUNK_SIZE = 102400
 
 class StDownloader(GObject.GObject):
-    ST_GTK_URL	= "https://api.github.com/repos/syncthing/syncthing-gtk/git/refs/tags"
-    ST_URL		= "https://api.github.com/repos/syncthing/syncthing/releases"
+    ST_GTK_URL = "https://api.github.com/repos/syncthing/syncthing-gtk/git/refs/tags"
+    ST_URL = "https://api.github.com/repos/syncthing/syncthing/releases"
 
     """
     Downloads, extracts and saves syncthing daemon to given location.
@@ -56,20 +56,20 @@ class StDownloader(GObject.GObject):
     """
 
     __gsignals__ = {
-            "version"				: (GObject.SIGNAL_RUN_FIRST, None, (object,)),
-            "download-starting"	: (GObject.SIGNAL_RUN_FIRST, None, ()),
-            "download-progress"	: (GObject.SIGNAL_RUN_FIRST, None, (float,)),
-            "download-finished"	: (GObject.SIGNAL_RUN_FIRST, None, ()),
-            "extraction-progress"	: (GObject.SIGNAL_RUN_FIRST, None, (float,)),
-            "extraction-finished"	: (GObject.SIGNAL_RUN_FIRST, None, ()),
-            "error"				: (GObject.SIGNAL_RUN_FIRST, None, (object,object)),
+            "version":              (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+            "download-starting":    (GObject.SIGNAL_RUN_FIRST, None, ()),
+            "download-progress":    (GObject.SIGNAL_RUN_FIRST, None, (float,)),
+            "download-finished":    (GObject.SIGNAL_RUN_FIRST, None, ()),
+            "extraction-progress":  (GObject.SIGNAL_RUN_FIRST, None, (float,)),
+            "extraction-finished":  (GObject.SIGNAL_RUN_FIRST, None, ()),
+            "error":                (GObject.SIGNAL_RUN_FIRST, None, (object,object)),
         }
 
     def __init__(self, target, platform):
         """
-        Target		- ~/.local/bin/syncthing or similar target location
+        Target      - ~/.local/bin/syncthing or similar target location
                     for daemon binary
-        Platform	- linux-386, windows-adm64 or other suffix used on
+        Platform    - linux-386, windows-adm64 or other suffix used on
                     syncthing releases page.
         """
         GObject.GObject.__init__(self)

@@ -11,10 +11,10 @@ from syncthing_gtk.tools import _, escape_html_entities # _ is gettext function
 import os, logging, math
 log = logging.getLogger("InfoBox")
 
-COLOR_CHANGE_TIMER	= 10	# ms
-COLOR_CHANGE_STEP	= 0.05
-HILIGHT_INTENSITY	= 0.3	# 0.0 to 1.0
-DARKEN_FACTOR		= 0.75	# 0.0 to 1.0
+COLOR_CHANGE_TIMER  = 10    # ms
+COLOR_CHANGE_STEP   = 0.05
+HILIGHT_INTENSITY   = 0.3    # 0.0 to 1.0
+DARKEN_FACTOR       = 0.75    # 0.0 to 1.0
 
 svg_cache = {}
 
@@ -23,9 +23,9 @@ class InfoBox(Gtk.Container):
     __gtype_name__ = "InfoBox"
     __gsignals__ = {
         # right-click(button, time)
-        "right-click"	: (GObject.SIGNAL_RUN_FIRST, None, (int, int)),
+        "right-click": (GObject.SIGNAL_RUN_FIRST, None, (int, int)),
         # doubleclick, no arguments
-        "doubleclick"	: (GObject.SIGNAL_RUN_FIRST, None, () )
+        "doubleclick": (GObject.SIGNAL_RUN_FIRST, None, () )
     }
 
     ### Initialization
@@ -44,11 +44,11 @@ class InfoBox(Gtk.Container):
         self.hilight_factor = 0.0
         self.timer_enabled = False
         self.icon = icon
-        self.color = (1, 0, 1, 1)		# rgba
-        self.background = (1, 1, 1, 1)	# rgba
-        self.dark_color  = None			# Overrides background if set
-        self.text_color = (0, 0, 0, 1)	# rgba (text color)
-        self.real_color = self.color	# set color + hilight
+        self.color = (1, 0, 1, 1)    # rgba
+        self.background = (1, 1, 1, 1)    # rgba
+        self.dark_color  = None    # Overrides background if set
+        self.text_color = (0, 0, 0, 1)    # rgba (text color)
+        self.real_color = self.color    # set color + hilight
         self.border_width = 2
         self.children = [self.header, self.child]
         # Initialization
@@ -162,9 +162,9 @@ class InfoBox(Gtk.Container):
                     min_height = min_height + mh
                     nat_height = nat_height + nh
         # Add border size
-        min_width += self.border_width * 2	# Left + right border
+        min_width += self.border_width * 2  # Left + right border
         nat_width += self.border_width * 2
-        min_height += self.border_width * 3	 # Top + below header + bottom
+        min_height += self.border_width * 3 # Top + below header + bottom
         nat_height += self.border_width * 3
         return(min_width, nat_width, min_height, nat_height)
 
@@ -257,20 +257,20 @@ class InfoBox(Gtk.Container):
         Hides or reveals everything below header
         Displays popup menu on right click
         """
-        if event.button == 1:	# left
+        if event.button == 1:   # left
             self.rev.set_reveal_child(not self.rev.get_reveal_child())
             self.app.cb_open_closed(self)
-        elif event.button == 3:	# right
+        elif event.button == 3: # right
             self.emit('right-click', event.button, 0)
 
     def on_grid_release(self, eventbox, event):
         """ Displays popup menu on right click """
-        if event.button == 3:	# right
+        if event.button == 3:   # right
             self.emit('right-click', event.button, 0)
 
     def on_grid_click(self, eventbox, event):
         """ Emits 'doubleclick' signal """
-        if event.button == 1:	# Left
+        if event.button == 1:   # Left
             if event.type == Gdk.EventType.DOUBLE_BUTTON_PRESS:
                 self.emit('doubleclick')
 

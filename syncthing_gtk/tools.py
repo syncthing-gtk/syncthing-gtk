@@ -15,7 +15,7 @@ from dateutil import parser
 import re, os, sys, random, string, platform, logging, shlex, gettext, __main__
 log = logging.getLogger("tools.py")
 
-IS_WINDOWS	= sys.platform in ('win32', 'win64')
+IS_WINDOWS = sys.platform in ('win32', 'win64')
 IS_XP = IS_WINDOWS and platform.release() in ("XP", "2000", "2003")
 IS_GNOME, IS_UNITY, IS_KDE, IS_CINNAMON = [False] * 4
 IS_XFCE, IS_MATE, IS_I3, IS_LXQT = [False] * 4
@@ -37,10 +37,10 @@ if os.environ.get("DESKTOP_SESSION") == "gnome":
 if os.environ.get("DESKTOP_STARTUP_ID", "").startswith("i3/"):
     IS_I3 = True
 
-LUHN_ALPHABET			= "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567" # Characters valid in device id
-VERSION_NUMBER			= re.compile(r"^v?([0-9\.]*).*")
-LOG_FORMAT				= "%(levelname)s %(name)-13s %(message)s"
-GETTEXT_DOMAIN			= "syncthing-gtk" # used by "_" function
+LUHN_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567" # Characters valid in device id
+VERSION_NUMBER = re.compile(r"^v?([0-9\.]*).*")
+LOG_FORMAT = "%(levelname)s %(name)-13s %(message)s"
+GETTEXT_DOMAIN = "syncthing-gtk" # used by "_" function
 DESKTOP_FILE = """[Desktop Entry]
 Name=%s
 Exec=%s
@@ -218,12 +218,12 @@ def init_logging():
     """
     logging.basicConfig(format=LOG_FORMAT)
     # Rename levels
-    logging.addLevelName(10, "D")	# Debug
-    logging.addLevelName(20, "I")	# Info
-    logging.addLevelName(30, "W")	# Warning
-    logging.addLevelName(40, "E")	# Error
+    logging.addLevelName(10, "D")   # Debug
+    logging.addLevelName(20, "I")   # Info
+    logging.addLevelName(30, "W")   # Warning
+    logging.addLevelName(40, "E")   # Error
     # Create additional, "verbose" level
-    logging.addLevelName(15, "V")	# Verbose
+    logging.addLevelName(15, "V")   # Verbose
     # Add 'logging.verbose' method
     def verbose(self, msg, *args, **kwargs):
         return self.log(15, msg, *args, **kwargs)
@@ -264,11 +264,14 @@ def get_locale_dir():
 def set_logging_level(verbose, debug):
     """ Sets logging level """
     logger = logging.getLogger()
-    if debug:		# everything
+    if debug:
+        # everything
         logger.setLevel(0)
-    elif verbose:	# everything but debug
+    elif verbose:
+        # everything but debug
         logger.setLevel(11)
-    else:			# INFO and worse
+    else:
+        # INFO and worse
         logger.setLevel(20)
     if (debug or verbose) and IS_WINDOWS:
         # Windows executable has no console to output to, so output is

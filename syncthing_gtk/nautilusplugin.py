@@ -14,14 +14,14 @@ import os, logging, urllib.parse
 log = logging.getLogger("SyncthingPlugin")
 
 # Output options
-VERBOSE	= True
-DEBUG	= False
+VERBOSE = True
+DEBUG = False
 
 # Magic numbers
-STATE_IDLE		= 1
-STATE_SYNCING	= 2
-STATE_OFFLINE	= 3
-STATE_STOPPED	= 4
+STATE_IDLE      = 1
+STATE_SYNCING   = 2
+STATE_OFFLINE   = 3
+STATE_STOPPED   = 4
 
 
 class NautiluslikeExtension(GObject.GObject):
@@ -89,7 +89,7 @@ class NautiluslikeExtension(GObject.GObject):
         subdirectories.
         """
         for f in self.files:
-            if f.startswith(path + os.path.sep) or f == path	:
+            if f.startswith(path + os.path.sep) or f == path:
                 self._invalidate(f)
 
     def _invalidate(self, path):

@@ -13,7 +13,7 @@ from syncthing_gtk.editordialog import EditorDialog, strip_v
 import logging
 log = logging.getLogger("DeviceEditor")
 
-COLOR_NEW				= "#A0A0A0"
+COLOR_NEW = "#A0A0A0"
 VALUES = [ "vdeviceID", "vname", "vaddresses", "vcompression",
     "vfolders", "vintroducer"
     ]

@@ -7,7 +7,8 @@ if __name__ == "__main__":
             '..', 'share', 'syncthing-gtk')
     localpath = "/usr/local/share/syncthing-gtk"
     paths = (systempath, localpath, installpath)
-    localedir = None	# let gettext to decide
+    # let gettext to decide
+    localedir = None
     for path in paths:
         if os.path.exists(path):
             localedir = os.path.join(path, '..', 'locale')
