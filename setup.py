@@ -2,8 +2,12 @@
 
 from distutils.core import setup
 from distutils.command.build_py import build_py
-from subprocess import Popen, PIPE
-import glob, os
+from pathlib import Path
+import subprocess
+import glob
+import os
+import re
+
 APP_ICON_SIZES = (16, 24, 32, 64, 128, 256)
 SI_ICON_SIZES = (16, 24, 32)
 
@@ -13,24 +17,26 @@ def get_version():
 	path. If both methods fails, returns 'unknown'.
 	"""
 	try:
-		p = Popen(['git', 'describe', '--tags', '--match', 'v*'], stdout=PIPE)
-		version = p.communicate()[0].strip("\n\r \t")
-		if p.returncode != 0:
-			raise Exception("git-describe failed")
-		return version
-	except: pass
-	# Git-describe method failed, try to guess from working directory name
-	path = os.getcwd().split(os.path.sep)
-	version = 'unknown'
-	while len(path):
-		# Find path component that matches 'syncthing-gui-vX.Y.Z'
-		if path[-1].startswith("syncthing-gui-") or path[-1].startswith("syncthing-gtk-"):
-			version = path[-1].split("-")[-1]
-			if not version.startswith("v"):
-				version = "v%s" % (version,)
-			break
-		path = path[0:-1]
+		version = subprocess.check_output(['git', 'describe', '--tags'])
+		version = version.decode('utf-8').strip('\n\r \t')
+	except subprocess.CalledProcessError:
+		# Git-describe method failed, try to guess from working directory name
+		project_dir_name = Path(__file__).parent.name
+		result = re.match(r'syncthing-gtk-(.*)', project_dir_name)
+		if result:
+			version = result.group(1).decode('utf-8')
+		else:
+			raise RuntimeError(
+				f'Directory name "{project_dir_name}" does not match "syncthing-gtk-<version>".')
+
+	# Adapt .post versions to PEP 440
+	if '-' in version:
+		semver, post, commit = version.split('-')
+		commit = commit.lstrip('g')
+		version = f'{semver}.post{post}+git.{commit}'
+
 	return version
+
 
 class BuildPyEx(build_py):
 	""" Little extension to install command; Allows --nostdownloader argument """
@@ -42,23 +48,23 @@ class BuildPyEx(build_py):
 		('nostdownloader', None, 'prevents installing StDownloader module; disables autoupdate capability'),
 		('nofinddaemon', None, 'prevents installing FindDaemonDialog module; always uses only default path to syncthig binary'),
 	]
-	
+
 	def run(self):
 		build_py.run(self)
-	
+
 	def initialize_options(self):
 		build_py.initialize_options(self)
 		self.nostdownloader = False
 		self.nofinddaemon = False
-	
+
 	@staticmethod
 	def _remove_module(modules, to_remove):
 		for i in modules:
 			if i[1] == to_remove:
 				modules.remove(i)
 				return
-		
-	
+
+
 	def find_package_modules(self, package, package_dir):
 		rv = build_py.find_package_modules(self, package, package_dir)
 		if self.nostdownloader:
@@ -76,7 +82,7 @@ def find_mos(parent, lst=[]):
 			lst += [ fp ]
 	return lst
 
-if __name__ == "__main__" : 
+if __name__ == "__main__" :
 	data_files = [
 		('share/syncthing-gtk', glob.glob("glade/*.glade") ),
 		('share/syncthing-gtk', glob.glob("scripts/syncthing-plugin-*.py") ),
@@ -100,7 +106,7 @@ if __name__ == "__main__" :
 		(
 			'share/icons/hicolor/%sx%s/apps' % (size,size),
 			glob.glob("icons/%sx%s/apps/*" % (size,size))
-		) for size in APP_ICON_SIZES 
+		) for size in APP_ICON_SIZES
 	] + [
 		(
 			'share/icons/hicolor/%sx%s/status' % (size,size),
