@@ -29,10 +29,7 @@ from syncthing_gtk.uibuilder import UIBuilder
 from syncthing_gtk.identicon import IdentIcon
 from syncthing_gtk.infobox import InfoBox
 from syncthing_gtk.ribar import RIBar
-try:
-    from syncthing_gtk.stdownloader import StDownloader
-except ImportError:
-    StDownloader = None
+from syncthing_gtk.stdownloader import StDownloader
 
 
 from datetime import datetime
@@ -198,12 +195,11 @@ class App(Gtk.Application, TimerManager):
                 return 0
             if cl.get_options_dict().contains("home"):
                 self.home_dir_override = cl.get_options_dict().lookup_value("home").get_string()
-            if not StDownloader is None:
-                if cl.get_options_dict().contains("force-update"):
-                    self.force_update_version = \
-                        cl.get_options_dict().lookup_value("force-update").get_string()
-                    if not self.force_update_version.startswith("v"):
-                        self.force_update_version = "v%s" % (self.force_update_version,)
+            if cl.get_options_dict().contains("force-update"):
+                self.force_update_version = \
+                    cl.get_options_dict().lookup_value("force-update").get_string()
+                if not self.force_update_version.startswith("v"):
+                    self.force_update_version = "v%s" % (self.force_update_version,)
             if cl.get_options_dict().contains("add-repo"):
                 path = os.path.abspath(os.path.expanduser(
                     cl.get_options_dict().lookup_value("add-repo").get_string()))
@@ -294,10 +290,9 @@ class App(Gtk.Application, TimerManager):
         aso("remove-repo", 0, "If there is repository assigned with specified path, opens 'remove repository' dialog",
                 GLib.OptionArg.STRING)
         aso("no-status-icon", 0, "Don't show a tray status icon")
-        if not StDownloader is None:
-            aso("force-update", 0,
-                    "Force updater to download specific daemon version",
-                    GLib.OptionArg.STRING, GLib.OptionFlags.HIDDEN)
+        aso("force-update", 0,
+                "Force updater to download specific daemon version",
+                GLib.OptionArg.STRING, GLib.OptionFlags.HIDDEN)
 
     def setup_actions(self):
         def add_simple_action(name, callback):
@@ -506,9 +501,6 @@ class App(Gtk.Application, TimerManager):
         # User response is handled in App.cb_infobar_response
 
     def check_for_upgrade(self, *a):
-        if StDownloader is None:
-            # Can't, someone stole my updater module :(
-            return
         self.cancel_timer("updatecheck")
         if not self.config["st_autoupdate"]:
             # Disabled, don't even bother
@@ -728,7 +720,7 @@ class App(Gtk.Application, TimerManager):
                     else:
                         self.display_run_daemon_dialog()
             self.set_status(False)
-        elif reason == Daemon.OLD_VERSION and self.config["st_autoupdate"] and not self.process is None and not StDownloader is None:
+        elif reason == Daemon.OLD_VERSION and self.config["st_autoupdate"] and not self.process is None:
             # Daemon is too old, but autoupdater is enabled and I have control of deamon.
             # Try to update.
             from .configuration import LONG_AGO
@@ -2139,7 +2131,7 @@ class App(Gtk.Application, TimerManager):
                 self.cb_daemon_startup_failed(proc, "Daemon exits too fast")
                 return
             self.last_restart_time = time.time()
-            if not StDownloader is None and self.config["st_autoupdate"] and os.path.exists(self.config["syncthing_binary"] + ".new"):
+            if self.config["st_autoupdate"] and os.path.exists(self.config["syncthing_binary"] + ".new"):
                 # New daemon version is downloaded and ready to use.
                 # Switch to this version before restarting
                 self.swap_updated_binary()

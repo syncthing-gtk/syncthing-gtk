@@ -30,7 +30,7 @@ class FindDaemonDialog(EditorDialog):
               "%s below or click on <b>Download</b> "
               "button to download latest Syncthing package.") % (exe,)
         ))
-        if IS_XP or StDownloader is None:
+        if IS_XP:
             # Downloading is not offered on XP (github will not talk to it)
             # or if StDownloader module is not packaged
             self["lblMessage"].set_markup("%s\n%s" % (

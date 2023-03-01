@@ -39,13 +39,12 @@ def get_version():
 
 
 class BuildPyEx(build_py):
-    """ Little extension to install command; Allows --nostdownloader argument """
+    """ Little extension to install command; Allows --nofinddaemon argument """
     user_options = build_py.user_options + [
         # Note to self: use
-        # # ./setup.py build_py --nostdownloader install
+        # # ./setup.py build_py --nofinddaemon install
         # to enable this option
         #
-        ('nostdownloader', None, 'prevents installing StDownloader module; disables autoupdate capability'),
         ('nofinddaemon', None, 'prevents installing FindDaemonDialog module; always uses only default path to syncthig binary'),
     ]
 
@@ -54,7 +53,6 @@ class BuildPyEx(build_py):
 
     def initialize_options(self):
         build_py.initialize_options(self)
-        self.nostdownloader = False
         self.nofinddaemon = False
 
     @staticmethod
@@ -67,8 +65,6 @@ class BuildPyEx(build_py):
 
     def find_package_modules(self, package, package_dir):
         rv = build_py.find_package_modules(self, package, package_dir)
-        if self.nostdownloader:
-            BuildPyEx._remove_module(rv, "stdownloader")
         if self.nofinddaemon:
             BuildPyEx._remove_module(rv, "finddaemondialog")
         return rv
