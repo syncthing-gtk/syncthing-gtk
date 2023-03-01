@@ -45,7 +45,6 @@ class BuildPyEx(build_py):
         # # ./setup.py build_py --nofinddaemon install
         # to enable this option
         #
-        ('nofinddaemon', None, 'prevents installing FindDaemonDialog module; always uses only default path to syncthig binary'),
     ]
 
     def run(self):
@@ -53,7 +52,6 @@ class BuildPyEx(build_py):
 
     def initialize_options(self):
         build_py.initialize_options(self)
-        self.nofinddaemon = False
 
     @staticmethod
     def _remove_module(modules, to_remove):
@@ -65,8 +63,6 @@ class BuildPyEx(build_py):
 
     def find_package_modules(self, package, package_dir):
         rv = build_py.find_package_modules(self, package, package_dir)
-        if self.nofinddaemon:
-            BuildPyEx._remove_module(rv, "finddaemondialog")
         return rv
 
 def find_mos(parent, lst=[]):
