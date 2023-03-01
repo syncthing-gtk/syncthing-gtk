@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 from distutils.core import setup
-from distutils.command.build_py import build_py
 from pathlib import Path
 import subprocess
 import glob
@@ -37,33 +36,6 @@ def get_version():
 
     return version
 
-
-class BuildPyEx(build_py):
-    """ Little extension to install command; Allows --nofinddaemon argument """
-    user_options = build_py.user_options + [
-        # Note to self: use
-        # # ./setup.py build_py --nofinddaemon install
-        # to enable this option
-        #
-    ]
-
-    def run(self):
-        build_py.run(self)
-
-    def initialize_options(self):
-        build_py.initialize_options(self)
-
-    @staticmethod
-    def _remove_module(modules, to_remove):
-        for i in modules:
-            if i[1] == to_remove:
-                modules.remove(i)
-                return
-
-
-    def find_package_modules(self, package, package_dir):
-        rv = build_py.find_package_modules(self, package, package_dir)
-        return rv
 
 def find_mos(parent, lst=[]):
     for f in os.listdir(parent):
@@ -119,5 +91,4 @@ if __name__ == "__main__" :
         ),
         data_files = data_files,
         scripts = [ "scripts/syncthing-gtk" ],
-        cmdclass = { 'build_py': BuildPyEx },
     )
