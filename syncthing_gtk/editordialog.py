@@ -504,7 +504,7 @@ class EditorDialog(GObject.GObject):
 
 
 def strip_v(x):
-    """ Strips 'v' prefix used in widget IDs """
+    """Strips 'v' prefix used in widget IDs"""
     return x[1:] if x.startswith("v") else x
 
 
