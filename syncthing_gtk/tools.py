@@ -6,12 +6,22 @@ Various stuff that I don't care to fit anywhere else.
 """
 
 
-from gettext import gettext as _
+import gettext
+import logging
+import os
+import platform
+import random
+import re
+import shlex
+import string
+import sys
 from base64 import b32decode
-from datetime import tzinfo, timedelta
+from datetime import timedelta, tzinfo
+from gettext import gettext as _
 from subprocess import Popen
+
+import __main__
 from dateutil import parser
-import re, os, sys, random, string, platform, logging, shlex, gettext, __main__
 
 log = logging.getLogger("tools.py")
 
@@ -55,7 +65,9 @@ portable_mode_enabled = False
 
 if IS_WINDOWS:
     # On Windows, WMI and pywin32 libraries are reqired
-    import wmi, winreg
+    import winreg
+
+    import wmi
 
 
 def luhn_b32generate(s):

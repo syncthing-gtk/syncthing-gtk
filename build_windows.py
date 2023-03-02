@@ -4,13 +4,20 @@ Do './build_windows.py build' to build exe, then call
 'makensis syncthing-gtk.nsis' to create installation package.
 """
 
-import os, site, sys, shutil, re
-from cx_Freeze import setup, Executable
+import os
+import re
+import shutil
+import site
+import sys
+from subprocess import PIPE, Popen
+from tempfile import mkdtemp
+
+from cx_Freeze import Executable, setup
 from cx_Freeze.freezer import Freezer, VersionInfo
 from win32verstamp import stamp
-from tempfile import mkdtemp
-from subprocess import Popen, PIPE
-from setup import get_version as _get_version, find_mos
+
+from setup import find_mos
+from setup import get_version as _get_version
 
 gnome_dll_path = "/Python27/Lib/site-packages/gnome"
 build_dir = "./build/exe.win32-2.7/"

@@ -7,16 +7,14 @@ Syncthing-GTK - StatusIcon
 
 
 import locale
+import logging
 import os
 import sys
-import logging
 
-from gi.repository import GObject
-from gi.repository import GLib
-from gi.repository import Gtk
+from gi.repository import GLib, GObject, Gtk
 
-from syncthing_gtk.tools import IS_UNITY, IS_KDE, IS_CINNAMON, IS_LXQT
 from syncthing_gtk.tools import _  # gettext function
+from syncthing_gtk.tools import IS_CINNAMON, IS_KDE, IS_LXQT, IS_UNITY
 
 log = logging.getLogger("StatusIcon")
 

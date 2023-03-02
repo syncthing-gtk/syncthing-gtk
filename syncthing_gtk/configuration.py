@@ -8,10 +8,15 @@ or other ~/.config equivalent
 """
 
 
+import json
+import logging
+import os
+import sys
 from datetime import datetime
-from syncthing_gtk.tools import IS_WINDOWS, get_config_dir, is_portable
+
 import dateutil.parser
-import os, sys, json, logging
+
+from syncthing_gtk.tools import IS_WINDOWS, get_config_dir, is_portable
 
 log = logging.getLogger("Configuration")
 

@@ -7,18 +7,25 @@ values afterwards.
 """
 
 
-from gi.repository import Gtk, GLib, GdkPixbuf
+import logging
+import os
+import platform
+import random
+import socket
+import string
+import traceback
+from xml.dom import minidom
+
+import bcrypt
+from gi.repository import GdkPixbuf, GLib, Gtk
+
+from syncthing_gtk.configuration import Configuration
 from syncthing_gtk.daemonoutputdialog import DaemonOutputDialog
 from syncthing_gtk.daemonprocess import DaemonProcess
-from syncthing_gtk.configuration import Configuration
-from syncthing_gtk.tools import get_config_dir, IS_WINDOWS, is_portable
-from syncthing_gtk.tools import can_upgrade_binary, compare_version
-from syncthing_gtk.tools import _  # gettext function
 from syncthing_gtk.stdownloader import StDownloader
-
-import os, socket, random, string, bcrypt
-import logging, traceback, platform
-from xml.dom import minidom
+from syncthing_gtk.tools import _  # gettext function
+from syncthing_gtk.tools import (IS_WINDOWS, can_upgrade_binary,
+                                 compare_version, get_config_dir, is_portable)
 
 log = logging.getLogger("Wizard")
 

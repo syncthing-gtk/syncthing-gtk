@@ -7,12 +7,14 @@ values afterwards.
 """
 
 
+import os
+import platform
+
 from syncthing_gtk.editordialog import EditorDialog
 from syncthing_gtk.stdownloader import StDownloader
-from syncthing_gtk.tools import IS_WINDOWS, IS_XP
 from syncthing_gtk.tools import _  # gettext function
+from syncthing_gtk.tools import IS_WINDOWS, IS_XP
 from syncthing_gtk.uisettingsdialog import UISettingsDialog, browse_for_binary
-import os, platform
 
 VALUES = ["vsyncthing_binary"]
 

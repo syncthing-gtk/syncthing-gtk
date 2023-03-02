@@ -1,8 +1,14 @@
 """
 HTTP client classes
 """
+import json
+import logging
+import os
+import sys
+import time
+import urllib.parse
+
 from gi.repository import Gio, GLib, GObject
-import json, os, sys, time, logging, urllib.parse
 
 log = logging.getLogger("HTTP")
 

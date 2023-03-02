@@ -6,21 +6,25 @@ Runs syncthing daemon process as subprocess of application
 """
 
 
-from gi.repository import Gio, GLib, GObject
-from syncthing_gtk.tools import IS_WINDOWS
+import logging
+import os
 from collections import deque
-import os, logging
+
+from gi.repository import Gio, GLib, GObject
+
+from syncthing_gtk.tools import IS_WINDOWS
 
 log = logging.getLogger("DaemonProcess")
 
 HAS_SUBPROCESS = hasattr(Gio, "Subprocess")
 if IS_WINDOWS:
     # POpen is used on Windows
-    from subprocess import Popen, PIPE, STARTUPINFO, STARTF_USESHOWWINDOW
+    from subprocess import PIPE, STARTF_USESHOWWINDOW, STARTUPINFO, Popen
+
     from syncthing_gtk.windows import WinPopenReader, nice_to_priority_class
 elif not HAS_SUBPROCESS:
     # Gio.Subprocess is not available in Gio < 3.12
-    from subprocess import Popen, PIPE
+    from subprocess import PIPE, Popen
 
 
 class DaemonProcess(GObject.GObject):

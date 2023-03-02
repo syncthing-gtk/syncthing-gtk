@@ -6,10 +6,14 @@ with small modification
 """
 
 
+import logging
+import os
+import urllib.parse
+
 from gi.repository import GObject
-from syncthing_gtk.tools import init_logging, set_logging_level
+
 from syncthing_gtk.daemon import Daemon
-import os, logging, urllib.parse
+from syncthing_gtk.tools import init_logging, set_logging_level
 
 log = logging.getLogger("SyncthingPlugin")
 

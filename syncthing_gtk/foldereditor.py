@@ -6,11 +6,15 @@ Universal dialog handler for all Syncthing settings and editing
 """
 
 
+import logging
+import os
+import re
+
 from gi.repository import Gtk
+
+from syncthing_gtk.editordialog import EditorDialog, strip_v
 from syncthing_gtk.tools import _  # gettext function
 from syncthing_gtk.tools import generate_folder_id
-from syncthing_gtk.editordialog import EditorDialog, strip_v
-import os, re, logging
 
 log = logging.getLogger("FolderEditor")
 

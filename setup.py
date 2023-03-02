@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
-from distutils.core import setup
-from pathlib import Path
-import subprocess
 import glob
 import os
 import re
+import subprocess
+from distutils.core import setup
+from pathlib import Path
 
 APP_ICON_SIZES = (16, 24, 32, 64, 128, 256)
 SI_ICON_SIZES = (16, 24, 32)

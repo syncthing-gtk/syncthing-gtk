@@ -1,6 +1,8 @@
 #!/c/Python27/python.exe
 # Note: this one is used by Windows
-import sys, os, winreg
+import os
+import sys
+import winreg
 
 if __name__ == "__main__":
     portable = False
@@ -31,13 +33,16 @@ if __name__ == "__main__":
             os.chdir(path)
         os.environ["PATH"] = path
 
-        import gi, cairo
+        import cairo
+        import gi
     gi.require_version("Gtk", "3.0")
     gi.require_version("Rsvg", "2.0")
 
-    from syncthing_gtk.tools import init_logging, init_locale
-    from syncthing_gtk.windows import enable_localization, fix_localized_system_error_messages, override_menu_borders
     from syncthing_gtk.configuration import Configuration
+    from syncthing_gtk.tools import init_locale, init_logging
+    from syncthing_gtk.windows import (enable_localization,
+                                       fix_localized_system_error_messages,
+                                       override_menu_borders)
 
     init_logging()
     config = Configuration()

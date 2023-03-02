@@ -6,11 +6,13 @@ Universal dialog handler for all Syncthing settings and editing
 """
 
 
-from gi.repository import Gtk
-from syncthing_gtk.tools import check_device_id
-from syncthing_gtk.tools import _  # gettext function
-from syncthing_gtk.editordialog import EditorDialog, strip_v
 import logging
+
+from gi.repository import Gtk
+
+from syncthing_gtk.editordialog import EditorDialog, strip_v
+from syncthing_gtk.tools import _  # gettext function
+from syncthing_gtk.tools import check_device_id
 
 log = logging.getLogger("DeviceEditor")
 
