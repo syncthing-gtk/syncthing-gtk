@@ -16,13 +16,13 @@ from gi.repository import GLib
 from gi.repository import Gtk
 
 from syncthing_gtk.tools import IS_UNITY, IS_KDE, IS_CINNAMON, IS_LXQT
-from syncthing_gtk.tools import _ # gettext function
+from syncthing_gtk.tools import _  # gettext function
 
 log = logging.getLogger("StatusIcon")
 
 
 #                | KDE5            | MATE      | Unity      | Cinnamon   | Cairo-Dock (classic) | Cairo-Dock (modern) | KDE4      |
-#----------------+-----------------+-----------+------------+------------+----------------------+---------------------+-----------+
+# ----------------+-----------------+-----------+------------+------------+----------------------+---------------------+-----------+
 # StatusIconQt5  | very good (KF5) | -         | -          | -          | -                    | -                   | -         |
 # StatusIconAppI | good²           | none      | excellent  | none       | none                 | excellent           | good²     |
 # StatusIconGTK3 | good            | excellent | none       | very good¹ | very good¹           | none                | good⁴     |
@@ -44,7 +44,8 @@ class StatusIcon(GObject.GObject):
     """
     Base class for all status icon backends
     """
-    TRAY_TITLE     = _("Syncthing")
+
+    TRAY_TITLE = _("Syncthing")
 
     __gsignals__ = {
         "clicked": (GObject.SIGNAL_RUN_FIRST, None, ()),
@@ -56,7 +57,7 @@ class StatusIcon(GObject.GObject):
             "is the icon user-visible?",
             "does the icon back-end think that anything is might be shown to the user?",
             True,
-            GObject.PARAM_READWRITE
+            GObject.PARAM_READWRITE,
         )
     }
 
@@ -64,12 +65,12 @@ class StatusIcon(GObject.GObject):
         GObject.GObject.__init__(self)
         self.__icon_path = os.path.normpath(os.path.abspath(icon_path))
         self.__popupmenu = popupmenu
-        self.__active    = True
-        self.__visible   = False
-        self.__hidden    = False
-        self.__icon      = "si-syncthing-unknown"
-        self.__text      = ""
-        self.__force     = force
+        self.__active = True
+        self.__visible = False
+        self.__hidden = False
+        self.__icon = "si-syncthing-unknown"
+        self.__text = ""
+        self.__force = force
 
     def get_active(self):
         """
@@ -99,7 +100,7 @@ class StatusIcon(GObject.GObject):
             # KDE seems to be the only platform that has proper support for icon states
             # (all other implementations just hide the icon completely when its passive)
             self.__visible = False
-        elif not icon.endswith("-0"): # si-syncthing-0
+        elif not icon.endswith("-0"):  # si-syncthing-0
             # Ignore first syncing icon state to prevent the icon from flickering
             # into the main notification bar during initialization
             self.__visible = True
@@ -128,7 +129,6 @@ class StatusIcon(GObject.GObject):
         """
         self.__hidden = False
         self._set_visible(self.__visible)
-
 
     def _is_forced(self):
         return self.__force
@@ -185,15 +185,18 @@ class StatusIconDummy(StatusIcon):
     """
     Dummy status icon implementation that does nothing
     """
+
     def __init__(self, *args, **kwargs):
         StatusIcon.__init__(self, *args, **kwargs)
 
         # Pretty unlikely that this will be visible...
         self.set_property("active", False)
         if IS_UNITY or IS_KDE:
-            log.warning("Failed to load modules required for status icon. "
-                        "Please, make sure libappindicator package and python "
-                        "bindings are installed.")
+            log.warning(
+                "Failed to load modules required for status icon. "
+                "Please, make sure libappindicator package and python "
+                "bindings are installed."
+            )
         else:
             log.warning("Failed to load modules required for status icon")
 
@@ -208,6 +211,7 @@ class StatusIconGTK3(StatusIcon):
     """
     Gtk.StatusIcon based status icon backend
     """
+
     def __init__(self, *args, **kwargs):
         StatusIcon.__init__(self, *args, **kwargs)
 
@@ -266,6 +270,7 @@ class StatusIconQt(StatusIconDBus):
     """
     Base implementation for all Qt-based backends that provides GMenu to QMenu conversion services
     """
+
     def _make_qt_action(self, menu_child_gtk, menu_qt):
         # This is a separate function to make sure that the Qt callback function are executed
         # in the correct `locale()` context and do net trigger events on the wrong Gtk menu item
@@ -279,27 +284,31 @@ class StatusIconQt(StatusIconDBus):
         # Copy sensitivity
         def set_sensitive(*args):
             action.setEnabled(menu_child_gtk.is_sensitive())
+
         menu_child_gtk.connect("notify::sensitive", set_sensitive)
         set_sensitive()
 
         # Copy checkbox state
         if isinstance(menu_child_gtk, Gtk.CheckMenuItem):
             action.setCheckable(True)
+
             def _set_visible(*args):
                 action.setChecked(menu_child_gtk.get_active())
+
             menu_child_gtk.connect("notify::active", _set_visible)
             _set_visible()
 
         # Copy icon
         if isinstance(menu_child_gtk, Gtk.ImageMenuItem):
+
             def set_image(*args):
                 image = menu_child_gtk.get_image()
                 if image and image.get_storage_type() == Gtk.ImageType.PIXBUF:
                     # Converting GdkPixbufs to QIcons might be a bit inefficient this way,
                     # but it requires only very little code and looks very stable
                     png_buffer = image.get_pixbuf().save_to_bufferv("png", [], [])[1]
-                    image      = self._qt_types["QImage"].fromData(png_buffer)
-                    pixmap     = self._qt_types["QPixmap"].fromImage(image)
+                    image = self._qt_types["QImage"].fromData(png_buffer)
+                    pixmap = self._qt_types["QPixmap"].fromImage(image)
 
                     action.setIcon(self._qt_types["QIcon"](pixmap))
                 elif image:
@@ -312,6 +321,7 @@ class StatusIconQt(StatusIconDBus):
                     action.setIcon(self._get_icon_by_name(icon_name))
                 else:
                     action.setIcon(self._get_icon_by_name(None))
+
             menu_child_gtk.connect("notify::image", set_image)
             set_image()
 
@@ -325,12 +335,14 @@ class StatusIconQt(StatusIconDBus):
             if menu_child_gtk.get_use_underline():
                 label = label.replace("_", "&")
             action.setText(label)
+
         menu_child_gtk.connect("notify::label", set_label)
         set_label()
 
         # Add submenus
         def set_popupmenu(*args):
             action.setMenu(self._get_popupmenu(menu_child_gtk.get_submenu()))
+
         menu_child_gtk.connect("notify::popupmenu", set_popupmenu)
         set_popupmenu()
 
@@ -385,26 +397,30 @@ class StatusIconQt(StatusIconDBus):
 
         return menu_qt
 
+
 class StatusIconAppIndicator(StatusIconDBus):
     """
     Unity's AppIndicator3.Indicator based status icon backend
     """
+
     def __init__(self, *args, **kwargs):
         StatusIcon.__init__(self, *args, **kwargs)
 
         try:
             import gi
-            gi.require_version('AyatanaAppIndicator3', '0.1')
+
+            gi.require_version("AyatanaAppIndicator3", "0.1")
             from gi.repository import AyatanaAppIndicator3 as appindicator
         except (ImportError, ValueError):
             try:
                 import gi
-                gi.require_version('AppIndicator3', '0.1')
+
+                gi.require_version("AppIndicator3", "0.1")
                 from gi.repository import AppIndicator3 as appindicator
             except (ImportError, ValueError):
                 raise NotImplementedError
 
-        self._status_active  = appindicator.IndicatorStatus.ACTIVE
+        self._status_active = appindicator.IndicatorStatus.ACTIVE
         self._status_passive = appindicator.IndicatorStatus.PASSIVE
 
         category = appindicator.IndicatorCategory.APPLICATION_STATUS
@@ -424,13 +440,12 @@ class StatusIconAppIndicator(StatusIconDBus):
         self._tray.set_icon_full(self._get_icon(icon), self._get_text(text))
 
 
-
 class StatusIconProxy(StatusIcon):
     def __init__(self, *args, **kwargs):
         StatusIcon.__init__(self, *args, **kwargs)
 
-        self._arguments  = (args, kwargs)
-        self._status_fb  = None
+        self._arguments = (args, kwargs)
+        self._status_fb = None
         self._status_gtk = None
         self.set("si-syncthing-unknown", "")
 
@@ -441,7 +456,7 @@ class StatusIconProxy(StatusIcon):
         try:
             # Try loading GTK native status icon
             self._status_gtk = StatusIconGTK3(*args, **kwargs)
-            self._status_gtk.connect("clicked",        self._on_click)
+            self._status_gtk.connect("clicked", self._on_click)
             self._status_gtk.connect("notify::active", self._on_notify_active_gtk)
             self._on_notify_active_gtk()
 
@@ -482,7 +497,7 @@ class StatusIconProxy(StatusIcon):
             for StatusIconBackend in status_icon_backends:
                 try:
                     self._status_fb = StatusIconBackend(*self._arguments[0], **self._arguments[1])
-                    self._status_fb.connect("clicked",        self._on_click)
+                    self._status_fb.connect("clicked", self._on_click)
                     self._status_fb.connect("notify::active", self._on_notify_active_fb)
                     self._on_notify_active_fb()
 
@@ -517,6 +532,7 @@ class StatusIconProxy(StatusIcon):
             self._status_gtk.show()
         if self._status_fb:
             self._status_fb.show()
+
 
 def get_status_icon(*args, **kwargs):
     # Try selecting backend based on environment variable

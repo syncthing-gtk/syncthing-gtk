@@ -7,77 +7,91 @@ Universal dialog handler for all Syncthing settings and editing
 
 from gi.repository import Gtk
 from syncthing_gtk.tools import (
-    IS_UNITY, IS_GNOME, IS_WINDOWS,
-    set_run_on_startup, is_ran_on_startup, get_config_dir, get_executable
+    IS_UNITY,
+    IS_GNOME,
+    IS_WINDOWS,
+    set_run_on_startup,
+    is_ran_on_startup,
+    get_config_dir,
+    get_executable,
 )
 from syncthing_gtk.notifications import Notifications, HAS_DESKTOP_NOTIFY
 from syncthing_gtk.editordialog import EditorDialog
-from syncthing_gtk.tools import _ # gettext function
+from syncthing_gtk.tools import _  # gettext function
 from syncthing_gtk.configuration import LONG_AGO
 from syncthing_gtk.stdownloader import StDownloader
 import os, logging
 
 log = logging.getLogger("UISettingsDialog")
 
-VALUES = [ "vautostart_daemon", "vautokill_daemon", "vminimize_on_start",
-        "vautostart", "vuse_old_header",
-        "vforce_dark_theme", "vdaemon_priority", "vfolder_as_path",
-        "vnotification_for_update", "vnotification_for_folder",
-        "vnotification_for_error", "vst_autoupdate", "vsyncthing_binary",
-        "vsyncthing_arguments", "vmax_cpus", "vicon_theme", "vlanguage"
-    ]
+VALUES = [
+    "vautostart_daemon",
+    "vautokill_daemon",
+    "vminimize_on_start",
+    "vautostart",
+    "vuse_old_header",
+    "vforce_dark_theme",
+    "vdaemon_priority",
+    "vfolder_as_path",
+    "vnotification_for_update",
+    "vnotification_for_folder",
+    "vnotification_for_error",
+    "vst_autoupdate",
+    "vsyncthing_binary",
+    "vsyncthing_arguments",
+    "vmax_cpus",
+    "vicon_theme",
+    "vlanguage",
+]
 
 # Values for filemanager integration. Key is ID of checkbox widget
 FM_DATA = {
-    "fmcb_nemo" : (
-        "nemo/extensions-3.0/libnemo-python.so",    # python plugin location, relative to /usr/lib
-        "Nemo python bindings",                     # name or description of required package
-        "syncthing-plugin-nemo",                    # plugin script filename, without extension
-        "nemo-python/extensions",                   # script folder, relative to XDG_DATA_HOME
-        "Nemo"                                      # name
+    "fmcb_nemo": (
+        "nemo/extensions-3.0/libnemo-python.so",  # python plugin location, relative to /usr/lib
+        "Nemo python bindings",  # name or description of required package
+        "syncthing-plugin-nemo",  # plugin script filename, without extension
+        "nemo-python/extensions",  # script folder, relative to XDG_DATA_HOME
+        "Nemo",  # name
     ),
-    "fmcb_nautilus" : (
+    "fmcb_nautilus": (
         "nautilus/extensions-3.0/libnautilus-python.so",
         "Nautilus python bindings",
         "syncthing-plugin-nautilus",
         "nautilus-python/extensions",
-        "Nautilus"
+        "Nautilus",
     ),
-    "fmcb_caja" : (
+    "fmcb_caja": (
         "caja/extensions-2.0/libcaja-python.so",
         "Caja python bindings",
         "syncthing-plugin-caja",
         "caja-python/extensions",
-        "Caja"
-    )
+        "Caja",
+    ),
 }
 
+
 class UISettingsDialog(EditorDialog):
-    SETTING_NEEDS_RESTART = [
-        "vuse_old_header", "vforce_dark_theme",
-        "vicon_theme", "vlanguage"
-    ]
+    SETTING_NEEDS_RESTART = ["vuse_old_header", "vforce_dark_theme", "vicon_theme", "vlanguage"]
 
     def __init__(self, app):
-        EditorDialog.__init__(self, app, "ui-settings.glade",
-            _("UI Settings"))
+        EditorDialog.__init__(self, app, "ui-settings.glade", _("UI Settings"))
         self.app = app
 
     def run(self):
         return self["dialog"].run()
 
     def cb_btBrowse_clicked(self, *a):
-        """ Display file browser dialog to browse for syncthing binary """
+        """Display file browser dialog to browse for syncthing binary"""
         browse_for_binary(self["editor"], self, "vsyncthing_binary")
 
     def cb_vmax_cpus_value_changed(self, sb):
         if sb.get_adjustment().get_value() == 0:
             sb.set_text(_("Unlimited"))
 
-    #@Overrides
+    # @Overrides
     def load_data(self):
         # Don't load data from syncthing daemon, it knows nothing...
-        copy = { k : self.app.config[k] for k in self.app.config }
+        copy = {k: self.app.config[k] for k in self.app.config}
         if IS_UNITY or IS_GNOME:
             self["vuse_old_header"].set_visible(False)
             self["vuse_old_header"].set_no_show_all(True)
@@ -107,46 +121,56 @@ class UISettingsDialog(EditorDialog):
             if not get_fm_source_path(plugin) is None:
                 if library_exists(so_file):
                     self[widget_id].set_sensitive(True)
-                    self[widget_id].set_active(
-                        os.path.exists(get_fm_target_path(plugin, location))
-                    )
+                    self[widget_id].set_active(os.path.exists(get_fm_target_path(plugin, location)))
                 else:
                     log.warning("Cannot find %s required to support %s", so_file, name)
-                    status.append(_("Install %(package)s package to enable %(feature)s support") % {
-                        'package' : package,
-                        'feature' : name
-                    })
+                    status.append(
+                        _("Install %(package)s package to enable %(feature)s support")
+                        % {"package": package, "feature": name}
+                    )
             else:
                 log.warning("Cannot find %s.py required to support %s", plugin, name)
         self["fmLblIntegrationStatus"].set_text("\n".join(status))
         self.cb_data_loaded(copy)
         self.cb_check_value()
 
-    #@Overrides
+    # @Overrides
     def display_value(self, key, w):
         if key == "vautostart_daemon":
             value = self.get_value(key[1:])
-            if   value == 0: self["rbOnStartWait"].set_active(True)
-            elif value == 1: self["rbOnStartRun"].set_active(True)
-            else: self["rbOnStartAsk"].set_active(True)
+            if value == 0:
+                self["rbOnStartWait"].set_active(True)
+            elif value == 1:
+                self["rbOnStartRun"].set_active(True)
+            else:
+                self["rbOnStartAsk"].set_active(True)
         elif key == "vautokill_daemon":
             value = self.get_value(key[1:])
-            if   value == 1: self["rbOnExitTerminate"].set_active(True)
-            elif value == 0: self["rbOnExitLeave"].set_active(True)
-            else: self["rbOnExitAsk"].set_active(True)
+            if value == 1:
+                self["rbOnExitTerminate"].set_active(True)
+            elif value == 0:
+                self["rbOnExitLeave"].set_active(True)
+            else:
+                self["rbOnExitAsk"].set_active(True)
         else:
             return EditorDialog.display_value(self, key, w)
 
-    #@Overrides
+    # @Overrides
     def store_value(self, key, w):
         if key == "vautostart_daemon":
-            if   self["rbOnStartWait"].get_active() : self.set_value(key[1:], 0)
-            elif self["rbOnStartRun"].get_active() : self.set_value(key[1:], 1)
-            else: return self.set_value(key[1:], 2) # vOnStartAsk
+            if self["rbOnStartWait"].get_active():
+                self.set_value(key[1:], 0)
+            elif self["rbOnStartRun"].get_active():
+                self.set_value(key[1:], 1)
+            else:
+                return self.set_value(key[1:], 2)  # vOnStartAsk
         elif key == "vautokill_daemon":
-            if self["rbOnExitTerminate"].get_active() : return self.set_value(key[1:], 1)
-            elif self["rbOnExitLeave"].get_active() : return self.set_value(key[1:], 0)
-            else: return self.set_value(key[1:], 2) # vOnExitAsk
+            if self["rbOnExitTerminate"].get_active():
+                return self.set_value(key[1:], 1)
+            elif self["rbOnExitLeave"].get_active():
+                return self.set_value(key[1:], 0)
+            else:
+                return self.set_value(key[1:], 2)  # vOnExitAsk
         elif key == "vst_autoupdate":
             # Reset updatecheck timer when autoupdate is turned on
             if self["vst_autoupdate"].get_active():
@@ -155,37 +179,39 @@ class UISettingsDialog(EditorDialog):
         else:
             return EditorDialog.store_value(self, key, w)
 
-    #@Overrides
+    # @Overrides
     def set_value(self, key, value):
         if key == "autostart":
-            set_run_on_startup(value, "Syncthing-GTK", get_executable(),
+            set_run_on_startup(
+                value,
+                "Syncthing-GTK",
+                get_executable(),
                 "/usr/share/syncthing-gtk/icons/st-logo-128.png",
-                "GUI for Syncthing")
+                "GUI for Syncthing",
+            )
         elif key == "daemon_priority":
             return EditorDialog.set_value(self, key, int(value))
         else:
             return EditorDialog.set_value(self, key, value)
 
-    #@Overrides
+    # @Overrides
     def get_value(self, key):
         if key == "autostart":
             return is_ran_on_startup("Syncthing-GTK")
         else:
             return EditorDialog.get_value(self, key)
 
-    #@Overrides
+    # @Overrides
     def on_data_loaded(self):
         self.values = self.config
-        self.checks = {
-            "vsyncthing_binary" : lambda p : os.path.isfile(p) and os.access(p, os.X_OK)
-        }
+        self.checks = {"vsyncthing_binary": lambda p: os.path.isfile(p) and os.access(p, os.X_OK)}
         return self.display_values(VALUES)
 
-    #@Overrides
+    # @Overrides
     def update_special_widgets(self, *a):
         pass
 
-    #@Overrides
+    # @Overrides
     def on_save_requested(self):
         self.store_values(VALUES)
         # Save data to configuration file
@@ -228,7 +254,7 @@ class UISettingsDialog(EditorDialog):
         # Report work done
         self.syncthing_cb_post_config()
 
-    #@Overrides
+    # @Overrides
     def on_saved(self):
         self.close()
         # Recreate Notifications object if needed
@@ -247,12 +273,13 @@ class UISettingsDialog(EditorDialog):
             box.set_visible("id", self.app.config["folder_as_path"])
             box.set_title(title)
 
+
 def library_exists(name):
     """
     Checks if there is specified so file installed in one of known prefixes
     """
     PREFIXES = [
-        "/usr/lib64", # Fedora
+        "/usr/lib64",  # Fedora
         "/usr/lib",
         "/usr/local/lib/",
         "/usr/x86_64-pc-linux-gnu/lib/",
@@ -265,6 +292,7 @@ def library_exists(name):
             return True
     return False
 
+
 def get_fm_target_path(plugin, location, extension="py"):
     """
     Returns full path to plugin file in filemanager plugins directory
@@ -273,6 +301,7 @@ def get_fm_target_path(plugin, location, extension="py"):
     if "XDG_DATA_HOME" in os.environ:
         datahome = os.environ["XDG_DATA_HOME"]
     return os.path.join(datahome, location, "%s.%s" % (plugin, extension))
+
 
 def get_fm_source_path(plugin):
     """
@@ -294,18 +323,21 @@ def get_fm_source_path(plugin):
             return fn
     return None
 
+
 def is_file_or_symlink(path):
     """
     Returns True if specified file exists, even as broken symlink.
     (os.path.exists() returns False for broken symlinks)
     """
-    if os.path.exists(path): return True
+    if os.path.exists(path):
+        return True
     try:
         os.readlink(path)
         return True
     except:
         pass
     return False
+
 
 def browse_for_binary(parent_window, settings_dialog, value):
     """
@@ -317,8 +349,8 @@ def browse_for_binary(parent_window, settings_dialog, value):
         _("Browse for Syncthing binary"),
         parent_window,
         Gtk.FileChooserAction.OPEN,
-        (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-        Gtk.STOCK_OK, Gtk.ResponseType.OK))
+        (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK),
+    )
     # Prepare filter
     f = Gtk.FileFilter()
     if IS_WINDOWS:

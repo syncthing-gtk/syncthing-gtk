@@ -7,42 +7,49 @@ Universal dialog handler for all Syncthing settings and editing
 
 
 from syncthing_gtk.editordialog import EditorDialog, strip_v
-from syncthing_gtk.tools import _ # gettext function
+from syncthing_gtk.tools import _  # gettext function
 
-VALUES = [ "vlistenAddresses", "vlocalAnnounceEnabled", "vupnpEnabled",
-        "vstartBrowser", "vmaxSendKbpsEnabled", "vmaxSendKbps",
-        "vmaxRecvKbpsEnabled", "vmaxRecvKbps", "vurAccepted",
-        "vlocalAnnouncePort", "vglobalAnnounceEnabled",
-        "vglobalAnnounceServers"
-        ]
+VALUES = [
+    "vlistenAddresses",
+    "vlocalAnnounceEnabled",
+    "vupnpEnabled",
+    "vstartBrowser",
+    "vmaxSendKbpsEnabled",
+    "vmaxSendKbps",
+    "vmaxRecvKbpsEnabled",
+    "vmaxRecvKbps",
+    "vurAccepted",
+    "vlocalAnnouncePort",
+    "vglobalAnnounceEnabled",
+    "vglobalAnnounceServers",
+]
 
 
 class DaemonSettingsDialog(EditorDialog):
     def __init__(self, app):
-        EditorDialog.__init__(self, app, "daemon-settings.glade",
-            _("Syncthing Daemon Settings"))
+        EditorDialog.__init__(self, app, "daemon-settings.glade", _("Syncthing Daemon Settings"))
 
-    #@Overrides
+    # @Overrides
     def get_value(self, key):
         if key == "listenAddresses":
-            return ", ".join([ strip_v(x) for x in self.values[key]])
+            return ", ".join([strip_v(x) for x in self.values[key]])
         elif key == "globalAnnounceServers":
-            return ", ".join([ strip_v(x) for x in self.values["globalAnnounceServers"]])
+            return ", ".join([strip_v(x) for x in self.values["globalAnnounceServers"]])
         elif key == "urAccepted":
-            return (self.values["urAccepted"] == 1)
+            return self.values["urAccepted"] == 1
         elif key == "maxSendKbpsEnabled":
-            return (self.values["maxSendKbps"] != 0)
+            return self.values["maxSendKbps"] != 0
         elif key == "maxRecvKbpsEnabled":
-            return (self.values["maxRecvKbps"] != 0)
+            return self.values["maxRecvKbps"] != 0
         else:
             return EditorDialog.get_value(self, key)
 
-    #@Overrides
+    # @Overrides
     def set_value(self, key, value):
         if key == "listenAddresses":
-            self.values[key] = [ x.strip(" \t") for x in value.split(",") ]
+            self.values[key] = [x.strip(" \t") for x in value.split(",")]
         elif key == "globalAnnounceServers":
-            self.values[key] = [ x.strip(" \t") for x in value.split(",") ]
+            self.values[key] = [x.strip(" \t") for x in value.split(",")]
         elif key == "urAccepted":
             self.values[key] = 1 if value else -1
         elif key == "maxSendKbpsEnabled":
@@ -64,13 +71,13 @@ class DaemonSettingsDialog(EditorDialog):
         else:
             return EditorDialog.set_value(self, key, value)
 
-    #@Overrides
+    # @Overrides
     def on_data_loaded(self):
         self.values = self.config["options"]
         self.checks = {}
         return self.display_values(VALUES)
 
-    #@Overrides
+    # @Overrides
     def update_special_widgets(self, *a):
         self["vmaxSendKbps"].set_sensitive(self.get_value("maxSendKbpsEnabled"))
         self["vmaxRecvKbps"].set_sensitive(self.get_value("maxRecvKbpsEnabled"))
@@ -79,12 +86,12 @@ class DaemonSettingsDialog(EditorDialog):
         self["lblvglobalAnnounceServers"].set_sensitive(self.get_value("globalAnnounceEnabled"))
         self["lblvglobalAnnounceServers"].set_sensitive(self.get_value("globalAnnounceEnabled"))
 
-    #@Overrides
+    # @Overrides
     def on_save_requested(self):
         self.store_values(VALUES)
         # Post configuration back to daemon
         self.post_config()
 
-    #@Overrides
+    # @Overrides
     def on_saved(self):
         self.close()

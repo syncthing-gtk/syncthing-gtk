@@ -9,9 +9,11 @@ from gi.repository import GLib, Gtk, Gdk
 import os, sys, logging, codecs, msvcrt, win32pipe, win32api, winreg
 import win32process
 from win32com.shell import shell, shellcon
+
 log = logging.getLogger("windows.py")
 
 SM_SHUTTINGDOWN = 0x2000
+
 
 def fix_localized_system_error_messages():
     """
@@ -25,9 +27,10 @@ def fix_localized_system_error_messages():
     """
 
     def handle_error(error):
-        return ('?', error.end)
+        return ("?", error.end)
 
     codecs.register_error("strict", handle_error)
+
 
 def enable_localization():
     """
@@ -36,33 +39,38 @@ def enable_localization():
     loc = "en"
     try:
         import locale
+
         loc = locale.getdefaultlocale()[0]
     except Exception:
         pass
-    if not 'LANGUAGE' in os.environ:
-        os.environ['LANGUAGE'] = loc
+    if not "LANGUAGE" in os.environ:
+        os.environ["LANGUAGE"] = loc
+
 
 def is_shutting_down():
-    """ Returns True if Windows initiated shutdown process """
-    return (win32api.GetSystemMetrics(SM_SHUTTINGDOWN) != 0)
+    """Returns True if Windows initiated shutdown process"""
+    return win32api.GetSystemMetrics(SM_SHUTTINGDOWN) != 0
+
 
 def nice_to_priority_class(nice):
-    """ Converts nice value to windows priority class """
-    if nice <= -20: # PRIORITY_HIGHEST
-        return win32process.HIGH_PRIORITY_CLASS,
-    if nice <= -10: # PRIORITY_HIGH
+    """Converts nice value to windows priority class"""
+    if nice <= -20:  # PRIORITY_HIGHEST
+        return (win32process.HIGH_PRIORITY_CLASS,)
+    if nice <= -10:  # PRIORITY_HIGH
         return win32process.ABOVE_NORMAL_PRIORITY_CLASS
-    if nice >= 10: # PRIORITY_LOW
+    if nice >= 10:  # PRIORITY_LOW
         return win32process.BELOW_NORMAL_PRIORITY_CLASS
-    if nice >= 19: # PRIORITY_LOWEST
+    if nice >= 19:  # PRIORITY_LOWEST
         return win32process.IDLE_PRIORITY_CLASS
     # PRIORITY_NORMAL
     return win32process.NORMAL_PRIORITY_CLASS
 
+
 def override_menu_borders():
-    """ Loads custom CSS to create borders around popup menus """
+    """Loads custom CSS to create borders around popup menus"""
     style_provider = Gtk.CssProvider()
-    style_provider.load_from_data("""
+    style_provider.load_from_data(
+        """
         .menu {
             border-image: linear-gradient(to top,
                                           alpha(@borders, 0.80),
@@ -78,15 +86,16 @@ def override_menu_borders():
                                           alpha(@borders, 0.50) 66%,
                                           transparent 99%) 2 2 2 2/ 2px 2px 2px 2px;
         }
-        """)
-    Gtk.StyleContext.add_provider_for_screen(
-        Gdk.Screen.get_default(),
-        style_provider,
-        Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        """
     )
+    Gtk.StyleContext.add_provider_for_screen(
+        Gdk.Screen.get_default(), style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+    )
+
 
 def get_unicode_home():
     return shell.SHGetFolderPath(0, shellcon.CSIDL_LOCAL_APPDATA, None, 0)
+
 
 class WinPopenReader:
     """
@@ -143,23 +152,26 @@ class WinPopenReader:
         self._closed = True
 
     class Results:
-        """ Also serves as response object """
+        """Also serves as response object"""
+
         def __init__(self, data):
             self._data = data
 
         def get_data(self):
             return self._data
 
+
 def WinConfiguration():
     from syncthing_gtk.configuration import _Configuration
     from syncthing_gtk.configuration import serializer
+
     class _WinConfiguration(_Configuration):
         """
         Configuration implementation for Windows - stores values
         in registry
         """
 
-        #@ Overrides
+        # @ Overrides
         def load(self):
             self.values = {}
             r = winreg.OpenKey(winreg.HKEY_CURRENT_USER, "Software\\SyncthingGTK")
@@ -172,7 +184,7 @@ def WinConfiguration():
                     pass
             winreg.CloseKey(r)
 
-        #@ Overrides
+        # @ Overrides
         def save(self):
             r = winreg.CreateKey(winreg.HKEY_CURRENT_USER, "Software\\SyncthingGTK")
             for key in _Configuration.REQUIRED_KEYS:
@@ -182,7 +194,7 @@ def WinConfiguration():
             winreg.CloseKey(r)
 
         def _store(self, r, name, tp, value):
-            """ Stores value in registry, handling special types """
+            """Stores value in registry, handling special types"""
             if tp == str:
                 winreg.SetValueEx(r, name, 0, winreg.REG_SZ, str(value))
             elif tp in (int, bool):
@@ -204,7 +216,7 @@ def WinConfiguration():
                 winreg.SetValueEx(r, name, 0, winreg.REG_SZ, serializer(value))
 
         def _read(self, r, name, tp):
-            """ Reads value from registry, handling special types """
+            """Reads value from registry, handling special types"""
             if tp in (list, tuple):
                 size, trash = winreg.QueryValueEx(r, "%s_size" % (name,))
                 value = []
@@ -214,7 +226,7 @@ def WinConfiguration():
             else:
                 value, keytype = winreg.QueryValueEx(r, name)
                 if type(value) == int and value > 0xFFFF:
-                    value = - (value - 0xFFFF)
+                    value = -(value - 0xFFFF)
                 return value
 
     return _WinConfiguration()

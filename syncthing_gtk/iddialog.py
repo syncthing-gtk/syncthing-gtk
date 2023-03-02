@@ -11,10 +11,13 @@ from .tools import IS_WINDOWS
 from syncthing_gtk.uibuilder import UIBuilder
 import urllib.request, http.client, ssl
 import os, tempfile, logging
+
 log = logging.getLogger("IDDialog")
 
+
 class IDDialog(object):
-    """ Dialog with Device ID and generated QR code """
+    """Dialog with Device ID and generated QR code"""
+
     def __init__(self, app, device_id):
         self.app = app
         self.device_id = device_id
@@ -23,7 +26,7 @@ class IDDialog(object):
         self.load_data()
 
     def __getitem__(self, name):
-        """ Convince method that allows widgets to be accessed via self["widget"] """
+        """Convince method that allows widgets to be accessed via self["widget"]"""
         return self.builder.get_object(name)
 
     def show(self, parent=None):
@@ -43,7 +46,7 @@ class IDDialog(object):
         self["vID"].set_text(self.device_id)
 
     def load_data(self):
-        """ Loads QR code from Syncthing daemon """
+        """Loads QR code from Syncthing daemon"""
         if IS_WINDOWS:
             return self.load_data_urllib()
         uri = "%s/qr/?text=%s" % (self.app.daemon.get_webui_url(), self.device_id)
@@ -51,7 +54,7 @@ class IDDialog(object):
         io.load_contents_async(None, self.cb_syncthing_qr, ())
 
     def load_data_urllib(self):
-        """ Loads QR code from Syncthing daemon """
+        """Loads QR code from Syncthing daemon"""
         uri = "%s/qr/?text=%s" % (self.app.daemon.get_webui_url(), self.device_id)
         api_key = self.app.daemon.get_api_key()
         opener = urllib.request.build_opener(DummyHTTPSHandler(self.ssl_ctx))
@@ -94,8 +97,9 @@ class IDDialog(object):
         finally:
             del io
 
+
 def create_ssl_context():
-    """ May return NULL if ssl is not available """
+    """May return NULL if ssl is not available"""
     if hasattr(ssl, "create_default_context"):
         ctx = ssl.create_default_context()
         ctx.check_hostname = False
@@ -103,11 +107,13 @@ def create_ssl_context():
     else:
         log.warning("SSL is not available, cannot verify server certificate.")
 
+
 class DummyHTTPSHandler(urllib.request.HTTPSHandler):
     """
     Dummy HTTPS handler that ignores certificate errors. This in unsafe,
     but used ONLY for QR code images.
     """
+
     def __init__(self, ctx):
         urllib.request.HTTPSHandler.__init__(self)
         self.ctx = ctx

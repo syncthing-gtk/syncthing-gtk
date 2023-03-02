@@ -13,7 +13,7 @@ from syncthing_gtk.daemonprocess import DaemonProcess
 from syncthing_gtk.configuration import Configuration
 from syncthing_gtk.tools import get_config_dir, IS_WINDOWS, is_portable
 from syncthing_gtk.tools import can_upgrade_binary, compare_version
-from syncthing_gtk.tools import _ # gettext function
+from syncthing_gtk.tools import _  # gettext function
 from syncthing_gtk.stdownloader import StDownloader
 
 import os, socket, random, string, bcrypt
@@ -25,9 +25,9 @@ log = logging.getLogger("Wizard")
 DEFAULT_PORT = 8080
 MAX_PORT = 8100
 
+
 class Wizard(Gtk.Assistant):
-    def __init__(self, gladepath="/usr/share/syncthing-gtk",
-                iconpath="/usr/share/syncthing-gtk/icons", config=None):
+    def __init__(self, gladepath="/usr/share/syncthing-gtk", iconpath="/usr/share/syncthing-gtk/icons", config=None):
         # Init
         Gtk.Assistant.__init__(self)
         if not config is None:
@@ -58,7 +58,7 @@ class Wizard(Gtk.Assistant):
         self.quit_button = Gtk.Button.new_from_stock("gtk-quit")
         self.add_action_widget(self.quit_button)
         self.quit_button.set_visible(True)
-        self.quit_button.connect("clicked", lambda *a : self.emit("cancel"))
+        self.quit_button.connect("clicked", lambda *a: self.emit("cancel"))
         # Pages
         self.add_page(IntroPage(self))
         self.add_page(FindDaemonPage())
@@ -68,7 +68,7 @@ class Wizard(Gtk.Assistant):
         self.add_page(LastPage())
 
     def add_page(self, page):
-        """ Adds page derived from custom Page class """
+        """Adds page derived from custom Page class"""
         index = self.append_page(page)
         page.parent = self
         self.set_page_type(page, page.TYPE)
@@ -103,8 +103,8 @@ class Wizard(Gtk.Assistant):
         self.set_current_page(1)
 
     def prepare_page(self, another_self, page):
-        """ Called before page is displayed """
-        self.commit() # Prevents back button from being displayed
+        """Called before page is displayed"""
+        self.commit()  # Prevents back button from being displayed
         page.prepare()
 
     def find_widget(self, compare_fn, parent=None):
@@ -112,16 +112,19 @@ class Wizard(Gtk.Assistant):
         Recursively searches for widget, returning first one
         for which compare_fn(widget) returns True
         """
-        if parent is None : parent = self
+        if parent is None:
+            parent = self
         for w in parent.get_children():
-            if compare_fn(w): return w
+            if compare_fn(w):
+                return w
             if isinstance(w, Gtk.Container):
                 r = self.find_widget(compare_fn, w)
-                if not r is None: return r
+                if not r is None:
+                    return r
         return None
 
     def output_line(self, line):
-        """ Called for every line that wizard or daemon process outputs """
+        """Called for every line that wizard or daemon process outputs"""
         self.lines.append(line)
         log.info(line)
 
@@ -130,7 +133,7 @@ class Wizard(Gtk.Assistant):
         Called from pages on error. Removes everything from page and
         creates error message.
         """
-        for c in [] + page.get_children() :
+        for c in [] + page.get_children():
             page.remove(c)
         # Title
         l_title = WrappedLabel("<b>%s</b>" % (title,))
@@ -143,15 +146,13 @@ class Wizard(Gtk.Assistant):
         # Bugreport link
         if display_bugreport_link:
             github_link = '<a href="https://github.com/syncthing/syncthing-gtk/issues">GitHub</a>'
-            l_bugreport = WrappedLabel(
-                _("Please, check error log and fill bug report on %s.") % (github_link,)
-            )
+            l_bugreport = WrappedLabel(_("Please, check error log and fill bug report on %s.") % (github_link,))
             page.attach(l_bugreport, 0, 2, 2, 1)
             # 'Display error log' button
             button = Gtk.Button(_("Display error log"))
             button.props.margin_top = 25
             page.attach(button, 1, 3, 2, 1)
-            button.connect("clicked", lambda *a : self.show_output())
+            button.connect("clicked", lambda *a: self.show_output())
 
         page.show_all()
         return page
@@ -165,14 +166,15 @@ class Wizard(Gtk.Assistant):
         d.show_with_lines(self.lines, self)
 
     def is_finished(self):
-        """ Returns True if user finished entire wizard """
+        """Returns True if user finished entire wizard"""
         return self.finished
 
     def run(self, *a):
         self.show()
-        self.connect('cancel', Gtk.main_quit)
-        self.connect('close', Gtk.main_quit)
+        self.connect("cancel", Gtk.main_quit)
+        self.connect("close", Gtk.main_quit)
         Gtk.main()
+
 
 class WrappedLabel(Gtk.Label):
     def __init__(self, markup):
@@ -181,6 +183,7 @@ class WrappedLabel(Gtk.Label):
         self.set_line_wrap(True)
         self.set_markup(markup)
         self.set_alignment(0, 0.5)
+
 
 # @AbstractClass
 class Page(Gtk.Grid):
@@ -194,43 +197,65 @@ class Page(Gtk.Grid):
         self.show_all()
 
     def prepare(self):
-        """ Sets page as complete by default """
+        """Sets page as complete by default"""
         self.parent.set_page_complete(self, True)
 
     def init_page(self):
-        """ Initialize the page """
+        """Initialize the page"""
         raise NotImplementedError()
+
 
 class IntroPage(Page):
     TYPE = Gtk.AssistantPageType.INTRO
     TITLE = "Intro"
+
     def init_page(self):
-        """ First, intro page. Just static text that explains what's going on """
+        """First, intro page. Just static text that explains what's going on"""
         config_folder = "~/.config/syncthing"
-        config_folder_link = '<a href="file://%s">%s</a>' % (
-                os.path.expanduser(config_folder), config_folder)
+        config_folder_link = '<a href="file://%s">%s</a>' % (os.path.expanduser(config_folder), config_folder)
         next_label = _("Next")
         try:
             # Hacky way to determine label on 'Next' button
-            all_buttons = [ b for b in self.dialog.quit_button.get_parent().get_children()
-                if isinstance(b, Gtk.Button) and b is not self.dialog.quit_button ]
+            all_buttons = [
+                b
+                for b in self.dialog.quit_button.get_parent().get_children()
+                if isinstance(b, Gtk.Button) and b is not self.dialog.quit_button
+            ]
             # order is 'apply, next, back, finish, cancel'
             next_label = all_buttons[1].get_label().replace("_", "")
-        except: pass
+        except:
+            pass
         # TODO: Temporal solution, remove later
         changed_line = _("Continue this wizard to create a Syncthing configuration file or abort it to exit.")
         if "%s" in changed_line:
             changed_line = changed_line % (next_label,)
 
-        self.attach(WrappedLabel(
-            "<b>" + _("Welcome to Syncthing-GTK first run wizard!") + "</b>" +
-            "\n\n" +
-            _("It looks like you never have used Syncthing.") + " " +
-            _("Initial configuration should be created.") +  " " +
-            changed_line + "\n\n" +
-            (_("If you already had Syncthing daemon configured, please, "
-               "exit this wizard and check your %s folder") % config_folder_link )
-        ), 0, 0, 1, 1)
+        self.attach(
+            WrappedLabel(
+                "<b>"
+                + _("Welcome to Syncthing-GTK first run wizard!")
+                + "</b>"
+                + "\n\n"
+                + _("It looks like you never have used Syncthing.")
+                + " "
+                + _("Initial configuration should be created.")
+                + " "
+                + changed_line
+                + "\n\n"
+                + (
+                    _(
+                        "If you already had Syncthing daemon configured, please, "
+                        "exit this wizard and check your %s folder"
+                    )
+                    % config_folder_link
+                )
+            ),
+            0,
+            0,
+            1,
+            1,
+        )
+
 
 class FindDaemonPage(Page):
     # Next page, "Download Daemon" is displayed only if needed.
@@ -241,41 +266,34 @@ class FindDaemonPage(Page):
     # this page is always one with longest name.
     TITLE = "Find Daemon"
     TYPE = Gtk.AssistantPageType.PROGRESS
+
     def init_page(self):
-        """ Displayed while Syncthing binary is being searched for """
-        self.label = WrappedLabel(
-            "<b>" + _("Searching for Syncthing daemon.") + "</b>" +
-            "\n\n" +
-            _("Please wait...")
-        )
+        """Displayed while Syncthing binary is being searched for"""
+        self.label = WrappedLabel("<b>" + _("Searching for Syncthing daemon.") + "</b>" + "\n\n" + _("Please wait..."))
         self.paths = []
         self.version_string = "v0.0"
         self.ignored_version = None
         self.attach(self.label, 0, 0, 1, 1)
 
     def prepare(self):
-        default_path, default_binary = os.path.split(
-                self.parent.config.get_default_value("syncthing_binary"))
+        default_path, default_binary = os.path.split(self.parent.config.get_default_value("syncthing_binary"))
         self.paths = []
         if default_path:
-            self.paths += [ default_path ]
-        self.paths += [ "./" ]
-        self.paths += [ os.path.expanduser("~/.local/bin") ]
-        self.paths += [ self.parent.st_configdir ]
+            self.paths += [default_path]
+        self.paths += ["./"]
+        self.paths += [os.path.expanduser("~/.local/bin")]
+        self.paths += [self.parent.st_configdir]
         if is_portable():
-            self.paths += [ ".\\data" ]
+            self.paths += [".\\data"]
         suffix, trash = StDownloader.determine_platform()
         self.binaries = ["syncthing", "syncthing%s" % (suffix,)]
         if suffix == "x64":
             # Allow 32bit binary on 64bit
             self.binaries += ["syncthing.x86"]
         if default_binary not in self.binaries:
-            self.binaries = [ default_binary ] + self.binaries
+            self.binaries = [default_binary] + self.binaries
         if IS_WINDOWS:
-            self.paths += [ "c:/Program Files/syncthing",
-                "c:/Program Files (x86)/syncthing",
-                self.parent.st_configdir
-                ]
+            self.paths += ["c:/Program Files/syncthing", "c:/Program Files (x86)/syncthing", self.parent.st_configdir]
             self.binaries = ("syncthing.exe",)
         if "PATH" in os.environ:
             self.paths += os.environ["PATH"].split(":")
@@ -300,48 +318,47 @@ class FindDaemonPage(Page):
                 # On Linux with updater generate similar display error
                 # and offer download
                 from syncthing_gtk.app import MIN_ST_VERSION
+
                 target_folder_link = '<a href="file://%s">%s</a>' % (
-                        os.path.expanduser(StDownloader.get_target_folder()),
-                        StDownloader.get_target_folder())
-                dll_link = '<a href="https://github.com/syncthing/syncthing/releases">' + \
-                        _('download latest binary') + '</a>'
+                    os.path.expanduser(StDownloader.get_target_folder()),
+                    StDownloader.get_target_folder(),
+                )
+                dll_link = (
+                    '<a href="https://github.com/syncthing/syncthing/releases">' + _("download latest binary") + "</a>"
+                )
                 message, title = "", None
                 if self.ignored_version == None:
                     # No binary was found
                     title = _("Syncthing daemon not found.")
-                    message += _("Please, use package manager to install the Syncthing package "
-                                 "or %(download_link)s from Syncthing page and save it to your "
-                                 "%(target)s directory.") % {
-                        'download_link' : dll_link,
-                        'target' : target_folder_link
-                    }
+                    message += _(
+                        "Please, use package manager to install the Syncthing package "
+                        "or %(download_link)s from Syncthing page and save it to your "
+                        "%(target)s directory."
+                    ) % {"download_link": dll_link, "target": target_folder_link}
                 else:
                     # Binary was found, but it was too old to be usable
                     title = _("Syncthing daemon is too old.")
-                    message += _("Syncthing-GTK needs Syncthing daemon %(min)s or newer, but only %(actual)s were found.") % {
-                        'min' : MIN_ST_VERSION,
-                        'actual' : self.ignored_version
-                    }
+                    message += _(
+                        "Syncthing-GTK needs Syncthing daemon %(min)s or newer, but only %(actual)s were found."
+                    ) % {"min": MIN_ST_VERSION, "actual": self.ignored_version}
                     message += "\n"
-                    message += _("Please, use package manager to install the Syncthing package "
-                                 "or %(download_link)s from Syncthing page and save it to your "
-                                 "%(target)s directory.") % {
-                        'download_link' : dll_link,
-                        'target' : target_folder_link
-                    }
+                    message += _(
+                        "Please, use package manager to install the Syncthing package "
+                        "or %(download_link)s from Syncthing page and save it to your "
+                        "%(target)s directory."
+                    ) % {"download_link": dll_link, "target": target_folder_link}
                 message += "\n\n"
                 message += _("Alternatively, Syncthing-GTK can download Syncthing binary") + " "
-                message += _("to %s and keep it up-to-date, but this option is meant as") % \
-                            (target_folder_link,) + " "
+                message += _("to %s and keep it up-to-date, but this option is meant as") % (target_folder_link,) + " "
                 message += _("last resort and generally not suggested.")
                 page = self.parent.error(self, title, message, False)
                 # Attach [ ] Download Syncthing checkbox
                 cb = Gtk.CheckButton(_("_Download Syncthing binary"), use_underline=True)
-                cb.connect("toggled", lambda cb, *a : self.parent.set_page_complete(page, cb.get_active()))
+                cb.connect("toggled", lambda cb, *a: self.parent.set_page_complete(page, cb.get_active()))
                 page.attach(cb, 0, 2, 2, 1)
                 # Attach [ ] Autoupdate checkbox
                 cb = Gtk.CheckButton(_("Auto_update downloaded binary"), use_underline=True)
-                cb.connect("toggled", lambda cb, *a : self.parent.config.set("st_autoupdate", cb.get_active()))
+                cb.connect("toggled", lambda cb, *a: self.parent.config.set("st_autoupdate", cb.get_active()))
                 page.attach(cb, 0, 3, 2, 1)
                 page.show_all()
                 # Add Download page
@@ -356,11 +373,12 @@ class FindDaemonPage(Page):
                     # File exists and is executable, run it and parse
                     # version string from output
                     log.info("Binary found in %s", bin_path)
-                    if IS_WINDOWS: bin_path = bin_path.replace("/", "\\")
-                    p = DaemonProcess([ bin_path, '-version' ])
-                    p.connect('line', self.cb_process_output)
-                    p.connect('exit', self.cb_process_exit)
-                    p.connect('failed', self.cb_process_exit)
+                    if IS_WINDOWS:
+                        bin_path = bin_path.replace("/", "\\")
+                    p = DaemonProcess([bin_path, "-version"])
+                    p.connect("line", self.cb_process_output)
+                    p.connect("exit", self.cb_process_exit)
+                    p.connect("failed", self.cb_process_exit)
                     p.start()
                     return False
                 else:
@@ -382,8 +400,9 @@ class FindDaemonPage(Page):
             pass
 
     def cb_process_exit(self, process, *a):
-        """ Called after daemon binary outputs version and exits """
+        """Called after daemon binary outputs version and exits"""
         from syncthing_gtk.app import MIN_ST_VERSION
+
         bin_path = process.get_commandline()[0]
         if compare_version(self.version_string, MIN_ST_VERSION):
             # Daemon binary exists, is executable and meets
@@ -396,11 +415,18 @@ class FindDaemonPage(Page):
                 self.parent.config["st_autoupdate"] = False
             self.parent.set_page_complete(self, True)
             self.label.set_markup(
-                    "<b>" + _("Syncthing daemon binary found.") + "</b>" +
-                    "\n\n" +
-                    _("Binary path:") + " " + bin_path + "\n" +
-                    _("Version:") + " " + self.version_string
-                )
+                "<b>"
+                + _("Syncthing daemon binary found.")
+                + "</b>"
+                + "\n\n"
+                + _("Binary path:")
+                + " "
+                + bin_path
+                + "\n"
+                + _("Version:")
+                + " "
+                + self.version_string
+            )
         else:
             # Found daemon binary too old to be usable.
             # Just ignore it and try to find better one.
@@ -408,20 +434,21 @@ class FindDaemonPage(Page):
             self.ignored_version = self.version_string
             GLib.idle_add(self.search)
 
+
 class DownloadSTPage(Page):
     TYPE = Gtk.AssistantPageType.PROGRESS
     TITLE = "Download Daemon"
 
     def init_page(self):
-        """ Displayed while wizard downloads and extracts daemon """
+        """Displayed while wizard downloads and extracts daemon"""
         self.label = WrappedLabel("<b>" + _("Downloading Syncthing daemon.") + "</b>")
         self.version = WrappedLabel(_("Please wait..."))
         self.pb = Gtk.ProgressBar()
         self.label.props.margin_bottom = 15
         self.target = None
-        self.attach(self.label,     0, 0, 1, 1)
-        self.attach(self.version,   0, 1, 1, 1)
-        self.attach(self.pb,        0, 2, 1, 1)
+        self.attach(self.label, 0, 0, 1, 1)
+        self.attach(self.version, 0, 1, 1, 1)
+        self.attach(self.pb, 0, 2, 1, 1)
 
     def prepare(self):
         # Determine which Syncthing to use
@@ -429,18 +456,16 @@ class DownloadSTPage(Page):
         # Report error on unsupported platforms
         if suffix is None or tag is None:
             pd = "%s %s %s" % (
-                platform.uname()[0], platform.uname()[2],   # OS, version
-                platform.uname()[4])                        # architecture
-            self.parent.error(self,
-                _("Cannot download Syncthing daemon."),
-                _("This platform (%s) is not supported") % (pd,),
-                False)
+                platform.uname()[0],
+                platform.uname()[2],  # OS, version
+                platform.uname()[4],
+            )  # architecture
+            self.parent.error(
+                self, _("Cannot download Syncthing daemon."), _("This platform (%s) is not supported") % (pd,), False
+            )
             return
         # Determine target file & directory
-        self.target = os.path.join(
-            os.path.expanduser(StDownloader.get_target_folder()),
-            "syncthing%s" % (suffix,)
-            )
+        self.target = os.path.join(os.path.expanduser(StDownloader.get_target_folder()), "syncthing%s" % (suffix,))
         # Create downloader and connect events
         self.sd = StDownloader(self.target, tag)
         self.sd.connect("error", self.on_download_error)
@@ -457,17 +482,12 @@ class DownloadSTPage(Page):
         Called when download fails. This is fatal for now, user can
         only observe message, cry and quit program.
         """
-        message = "%s\n%s" % (
-            str(error) if not error is None else "",
-            message if not message is None else ""
-            )
-        self.parent.error(self,
-            _("Failed to download Syncthing daemon package."),
-            message, False)
+        message = "%s\n%s" % (str(error) if not error is None else "", message if not message is None else "")
+        self.parent.error(self, _("Failed to download Syncthing daemon package."), message, False)
         return
 
     def on_version(self, dowloader, version):
-        self.version.set_markup("Downloading %s..." % (version, ))
+        self.version.set_markup("Downloading %s..." % (version,))
         dowloader.download()
 
     def on_extract_start(self, *a):
@@ -477,25 +497,23 @@ class DownloadSTPage(Page):
         self.pb.set_fraction(progress)
 
     def on_extract_finished(self, *a):
-        """ Called after extraction is finished """
+        """Called after extraction is finished"""
         # Everything done. Praise supernatural entities...
         self.label.set_markup("<b>" + _("Download finished.") + "</b>")
         self.parent.config["syncthing_binary"] = self.target
-        self.version.set_markup(_("Binary path:") +
-                " " + self.target)
+        self.version.set_markup(_("Binary path:") + " " + self.target)
         self.pb.set_visible(False)
         self.parent.set_page_complete(self, True)
+
 
 class GenerateKeysPage(Page):
     TYPE = Gtk.AssistantPageType.PROGRESS
     TITLE = "Generate Keys"
+
     def init_page(self):
-        """ Displayed while Syncthing binary is being searched for """
+        """Displayed while Syncthing binary is being searched for"""
         self.label = WrappedLabel(
-            "<b>%s</b>\n\n%s" % (
-                _("Syncthing is generating RSA key and certificate."),
-                _("This may take a while...")
-            )
+            "<b>%s</b>\n\n%s" % (_("Syncthing is generating RSA key and certificate."), _("This may take a while..."))
         )
         self.attach(self.label, 0, 0, 1, 1)
 
@@ -516,10 +534,12 @@ class GenerateKeysPage(Page):
             self.parent.output_line("syncthing-gtk: %s" % (str(e),))
         # Run syncthing -generate
         self.parent.output_line("syncthing-gtk: Syncthing configuration directory: %s" % (self.parent.st_configdir,))
-        self.process = DaemonProcess([ self.parent.config["syncthing_binary"], '-generate=%s' % self.parent.st_configdir ])
-        self.process.connect('line', lambda proc, line : self.parent.output_line(line))
-        self.process.connect('exit', self.cb_daemon_exit)
-        self.process.connect('failed', self.cb_daemon_start_failed)
+        self.process = DaemonProcess(
+            [self.parent.config["syncthing_binary"], "-generate=%s" % self.parent.st_configdir]
+        )
+        self.process.connect("line", lambda proc, line: self.parent.output_line(line))
+        self.process.connect("exit", self.cb_daemon_exit)
+        self.process.connect("failed", self.cb_daemon_start_failed)
         self.process.start()
         return False
 
@@ -529,40 +549,52 @@ class GenerateKeysPage(Page):
         self.cb_daemon_exit(dproc, -1)
 
     def cb_daemon_exit(self, dproc, exit_code):
-        """ Called when Syncthing finishes """
+        """Called when Syncthing finishes"""
         if exit_code == 0:
             # Finished without problem, advance to next page
             self.parent.set_page_complete(self, True)
             self.parent.next_page()
         else:
-            self.parent.error(self,
+            self.parent.error(
+                self,
                 _("Failed to generate keys"),
                 _("Syncthing daemon failed to generate RSA key or certificate."),
-                True)
+                True,
+            )
+
 
 class HttpSettingsPage(Page):
     TYPE = Gtk.AssistantPageType.CONTENT
     TITLE = "Setup WebUI"
+
     def init_page(self):
-        """ Permits user to set WebUI settings """
+        """Permits user to set WebUI settings"""
         # Wall of text
         label = WrappedLabel(
-            "<b>" + _("WebUI setup") + "</b>" +
-            "\n\n" +
-            _("Syncthing can be managed remotely using WebUI and "
-              "even if you are going to use Syncthing-GTK, WebUI needs "
-              "to be enabled, as Syncthing-GTK uses it to communicate "
-              "with the Syncthing daemon.") +
-            "\n\n" +
-            _("If you prefer to be able to manage Syncthing remotely, "
-              "over the internet or on your local network, select <b>listen "
-              "on all interfaces</b> and set username and password to "
-              "protect Syncthing from unauthorized access.") +
-            "\n" +
-            _("Otherwise, select <b>listen on localhost</b>, so only "
-              "users and programs on this computer will be able to "
-              "interact with Syncthing.") +
-            "\n"
+            "<b>"
+            + _("WebUI setup")
+            + "</b>"
+            + "\n\n"
+            + _(
+                "Syncthing can be managed remotely using WebUI and "
+                "even if you are going to use Syncthing-GTK, WebUI needs "
+                "to be enabled, as Syncthing-GTK uses it to communicate "
+                "with the Syncthing daemon."
+            )
+            + "\n\n"
+            + _(
+                "If you prefer to be able to manage Syncthing remotely, "
+                "over the internet or on your local network, select <b>listen "
+                "on all interfaces</b> and set username and password to "
+                "protect Syncthing from unauthorized access."
+            )
+            + "\n"
+            + _(
+                "Otherwise, select <b>listen on localhost</b>, so only "
+                "users and programs on this computer will be able to "
+                "interact with Syncthing."
+            )
+            + "\n"
         )
         # Radiobuttons
         lbl_radios = WrappedLabel("<b>" + _("WebUI Listen Addresses") + "</b>")
@@ -571,7 +603,7 @@ class HttpSettingsPage(Page):
         self.rb_all_intfs.set_label(_("Listen on _all interfaces"))
         for x in (self.rb_localhost, self.rb_all_intfs):
             x.set_use_underline(True)
-            x.set_property('margin-left', 15)
+            x.set_property("margin-left", 15)
         # Username & password input boxes
         self.tx_username = Gtk.Entry()
         self.tx_password = Gtk.Entry()
@@ -583,10 +615,10 @@ class HttpSettingsPage(Page):
         self.tx_password.props.caps_lock_warning = True
         for x in (self.lbl_username, self.lbl_password):
             x.set_use_underline(True)
-            x.set_property('margin-left', 45)
-            x.set_property('margin-bottom', 5)
+            x.set_property("margin-left", 45)
+            x.set_property("margin-bottom", 5)
         for x in (self.tx_username, self.tx_password):
-            x.set_property('margin-bottom', 5)
+            x.set_property("margin-bottom", 5)
         # Connect signals
         for x in (self.rb_localhost, self.rb_all_intfs):
             x.connect("toggled", self.cb_stuff_changed)
@@ -605,13 +637,15 @@ class HttpSettingsPage(Page):
         self.attach(self.tx_password, 1, 5, 2, 1)
 
     def cb_stuff_changed(self, *a):
-        """ Called every time user changes anything on this page """
+        """Called every time user changes anything on this page"""
         # Enable / disable username & password input boxes
         for x in (self.tx_username, self.tx_password, self.lbl_username, self.lbl_password):
             x.set_sensitive(self.rb_all_intfs.get_active())
         # Set page as 'complete' and store settings
         # if either localhost is selected, or username & password is filled
-        values_ok = self.rb_localhost.get_active() or (len(self.tx_username.get_text().strip()) and len(self.tx_password.get_text().strip()))
+        values_ok = self.rb_localhost.get_active() or (
+            len(self.tx_username.get_text().strip()) and len(self.tx_password.get_text().strip())
+        )
         self.parent.set_page_complete(self, values_ok)
         if values_ok:
             if self.rb_localhost.get_active():
@@ -625,11 +659,13 @@ class HttpSettingsPage(Page):
         # Refresh UI
         self.cb_stuff_changed()
 
+
 class SaveSettingsPage(Page):
     TYPE = Gtk.AssistantPageType.PROGRESS
     TITLE = "Save Settings"
+
     def init_page(self):
-        """ Displayed while settings are being saved """
+        """Displayed while settings are being saved"""
         self.label = WrappedLabel("<b>" + _("Saving settings...") + "</b>" + "\n\n")
         self.status = Gtk.Label(_("Checking for available port..."))
         self.attach(self.label, 0, 0, 1, 1)
@@ -651,10 +687,12 @@ class SaveSettingsPage(Page):
                 os.unlink(self.parent.st_configfile)
             except Exception as e:
                 self.parent.output_line("syncthing-gtk: %s" % (str(e),))
-            self.parent.error(self,
+            self.parent.error(
+                self,
                 _("Failed to find unused port for listening."),
                 _("Please, check your firewall settings and try again."),
-                False)
+                False,
+            )
             return
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         try:
@@ -676,7 +714,7 @@ class SaveSettingsPage(Page):
             del s
 
     def ct_textnode(self, xml, parent, name, value):
-        """ Helper method """
+        """Helper method"""
         el = xml.createElement(name)
         text = xml.createTextNode(value)
         el.appendChild(text)
@@ -699,40 +737,45 @@ class SaveSettingsPage(Page):
             xml = minidom.parseString(config)
         except Exception as e:
             self.parent.output_line("syncthing-gtk: %s" % (traceback.format_exc(),))
-            self.parent.error(self,
-                _("Failed to load Syncthing configuration"),
-                str(e),
-                True)
+            self.parent.error(self, _("Failed to load Syncthing configuration"), str(e), True)
             return False
         try:
             # Prepare elements
-            gui = xml.getElementsByTagName("configuration")[0] \
-                    .getElementsByTagName("gui")[0]
-            au = xml.getElementsByTagName("configuration")[0] \
-                    .getElementsByTagName("options")[0] \
-                    .getElementsByTagName("autoUpgradeIntervalH")[0]
+            gui = xml.getElementsByTagName("configuration")[0].getElementsByTagName("gui")[0]
+            au = (
+                xml.getElementsByTagName("configuration")[0]
+                .getElementsByTagName("options")[0]
+                .getElementsByTagName("autoUpgradeIntervalH")[0]
+            )
             while gui.firstChild != None:
                 gui.removeChild(gui.firstChild)
             # Update data
-            self.ct_textnode(xml, gui, "address", "%s:%s" % (
-                            self.parent.syncthing_options["listen_ip"],
-                            self.parent.syncthing_options["port"],
-                    ))
+            self.ct_textnode(
+                xml,
+                gui,
+                "address",
+                "%s:%s"
+                % (
+                    self.parent.syncthing_options["listen_ip"],
+                    self.parent.syncthing_options["port"],
+                ),
+            )
             self.ct_textnode(xml, gui, "user", self.parent.syncthing_options["user"])
-            self.ct_textnode(xml, gui, "password", bcrypt.hashpw(
-                self.parent.syncthing_options["password"].encode('utf8'),
-                bcrypt.gensalt()
-            ).decode('utf8'))
+            self.ct_textnode(
+                xml,
+                gui,
+                "password",
+                bcrypt.hashpw(self.parent.syncthing_options["password"].encode("utf8"), bcrypt.gensalt()).decode(
+                    "utf8"
+                ),
+            )
             self.ct_textnode(xml, gui, "apikey", self.apikey)
             gui.setAttribute("enabled", "true")
             gui.setAttribute("tls", "false")
             au.firstChild.replaceWholeText("0")
         except Exception as e:
             self.parent.output_line("syncthing-gtk: %s" % (traceback.format_exc(),))
-            self.parent.error(self,
-                _("Failed to modify Syncthing configuration"),
-                str(e),
-                True)
+            self.parent.error(self, _("Failed to modify Syncthing configuration"), str(e), True)
             return False
         try:
             # Write XML back to file
@@ -740,28 +783,31 @@ class SaveSettingsPage(Page):
                 f.write(xml.toxml())
         except Exception as e:
             self.parent.output_line("syncthing-gtk: %s" % (traceback.format_exc(),))
-            self.parent.error(self,
-                _("Failed to save Syncthing configuration"),
-                str(e),
-                True)
+            self.parent.error(self, _("Failed to save Syncthing configuration"), str(e), True)
             return False
         self.parent.set_page_complete(self, True)
         self.parent.next_page()
         return False
 
+
 class LastPage(GenerateKeysPage):
     TYPE = Gtk.AssistantPageType.SUMMARY
     TITLE = "Finish"
+
     def init_page(self):
-        """ Well, it's last page. """
+        """Well, it's last page."""
         label = WrappedLabel(
-            "<b>" + _("Done.") + "</b>" +
-            "\n\n" +
-            _("Syncthing has been successfully configured.") +
-            "\n" +
-            _("You can configure more details later, in "
-              "<b>UI Settings</b> and <b>Daemon Settings</b> menus "
-              "in main window of application.")
+            "<b>"
+            + _("Done.")
+            + "</b>"
+            + "\n\n"
+            + _("Syncthing has been successfully configured.")
+            + "\n"
+            + _(
+                "You can configure more details later, in "
+                "<b>UI Settings</b> and <b>Daemon Settings</b> menus "
+                "in main window of application."
+            )
         )
         self.attach(label, 0, 0, 1, 1)
 

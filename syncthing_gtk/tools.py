@@ -6,41 +6,41 @@ Various stuff that I don't care to fit anywhere else.
 """
 
 
-
 from gettext import gettext as _
 from base64 import b32decode
 from datetime import tzinfo, timedelta
 from subprocess import Popen
 from dateutil import parser
 import re, os, sys, random, string, platform, logging, shlex, gettext, __main__
+
 log = logging.getLogger("tools.py")
 
-IS_WINDOWS = sys.platform in ('win32', 'win64')
+IS_WINDOWS = sys.platform in ("win32", "win64")
 IS_XP = IS_WINDOWS and platform.release() in ("XP", "2000", "2003")
 IS_GNOME, IS_UNITY, IS_KDE, IS_CINNAMON = [False] * 4
 IS_XFCE, IS_MATE, IS_I3, IS_LXQT = [False] * 4
 
 if "XDG_CURRENT_DESKTOP" in os.environ:
     desktops = os.environ["XDG_CURRENT_DESKTOP"].split(":")
-    IS_UNITY = ("Unity" in desktops)
+    IS_UNITY = "Unity" in desktops
     if not IS_UNITY:
         IS_GNOME = ("GNOME" in desktops) or ("GNOME-Flashback" in desktops) or ("GNOME-Fallback" in desktops)
-    IS_KDE   = ("KDE" in desktops)
-    IS_CINNAMON = ("X-Cinnamon" in desktops)
-    IS_MATE = ("MATE" in desktops)
-    IS_XFCE = ("XFCE" in desktops)
-    IS_I3 = ("i3" in desktops)
-    IS_LXQT = ("LXQt" in desktops)
+    IS_KDE = "KDE" in desktops
+    IS_CINNAMON = "X-Cinnamon" in desktops
+    IS_MATE = "MATE" in desktops
+    IS_XFCE = "XFCE" in desktops
+    IS_I3 = "i3" in desktops
+    IS_LXQT = "LXQt" in desktops
 if os.environ.get("DESKTOP_SESSION") == "gnome":
     # Fedora...
     IS_GNOME = True
 if os.environ.get("DESKTOP_STARTUP_ID", "").startswith("i3/"):
     IS_I3 = True
 
-LUHN_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567" # Characters valid in device id
+LUHN_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567"  # Characters valid in device id
 VERSION_NUMBER = re.compile(r"^v?([0-9\.]*).*")
 LOG_FORMAT = "%(levelname)s %(name)-13s %(message)s"
-GETTEXT_DOMAIN = "syncthing-gtk" # used by "_" function
+GETTEXT_DOMAIN = "syncthing-gtk"  # used by "_" function
 DESKTOP_FILE = """[Desktop Entry]
 Name=%s
 Exec=%s
@@ -56,6 +56,7 @@ portable_mode_enabled = False
 if IS_WINDOWS:
     # On Windows, WMI and pywin32 libraries are reqired
     import wmi, winreg
+
 
 def luhn_b32generate(s):
     """
@@ -76,25 +77,29 @@ def luhn_b32generate(s):
     checkcodepoint = (n - remainder) % n
     return LUHN_ALPHABET[checkcodepoint]
 
+
 def check_device_id(nid):
-    """ Returns True if device id is valid """
+    """Returns True if device id is valid"""
     # Based on nodeid.go
-    nid = nid.strip("== \t").upper() \
-        .replace("0", "O") \
-        .replace("1", "I") \
-        .replace("8", "B") \
-        .replace("-", "") \
+    nid = (
+        nid.strip("== \t")
+        .upper()
+        .replace("0", "O")
+        .replace("1", "I")
+        .replace("8", "B")
+        .replace("-", "")
         .replace(" ", "")
+    )
     if len(nid) == 56:
         for i in range(0, 4):
-            p = nid[i*14:((i+1)*14)-1]
+            p = nid[i * 14 : ((i + 1) * 14) - 1]
             try:
                 l = luhn_b32generate(p)
             except Exception as e:
                 log.exception(e)
                 return False
             g = "%s%s" % (p, l)
-            if g != nid[i*14:(i+1)*14]:
+            if g != nid[i * 14 : (i + 1) * 14]:
                 return False
         return True
     elif len(nid) == 52:
@@ -107,32 +112,40 @@ def check_device_id(nid):
         # Wrong length
         return False
 
+
 def sizeof_fmt(size):
-    for x in ('B','kB','MB','GB','TB'):
+    for x in ("B", "kB", "MB", "GB", "TB"):
         if size < 1024.0:
-            if x in ('B', 'kB'):
+            if x in ("B", "kB"):
                 return "%3.0f %s" % (size, x)
             return "%3.2f %s" % (size, x)
         size /= 1024.0
 
+
 def ints(s):
-    """ Works as int(), but returns 0 for None, False and empty string """
-    if s is None : return 0
-    if s == False: return 0
+    """Works as int(), but returns 0 for None, False and empty string"""
+    if s is None:
+        return 0
+    if s == False:
+        return 0
     if hasattr(s, "__len__"):
-        if len(s) == 0 : return 0
+        if len(s) == 0:
+            return 0
     return int(s)
+
 
 def get_header(headers, key):
     """
     Returns value of single header parsed from headers array or None
     if header is not found
     """
-    if not key.endswith(":"): key = "%s:" % (key,)
+    if not key.endswith(":"):
+        key = "%s:" % (key,)
     for h in headers:
         if h.startswith(key):
             return h.split(" ", 1)[-1]
     return None
+
 
 class Timezone(tzinfo):
     def __init__(self, hours, minutes):
@@ -154,12 +167,14 @@ class Timezone(tzinfo):
     def dst(self, dt):
         return timedelta(0)
 
+
 def parsetime(m):
-    """ Parses time received from Syncthing daemon """
+    """Parses time received from Syncthing daemon"""
     try:
         return parser.parse(m)
     except ValueError:
         raise ValueError("Failed to parse '%s' as time" % m)
+
 
 def parse_config_arguments(lst):
     """
@@ -182,6 +197,7 @@ def parse_config_arguments(lst):
             args_target.append(i.strip())
     return vars, preargs, args
 
+
 def delta_to_string(d):
     """
     Returns approximate, human-readable and potentially localized
@@ -189,7 +205,7 @@ def delta_to_string(d):
     """
     # Negative time, 'some time ago'
     if d.days == -1:
-        d = - d
+        d = -d
         if d.seconds > 3600:
             return _("~%s hours ago") % (int(d.seconds / 3600),)
         if d.seconds > 60:
@@ -211,6 +227,7 @@ def delta_to_string(d):
         return _("%s seconds from now") % (d.seconds,)
     return _("in a moment")
 
+
 def init_logging():
     """
     Initializes logging, sets custom logging format and adds one
@@ -218,16 +235,19 @@ def init_logging():
     """
     logging.basicConfig(format=LOG_FORMAT)
     # Rename levels
-    logging.addLevelName(10, "D")   # Debug
-    logging.addLevelName(20, "I")   # Info
-    logging.addLevelName(30, "W")   # Warning
-    logging.addLevelName(40, "E")   # Error
+    logging.addLevelName(10, "D")  # Debug
+    logging.addLevelName(20, "I")  # Info
+    logging.addLevelName(30, "W")  # Warning
+    logging.addLevelName(40, "E")  # Error
     # Create additional, "verbose" level
-    logging.addLevelName(15, "V")   # Verbose
+    logging.addLevelName(15, "V")  # Verbose
+
     # Add 'logging.verbose' method
     def verbose(self, msg, *args, **kwargs):
         return self.log(15, msg, *args, **kwargs)
+
     logging.Logger.verbose = verbose
+
 
 def make_portable():
     """
@@ -238,12 +258,15 @@ def make_portable():
     log.warning("Portable mode enabled")
     portable_mode_enabled = True
 
+
 def is_portable():
-    """ Returns True after make_portable() is called. """
+    """Returns True after make_portable() is called."""
     global portable_mode_enabled
     return portable_mode_enabled
 
+
 _localedir = None
+
 
 def init_locale(localedir=None):
     """
@@ -254,6 +277,7 @@ def init_locale(localedir=None):
     gettext.bindtextdomain(GETTEXT_DOMAIN, localedir)
     gettext.textdomain(GETTEXT_DOMAIN)
 
+
 def get_locale_dir():
     """
     Returns localedir passed to init_locale or None
@@ -261,8 +285,9 @@ def get_locale_dir():
     global _localedir
     return _localedir
 
+
 def set_logging_level(verbose, debug):
-    """ Sets logging level """
+    """Sets logging level"""
     logger = logging.getLogger()
     if debug:
         # everything
@@ -277,16 +302,16 @@ def set_logging_level(verbose, debug):
         # Windows executable has no console to output to, so output is
         # written to logfile as well
         import tempfile
-        logfile = tempfile.NamedTemporaryFile(delete=False,
-            prefix="Syncthing-GTK-",
-            suffix=".log")
+
+        logfile = tempfile.NamedTemporaryFile(delete=False, prefix="Syncthing-GTK-", suffix=".log")
         logfile.close()
         h = logging.FileHandler(logfile.name)
         h.setFormatter(logging.Formatter(LOG_FORMAT))
         logging.getLogger().addHandler(h)
 
+
 def check_daemon_running():
-    """ Returns True if syncthing daemon is running """
+    """Returns True if syncthing daemon is running"""
     if not IS_WINDOWS:
         # Unix
         if not "USER" in os.environ:
@@ -306,13 +331,14 @@ def check_daemon_running():
         try:
             proclist = list(proclist)
             for p in proclist:
-                p_user = p.ExecMethod_('GetOwner').Properties_('User').Value
+                p_user = p.ExecMethod_("GetOwner").Properties_("User").Value
                 if p_user == os.environ["USERNAME"]:
                     return True
         except Exception:
             # Can't get or parse list, something is horribly broken here
             return False
         return False
+
 
 def parse_version(ver):
     """
@@ -336,8 +362,9 @@ def parse_version(ver):
         comps.append("0")
     res = 0
     for i in range(0, 6):
-        res += min(255, int(comps[i])) << ((5-i) * 8)
+        res += min(255, int(comps[i])) << ((5 - i) * 8)
     return res
+
 
 def compare_version(a, b):
     """
@@ -346,6 +373,7 @@ def compare_version(a, b):
     Returns False, if b > a
     """
     return parse_version(a) >= parse_version(b)
+
 
 def get_config_dir():
     """
@@ -357,10 +385,12 @@ def get_config_dir():
     if IS_WINDOWS and not IS_XP:
         try:
             from . import windows
+
             return windows.get_unicode_home()
         except Exception:
             pass
     from gi.repository import GLib
+
     confdir = GLib.get_user_config_dir()
     if confdir is None or IS_XP:
         if IS_WINDOWS:
@@ -370,7 +400,8 @@ def get_config_dir():
             elif "APPDATA" in os.environ:
                 # XP
                 from ctypes import cdll
-                os_encoding = 'cp' + str(cdll.kernel32.GetACP())
+
+                os_encoding = "cp" + str(cdll.kernel32.GetACP())
                 confdir = os.environ["APPDATA"].decode(os_encoding)
             else:
                 # 95? :D
@@ -380,8 +411,10 @@ def get_config_dir():
             confdir = os.path.expanduser("~/.config")
     return confdir
 
+
 get_install_path = None
 if IS_WINDOWS:
+
     def _get_install_path():
         """
         Returns installation path from registry.
@@ -401,6 +434,7 @@ if IS_WINDOWS:
 
     get_install_path = _get_install_path
 
+
 def get_executable():
     """
     Returns filename of executable that was used to launch program.
@@ -415,6 +449,7 @@ def get_executable():
         if executable.endswith(".py"):
             executable = "/usr/bin/env python3 %s" % (shlex.quote(executable),)
         return executable
+
 
 def is_ran_on_startup(program_name):
     """
@@ -455,6 +490,7 @@ def is_ran_on_startup(program_name):
         # File is present and not hidden - autostart is enabled
         return is_entry
 
+
 def set_run_on_startup(enabled, program_name, executable, icon="", description=""):
     """
     Sets or unsets program to be ran on startup, either by XDG autostart
@@ -467,12 +503,11 @@ def set_run_on_startup(enabled, program_name, executable, icon="", description="
         return
     if IS_WINDOWS:
         # Create/delete value for application in ...\Run
-        key = winreg.OpenKey(winreg.HKEY_CURRENT_USER,
-            "Software\\Microsoft\\Windows\\CurrentVersion\\Run",
-            0, winreg.KEY_ALL_ACCESS)
+        key = winreg.OpenKey(
+            winreg.HKEY_CURRENT_USER, "Software\\Microsoft\\Windows\\CurrentVersion\\Run", 0, winreg.KEY_ALL_ACCESS
+        )
         if enabled:
-            winreg.SetValueEx(key, program_name, 0,
-                winreg.REG_SZ, '"%s"' % (executable,))
+            winreg.SetValueEx(key, program_name, 0, winreg.REG_SZ, '"%s"' % (executable,))
         else:
             winreg.DeleteValue(key, program_name)
         winreg.CloseKey(key)
@@ -487,7 +522,7 @@ def set_run_on_startup(enabled, program_name, executable, icon="", description="
                 # Already exists
                 pass
             try:
-                with open(desktopfile, "w", encoding='utf-8') as f:
+                with open(desktopfile, "w", encoding="utf-8") as f:
                     desktop_contents = DESKTOP_FILE % (program_name, executable, icon, description)
                     f.write(desktop_contents)
             except Exception as e:
@@ -504,6 +539,7 @@ def set_run_on_startup(enabled, program_name, executable, icon="", description="
                 log.warning("Failed to remove autostart entry: %s", e)
                 return False
     return True
+
 
 def can_upgrade_binary(binary_path):
     """
@@ -544,10 +580,16 @@ def generate_folder_id():
     """
     Returns new, randomly generated folder ID in a1bc2-x9y7z format
     """
-    return "-".join((
-        ("".join(random.choice(string.ascii_lowercase + string.digits) for _ in range(5)))
-        for _ in range(2)
-    ))
+    return "-".join(
+        (("".join(random.choice(string.ascii_lowercase + string.digits) for _ in range(5))) for _ in range(2))
+    )
+
 
 def escape_html_entities(string):
-    return string.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;').replace("'", '&#39;')
+    return (
+        string.replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace('"', "&quot;")
+        .replace("'", "&#39;")
+    )

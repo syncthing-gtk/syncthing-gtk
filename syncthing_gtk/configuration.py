@@ -12,9 +12,11 @@ from datetime import datetime
 from syncthing_gtk.tools import IS_WINDOWS, get_config_dir, is_portable
 import dateutil.parser
 import os, sys, json, logging
+
 log = logging.getLogger("Configuration")
 
 LONG_AGO = datetime.fromtimestamp(1)
+
 
 class _Configuration(object):
     """
@@ -26,35 +28,35 @@ class _Configuration(object):
     # and default values for those keys.
     # Format: key : (type, default)
     REQUIRED_KEYS = {
-        "autostart_daemon":         (int, 2), # 0 - wait for daemon, 1 - autostart, 2 - ask
-        "autokill_daemon":          (int, 2), # 0 - never kill, 1 - always kill, 2 - ask
-        "daemon_priority":          (int, 0), # uses nice values
-        "max_cpus":                 (int, 0), # 0 for all cpus
-        "syncthing_binary":         (str, "/usr/bin/syncthing"),
-        "syncthing_arguments":      (str, ""),
-        "minimize_on_start":        (bool, False),
-        "folder_as_path":           (bool, True),
-        "use_old_header":           (bool, False),
-        "animate_icon":             (bool, True),
-        "notification_for_update":  (bool, True),
-        "notification_for_folder":  (bool, False),
-        "notification_for_error":   (bool, True),
-        "st_autoupdate":            (bool, False),
-        "last_updatecheck":         (datetime, LONG_AGO),
-        "window_position":          (tuple, None),
-        "infobox_style":            (str, 'font_weight="bold" font_size="large"'),
-        "icon_theme":               (str, 'syncthing'),
-        "force_dark_theme":         (bool, False), # Windows-only
-        "language":                 (str, ""), # Windows-only
-        "file_browser":             (str, "explore"), # Windows-only
+        "autostart_daemon": (int, 2),  # 0 - wait for daemon, 1 - autostart, 2 - ask
+        "autokill_daemon": (int, 2),  # 0 - never kill, 1 - always kill, 2 - ask
+        "daemon_priority": (int, 0),  # uses nice values
+        "max_cpus": (int, 0),  # 0 for all cpus
+        "syncthing_binary": (str, "/usr/bin/syncthing"),
+        "syncthing_arguments": (str, ""),
+        "minimize_on_start": (bool, False),
+        "folder_as_path": (bool, True),
+        "use_old_header": (bool, False),
+        "animate_icon": (bool, True),
+        "notification_for_update": (bool, True),
+        "notification_for_folder": (bool, False),
+        "notification_for_error": (bool, True),
+        "st_autoupdate": (bool, False),
+        "last_updatecheck": (datetime, LONG_AGO),
+        "window_position": (tuple, None),
+        "infobox_style": (str, 'font_weight="bold" font_size="large"'),
+        "icon_theme": (str, "syncthing"),
+        "force_dark_theme": (bool, False),  # Windows-only
+        "language": (str, ""),  # Windows-only
+        "file_browser": (str, "explore"),  # Windows-only
     }
 
     # Overrides some default values on Windows
     WINDOWS_OVERRIDE = {
         "syncthing_binary": (str, "C:\\Program Files\\Syncthing\\syncthing.exe"),
-        "autokill_daemon":  (int, 1),
-        "use_old_header":   (bool, False),
-        "st_autoupdate":    (bool, True),
+        "autokill_daemon": (int, 1),
+        "use_old_header": (bool, False),
+        "st_autoupdate": (bool, True),
     }
 
     def __init__(self):
@@ -99,7 +101,7 @@ class _Configuration(object):
         return os.path.join(self.get_config_dir(), "config.json")
 
     def create(self):
-        """ Creates new, empty configuration """
+        """Creates new, empty configuration"""
         self.values = {}
         self.check_values()
         self.save()
@@ -161,17 +163,9 @@ class _Configuration(object):
         return type(self.values[key]) == tp
 
     def save(self):
-        """ Saves configuration file """
+        """Saves configuration file"""
         with open(self.get_config_file(), "w") as conf:
-            conf.write(
-                json.dumps(
-                    self.values,
-                    sort_keys=True,
-                    indent=4,
-                    separators=(',', ': '),
-                    default=serializer
-                )
-            )
+            conf.write(json.dumps(self.values, sort_keys=True, indent=4, separators=(",", ": "), default=serializer))
 
     def __iter__(self):
         for k in self.values:
@@ -191,21 +185,26 @@ class _Configuration(object):
         del self.values[key]
 
     def __contains__(self, key):
-        """ Returns true if there is such value """
+        """Returns true if there is such value"""
         return key in self.values
 
+
 def serializer(obj):
-    """ Handles serialization where json can't do it by itself """
+    """Handles serialization where json can't do it by itself"""
     if hasattr(obj, "isoformat"):
         # datetime object
         return obj.isoformat()
     raise TypeError("Can't serialize object of type %s" % (type(obj),))
 
+
 def Configuration(*a, **b):
     if IS_WINDOWS and not is_portable():
         from syncthing_gtk.windows import WinConfiguration
+
         return WinConfiguration(*a, **b)
     return _Configuration(*a, **b)
+
+
 Configuration.REQUIRED_KEYS = _Configuration.REQUIRED_KEYS
 Configuration.WINDOWS_OVERRIDE = _Configuration.WINDOWS_OVERRIDE
 
@@ -223,7 +222,7 @@ def migrate_fs_watch(stgtk_config, st_config):
     if "use_inotify" not in stgtk_config:
         return False
     changed = False
-    folder_by_id = { x["id"]: x for x in st_config['folders'] }
+    folder_by_id = {x["id"]: x for x in st_config["folders"]}
     for rid in stgtk_config["use_inotify"]:
         if rid in folder_by_id:
             folder_by_id[rid]["fsWatcherDelayS"] = 10

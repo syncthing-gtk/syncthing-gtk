@@ -1,13 +1,15 @@
-
 from gi.repository import Gtk
 import logging
+
 log = logging.getLogger("FakeRevealer")
+
 
 class FakeRevealer(Gtk.HBox):
     """
     Gtk.Revealer compatible widget that will not cause window border
     disappearing bug on Windows.
     """
+
     def __init__(self):
         Gtk.HBox.__init__(self)
         self._reveal = True
@@ -31,12 +33,12 @@ class FakeRevealer(Gtk.HBox):
         return 1
 
     def set_transition_duration(self, d):
-        """ You wish... """
+        """You wish..."""
         pass
 
     def get_transition_type(self):
         return Gtk.Revealer.TransitionType.NONE
 
     def set_transition_type(self, t):
-        """ Nobody gives orders to ME! """
+        """Nobody gives orders to ME!"""
         pass

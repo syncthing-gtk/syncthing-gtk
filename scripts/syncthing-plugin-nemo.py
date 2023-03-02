@@ -9,5 +9,6 @@ from syncthing_gtk.nautilusplugin import NautiluslikeExtension
 
 NautiluslikeExtension.set_plugin_module(Nemo)
 
+
 class SyncthingNemo(NautiluslikeExtension, Nemo.InfoProvider, Nemo.MenuProvider):
     pass

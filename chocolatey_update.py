@@ -11,30 +11,31 @@ Requirements:
 """
 
 
-
-
 import re, os, json
-from urllib import request # Py3
+from urllib import request  # Py3
 
 
 print("Retrieving last version...")
 
-releasesString = request.urlopen("https://api.github.com/repos/syncthing/syncthing-gtk/releases").read().decode('utf-8')
+releasesString = request.urlopen("https://api.github.com/repos/syncthing/syncthing-gtk/releases").read().decode("utf-8")
 releases = json.loads(releasesString)
 
-lastRelease = releases[0] # Improve if needed
-version = ''
-url = ''
-releaseNotes = ''
+lastRelease = releases[0]  # Improve if needed
+version = ""
+url = ""
+releaseNotes = ""
 
-version = lastRelease['name'].replace('v', '', )
-releaseNotes = lastRelease['body'].replace('\r', '').replace(':\n-', ':\n\n-')
+version = lastRelease["name"].replace(
+    "v",
+    "",
+)
+releaseNotes = lastRelease["body"].replace("\r", "").replace(":\n-", ":\n\n-")
 
-for asset in lastRelease['assets']:
-    if re.match(r'.+win32-full-installer.exe', asset['name']):
+for asset in lastRelease["assets"]:
+    if re.match(r".+win32-full-installer.exe", asset["name"]):
         # url = "https://cdn.rawgit.com/syncthing/syncthing-gtk/releases/download/"+lastRelease['name']+"/"+asset['name']
-        url = asset['browser_download_url']
-assert(url != ''), "ERR No fitting script found"
+        url = asset["browser_download_url"]
+assert url != "", "ERR No fitting script found"
 
 
 print("Found version", version)
@@ -45,8 +46,10 @@ nuspecFile = open("syncthing-gtk.nuspec", "r", encoding="utf8")
 nuspecString = nuspecFile.read()
 nuspecFile.close()
 
-nuspecString = re.sub(r'<version>.*</version>', '<version>'+version+'</version>', nuspecString)
-nuspecString = re.sub(r'<releaseNotes>[\w\W]*</releaseNotes>', '<releaseNotes>'+releaseNotes+'</releaseNotes>', nuspecString)
+nuspecString = re.sub(r"<version>.*</version>", "<version>" + version + "</version>", nuspecString)
+nuspecString = re.sub(
+    r"<releaseNotes>[\w\W]*</releaseNotes>", "<releaseNotes>" + releaseNotes + "</releaseNotes>", nuspecString
+)
 
 nuspecFile = open("syncthing-gtk.nuspec", "w", encoding="utf8")
 print(nuspecString, file=nuspecFile, end="")
@@ -56,7 +59,7 @@ chocolateyInstallFile = open("tools/chocolateyInstall.ps1", "r", encoding="utf8"
 chocolateyInstallString = chocolateyInstallFile.read()
 chocolateyInstallFile.close()
 
-chocolateyInstallString = re.sub(r'\$url ?= ?\'.*\'\n', '$url = \''+url+'\'\n', chocolateyInstallString)
+chocolateyInstallString = re.sub(r"\$url ?= ?\'.*\'\n", "$url = '" + url + "'\n", chocolateyInstallString)
 
 chocolateyInstallFile = open("tools/chocolateyInstall.ps1", "w", encoding="utf8")
 print(chocolateyInstallString, file=chocolateyInstallFile, end="")
@@ -70,6 +73,6 @@ input("Done! Press [Enter] to push or ^C to cancel pushing")
 
 print("Pushing...")
 
-os.system("cpush syncthing-gtk."+version+".nupkg")
+os.system("cpush syncthing-gtk." + version + ".nupkg")
 
 print("Done!")

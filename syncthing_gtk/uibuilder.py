@@ -17,9 +17,11 @@ from gi.repository import Gtk
 from xml.dom import minidom
 from .tools import GETTEXT_DOMAIN, IS_WINDOWS
 from syncthing_gtk.tools import get_locale_dir
-from syncthing_gtk.tools import _ # gettext function
+from syncthing_gtk.tools import _  # gettext function
 import logging
+
 log = logging.getLogger("UIBuilder")
+
 
 class UIBuilder(Gtk.Builder):
     def __init__(self):
@@ -30,7 +32,7 @@ class UIBuilder(Gtk.Builder):
         self.xml = None
 
     def add_from_file(self, filename):
-        """ Builds UI from file """
+        """Builds UI from file"""
         log.debug("Loading glade file %s", filename)
         if len(self.conditions) == 0 and not IS_WINDOWS and get_locale_dir() is None:
             # There is no need to do any magic in this case; Just use
@@ -41,7 +43,7 @@ class UIBuilder(Gtk.Builder):
                 self.add_from_string(f.read())
 
     def add_from_string(self, string):
-        """ Builds UI from string """
+        """Builds UI from string"""
         self.xml = minidom.parseString(string)
         self._build()
 
@@ -49,13 +51,13 @@ class UIBuilder(Gtk.Builder):
         raise RuntimeError("add_from_resource is not supported")
 
     def enable_condition(self, *conds):
-        """ Enables condition. Conditions are case-insensitive """
+        """Enables condition. Conditions are case-insensitive"""
         for c in conds:
             log.debug("Enabled: %s", c)
             self.conditions.add(c)
 
     def disable_condition(self, *conds):
-        """ Disables condition. Conditions are case-insensitive """
+        """Disables condition. Conditions are case-insensitive"""
         for c in conds:
             log.debug("Disabled: %s", c)
             self.conditions.remove(c)
@@ -88,8 +90,10 @@ class UIBuilder(Gtk.Builder):
         All path replaceaments defined using this method are applied
         by _build method on anything that remotely resembles icon path.
         """
-        if not prefix.endswith("/"): prefix = "%s/" % (prefix,)
-        if not replace_with.endswith("/"): replace_with = "%s/" % (replace_with,)
+        if not prefix.endswith("/"):
+            prefix = "%s/" % (prefix,)
+        if not replace_with.endswith("/"):
+            replace_with = "%s/" % (replace_with,)
         self.icon_paths.append((prefix, replace_with))
 
     def _build(self):
@@ -130,7 +134,7 @@ class UIBuilder(Gtk.Builder):
                 child.nodeValue = _(child.nodeValue)
 
     def _replace_icon_paths(self, node):
-        """ Recursive part for _build - icon paths """
+        """Recursive part for _build - icon paths"""
         for child in node.childNodes:
             if child.nodeType == child.ELEMENT_NODE:
                 self._replace_icon_paths(child)
@@ -143,7 +147,7 @@ class UIBuilder(Gtk.Builder):
                         self._check_icon_path(child)
 
     def _find_conditions(self, node):
-        """ Recursive part for _build - <IF> tags """
+        """Recursive part for _build - <IF> tags"""
         for child in node.childNodes:
             if child.nodeType == child.ELEMENT_NODE:
                 self._find_conditions(child)
@@ -185,7 +189,7 @@ class UIBuilder(Gtk.Builder):
             """
             for prefix, replace_with in self.icon_paths:
                 if path.startswith(prefix):
-                    return "%s%s" % (replace_with, path[len(prefix):])
+                    return "%s%s" % (replace_with, path[len(prefix) :])
             return path
 
         for n in element.childNodes:
@@ -200,13 +204,15 @@ def getElementsByTagNameCI(node, tagname):
     case-insensitive way.
     """
     tagname = tagname.lower()
-    return [ child for child in node.childNodes if
-            (child.nodeType == child.ELEMENT_NODE and
-            child.tagName.lower() == tagname)
-        ]
+    return [
+        child
+        for child in node.childNodes
+        if (child.nodeType == child.ELEMENT_NODE and child.tagName.lower() == tagname)
+    ]
+
 
 def merge_with_parent(element, insert_before):
-    """ Merges child nodes with parent node """
+    """Merges child nodes with parent node"""
     for child in element.childNodes:
         if child.nodeType == child.ELEMENT_NODE:
             element.removeChild(child)
