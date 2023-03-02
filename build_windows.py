@@ -4,8 +4,8 @@ Do './build_windows.py build' to build exe, then call
 'makensis syncthing-gtk.nsis' to create installation package.
 """
 
-import pprint
 import os
+import pprint
 import re
 import shutil
 import site
