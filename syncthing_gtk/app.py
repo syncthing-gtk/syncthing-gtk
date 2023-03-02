@@ -239,7 +239,7 @@ class App(Gtk.Application, TimerManager):
                 sys.stdout.write("Arguments:\n")
                 for o in self.arguments:
                     # Don't display hidden and unsupported parameters
-                    if not o.long_name in ("force-update", "quit"):
+                    if o.long_name not in ("force-update", "quit"):
                         sys.stdout.write("  -%s, --%s %s\n" % (chr(o.short_name), o.long_name.ljust(10), o.description))
                 sys.exit(0)
 
@@ -255,8 +255,8 @@ class App(Gtk.Application, TimerManager):
 
             self.parse_local_options(is_option)
 
-        if self.daemon == None:
-            if self.wizard == None:
+        if self.daemon is None:
+            if self.wizard is None:
                 if self.setup_connection():
                     self.daemon.reconnect()
         self.activate()
@@ -266,7 +266,7 @@ class App(Gtk.Application, TimerManager):
         if self.hide_window:
             log.info("")
             log.info(_("Syncthing-GTK started and running in notification area"))
-            if not self.daemon is None:
+            if self.daemon is not None:
                 self.daemon.set_refresh_interval(REFRESH_INTERVAL_TRAY)
         else:
             if self.wizard is None:
@@ -555,7 +555,7 @@ class App(Gtk.Application, TimerManager):
             # Disabled, don't even bother
             log.info("updatecheck: disabled")
             return
-        if self.process == None:
+        if self.process is None:
             # Upgrading if executable is not launched by Syncthing-GTK
             # may fail in too many ways.
             log.warning("Skipping updatecheck: Daemon not launched by me")
@@ -584,7 +584,7 @@ class App(Gtk.Application, TimerManager):
         # Define callbacks
         def cb_cu_error(sd, e, message):
             # Version check failed. Try it again later
-            if "WinHttp" in str(e) and "SECURE_FAILURE" in str(e) and self["infobar"] == None:
+            if "WinHttp" in str(e) and "SECURE_FAILURE" in str(e) and self["infobar"] is None:
                 message = _(
                     "Your Windows version doesn't supports cryptographic standards needed\n"
                     "for Syncthing-GTK to check for Syncthing updates.\n"
@@ -610,7 +610,7 @@ class App(Gtk.Application, TimerManager):
                 self.daemon.restart()
             else:
                 # Happens when updating from unsupported version
-                if not self.process is None:
+                if self.process is not None:
                     self.process.kill()
                 else:
                     self.start_daemon()
@@ -632,7 +632,7 @@ class App(Gtk.Application, TimerManager):
                 # May happen if connection to daemon is lost while version
                 # check is running
                 return cb_cu_error()
-            if not self.force_update_version is None:
+            if self.force_update_version is not None:
                 needs_upgrade = True
                 self.force_update_version = None
             log.info("Updatecheck: needs_upgrade = %s", needs_upgrade)
@@ -740,7 +740,7 @@ class App(Gtk.Application, TimerManager):
         elif reason == Daemon.RESTART:
             # Nothing, just preventing next branch from running
             pass
-        elif IS_WINDOWS and not self.process is None:
+        elif IS_WINDOWS and self.process is not None:
             # Restart daemon process if connection is lost on Windows
             self.process.kill()
             self.process = None
@@ -752,7 +752,7 @@ class App(Gtk.Application, TimerManager):
         if reason == Daemon.REFUSED:
             # If connection is refused, handler just displays dialog with "please wait" message
             # and lets Daemon object to retry connection
-            if self.connect_dialog == None:
+            if self.connect_dialog is None:
                 if check_daemon_running():
                     # Daemon is running, wait for it
                     self.display_connect_dialog(
@@ -772,7 +772,7 @@ class App(Gtk.Application, TimerManager):
                     else:
                         self.display_run_daemon_dialog()
             self.set_status(False)
-        elif reason == Daemon.OLD_VERSION and self.config["st_autoupdate"] and not self.process is None:
+        elif reason == Daemon.OLD_VERSION and self.config["st_autoupdate"] and self.process is not None:
             # Daemon is too old, but autoupdater is enabled and I have control of deamon.
             # Try to update.
             from .configuration import LONG_AGO
@@ -818,7 +818,7 @@ class App(Gtk.Application, TimerManager):
                 Gtk.ButtonsType.CLOSE,
                 message,
             )
-            if not exception is None and hasattr(exception, "full_response"):
+            if exception is not None and hasattr(exception, "full_response"):
                 # Anything derived from HTTPError, where full server
                 # response is attached
                 ex = Gtk.Expander(label=_("More info"))
@@ -846,13 +846,14 @@ class App(Gtk.Application, TimerManager):
             self.quit()
 
     def cb_syncthing_config_oos(self, *a):
-        if self["infobar"] == None:
+        if self["infobar"] is None:
             r = RIBar(
-                _(
-                    "The configuration has been saved but not activated.\nSyncthing must restart to activate the new configuration."
-                ),
+                _("The configuration has been saved but not activated.\nSyncthing must restart to activate the new configuration."),
                 Gtk.MessageType.WARNING,
-                (RIBar.build_button(_("_Restart"), "view-refresh"), RESPONSE_RESTART),
+                (RIBar.build_button(
+                    _("_Restart"),
+                    "view-refresh"),
+                 RESPONSE_RESTART),
             )
             self["infobar"] = r
             self.show_info_box(r)
@@ -1317,7 +1318,7 @@ class App(Gtk.Application, TimerManager):
         """Returns True if there is such widget"""
         if name in self.widgets:
             return True
-        return self.builder.get_object(name) != None
+        return self.builder.get_object(name) is not None
 
     def hilight(self, boxes):
         to_hilight = set()
@@ -1345,7 +1346,7 @@ class App(Gtk.Application, TimerManager):
         If connection to daemon is not established, shows 'Connecting'
         dialog as well.
         """
-        if not self.daemon is None:
+        if self.daemon is not None:
             self.daemon.set_refresh_interval(REFRESH_INTERVAL_DEFAULT)
             self.daemon.request_events()
         if not self["window"].is_visible():
@@ -1357,7 +1358,7 @@ class App(Gtk.Application, TimerManager):
                     min(self.config["window_position"][1], scr.height() - 100),
                 )
                 self["window"].move(*self.config["window_position"])
-            if self.connect_dialog != None:
+            if self.connect_dialog is not None:
                 self.connect_dialog.show()
         else:
             self["window"].present()
@@ -1365,7 +1366,7 @@ class App(Gtk.Application, TimerManager):
 
     def hide(self):
         """Hides main windows and 'Connecting' dialog, if displayed"""
-        if self.connect_dialog != None:
+        if self.connect_dialog is not None:
             self.connect_dialog.hide()
         if IS_WINDOWS:
             x, y = self["window"].get_position()
@@ -1378,7 +1379,7 @@ class App(Gtk.Application, TimerManager):
             self.config["window_position"] = (x, y)
         self["window"].hide()
         self["menu-si-show"].set_label(_("Show Window"))
-        if not self.daemon is None:
+        if self.daemon is not None:
             self.daemon.set_refresh_interval(REFRESH_INTERVAL_TRAY)
 
     def display_connect_dialog(self, message, quit_button=True):
@@ -1386,7 +1387,7 @@ class App(Gtk.Application, TimerManager):
         Displays 'Be patient, i'm trying to connect here' dialog, or updates
         it's message if said dialog is already displayed.
         """
-        if self.connect_dialog == None:
+        if self.connect_dialog is None:
             log.debug("Creating connect_dialog")
             self.connect_dialog = Gtk.MessageDialog(
                 self["window"],
@@ -1424,7 +1425,7 @@ class App(Gtk.Application, TimerManager):
         Displays 'Syncthing is not running, should I start it for you?'
         dialog.
         """
-        if self.connect_dialog == None:  # Don't override already existing dialog
+        if self.connect_dialog is None:  # Don't override already existing dialog
             log.debug("Creating run_daemon_dialog")
             self.connect_dialog = Gtk.MessageDialog(
                 self["window"],
@@ -1448,7 +1449,7 @@ class App(Gtk.Application, TimerManager):
             self["menu-si-resume"].set_visible(True)
 
     def close_connect_dialog(self):
-        if self.connect_dialog != None:
+        if self.connect_dialog is not None:
             self.connect_dialog.hide()
             self.connect_dialog.destroy()
             self.connect_dialog = None
@@ -1468,11 +1469,11 @@ class App(Gtk.Application, TimerManager):
         self, folder_id, label, path, folder_type, ignore_perms, rescan_interval, fswatcher_enabled, shared
     ):
         """Shared is expected to be list"""
-        assert type(folder_type) != bool
+        assert not isinstance(folder_type, bool)
         display_path = path
         if IS_WINDOWS:
             if display_path.lower().replace("\\", "/").startswith(os.path.expanduser("~").lower()):
-                display_path = "~%s" % display_path[len(os.path.expanduser("~")) :]
+                display_path = "~%s" % display_path[len(os.path.expanduser("~")):]
         title = folder_id
         if self.config["folder_as_path"]:
             title = display_path
@@ -1504,7 +1505,7 @@ class App(Gtk.Application, TimerManager):
             box.add_hidden_value("label", label)
             # Setup display & signal
             box.set_status("Unknown")
-            if not self.dark_color is None:
+            if self.dark_color is not None:
                 box.set_dark_color(*self.dark_color)
             box.set_color_hex(COLOR_FOLDER)
             box.set_vexpand(False)
@@ -1563,7 +1564,7 @@ class App(Gtk.Application, TimerManager):
             box.add_hidden_value("time", 0)
             box.add_hidden_value("online", False)
             # Setup display & signal
-            if not self.dark_color is None:
+            if self.dark_color is not None:
                 box.set_dark_color(*self.dark_color)
             box.set_color_hex(COLOR_DEVICE)
             box.set_vexpand(False)
@@ -1710,7 +1711,7 @@ class App(Gtk.Application, TimerManager):
         self.change_setting_async(ignore_type, cb, restart=False)
 
     def quit(self, *a):
-        if self.process != None:
+        if self.process is not None:
             if IS_WINDOWS:
                 # Always kill subprocess on windows
                 self.process.kill()
@@ -1744,7 +1745,7 @@ class App(Gtk.Application, TimerManager):
 
         def have_config(*a):
             """One-time handler for config-loaded signal"""
-            if not handler_id is None:
+            if handler_id is not None:
                 self.daemon.handler_disconnect(handler_id)
             self.show()
             e = FolderEditorDialog(self, True, None, path)
@@ -1768,7 +1769,7 @@ class App(Gtk.Application, TimerManager):
 
         def have_config(*a):
             """One-time handler for config-loaded signal"""
-            if not handler_id is None:
+            if handler_id is not None:
                 self.daemon.handler_disconnect(handler_id)
             for rid in self.folders:
                 if self.folders[rid]["path"] == path:
@@ -2109,7 +2110,7 @@ class App(Gtk.Application, TimerManager):
         webbrowser.open(self.daemon.get_webui_url())
 
     def cb_menu_daemon_output(self, *a):
-        if self.process != None:
+        if self.process is not None:
             d = DaemonOutputDialog(self, self.process)
             d.show(None)
 
@@ -2177,14 +2178,14 @@ class App(Gtk.Application, TimerManager):
         # Common for 'Daemon is not running' and 'Connecting to daemon...'
         if response == RESPONSE_START_DAEMON:
             self.start_daemon_ui()
-            if not checkbox is None and checkbox.get_active():
+            if checkbox is not None and checkbox.get_active():
                 self.config["autostart_daemon"] = 1
         else:  # if response <= 0 or response == RESPONSE_QUIT:
             self.cb_exit()
 
     def cb_kill_daemon_response(self, dialog, response, checkbox):
         if response == RESPONSE_SLAIN_DAEMON:
-            if not self.process is None:
+            if self.process is not None:
                 self.process.terminate()
                 self.process = None
         if checkbox.get_active():

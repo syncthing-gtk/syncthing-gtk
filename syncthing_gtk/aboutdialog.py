@@ -19,7 +19,7 @@ class AboutDialog(object):
         self.setup_widgets(app)
 
     def show(self, parent=None):
-        if not parent is None:
+        if parent is not None:
             self.dialog.set_transient_for(parent)
         self.dialog.show()
 
@@ -55,7 +55,7 @@ class AboutDialog(object):
 
                 if syncthing_gtk.__file__.startswith(pkg_resources.require("syncthing-gtk")[0].location):
                     app_ver = pkg_resources.require("syncthing-gtk")[0].version
-        except:
+        except BaseException:
             # pkg_resources is not available or __version__ file missing
             # There is no reason to crash on this.
             pass
@@ -63,7 +63,7 @@ class AboutDialog(object):
         try:
             daemon_ver = app.daemon.get_version()
             app_ver = "%s (Daemon %s)" % (app_ver, daemon_ver)
-        except:
+        except BaseException:
             # App is None or daemon version is not yet known
             pass
         # Display versions in UI

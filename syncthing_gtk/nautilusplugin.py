@@ -80,7 +80,7 @@ class NautiluslikeExtension(GObject.GObject):
         self.daemon.set_refresh_interval(20)
         self.daemon.reconnect()
 
-    ### Internal stuff
+    # Internal stuff
     def _clear_emblems(self):
         """Clear emblems on all files that had emblem added"""
         for path in self.files:
@@ -120,7 +120,7 @@ class NautiluslikeExtension(GObject.GObject):
                 return file.get_location().get_path().decode("utf-8")
         return urllib.parse.unquote(file.get_uri().replace("file://", ""))
 
-    ### Daemon callbacks
+    # Daemon callbacks
     def cb_connected(self, *a):
         """
         Called when connection to Syncthing daemon is created.
@@ -141,7 +141,7 @@ class NautiluslikeExtension(GObject.GObject):
         self.online_nids.add(nid)
         # Mark any repo attached to this device online
         for rid in self.rid_to_dev:
-            if not rid in self.onlide_rids:
+            if rid not in self.onlide_rids:
                 if nid in self.rid_to_dev[rid]:
                     log.debug("Repo '%s' now online", rid)
                     self.onlide_rids.add(rid)
@@ -234,7 +234,7 @@ class NautiluslikeExtension(GObject.GObject):
                 self.downloads.remove(filepath)
                 self._invalidate(filepath)
 
-    ### InfoProvider stuff
+    # InfoProvider stuff
     def update_file_info(self, file):
         # TODO: This remembers every file user ever saw in Nautilus.
         # There *has* to be memory efficient alternative...
@@ -279,7 +279,7 @@ class NautiluslikeExtension(GObject.GObject):
                 file.add_emblem("syncthing-offline")
         return NautiluslikeExtension._plugin_module.OperationResult.COMPLETE
 
-    ### MenuProvider stuff
+    # MenuProvider stuff
     def get_file_items(self, window, sel_items):
         if len(sel_items) == 1:
             # Display context menu only if one item is selected and

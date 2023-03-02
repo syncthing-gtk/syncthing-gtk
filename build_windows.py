@@ -4,6 +4,7 @@ Do './build_windows.py build' to build exe, then call
 'makensis syncthing-gtk.nsis' to create installation package.
 """
 
+import pprint
 import os
 import re
 import shutil
@@ -29,26 +30,26 @@ missing_dll = [
     "libatk-1.0-0.dll",
     "libcairo-gobject-2.dll",
     "libgdk_pixbuf-2.0-0.dll",
-    #'libgirepository-1.0-1.dll',
-    #'libgmodule-2.0-0.dll',
-    #'libgladeui-2-6.dll',
+    # 'libgirepository-1.0-1.dll',
+    # 'libgmodule-2.0-0.dll',
+    # 'libgladeui-2-6.dll',
     "libpango-1.0-0.dll",
     "libpangocairo-1.0-0.dll",
     "libpangoft2-1.0-0.dll",
     "libpangowin32-1.0-0.dll",
     "libffi-6.dll",
-    #'libgio-2.0-0.dll',
+    # 'libgio-2.0-0.dll',
     "libharfbuzz-gobject-0.dll",
     "libharfbuzz-0.dll",
-    #'libpng16-16.dll',
-    #'libxmlxpat.dll',
-    #'libintl-8.dll',
+    # 'libpng16-16.dll',
+    # 'libxmlxpat.dll',
+    # 'libintl-8.dll',
     "librsvg-2-2.dll",
-    #'libzzz.dll',
+    # 'libzzz.dll',
     "libtiff-5.dll",
     "libwebp-5.dll",
-    #'libfreetype-6.dll',
-    #'libwinpthread-1.dll',
+    # 'libfreetype-6.dll',
+    # 'libwinpthread-1.dll',
     "libepoxy-0.dll",
     "libjasper-1.dll",
     "libjpeg-8.dll",
@@ -98,7 +99,6 @@ include_files += [x for x in os.listdir(".") if x.endswith(".glade")]
 include_files += ["./icons"]
 d = [(x, x) for x in find_mos("locale/")]
 include_files += d
-import pprint
 
 pprint.pprint(include_files)
 # sys.exit(0)
@@ -119,13 +119,16 @@ executables = [
 ]
 
 
-get_version = lambda: "%s-win32" % (_get_version(),)
+def get_version(): return "%s-win32" % (_get_version(),)
+
 
 # Monkey-patch _AddVersionResource in cx_Freeze so win32verstamp will
 # not bitch about non-numeric version
 RE_NUMBER = re.compile(r"v?([0-9]+).*")
-extract_number = lambda x: RE_NUMBER.match(x).group(1) if RE_NUMBER.match(x) else "0"
-win32version = lambda x: ".".join([extract_number(i) for i in x.split(".")[0:4]])
+def extract_number(x): return RE_NUMBER.match(x).group(1) if RE_NUMBER.match(x) else "0"
+def win32version(x): return ".".join([extract_number(i) for i in x.split(".")[0:4]])
+
+
 Freezer._AddVersionResource = lambda self, exe: stamp(
     exe.targetName,
     VersionInfo(

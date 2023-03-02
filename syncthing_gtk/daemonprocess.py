@@ -121,7 +121,7 @@ class DaemonProcess(GObject.GObject):
         Repeatedly check if process is still alive.
         Called only on windows
         """
-        if self._proc == None:
+        if self._proc is None:
             # Never started or killed really fast
             self.emit("exit", 1)
             self._cancel.cancel()
@@ -161,7 +161,7 @@ class DaemonProcess(GObject.GObject):
 
     def terminate(self):
         """Terminates process (sends SIGTERM)"""
-        if not self._proc is None:
+        if self._proc is not None:
             if IS_WINDOWS:
                 # Windows
                 self._proc.terminate()
@@ -178,7 +178,7 @@ class DaemonProcess(GObject.GObject):
 
     def kill(self):
         """Kills process (sends SIGTERM)"""
-        if not self._proc is None:
+        if self._proc is not None:
             if IS_WINDOWS:
                 # Windows - can't actually kill
                 self._proc.terminate()

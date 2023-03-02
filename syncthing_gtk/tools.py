@@ -104,14 +104,14 @@ def check_device_id(nid):
     )
     if len(nid) == 56:
         for i in range(0, 4):
-            p = nid[i * 14 : ((i + 1) * 14) - 1]
+            p = nid[i * 14: ((i + 1) * 14) - 1]
             try:
                 l = luhn_b32generate(p)
             except Exception as e:
                 log.exception(e)
                 return False
             g = "%s%s" % (p, l)
-            if g != nid[i * 14 : (i + 1) * 14]:
+            if g != nid[i * 14: (i + 1) * 14]:
                 return False
         return True
     elif len(nid) == 52:
@@ -138,7 +138,7 @@ def ints(s):
     """Works as int(), but returns 0 for None, False and empty string"""
     if s is None:
         return 0
-    if s == False:
+    if not s:
         return 0
     if hasattr(s, "__len__"):
         if len(s) == 0:
@@ -326,7 +326,7 @@ def check_daemon_running():
     """Returns True if syncthing daemon is running"""
     if not IS_WINDOWS:
         # Unix
-        if not "USER" in os.environ:
+        if "USER" not in os.environ:
             # Unlikely
             return False
         # signal 0 doesn't kill anything, but killall exits with 1 if
@@ -336,7 +336,7 @@ def check_daemon_running():
         return p.returncode == 0
     else:
         # Windows
-        if not "USERNAME" in os.environ:
+        if "USERNAME" not in os.environ:
             # Much more likely
             os.environ["USERNAME"] = ""
         proclist = wmi.WMI().ExecQuery('select * from Win32_Process where Name LIKE "syncthing.exe"')

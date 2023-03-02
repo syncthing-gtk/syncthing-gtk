@@ -227,7 +227,7 @@ class UISettingsDialog(EditorDialog):
                 # Should be enabled. Check if script is in place and create it if not
                 source = get_fm_source_path(plugin)
                 target = get_fm_target_path(plugin, location)
-                if not source is None and not os.path.exists(target):
+                if source is not None and not os.path.exists(target):
                     try:
                         # Create directory first
                         os.makedirs(os.path.dirname(target))
@@ -262,7 +262,7 @@ class UISettingsDialog(EditorDialog):
         self.close()
         # Recreate Notifications object if needed
         if HAS_DESKTOP_NOTIFY:
-            if not self.app.notifications is None:
+            if self.app.notifications is not None:
                 self.app.notifications.kill()
                 self.app.notifications = None
             if self.app.config["notification_for_update"] or self.app.config["notification_for_error"]:
@@ -337,7 +337,7 @@ def is_file_or_symlink(path):
     try:
         os.readlink(path)
         return True
-    except:
+    except BaseException:
         pass
     return False
 

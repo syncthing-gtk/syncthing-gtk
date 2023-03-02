@@ -45,7 +45,7 @@ class RESTRequest(Gio.SocketClient):
         """Called after TCP connection is initiated"""
         try:
             self._connection = self.connect_to_service_finish(results)
-            if self._connection == None:
+            if self._connection is None:
                 raise Exception("Unknown error")
         except Exception as e:
             log.exception(e)
@@ -67,7 +67,7 @@ class RESTRequest(Gio.SocketClient):
                     "Host: %s" % self._parent._address,
                     (
                         ("X-API-Key: %s" % self._parent._api_key)
-                        if not self._parent._api_key is None
+                        if self._parent._api_key is not None
                         else "X-nothing: x"
                     ),
                     "Connection: close",
@@ -95,7 +95,7 @@ class RESTRequest(Gio.SocketClient):
                         self._CSRFtoken = c.strip(b" \r\n").decode()
                         log.verbose("Got new cookie: %s", self._CSRFtoken)
                         break
-                if self._CSRFtoken != None:
+                if self._CSRFtoken is not None:
                     break
 
     def _format_request(self):
@@ -108,7 +108,7 @@ class RESTRequest(Gio.SocketClient):
                 "Host: %s" % self._parent._address,
                 "Cookie: %s" % self._parent._CSRFtoken,
                 (("X-%s" % self._parent._CSRFtoken.replace("=", ": ")) if self._parent._CSRFtoken else "X-nothing: x"),
-                (("X-API-Key: %s" % self._parent._api_key) if not self._parent._api_key is None else "X-nothing2: x"),
+                (("X-API-Key: %s" % self._parent._api_key) if self._parent._api_key is not None else "X-nothing2: x"),
                 "Connection: close",
                 "",
                 "",
@@ -118,7 +118,7 @@ class RESTRequest(Gio.SocketClient):
     def _response(self, stream, results):
         try:
             response = stream.read_bytes_finish(results)
-            if response == None:
+            if response is None:
                 raise Exception("No data received")
         except Exception as e:
             self._connection.close(None)
@@ -139,10 +139,10 @@ class RESTRequest(Gio.SocketClient):
         if self._parent._CSRFtoken is None and self._parent._api_key is None:
             # I wanna cookie!
             self._parse_csrf(response.split(b"\n"))
-            if self._parent._CSRFtoken == None:
+            if self._parent._CSRFtoken is None:
                 # This is pretty fatal and likely to fail again,
                 # so request is not repeated automatically
-                if self._error_callback == None:
+                if self._error_callback is None:
                     log.error("Request '%s' failed: Error: failed to get CSRF cookie from daemon", self._command)
                 else:
                     self._error(Exception("Failed to get CSRF cookie"))
@@ -161,7 +161,7 @@ class RESTRequest(Gio.SocketClient):
             rdata = {}
         except ValueError:  # Not a JSON
             rdata = {"data": response.decode("utf-8", errors="ignore")}
-        if type(rdata) == dict:
+        if isinstance(rdata, dict):
             rdata[HTTP_HEADERS] = headers
         self._callback(rdata, *self._callback_data)
 
@@ -260,7 +260,7 @@ class RESTPOSTRequest(RESTRequest):
                 "Host: %s" % self._parent._address,
                 "Cookie: %s" % self._parent._CSRFtoken,
                 (("X-%s" % self._parent._CSRFtoken.replace("=", ": ")) if self._parent._CSRFtoken else "X-nothing: x"),
-                (("X-API-Key: %s" % self._parent._api_key) if not self._parent._api_key is None else "X-nothing2: x"),
+                (("X-API-Key: %s" % self._parent._api_key) if self._parent._api_key is not None else "X-nothing2: x"),
                 "Content-Length: %s" % len(json_str),
                 "Content-Type: application/json",
                 "Connection: close",
@@ -297,7 +297,7 @@ class EventPollLoop(RESTRequest):
                 "Host: %s" % self._parent._address,
                 "Cookie: %s" % self._parent._CSRFtoken,
                 (("X-%s" % self._parent._CSRFtoken.replace("=", ": ")) if self._parent._CSRFtoken else "X-nothing: x"),
-                (("X-API-Key: %s" % self._parent._api_key) if not self._parent._api_key is None else "X-nothing2: x"),
+                (("X-API-Key: %s" % self._parent._api_key) if self._parent._api_key is not None else "X-nothing2: x"),
                 "Cache-Control: no-cache",
                 "Connection: keep-alive",
                 "Pragma: no-cache",
@@ -325,7 +325,7 @@ class EventPollLoop(RESTRequest):
             return RESTRequest._response(self, stream, results)
         try:
             response = stream.read_bytes_finish(results)
-            if response == None:
+            if response is None:
                 raise Exception("No data received")
         except Exception as e:
             return self._error(e)
@@ -334,7 +334,7 @@ class EventPollLoop(RESTRequest):
             return
 
         buffer = response.get_data()
-        assert type(buffer) == bytes
+        assert isinstance(buffer, bytes)
         headers, response = self._split_headers(buffer)
         if headers is None:
             return
@@ -350,7 +350,7 @@ class EventPollLoop(RESTRequest):
     def _chunk(self, stream, results):
         try:
             response = stream.read_bytes_finish(results)
-            if response == None:
+            if response is None:
                 raise Exception("nothing")
         except Exception as e:
             return self._error(e)
@@ -372,7 +372,7 @@ class EventPollLoop(RESTRequest):
             [
                 "GET /rest/events?since=%s HTTP/1.1" % (self._last_event_id,),
                 "Host: %s" % self._parent._address,
-                (("X-API-Key: %s" % self._parent._api_key) if not self._parent._api_key is None else "X-nothing: x"),
+                (("X-API-Key: %s" % self._parent._api_key) if self._parent._api_key is not None else "X-nothing: x"),
                 "",
                 "",
             ]
