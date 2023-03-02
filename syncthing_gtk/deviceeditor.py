@@ -70,7 +70,7 @@ class DeviceEditorDialog(EditorDialog):
                 self.checks = {
                     "vdeviceID": check_device_id,
                 }
-                if self.id != None:
+                if self.id is not None:
                     # Pre-fill device id, if provided
                     self.set_value("deviceID", self.id)
             else:
@@ -138,7 +138,7 @@ class DeviceEditorDialog(EditorDialog):
                 found = False
                 for n in r["devices"]:
                     if n["deviceID"] == nid:
-                        if not rid in folders or not folders[rid]:
+                        if rid not in folders or not folders[rid]:
                             # Remove this /<device> key (unshare folder with device)
                             r["devices"].remove(n)
                             break

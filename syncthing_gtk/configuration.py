@@ -137,13 +137,13 @@ class _Configuration(object):
             if key in self.values:
                 tp, trash = Configuration.REQUIRED_KEYS[key]
                 try:
-                    if tp == datetime and type(self.values[key]) == str:
+                    if tp == datetime and isinstance(self.values[key], str):
                         # Parse datetime
                         self.values[key] = dateutil.parser.parse(self.values[key])
-                    elif tp == tuple and type(self.values[key]) == list:
+                    elif tp == tuple and isinstance(self.values[key], list):
                         # Convert list to tuple
                         self.values[key] = tuple(self.values[key])
-                    elif tp == bool and type(self.values[key]) == int:
+                    elif tp == bool and isinstance(self.values[key], int):
                         # Convert bools
                         self.values[key] = bool(self.values[key])
                 except Exception as e:
@@ -157,15 +157,15 @@ class _Configuration(object):
         Returns True if value is set and type match.
         Auto-converts objects serialized as string back to objects
         """
-        if not key in self.values:
+        if key not in self.values:
             return False
         # Handle special cases
-        if type(self.values[key]) == str and tp == str:
+        if isinstance(self.values[key], str) and tp == str:
             return True
-        if tp in (tuple,) and self.values[key] == None:
+        if tp in (tuple,) and self.values[key] is None:
             return True
         # Return value
-        return type(self.values[key]) == tp
+        return isinstance(self.values[key], tp)
 
     def save(self):
         """Saves configuration file"""

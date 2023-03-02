@@ -192,7 +192,7 @@ class UIBuilder(Gtk.Builder):
             """
             for prefix, replace_with in self.icon_paths:
                 if path.startswith(prefix):
-                    return "%s%s" % (replace_with, path[len(prefix) :])
+                    return "%s%s" % (replace_with, path[len(prefix):])
             return path
 
         for n in element.childNodes:

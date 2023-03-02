@@ -85,20 +85,20 @@ class EditorDialog(GObject.GObject):
 
     def __contains__(self, name):
         """Returns true if there is such widget"""
-        return self.builder.get_object(name) != None
+        return self.builder.get_object(name) is not None
 
     def get_widget_id(self, w):
         """
         Returns glade file ID for specified widget or None, if widget
         is not known.
         """
-        if not w in self.widget_to_id:
+        if w not in self.widget_to_id:
             return None
         return self.widget_to_id[w]
 
     def find_widget_by_id(self, id, parent=None):
         """Recursively searches for widget with specified ID"""
-        if parent == None:
+        if parent is None:
             if id in self:
                 return self[id]  # Do things fast if possible
             parent = self["editor"]
@@ -108,12 +108,12 @@ class EditorDialog(GObject.GObject):
                     return c
             if isinstance(c, Gtk.Container):
                 r = self.find_widget_by_id(id, c)
-                if not r is None:
+                if r is not None:
                     return r
         return None
 
     def show(self, parent=None):
-        if not parent is None:
+        if parent is not None:
             self["editor"].set_transient_for(parent)
         self["editor"].set_modal(True)
         self["editor"].show_all()
@@ -145,7 +145,7 @@ class EditorDialog(GObject.GObject):
         Method is called recursively for every tree level. If value is
         not found, default is returned.
         """
-        if type(key) != list:
+        if not isinstance(key, list):
             # Parse key, split by '/'
             return self.get_burried_value(key.split("/"), vals, default, convert)
         try:
@@ -182,12 +182,12 @@ class EditorDialog(GObject.GObject):
         """
         Creates structure of nested dicts, if they are not in place already.
         """
-        if not type(keys) == list:
+        if not isinstance(keys, list):
             keys = list(keys)
         if len(keys) == 0:
             return  # Done
         key, rest = keys[0], keys[1:]
-        if not key in parent:
+        if key not in parent:
             parent[key] = {}
         if parent[key] in ("", None):
             parent[key] = {}
@@ -202,7 +202,7 @@ class EditorDialog(GObject.GObject):
         if value_id in self.original_labels:
             # Already done
             return
-        if not value_id in self.MESSAGES:
+        if value_id not in self.MESSAGES:
             # Nothing to show
             return
         self.original_labels[value_id] = self[wid].get_label()
@@ -243,7 +243,7 @@ class EditorDialog(GObject.GObject):
         for key in values:
             widget = self.find_widget_by_id(key)
             self.widget_to_id[widget] = key
-            if not key is None:
+            if key is not None:
                 try:
                     self.display_value(key, widget)
                 except ValueNotFoundError:
@@ -275,7 +275,7 @@ class EditorDialog(GObject.GObject):
             w.set_active(self.get_value(strip_v(key)))
         else:
             log.warning("display_value: %s class cannot handle widget %s, key %s", self.__class__.__name__, w, key)
-            if not w is None:
+            if w is not None:
                 w.set_sensitive(False)
 
     def ui_value_changed(self, w, *a):
@@ -286,7 +286,7 @@ class EditorDialog(GObject.GObject):
         if not self._loading:
             if key in self.SETTING_NEEDS_RESTART:
                 self[self.RESTART_NEEDED_WIDGET].set_visible(True)
-        if key != None:
+        if key is not None:
             if isinstance(w, Gtk.CheckButton):
                 self.set_value(strip_v(key), w.get_active())
                 self.update_special_widgets()
@@ -381,7 +381,7 @@ class EditorDialog(GObject.GObject):
         """
         for key in values:
             widget = self.find_widget_by_id(key)
-            if not key is None:
+            if key is not None:
                 try:
                     self.store_value(key, widget)
                 except ValueNotFoundError:
@@ -504,7 +504,7 @@ class EditorDialog(GObject.GObject):
 
 
 """ Strips 'v' prefix used in widget IDs """
-strip_v = lambda x: x[1:] if x.startswith("v") else x
+def strip_v(x): return x[1:] if x.startswith("v") else x
 
 
 class ValueNotFoundError(KeyError):

@@ -36,7 +36,7 @@ class Wizard(Gtk.Assistant):
     def __init__(self, gladepath="/usr/share/syncthing-gtk", iconpath="/usr/share/syncthing-gtk/icons", config=None):
         # Init
         Gtk.Assistant.__init__(self)
-        if not config is None:
+        if config is not None:
             self.config = config
         else:
             self.config = Configuration()
@@ -125,7 +125,7 @@ class Wizard(Gtk.Assistant):
                 return w
             if isinstance(w, Gtk.Container):
                 r = self.find_widget(compare_fn, w)
-                if not r is None:
+                if r is not None:
                     return r
         return None
 
@@ -229,7 +229,7 @@ class IntroPage(Page):
             ]
             # order is 'apply, next, back, finish, cancel'
             next_label = all_buttons[1].get_label().replace("_", "")
-        except:
+        except BaseException:
             pass
         # TODO: Temporal solution, remove later
         changed_line = _("Continue this wizard to create a Syncthing configuration file or abort it to exit.")
@@ -333,7 +333,7 @@ class FindDaemonPage(Page):
                     '<a href="https://github.com/syncthing/syncthing/releases">' + _("download latest binary") + "</a>"
                 )
                 message, title = "", None
-                if self.ignored_version == None:
+                if self.ignored_version is None:
                     # No binary was found
                     title = _("Syncthing daemon not found.")
                     message += _(
@@ -488,7 +488,7 @@ class DownloadSTPage(Page):
         Called when download fails. This is fatal for now, user can
         only observe message, cry and quit program.
         """
-        message = "%s\n%s" % (str(error) if not error is None else "", message if not message is None else "")
+        message = "%s\n%s" % (str(error) if error is not None else "", message if message is not None else "")
         self.parent.error(self, _("Failed to download Syncthing daemon package."), message, False)
         return
 
@@ -753,7 +753,7 @@ class SaveSettingsPage(Page):
                 .getElementsByTagName("options")[0]
                 .getElementsByTagName("autoUpgradeIntervalH")[0]
             )
-            while gui.firstChild != None:
+            while gui.firstChild is not None:
                 gui.removeChild(gui.firstChild)
             # Update data
             self.ct_textnode(

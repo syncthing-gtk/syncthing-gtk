@@ -51,7 +51,7 @@ class FindDaemonDialog(EditorDialog):
             )
             self.hide_download_button()
 
-    ### Dialog emulation
+    # Dialog emulation
     def set_transient_for(self, parent):
         self["editor"].set_transient_for(parent)
 
@@ -67,7 +67,7 @@ class FindDaemonDialog(EditorDialog):
     def destroy(self):
         self.close()
 
-    ### UI callbacks
+    # UI callbacks
     def cb_btBrowse_clicked(self, *a):
         """Display file browser dialog to browse for syncthing binary"""
         browse_for_binary(self["editor"], self, "vsyncthing_binary")
@@ -125,7 +125,7 @@ class FindDaemonDialog(EditorDialog):
     def cb_ui_settings_closed(self, *a):
         self.load()
 
-    ### EditorDialog overrides
+    # EditorDialog overrides
 
     # @Overrides
     def load_data(self):
@@ -157,7 +157,7 @@ class FindDaemonDialog(EditorDialog):
     def on_saved(self):
         self["editor"].response(FindDaemonDialog.RESPONSE_SAVED)
 
-    ### Downloader callbacks
+    # Downloader callbacks
     def cb_download_error(self, downloader, error, message):
         """
         Called when download fails. User can click 'Download' to

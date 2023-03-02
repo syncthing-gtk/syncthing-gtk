@@ -8,13 +8,13 @@ See syncthing_gtk/nautilusplugin.py for more info
 # syncthing_gtk package from loading stuff that depends on GTK3-only
 # features. It probably breaks other modules in most horrible ways,
 # but they are not going to be used anyway
+from syncthing_gtk.nautilusplugin import NautiluslikeExtension
 import os
 
 from gi.repository import Caja
 
 os.environ["GTK2APP"] = "1"
 
-from syncthing_gtk.nautilusplugin import NautiluslikeExtension
 
 NautiluslikeExtension.set_plugin_module(Caja)
 
