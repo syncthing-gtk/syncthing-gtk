@@ -21,15 +21,22 @@ from xml.dom import minidom
 from dateutil import tz
 from gi.repository import Gio, GLib, GObject
 
-from syncthing_gtk.http import (HTTP_HEADERS, ConnectionRestarted,
-                                EventPollLoop, HTTPAuthException, HTTPCode,
-                                HTTPError, InvalidConfigurationException,
-                                InvalidHTTPResponse, RESTPOSTRequest,
-                                RESTRequest, TLSErrorException,
-                                TLSUnsupportedException)
+from syncthing_gtk.http import (
+    HTTP_HEADERS,
+    ConnectionRestarted,
+    EventPollLoop,
+    HTTPAuthException,
+    HTTPCode,
+    HTTPError,
+    InvalidConfigurationException,
+    InvalidHTTPResponse,
+    RESTPOSTRequest,
+    RESTRequest,
+    TLSErrorException,
+    TLSUnsupportedException,
+)
 from syncthing_gtk.timermanager import TimerManager
-from syncthing_gtk.tools import (compare_version, get_config_dir, get_header,
-                                 parsetime)
+from syncthing_gtk.tools import compare_version, get_config_dir, get_header, parsetime
 
 log = logging.getLogger("Daemon")
 

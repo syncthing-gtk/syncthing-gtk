@@ -15,9 +15,15 @@ from syncthing_gtk.editordialog import EditorDialog
 from syncthing_gtk.notifications import HAS_DESKTOP_NOTIFY, Notifications
 from syncthing_gtk.stdownloader import StDownloader
 from syncthing_gtk.tools import _  # gettext function
-from syncthing_gtk.tools import (IS_GNOME, IS_UNITY, IS_WINDOWS,
-                                 get_config_dir, get_executable,
-                                 is_ran_on_startup, set_run_on_startup)
+from syncthing_gtk.tools import (
+    IS_GNOME,
+    IS_UNITY,
+    IS_WINDOWS,
+    get_config_dir,
+    get_executable,
+    is_ran_on_startup,
+    set_run_on_startup,
+)
 
 log = logging.getLogger("UISettingsDialog")
 

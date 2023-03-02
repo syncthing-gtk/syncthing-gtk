@@ -40,9 +40,7 @@ if __name__ == "__main__":
 
     from syncthing_gtk.configuration import Configuration
     from syncthing_gtk.tools import init_locale, init_logging
-    from syncthing_gtk.windows import (enable_localization,
-                                       fix_localized_system_error_messages,
-                                       override_menu_borders)
+    from syncthing_gtk.windows import enable_localization, fix_localized_system_error_messages, override_menu_borders
 
     init_logging()
     config = Configuration()
