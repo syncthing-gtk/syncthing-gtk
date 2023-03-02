@@ -8,11 +8,13 @@ Base class and universal handler for all Syncthing settings and editing
 
 from gi.repository import Gtk, Gdk, GObject, GLib
 from syncthing_gtk.tools import ints
-from syncthing_gtk.tools import _ # gettext function
+from syncthing_gtk.tools import _  # gettext function
 from syncthing_gtk.daemon import ConnectionRestarted
 from syncthing_gtk.uibuilder import UIBuilder
 import os, logging
+
 log = logging.getLogger("EditorDialog")
+
 
 class EditorDialog(GObject.GObject):
     """
@@ -24,6 +26,7 @@ class EditorDialog(GObject.GObject):
         loaded()
             Emitted after dialog loads and parses configuration data
     """
+
     __gsignals__ = {
         "close": (GObject.SIGNAL_RUN_FIRST, None, ()),
         "loaded": (GObject.SIGNAL_RUN_FIRST, None, ()),
@@ -42,7 +45,7 @@ class EditorDialog(GObject.GObject):
         self.values = None
         self.checks = {}
         # Stores original label  value while error message is displayed.
-        self.original_labels={}
+        self.original_labels = {}
         # Used by get_widget_id
         self.widget_to_id = {}
         self.setup_widgets(gladefile, title)
@@ -69,16 +72,16 @@ class EditorDialog(GObject.GObject):
                 self["editor"].resize(self["editor"].get_size()[0], Gdk.Screen.get_default().height() * 2 / 3)
 
     def load(self):
-        """ Loads configuration data and pre-fills values to fields """
+        """Loads configuration data and pre-fills values to fields"""
         self._loading = True
         self.load_data()
 
     def __getitem__(self, name):
-        """ Convience method that allows widgets to be accessed via self["widget"] """
+        """Convience method that allows widgets to be accessed via self["widget"]"""
         return self.builder.get_object(name)
 
     def __contains__(self, name):
-        """ Returns true if there is such widget """
+        """Returns true if there is such widget"""
         return self.builder.get_object(name) != None
 
     def get_widget_id(self, w):
@@ -91,9 +94,10 @@ class EditorDialog(GObject.GObject):
         return self.widget_to_id[w]
 
     def find_widget_by_id(self, id, parent=None):
-        """ Recursively searches for widget with specified ID """
+        """Recursively searches for widget with specified ID"""
         if parent == None:
-            if id in self: return self[id] # Do things fast if possible
+            if id in self:
+                return self[id]  # Do things fast if possible
             parent = self["editor"]
         for c in parent.get_children():
             if hasattr(c, "get_id"):
@@ -132,7 +136,7 @@ class EditorDialog(GObject.GObject):
         # Disable everything until configuration is loaded
         self["editor"].set_sensitive(False)
 
-    def get_burried_value(self, key, vals, default, convert=lambda a:a):
+    def get_burried_value(self, key, vals, default, convert=lambda a: a):
         """
         Returns value stored deeper in element tree.
         Method is called recursively for every tree level. If value is
@@ -175,12 +179,14 @@ class EditorDialog(GObject.GObject):
         """
         Creates structure of nested dicts, if they are not in place already.
         """
-        if not type(keys) == list: keys = list(keys)
-        if len(keys) == 0 : return  # Done
+        if not type(keys) == list:
+            keys = list(keys)
+        if len(keys) == 0:
+            return  # Done
         key, rest = keys[0], keys[1:]
-        if not key in parent :
+        if not key in parent:
             parent[key] = {}
-        if parent[key] in ("", None ):
+        if parent[key] in ("", None):
             parent[key] = {}
         self.create_dicts(parent[key], rest)
 
@@ -188,8 +194,8 @@ class EditorDialog(GObject.GObject):
         self.app.daemon.read_config(self.cb_data_loaded, self.cb_data_failed)
 
     def display_error_message(self, value_id):
-        """ Changes text on associated label to error message """
-        wid = "lbl%s" % (value_id,) # widget id
+        """Changes text on associated label to error message"""
+        wid = "lbl%s" % (value_id,)  # widget id
         if value_id in self.original_labels:
             # Already done
             return
@@ -200,14 +206,14 @@ class EditorDialog(GObject.GObject):
         self[wid].set_markup('<span color="red">%s</span>' % (self.MESSAGES[value_id],))
 
     def hide_error_message(self, value_id):
-        """ Changes text on associated label back to normal text """
-        wid = "lbl%s" % (value_id,) # widget id
+        """Changes text on associated label back to normal text"""
+        wid = "lbl%s" % (value_id,)  # widget id
         if value_id in self.original_labels:
             self[wid].set_label(self.original_labels[value_id])
             del self.original_labels[value_id]
 
     def cb_data_loaded(self, config):
-        """ Used as handler in load_data """
+        """Used as handler in load_data"""
         self.config = config
         if self.on_data_loaded():
             self.update_special_widgets()
@@ -266,7 +272,8 @@ class EditorDialog(GObject.GObject):
             w.set_active(self.get_value(strip_v(key)))
         else:
             log.warning("display_value: %s class cannot handle widget %s, key %s", self.__class__.__name__, w, key)
-            if not w is None: w.set_sensitive(False)
+            if not w is None:
+                w.set_sensitive(False)
 
     def ui_value_changed(self, w, *a):
         """
@@ -318,15 +325,13 @@ class EditorDialog(GObject.GObject):
         """
         # All other errors are fatal for now. Error dialog is displayed and program exits.
         d = Gtk.MessageDialog(
-                self["editor"],
-                Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
-                Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE,
-                "%s %s\n\n%s %s" % (
-                    _("Failed to load configuration from daemon."),
-                    _("Try again."),
-                    _("Error message:"), str(exception)
-                    )
-                )
+            self["editor"],
+            Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+            Gtk.MessageType.ERROR,
+            Gtk.ButtonsType.CLOSE,
+            "%s %s\n\n%s %s"
+            % (_("Failed to load configuration from daemon."), _("Try again."), _("Error message:"), str(exception)),
+        )
         d.run()
         self.close()
 
@@ -353,7 +358,7 @@ class EditorDialog(GObject.GObject):
                 self.hide_error_message(x)
 
     def cb_btSave_clicked(self, *a):
-        """ Calls on_save_requested to do actual work """
+        """Calls on_save_requested to do actual work"""
         self.on_save_requested()
 
     def on_save_requested(self, config):
@@ -396,12 +401,12 @@ class EditorDialog(GObject.GObject):
         # else nothing, unknown widget class cannot be read
 
     def cb_format_value_s(self, spinner):
-        """ Formats spinner value """
+        """Formats spinner value"""
         spinner.get_buffer().set_text(_("%ss") % (int(spinner.get_adjustment().get_value()),), -1)
         return True
 
     def cb_format_value_s_or_disabed(self, spinner):
-        """ Formats spinner value """
+        """Formats spinner value"""
         val = int(spinner.get_adjustment().get_value())
         if val < 1:
             spinner.get_buffer().set_text(_("disabled"), -1)
@@ -410,13 +415,13 @@ class EditorDialog(GObject.GObject):
         return True
 
     def cb_format_value_percent(self, spinner):
-        """ Formats spinner value """
+        """Formats spinner value"""
         val = int(spinner.get_adjustment().get_value())
         spinner.get_buffer().set_text(_("%s%%") % (val,), -1)
         return True
 
     def cb_format_value_kibps_or_no_limit(self, spinner):
-        """ Formats spinner value """
+        """Formats spinner value"""
         val = int(spinner.get_adjustment().get_value())
         if val < 1:
             spinner.get_buffer().set_text(_("no limit"), -1)
@@ -425,7 +430,7 @@ class EditorDialog(GObject.GObject):
         return True
 
     def cb_format_value_days(self, spinner):
-        """ Formats spinner value """
+        """Formats spinner value"""
         v = int(spinner.get_adjustment().get_value())
         if v == 0:
             spinner.get_buffer().set_text(_("never delete"), -1)
@@ -436,7 +441,7 @@ class EditorDialog(GObject.GObject):
         return True
 
     def post_config(self):
-        """ Posts edited configuration back to daemon """
+        """Posts edited configuration back to daemon"""
         self["editor"].set_sensitive(False)
         self.app.daemon.write_config(self.config, self.syncthing_cb_post_config, self.syncthing_cb_post_error)
 
@@ -460,10 +465,7 @@ class EditorDialog(GObject.GObject):
             # Should be ok, this restart is triggered
             # by App handler for 'config-saved' event.
             return self.syncthing_cb_post_config()
-        message = "%s\n%s" % (
-            _("Failed to save configuration."),
-            str(exception)
-        )
+        message = "%s\n%s" % (_("Failed to save configuration."), str(exception))
 
         if hasattr(exception, "full_response"):
             try:
@@ -477,24 +479,30 @@ class EditorDialog(GObject.GObject):
         d = Gtk.MessageDialog(
             self["editor"],
             Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
-            Gtk.MessageType.INFO, Gtk.ButtonsType.CLOSE,
-            message
-            )
+            Gtk.MessageType.INFO,
+            Gtk.ButtonsType.CLOSE,
+            message,
+        )
         d.run()
         d.hide()
         d.destroy()
         self["editor"].set_sensitive(True)
 
     def call_after_loaded(self, callback, *data):
-        """ Calls callback when 'loaded' event is emitted """
-        self.connect("loaded",
+        """Calls callback when 'loaded' event is emitted"""
+        self.connect(
+            "loaded",
             # lambda below throws 'event_source' argument and
             # calls callback with rest of arguments
-            lambda obj, callback, *a : callback(*a),
-            callback, *data
-            )
+            lambda obj, callback, *a: callback(*a),
+            callback,
+            *data,
+        )
+
 
 """ Strips 'v' prefix used in widget IDs """
-strip_v = lambda x:  x[1:] if x.startswith("v") else x
+strip_v = lambda x: x[1:] if x.startswith("v") else x
 
-class ValueNotFoundError(KeyError): pass
+
+class ValueNotFoundError(KeyError):
+    pass

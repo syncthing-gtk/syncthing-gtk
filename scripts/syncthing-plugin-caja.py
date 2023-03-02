@@ -11,10 +11,13 @@ from gi.repository import Caja
 # features. It probably breaks other modules in most horrible ways,
 # but they are not going to be used anyway
 import os
+
 os.environ["GTK2APP"] = "1"
 
 from syncthing_gtk.nautilusplugin import NautiluslikeExtension
 
 NautiluslikeExtension.set_plugin_module(Caja)
+
+
 class CajaNautilus(NautiluslikeExtension, Caja.InfoProvider, Caja.MenuProvider):
     pass

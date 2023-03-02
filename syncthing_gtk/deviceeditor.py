@@ -8,36 +8,35 @@ Universal dialog handler for all Syncthing settings and editing
 
 from gi.repository import Gtk
 from syncthing_gtk.tools import check_device_id
-from syncthing_gtk.tools import _ # gettext function
+from syncthing_gtk.tools import _  # gettext function
 from syncthing_gtk.editordialog import EditorDialog, strip_v
 import logging
+
 log = logging.getLogger("DeviceEditor")
 
 COLOR_NEW = "#A0A0A0"
-VALUES = [ "vdeviceID", "vname", "vaddresses", "vcompression",
-    "vfolders", "vintroducer"
-    ]
+VALUES = ["vdeviceID", "vname", "vaddresses", "vcompression", "vfolders", "vintroducer"]
+
 
 class DeviceEditorDialog(EditorDialog):
     MESSAGES = {
         # Displayed when device id is invalid
-        "vdeviceID" : _("The entered device ID does not look valid. It "
+        "vdeviceID": _(
+            "The entered device ID does not look valid. It "
             "should be a 52 character string consisting of letters and "
-            "numbers, with spaces and dashes being optional."),
+            "numbers, with spaces and dashes being optional."
+        ),
     }
 
     def __init__(self, app, is_new, id=None):
-        EditorDialog.__init__(self, app,
-            "device-edit.glade",
-            "New Device" if is_new else "Edit Device"
-            )
+        EditorDialog.__init__(self, app, "device-edit.glade", "New Device" if is_new else "Edit Device")
         self.id = id
         self.is_new = is_new
 
-    #@Overrides
+    # @Overrides
     def get_value(self, key):
         if key == "addresses":
-            return ",".join([ strip_v(x) for x in self.values[key]])
+            return ",".join([strip_v(x) for x in self.values[key]])
         elif key == "deviceID":
             return EditorDialog.get_value(self, key).strip(" \r\n\t")
         elif key == "compression":
@@ -52,28 +51,28 @@ class DeviceEditorDialog(EditorDialog):
         else:
             return EditorDialog.get_value(self, key)
 
-    #@Overrides
+    # @Overrides
     def set_value(self, key, value):
         if key == "addresses":
-            self.values[key] = [ strip_v(x) for x in value.split(",") ]
+            self.values[key] = [strip_v(x) for x in value.split(",")]
         else:
             return EditorDialog.set_value(self, key, value)
 
-    #@Overrides
+    # @Overrides
     def on_data_loaded(self):
         try:
             if self.is_new:
-                self.values = { strip_v(x) : "" for x in VALUES }
+                self.values = {strip_v(x): "" for x in VALUES}
                 self.set_value("addresses", "dynamic")
                 self.set_value("compression", "metadata")
                 self.checks = {
-                    "vdeviceID" : check_device_id,
-                    }
+                    "vdeviceID": check_device_id,
+                }
                 if self.id != None:
                     # Pre-fill device id, if provided
                     self.set_value("deviceID", self.id)
             else:
-                self.values = [ x for x in self.config["devices"] if x["deviceID"] == self.id ][0]
+                self.values = [x for x in self.config["devices"] if x["deviceID"] == self.id][0]
         except KeyError as e:
             # ID not found in configuration. This is practically impossible,
             # so it's handled only by self-closing dialog.
@@ -82,18 +81,18 @@ class DeviceEditorDialog(EditorDialog):
             return
         return self.display_values(VALUES)
 
-    #@Overrides
+    # @Overrides
     def display_value(self, key, w):
         if key == "vfolders":
             # Even more special case
-            rids = [ ]
+            rids = []
             # Get list of folders that share this device
             for r in self.config["folders"]:
                 for n in r["devices"]:
                     if n["deviceID"] == self.id and r["id"] not in rids:
                         rids.append(r["id"])
             # Create CheckButtons
-            for folder in reversed(sorted(list(self.app.folders.values()), key=lambda x : x["id"])):
+            for folder in reversed(sorted(list(self.app.folders.values()), key=lambda x: x["id"])):
                 b = Gtk.CheckButton(folder["path"], False)
                 b.set_tooltip_text(folder["id"])
                 self["vfolders"].pack_start(b, False, False, 0)
@@ -102,11 +101,11 @@ class DeviceEditorDialog(EditorDialog):
         else:
             EditorDialog.display_value(self, key, w)
 
-    #@Overrides
+    # @Overrides
     def update_special_widgets(self, *a):
         self["vdeviceID"].set_sensitive(self.is_new)
 
-    #@Overrides
+    # @Overrides
     def on_save_requested(self):
         self.store_values(VALUES)
         if self.is_new:
@@ -115,12 +114,13 @@ class DeviceEditorDialog(EditorDialog):
         # Post configuration back to daemon
         self.post_config()
 
-    #@Overrides
+    # @Overrides
     def store_value(self, key, w):
         if key == "vaddresses":
             addresses = [
                 x.strip() if "://" in x or x.strip() == "dynamic" else "tcp://%s" % (x.strip(),)
-                for x in w.get_text().split(",") ]
+                for x in w.get_text().split(",")
+            ]
             self.set_value("addresses", ",".join(addresses))
         elif key == "vfolders":
             # Generate dict of { folder_id : bool } where bool is True if
@@ -143,16 +143,12 @@ class DeviceEditorDialog(EditorDialog):
                         found = True
                 if (not found) and (rid in folders) and folders[rid]:
                     # Add new /<device> key (share folder with device)
-                    r["devices"].append({
-                       "addresses" : None,
-                       "deviceID" : nid,
-                       "name" : "",
-                       "certName" : "",
-                       "compression" : "metadata"
-                        })
+                    r["devices"].append(
+                        {"addresses": None, "deviceID": nid, "name": "", "certName": "", "compression": "metadata"}
+                    )
         else:
             EditorDialog.store_value(self, key, w)
 
-    #@Overrides
+    # @Overrides
     def on_saved(self):
         self.close()

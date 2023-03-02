@@ -11,10 +11,18 @@ Create instance, connect singal handlers and call daemon.reconnect()
 
 from gi.repository import Gio, GLib, GObject
 from syncthing_gtk.http import (
-    RESTRequest, RESTPOSTRequest, EventPollLoop,
-    InvalidConfigurationException,TLSUnsupportedException, TLSErrorException,
-    HTTPError, InvalidHTTPResponse, HTTPCode, HTTPAuthException, ConnectionRestarted,
-    HTTP_HEADERS
+    RESTRequest,
+    RESTPOSTRequest,
+    EventPollLoop,
+    InvalidConfigurationException,
+    TLSUnsupportedException,
+    TLSErrorException,
+    HTTPError,
+    InvalidHTTPResponse,
+    HTTPCode,
+    HTTPAuthException,
+    ConnectionRestarted,
+    HTTP_HEADERS,
 )
 from syncthing_gtk.timermanager import TimerManager
 from syncthing_gtk.tools import parsetime, get_header, compare_version
@@ -23,6 +31,7 @@ from dateutil import tz
 from xml.dom import minidom
 from datetime import datetime
 import json, os, sys, time, logging, urllib.parse
+
 log = logging.getLogger("Daemon")
 
 # Minimal version supported by Daemon class
@@ -30,6 +39,7 @@ MIN_VERSION = "0.14"
 
 # Last-seen values before this date are translated to never
 NEVER = datetime(1971, 1, 1, 1, 1, 1, tzinfo=tz.tzlocal())
+
 
 class Daemon(GObject.GObject, TimerManager):
     """
@@ -232,48 +242,54 @@ class Daemon(GObject.GObject, TimerManager):
                 d_total:    Total number of discovery servers
     """
 
-
     __gsignals__ = {
-        "config-out-of-sync":   (GObject.SIGNAL_RUN_FIRST, None, ()),
-        "config-saved":         (GObject.SIGNAL_RUN_FIRST, None, ()),
-        "connected":            (GObject.SIGNAL_RUN_FIRST, None, ()),
-        "disconnected":         (GObject.SIGNAL_RUN_FIRST, None, (int, object)),
-        "config-loaded":        (GObject.SIGNAL_RUN_FIRST, None, (object,)),
-        "connection-error":     (GObject.SIGNAL_RUN_FIRST, None, (int, object, object)),
-        "error":                (GObject.SIGNAL_RUN_FIRST, None, (object,)),
-        "folder-rejected":      (GObject.SIGNAL_RUN_FIRST, None, (object,object,object)),
-        "device-rejected":      (GObject.SIGNAL_RUN_FIRST, None, (object,object,object)),
-        "my-id-changed":        (GObject.SIGNAL_RUN_FIRST, None, (object,)),
-        "device-added":         (GObject.SIGNAL_RUN_FIRST, None, (object, object, bool, object)),
-        "device-connected":     (GObject.SIGNAL_RUN_FIRST, None, (object,)),
-        "device-disconnected":  (GObject.SIGNAL_RUN_FIRST, None, (object,)),
-        "device-discovered":    (GObject.SIGNAL_RUN_FIRST, None, (object,object,)),
-        "device-data-changed":  (GObject.SIGNAL_RUN_FIRST, None, (object, object, object, float, float, object, object)),
-        "last-seen-changed":    (GObject.SIGNAL_RUN_FIRST, None, (object, object)),
-        "device-paused":        (GObject.SIGNAL_RUN_FIRST, None, (object,)),
-        "device-resumed":       (GObject.SIGNAL_RUN_FIRST, None, (object,)),
-        "device-sync-started":  (GObject.SIGNAL_RUN_FIRST, None, (object, float)),
+        "config-out-of-sync": (GObject.SIGNAL_RUN_FIRST, None, ()),
+        "config-saved": (GObject.SIGNAL_RUN_FIRST, None, ()),
+        "connected": (GObject.SIGNAL_RUN_FIRST, None, ()),
+        "disconnected": (GObject.SIGNAL_RUN_FIRST, None, (int, object)),
+        "config-loaded": (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        "connection-error": (GObject.SIGNAL_RUN_FIRST, None, (int, object, object)),
+        "error": (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        "folder-rejected": (GObject.SIGNAL_RUN_FIRST, None, (object, object, object)),
+        "device-rejected": (GObject.SIGNAL_RUN_FIRST, None, (object, object, object)),
+        "my-id-changed": (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        "device-added": (GObject.SIGNAL_RUN_FIRST, None, (object, object, bool, object)),
+        "device-connected": (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        "device-disconnected": (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        "device-discovered": (
+            GObject.SIGNAL_RUN_FIRST,
+            None,
+            (
+                object,
+                object,
+            ),
+        ),
+        "device-data-changed": (GObject.SIGNAL_RUN_FIRST, None, (object, object, object, float, float, object, object)),
+        "last-seen-changed": (GObject.SIGNAL_RUN_FIRST, None, (object, object)),
+        "device-paused": (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        "device-resumed": (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        "device-sync-started": (GObject.SIGNAL_RUN_FIRST, None, (object, float)),
         "device-sync-progress": (GObject.SIGNAL_RUN_FIRST, None, (object, float)),
         "device-sync-finished": (GObject.SIGNAL_RUN_FIRST, None, (object,)),
-        "folder-added":         (GObject.SIGNAL_RUN_FIRST, None, (object, object)),
-        "folder-error":         (GObject.SIGNAL_RUN_FIRST, None, (object, object)),
-        "folder-data-changed":  (GObject.SIGNAL_RUN_FIRST, None, (object, object)),
-        "folder-data-failed":   (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        "folder-added": (GObject.SIGNAL_RUN_FIRST, None, (object, object)),
+        "folder-error": (GObject.SIGNAL_RUN_FIRST, None, (object, object)),
+        "folder-data-changed": (GObject.SIGNAL_RUN_FIRST, None, (object, object)),
+        "folder-data-failed": (GObject.SIGNAL_RUN_FIRST, None, (object,)),
         "folder-sync-finished": (GObject.SIGNAL_RUN_FIRST, None, (object,)),
         "folder-sync-progress": (GObject.SIGNAL_RUN_FIRST, None, (object, float)),
-        "folder-sync-started":  (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        "folder-sync-started": (GObject.SIGNAL_RUN_FIRST, None, (object,)),
         "folder-scan-finished": (GObject.SIGNAL_RUN_FIRST, None, (object,)),
-        "folder-scan-started":  (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        "folder-scan-started": (GObject.SIGNAL_RUN_FIRST, None, (object,)),
         "folder-scan-progress": (GObject.SIGNAL_RUN_FIRST, None, (object, float)),
-        "folder-stopped":       (GObject.SIGNAL_RUN_FIRST, None, (object,object)),
-        "item-started":         (GObject.SIGNAL_RUN_FIRST, None, (object,object,object)),
-        "item-updated":         (GObject.SIGNAL_RUN_FIRST, None, (object,object,object)),
-        "startup-complete":     (GObject.SIGNAL_RUN_FIRST, None, ()),
-        "system-data-updated":  (GObject.SIGNAL_RUN_FIRST, None, (int, float, int, int)),
+        "folder-stopped": (GObject.SIGNAL_RUN_FIRST, None, (object, object)),
+        "item-started": (GObject.SIGNAL_RUN_FIRST, None, (object, object, object)),
+        "item-updated": (GObject.SIGNAL_RUN_FIRST, None, (object, object, object)),
+        "startup-complete": (GObject.SIGNAL_RUN_FIRST, None, ()),
+        "system-data-updated": (GObject.SIGNAL_RUN_FIRST, None, (int, float, int, int)),
     }
 
     # Constants for 'reason' parameter of disconnected event
-    UNEXPECTED = 0 # connection closed by daemon
+    UNEXPECTED = 0  # connection closed by daemon
     SHUTDOWN = 1
     RESTART = 2
 
@@ -291,7 +307,7 @@ class Daemon(GObject.GObject, TimerManager):
         self._address = None
         self._api_key = None
         self._connected = False
-        self._refresh_interval = 1 # seconds
+        self._refresh_interval = 1  # seconds
         self._configxml = syncthing_configxml
         # syncing_folders holds set of folders that are being synchronized
         self._syncing_folders = set()
@@ -312,7 +328,7 @@ class Daemon(GObject.GObject, TimerManager):
         # last-seen-changed event with same values twice
         self._last_seen = {}
         # last_error_time is used to discard repeating errors
-        self._last_error_time = None # Time is taken for first event
+        self._last_error_time = None  # Time is taken for first event
         # last_id is id of last event received from daemon
         self._last_id = 0
         # Epoch is increased when reconnect() method is called; It is
@@ -328,7 +344,9 @@ class Daemon(GObject.GObject, TimerManager):
         # Read syncthing config to get connection url
         if not self._configxml:
             self._configxml = os.path.join(get_config_dir(), "syncthing", "config.xml")
-        if not os.path.exists(self._configxml) and os.path.exists(os.path.expanduser("~/snap/syncthing/common/syncthing")):
+        if not os.path.exists(self._configxml) and os.path.exists(
+            os.path.expanduser("~/snap/syncthing/common/syncthing")
+        ):
             # Special case for syncthing in snap package
             self._configxml = os.path.expanduser("~/snap/syncthing/common/syncthing/config.xml")
         try:
@@ -343,8 +361,7 @@ class Daemon(GObject.GObject, TimerManager):
             raise InvalidConfigurationException("Failed to parse daemon configuration: %s" % e)
         tls = "false"
         try:
-            tls = xml.getElementsByTagName("configuration")[0] \
-                .getElementsByTagName("gui")[0].getAttribute("tls")
+            tls = xml.getElementsByTagName("configuration")[0].getElementsByTagName("gui")[0].getAttribute("tls")
         except Exception as e:
             pass
         self._tls = False
@@ -353,15 +370,18 @@ class Daemon(GObject.GObject, TimerManager):
             self._tls = True
             try:
                 self._cert = Gio.TlsCertificate.new_from_file(
-                    os.path.join(get_config_dir(), "syncthing", "https-cert.pem"))
+                    os.path.join(get_config_dir(), "syncthing", "https-cert.pem")
+                )
             except Exception as e:
                 log.exception(e)
                 raise TLSErrorException("Failed to load daemon certificate")
         try:
-            self._address = xml.getElementsByTagName("configuration")[0] \
-                            .getElementsByTagName("gui")[0] \
-                            .getElementsByTagName("address")[0] \
-                            .firstChild.nodeValue
+            self._address = (
+                xml.getElementsByTagName("configuration")[0]
+                .getElementsByTagName("gui")[0]
+                .getElementsByTagName("address")[0]
+                .firstChild.nodeValue
+            )
             if self._address.startswith("0.0.0.0"):
                 addr, port = self._address.split(":", 1)
                 self._address = "127.0.0.1:%s" % (port,)
@@ -370,10 +390,12 @@ class Daemon(GObject.GObject, TimerManager):
             log.exception(e)
             raise InvalidConfigurationException("Required configuration node not found in daemon config file")
         try:
-            self._api_key = xml.getElementsByTagName("configuration")[0] \
-                            .getElementsByTagName("gui")[0] \
-                            .getElementsByTagName("apikey")[0] \
-                            .firstChild.nodeValue
+            self._api_key = (
+                xml.getElementsByTagName("configuration")[0]
+                .getElementsByTagName("gui")[0]
+                .getElementsByTagName("apikey")[0]
+                .firstChild.nodeValue
+            )
         except Exception as e:
             # API key can be none
             pass
@@ -387,25 +409,36 @@ class Daemon(GObject.GObject, TimerManager):
         self.api_key = api_key
 
     def _get_device_data(self, nid):
-        """ Returns dict with device data, creating it if needed """
+        """Returns dict with device data, creating it if needed"""
         if not nid in self._device_data:
             self._device_data[nid] = {
-                    "inBytesTotal" : 0, "outBytesTotal" : 0,
-                    "inbps" : 0, "outbps" : 0 , "clientVersion" : "?",
-                    "address": "", "completion" : {}, "connected" : False,
-                }
+                "inBytesTotal": 0,
+                "outBytesTotal": 0,
+                "inbps": 0,
+                "outbps": 0,
+                "clientVersion": "?",
+                "address": "",
+                "completion": {},
+                "connected": False,
+            }
         return self._device_data[nid]
 
     def _request_config(self, *a):
-        """ Request settings from syncthing daemon """
+        """Request settings from syncthing daemon"""
         RESTRequest(self, "system/config", self._syncthing_cb_config, self._syncthing_cb_config_error).start()
 
     def _request_folder_data(self, folder_id):
-        id_enc = urllib.parse.quote(folder_id.encode('utf-8'))
-        RESTRequest(self, "db/status?folder=%s" % (id_enc,), self._syncthing_cb_folder_data, self._syncthing_cb_folder_data_failed, folder_id).start()
+        id_enc = urllib.parse.quote(folder_id.encode("utf-8"))
+        RESTRequest(
+            self,
+            "db/status?folder=%s" % (id_enc,),
+            self._syncthing_cb_folder_data,
+            self._syncthing_cb_folder_data_failed,
+            folder_id,
+        ).start()
 
     def _request_last_seen(self, *a):
-        """ Request 'last seen' values for all devices """
+        """Request 'last seen' values for all devices"""
         RESTRequest(self, "stats/device", self._syncthing_cb_last_seen).ignore_error().start()
 
     def _parse_dev_n_folders(self, config):
@@ -419,29 +452,30 @@ class Daemon(GObject.GObject, TimerManager):
             rid = r["id"]
             for n in r["devices"]:
                 nid = n["deviceID"]
-                if not nid in device_folders : device_folders[nid] = []
+                if not nid in device_folders:
+                    device_folders[nid] = []
                 device_folders[nid].append(rid)
 
         # Parse devices
-        for n in sorted(config["devices"], key=lambda x : x["name"].lower()):
+        for n in sorted(config["devices"], key=lambda x: x["name"].lower()):
             nid = n["deviceID"]
-            self._get_device_data(nid)    # Creates dict with device data
+            self._get_device_data(nid)  # Creates dict with device data
             used = (nid in device_folders) and (len(device_folders[nid]) > 0)
             self.emit("device-added", nid, n["name"], used, n)
 
         # Parse folders
-        for r in sorted(config["folders"], key=lambda x : x["id"].lower()):
+        for r in sorted(config["folders"], key=lambda x: x["id"].lower()):
             rid = r["id"]
             self._syncing_folders.add(rid)
-            self._folder_devices[rid] = [ n["deviceID"] for n in r["devices"] ]
+            self._folder_devices[rid] = [n["deviceID"] for n in r["devices"]]
             self.emit("folder-added", rid, r)
             self._request_folder_data(rid)
 
     ### Callbacks ###
 
     def _syncthing_cb_shutdown(self, data, reason):
-        """ Callback for 'shutdown' AND 'restart' request """
-        if 'ok' in data:
+        """Callback for 'shutdown' AND 'restart' request"""
+        if "ok" in data:
             if self._connected:
                 self._connected = False
                 self._epoch += 1
@@ -484,15 +518,15 @@ class Daemon(GObject.GObject, TimerManager):
 
             # Compute rates
             try:
-                cons[id]["inbps"] = max(0.0, (cons[id]["inBytesTotal"] - device_data["inBytesTotal"]) / td);
-                cons[id]["outbps"] = max(0.0, (cons[id]["outBytesTotal"] - device_data["outBytesTotal"]) / td);
+                cons[id]["inbps"] = max(0.0, (cons[id]["inBytesTotal"] - device_data["inBytesTotal"]) / td)
+                cons[id]["outbps"] = max(0.0, (cons[id]["outBytesTotal"] - device_data["outBytesTotal"]) / td)
             except Exception:
                 cons[id]["inbps"] = 0.0
                 cons[id]["outbps"] = 0.0
             # Store updated device_data
             for key in cons[id]:
-                if not key in ('clientVersion', 'connected'):    # Don't want copy those
-                    if cons[id][key] != "":    # Happens for 'total'
+                if not key in ("clientVersion", "connected"):  # Don't want copy those
+                    if cons[id][key] != "":  # Happens for 'total'
                         device_data[key] = cons[id][key]
 
             if "clientVersion" in cons[id] and cons[id]["clientVersion"] != "":
@@ -509,13 +543,16 @@ class Daemon(GObject.GObject, TimerManager):
                         device_data["connected"] = True
                         self.emit("device-connected", nid)
             # Send "device-data-changed" signal
-            self.emit("device-data-changed", nid,
+            self.emit(
+                "device-data-changed",
+                nid,
                 device_data["address"],
                 device_data["clientVersion"],
                 device_data["inbps"],
                 device_data["outbps"],
                 device_data["inBytesTotal"],
-                device_data["outBytesTotal"])
+                device_data["outBytesTotal"],
+            )
 
         # ... repeat until pronounced dead
         r = RESTRequest(self, "system/connections", self._syncthing_cb_connections, None, now)
@@ -525,10 +562,11 @@ class Daemon(GObject.GObject, TimerManager):
         for nid in data:
             if nid != HTTP_HEADERS:
                 t = parsetime(data[nid]["lastSeen"])
-                if t < NEVER: t = None
+                if t < NEVER:
+                    t = None
                 if not nid in self._last_seen or self._last_seen[nid] != t:
                     self._last_seen[nid] = t
-                    self.emit('last-seen-changed', nid, t)
+                    self.emit("last-seen-changed", nid, t)
 
     def _syncthing_cb_completion(self, data):
         nid = data["device"]
@@ -555,7 +593,6 @@ class Daemon(GObject.GObject, TimerManager):
             else:
                 self.emit("device-sync-progress", nid, sync)
 
-
     def _syncthing_cb_system(self, data):
         if "myID" not in data:
             # Invalid response
@@ -569,7 +606,7 @@ class Daemon(GObject.GObject, TimerManager):
                 # Can myID be ever changed?
                 log.warning("My ID has been changed on the fly")
             self._my_id = data["myID"]
-            self.emit('my-id-changed', self._my_id)
+            self.emit("my-id-changed", self._my_id)
             version = get_header(data[HTTP_HEADERS], "X-Syncthing-Version")
             if version:
                 self._syncthing_cb_version_known(version)
@@ -588,8 +625,7 @@ class Daemon(GObject.GObject, TimerManager):
                 if self._instance_id != data["startTime"]:
                     return self._instance_replaced()
 
-        self.emit('system-data-updated', data["sys"],
-            float(data["cpuPercent"]), d_failed, d_total)
+        self.emit("system-data-updated", data["sys"], float(data["cpuPercent"]), d_failed, d_total)
 
         r = RESTRequest(self, "system/status", self._syncthing_cb_system)
         self.timer("system", self._refresh_interval * 5, r.start)
@@ -603,7 +639,7 @@ class Daemon(GObject.GObject, TimerManager):
         self._disconnected(message="Daemon instance replaced unexpectedly")
 
     def _disconnected(self, reason=UNEXPECTED, message=""):
-        """ Called to prepare and emit "disconnected" signal """
+        """Called to prepare and emit "disconnected" signal"""
         self._my_id = None
         if self._connected:
             self._connected = False
@@ -635,20 +671,25 @@ class Daemon(GObject.GObject, TimerManager):
             device = self._get_device_data(self._my_id)
             if version != device["clientVersion"]:
                 device["clientVersion"] = version
-                self.emit("device-data-changed", self._my_id,
+                self.emit(
+                    "device-data-changed",
+                    self._my_id,
                     None,
                     device["clientVersion"],
-                    device["inbps"], device["outbps"],
-                    device["inBytesTotal"], device["outBytesTotal"])
+                    device["inbps"],
+                    device["outbps"],
+                    device["inBytesTotal"],
+                    device["outBytesTotal"],
+                )
 
     def _syncthing_cb_folder_data(self, data, rid):
-        state = data['state']
-        if state in ('error', 'stopped'):
+        state = data["state"]
+        if state in ("error", "stopped"):
             if not rid in self._stopped_folders:
                 self._stopped_folders.add(rid)
                 reason = data["invalid"] or data["error"]
                 self.emit("folder-stopped", rid, reason)
-        self.emit('folder-data-changed', rid, data)
+        self.emit("folder-data-changed", rid, data)
         p = 0.0
         if state == "syncing":
             if float(data["globalBytes"]) > 0.0:
@@ -656,7 +697,7 @@ class Daemon(GObject.GObject, TimerManager):
         self._folder_state_changed(rid, state, p)
 
     def _syncthing_cb_folder_data_failed(self, exception, request, rid):
-        self.emit('folder-data-failed', rid)
+        self.emit("folder-data-failed", rid)
 
     def _syncthing_cb_config(self, config):
         """
@@ -665,7 +706,7 @@ class Daemon(GObject.GObject, TimerManager):
         """
         if not self._connected:
             self._connected = True
-            self.emit('connected')
+            self.emit("connected")
 
             self._parse_dev_n_folders(config)
 
@@ -675,12 +716,12 @@ class Daemon(GObject.GObject, TimerManager):
             RESTRequest(self, "system/status", self._syncthing_cb_system).start()
             self._request_last_seen()
             self.check_config()
-            self.emit('config-loaded', config)
+            self.emit("config-loaded", config)
 
     def _syncthing_cb_config_error(self, exception, command):
         self.cancel_all()
         if isinstance(exception, GLib.GError):
-            if exception.code in (0, 39, 34, 45):    # Connection Refused / Cannot connect to destination
+            if exception.code in (0, 39, 34, 45):  # Connection Refused / Cannot connect to destination
                 # It usually means that daemon is not yet fully started or not running at all.
                 epoch = self._epoch
                 self.emit("connection-error", Daemon.REFUSED, exception.message, exception)
@@ -765,8 +806,8 @@ class Daemon(GObject.GObject, TimerManager):
             nid = e["data"]["id"]
             self.emit("device-connected", nid)
         elif eType == "DeviceDisconnected":
-               nid = e["data"]["id"]
-               self.emit("device-disconnected", nid)
+            nid = e["data"]["id"]
+            self.emit("device-disconnected", nid)
         elif eType == "DeviceDiscovered":
             nid = e["data"]["device"]
             addresses = e["data"]["addrs"]
@@ -816,7 +857,14 @@ class Daemon(GObject.GObject, TimerManager):
                 filename = e["data"]["item"]
                 t = parsetime(e["time"])
                 self.emit("item-updated", rid, filename, t)
-        elif eType in ("ItemFinished", "DownloadProgress", "RelayStateChanged", "LocalIndexUpdated", "ListenAddressesChanged", "LoginAttempt"):
+        elif eType in (
+            "ItemFinished",
+            "DownloadProgress",
+            "RelayStateChanged",
+            "LocalIndexUpdated",
+            "ListenAddressesChanged",
+            "LoginAttempt",
+        ):
             # Not handled
             pass
         else:
@@ -841,11 +889,13 @@ class Daemon(GObject.GObject, TimerManager):
         - device-added
         - config-out-of-sync
         """
+
         def reload_config_cb(config):
             self._parse_dev_n_folders(config)
             if not callback is None:
                 callback()
             RESTRequest(self, "system/config/insync", self._syncthing_cb_config_in_sync).start()
+
         RESTRequest(self, "system/config", reload_config_cb, error_callback).start()
 
     def close(self):
@@ -890,9 +940,11 @@ class Daemon(GObject.GObject, TimerManager):
         callback() on success, error_callback(exception) on failure.
         Should cause 'config-out-of-sync' event to be raised ASAP.
         """
+
         def run_before(data, *a):
             self.check_config()
             callback(*calbackdata)
+
         RESTPOSTRequest(self, "system/config", config, run_before, error_callback, *calbackdata).start()
 
     def read_stignore(self, folder_id, callback, error_callback=None, *calbackdata):
@@ -901,12 +953,14 @@ class Daemon(GObject.GObject, TimerManager):
         Calls callback(text) with .stignore content on success,
         error_callback(exception) on failure
         """
+
         def r_filter(data, *a):
             if "ignore" in data and not data["ignore"] is None:
                 callback("\n".join(data["ignore"]).strip(" \t\n"), *a)
             else:
                 callback("", *a)
-        id_enc = urllib.parse.quote(folder_id.encode('utf-8'))
+
+        id_enc = urllib.parse.quote(folder_id.encode("utf-8"))
         RESTRequest(self, "db/ignores?folder=%s" % (id_enc,), r_filter, error_callback, *calbackdata).start()
 
     def write_stignore(self, folder_id, text, callback, error_callback=None, *calbackdata):
@@ -914,8 +968,8 @@ class Daemon(GObject.GObject, TimerManager):
         Asynchronously POSTs .stignore to daemon. Calls callback()
         with on success, error_callback(exception) on failure.
         """
-        data = { 'ignore': text.split("\n") }
-        id_enc = urllib.parse.quote(folder_id.encode('utf-8'))
+        data = {"ignore": text.split("\n")}
+        id_enc = urllib.parse.quote(folder_id.encode("utf-8"))
         RESTPOSTRequest(self, "db/ignores?folder=%s" % (id_enc,), data, callback, error_callback, *calbackdata).start()
 
     def restart(self):
@@ -923,21 +977,21 @@ class Daemon(GObject.GObject, TimerManager):
         Asks daemon to restart. If successful, call will cause
         'disconnected' event with Daemon.RESTART reason to be fired
         """
-        RESTPOSTRequest(self, "system/restart",  {}, self._syncthing_cb_shutdown, None, Daemon.RESTART).start()
+        RESTPOSTRequest(self, "system/restart", {}, self._syncthing_cb_shutdown, None, Daemon.RESTART).start()
 
     def shutdown(self):
         """
         Asks daemon to shutdown. If successful, call will cause
         'disconnected' event with Daemon.SHUTDOWN reason to be fired
         """
-        RESTPOSTRequest(self, "system/shutdown",  {}, self._syncthing_cb_shutdown, None, Daemon.SHUTDOWN).start()
+        RESTPOSTRequest(self, "system/shutdown", {}, self._syncthing_cb_shutdown, None, Daemon.SHUTDOWN).start()
 
     def syncing(self):
-        """ Returns true if any folder is being synchronized right now  """
+        """Returns true if any folder is being synchronized right now"""
         return len(self._syncing_folders) > 0
 
     def get_api_key(self):
-        """ Returns API key used for communication with daemon. May return None """
+        """Returns API key used for communication with daemon. May return None"""
         return self._api_key
 
     def get_min_version(self):
@@ -966,56 +1020,64 @@ class Daemon(GObject.GObject, TimerManager):
         Returns daemon version or "unknown" if daemon version is not yet
         known
         """
-        if self._my_id == None: return "unknown"
+        if self._my_id == None:
+            return "unknown"
         device = self._get_device_data(self._my_id)
         if "clientVersion" in device:
             return device["clientVersion"]
         return "unknown"
 
     def get_webui_url(self):
-        """ Returns web ui url in http(s)://127.0.0.1:8080 format """
-        return "%s://%s" % (
-            "https" if self._tls else "http",
-            self._address
-        )
+        """Returns web ui url in http(s)://127.0.0.1:8080 format"""
+        return "%s://%s" % ("https" if self._tls else "http", self._address)
 
     def get_address(self):
-        """ Returns tuple address on which daemon listens on. """
+        """Returns tuple address on which daemon listens on."""
         return self._address
 
     def is_connected(self):
-        """ Returns True if daemon is known to be alive """
+        """Returns True if daemon is known to be alive"""
         return self._connected
 
     def pause(self, device_id):
-        """ Pauses synchronization with specified device """
-        RESTPOSTRequest(self, "system/pause?device=%s" % (device_id,), {}, lambda *a: a, lambda *a: log.error(a), device_id).start()
+        """Pauses synchronization with specified device"""
+        RESTPOSTRequest(
+            self, "system/pause?device=%s" % (device_id,), {}, lambda *a: a, lambda *a: log.error(a), device_id
+        ).start()
 
     def resume(self, device_id):
-        """ Resumes synchronization with specified device """
-        RESTPOSTRequest(self, "system/resume?device=%s" % (device_id,), {}, lambda *a: a, lambda *a: log.error(a), device_id).start()
+        """Resumes synchronization with specified device"""
+        RESTPOSTRequest(
+            self, "system/resume?device=%s" % (device_id,), {}, lambda *a: a, lambda *a: log.error(a), device_id
+        ).start()
 
     def rescan(self, folder_id, path=None):
-        """ Asks daemon to rescan entire folder or specified path """
+        """Asks daemon to rescan entire folder or specified path"""
         if path is None:
-            id_enc = urllib.parse.quote(folder_id.encode('utf-8'))
-            RESTPOSTRequest(self, "db/scan?folder=%s" % (id_enc,), {}, lambda *a: a, lambda *a: log.error(a), folder_id).start()
+            id_enc = urllib.parse.quote(folder_id.encode("utf-8"))
+            RESTPOSTRequest(
+                self, "db/scan?folder=%s" % (id_enc,), {}, lambda *a: a, lambda *a: log.error(a), folder_id
+            ).start()
         else:
             url = "db/scan?folder=%s&sub=%s" % (
-                urllib.parse.quote(folder_id.encode('utf-8')),
-                urllib.parse.quote(path.encode('utf-8'))
+                urllib.parse.quote(folder_id.encode("utf-8")),
+                urllib.parse.quote(path.encode("utf-8")),
             )
             RESTPOSTRequest(self, url, {}, lambda *a: a, lambda *a: log.error(a), folder_id).start()
 
     def override(self, folder_id):
-        """ Asks daemon to override remote changes made in specified folder """
-        id_enc = urllib.parse.quote(folder_id.encode('utf-8'))
-        RESTPOSTRequest(self, "db/override?folder=%s" % (id_enc,), {}, lambda *a: a, lambda *a: log.error(a), folder_id).start()
+        """Asks daemon to override remote changes made in specified folder"""
+        id_enc = urllib.parse.quote(folder_id.encode("utf-8"))
+        RESTPOSTRequest(
+            self, "db/override?folder=%s" % (id_enc,), {}, lambda *a: a, lambda *a: log.error(a), folder_id
+        ).start()
 
     def revert(self, folder_id):
-        """ Asks daemon to revert local changes made in specified folder """
-        id_enc = urllib.parse.quote(folder_id.encode('utf-8'))
-        RESTPOSTRequest(self, "db/revert?folder=%s" % (id_enc,), {}, lambda *a: a, lambda *a: log.error(a), folder_id).start()
+        """Asks daemon to revert local changes made in specified folder"""
+        id_enc = urllib.parse.quote(folder_id.encode("utf-8"))
+        RESTPOSTRequest(
+            self, "db/revert?folder=%s" % (id_enc,), {}, lambda *a: a, lambda *a: log.error(a), folder_id
+        ).start()
 
     def request_events(self):
         """
@@ -1024,7 +1086,7 @@ class Daemon(GObject.GObject, TimerManager):
         pass
 
     def set_refresh_interval(self, i):
-        """ Sets interval used mainly by event querying timer """
+        """Sets interval used mainly by event querying timer"""
         self._refresh_interval = i
         log.verbose("Set refresh interval to %s", i)
 
@@ -1032,10 +1094,11 @@ class Daemon(GObject.GObject, TimerManager):
 if __name__ == "__main__":
     # Small thing for testing
     from .tools import init_logging, set_logging_level
+
     init_logging()
     set_logging_level(True, True)
     daemon = Daemon()
-    daemon.connect('connected', lambda *a: sys.stdout.write("*** connected ***\n"))
-    daemon.connect('disconnected', lambda *a: sys.stdout.write("*** disconnected ***\n"))
+    daemon.connect("connected", lambda *a: sys.stdout.write("*** connected ***\n"))
+    daemon.connect("disconnected", lambda *a: sys.stdout.write("*** disconnected ***\n"))
     daemon.reconnect()
     GLib.MainLoop().run()

@@ -8,7 +8,7 @@ Listens to syncing events on daemon and displays desktop notifications.
 
 from syncthing_gtk.tools import IS_WINDOWS, IS_GNOME
 
-DELAY = 5 # Display notification only after no file is downloaded for <DELAY> seconds
+DELAY = 5  # Display notification only after no file is downloaded for <DELAY> seconds
 ICON_DEF = "syncthing-gtk"
 ICON_ERR = "syncthing-gtk-error"
 
@@ -18,20 +18,24 @@ Notifications = None
 try:
     if not IS_WINDOWS:
         import gi
-        gi.require_version('Notify', '0.7')
+
+        gi.require_version("Notify", "0.7")
         from gi.repository import Notify
+
         HAS_DESKTOP_NOTIFY = True
 except ImportError:
     pass
 
 if HAS_DESKTOP_NOTIFY:
     from syncthing_gtk.timermanager import TimerManager
-    from syncthing_gtk.tools import _ # gettext function
+    from syncthing_gtk.tools import _  # gettext function
     import os, logging
+
     log = logging.getLogger("Notifications")
 
-    class STNotification():
-        """ Basic class to track a notification and update its text """
+    class STNotification:
+        """Basic class to track a notification and update its text"""
+
         ACT_DEFAULT = "default"
         ACT_IGNORE = "IGNORE"
         ACT_ACCEPT = "ACCEPT"
@@ -69,8 +73,10 @@ if HAS_DESKTOP_NOTIFY:
                 return supported
 
         def addactions(self, n, actions=[], clear=True):
-            if not self.supports("actions"): return
-            if clear: n.clear_actions()
+            if not self.supports("actions"):
+                return
+            if clear:
+                n.clear_actions()
             for act, label, cb, data in actions:
                 n.add_action(act, label, cb, data)
 
@@ -83,9 +89,9 @@ if HAS_DESKTOP_NOTIFY:
                 pass
 
         def push(self, summary, body=None, **kwargs):
-            icon = kwargs.get('icon', ICON_DEF)
-            urg = kwargs.get('urg')
-            actions = kwargs.get('actions', [])
+            icon = kwargs.get("icon", ICON_DEF)
+            urg = kwargs.get("urg")
+            actions = kwargs.get("actions", [])
 
             if not self.n:
                 self.n = Notify.Notification.new(summary, body, icon)
@@ -112,8 +118,8 @@ if HAS_DESKTOP_NOTIFY:
             label_fb = self.label or self.id
             actions = [
                 (self.ACT_DEFAULT, _('Accept device "%s"') % label_fb, self.cb_accept, None),
-                (self.ACT_ACCEPT,  _('Accept device "%s"') % label_fb, self.cb_accept, None),
-                (self.ACT_IGNORE,  _('Ignore device "%s"') % label_fb, self.cb_ignore, None),
+                (self.ACT_ACCEPT, _('Accept device "%s"') % label_fb, self.cb_accept, None),
+                (self.ACT_IGNORE, _('Ignore device "%s"') % label_fb, self.cb_ignore, None),
             ]
             summary = _("Unknown Device")
             body = _('Device "%s" is trying to connect to syncthing daemon.' % self.label)
@@ -121,6 +127,7 @@ if HAS_DESKTOP_NOTIFY:
 
     class STNotificationFolder(STNotification, TimerManager):
         """Notification class to track a notification, which is related to a syncthing folder"""
+
         syncing = False
 
         updated = set([])
@@ -159,21 +166,17 @@ if HAS_DESKTOP_NOTIFY:
             label_fb = self.label or self.id
             actions = [
                 (self.ACT_DEFAULT, _('Accept folder "%s"') % label_fb, self.cb_accept, nid),
-                (self.ACT_ACCEPT,  _('Accept folder "%s"') % label_fb, self.cb_accept, nid),
-                (self.ACT_IGNORE,  _('Ignore folder "%s"') % label_fb, self.cb_ignore, nid),
+                (self.ACT_ACCEPT, _('Accept folder "%s"') % label_fb, self.cb_accept, nid),
+                (self.ACT_IGNORE, _('Ignore folder "%s"') % label_fb, self.cb_ignore, nid),
             ]
 
-            markup_dev = self.supports("body-markup",
-                "<b>%s</b>" % device,
-                device)
-            markup_fol = self.supports("body-markup",
-                "<b>%s</b>" % label_fb,
-                label_fb)
+            markup_dev = self.supports("body-markup", "<b>%s</b>" % device, device)
+            markup_fol = self.supports("body-markup", "<b>%s</b>" % label_fb, label_fb)
 
             summary = _("Folder rejected")
             body = _('Unexpected folder "%(folder)s" sent from device "%(device)s".') % {
-                'device' : markup_dev,
-                'folder' : markup_fol
+                "device": markup_dev,
+                "folder": markup_fol,
             }
             self.push(summary, body, actions=actions, urg=Notify.Urgency.CRITICAL)
 
@@ -181,7 +184,6 @@ if HAS_DESKTOP_NOTIFY:
             path_full = os.path.join(self.app.folders[self.id]["norm_path"], path)
 
             if itm_finished:
-
                 if ".sync-conflict" in path and os.path.exists(path_full):
                     # Updated or new conflict
                     self.sync_conflict(path)
@@ -212,9 +214,11 @@ if HAS_DESKTOP_NOTIFY:
                 f_path = os.path.join(self.app.folders[self.id]["norm_path"], self.updated.pop())
                 filename = os.path.split(f_path)[-1]
 
-                self.supports("body-hyperlinks",
-                    "<a href='file://%s'>%s</a>" % (f_path.encode('unicode-escape'), filename),
-                    f_path)
+                self.supports(
+                    "body-hyperlinks",
+                    "<a href='file://%s'>%s</a>" % (f_path.encode("unicode-escape"), filename),
+                    f_path,
+                )
 
                 body = _("%(hostname)s: Downloaded '%(filename)s' to reflect remote changes.")
             elif len(self.updated) == 0 and len(self.deleted) == 1:
@@ -226,17 +230,19 @@ if HAS_DESKTOP_NOTIFY:
             elif len(self.updated) == 0 and len(self.deleted) > 0:
                 body = _("%(hostname)s: Deleted %(deleted)s files to reflect remote changes.")
             elif len(self.deleted) > 0 and len(self.updated) > 0:
-                body = _("%(hostname)s: downloaded %(updated)s files and deleted %(deleted)s files to reflect remote changes.")
+                body = _(
+                    "%(hostname)s: downloaded %(updated)s files and deleted %(deleted)s files to reflect remote changes."
+                )
             elif len(self.conflict) > 0:
                 # If we reached this point, there are only sync-conflicts updated
                 # we don't want to have another notification
                 return
 
             body = body % {
-                'hostname' : self.app.get_local_name(),
-                'updated'  : len(self.updated),
-                'deleted'  : len(self.deleted),
-                'filename' : (filename),
+                "hostname": self.app.get_local_name(),
+                "updated": len(self.updated),
+                "deleted": len(self.deleted),
+                "filename": (filename),
             }
 
             self.push(summary, body)
@@ -246,8 +252,7 @@ if HAS_DESKTOP_NOTIFY:
                 self.syncing = True
 
         def finished(self):
-            if len(self.deleted) + len(self.updating) + len(self.updated) > 0 \
-               or self.syncing:
+            if len(self.deleted) + len(self.updating) + len(self.updated) > 0 or self.syncing:
                 self.display(True)
 
         def sync_conflict(self, path):
@@ -270,10 +275,11 @@ if HAS_DESKTOP_NOTIFY:
         def cb_open_conflict(self, n, action, user_data):
             if user_data and os.path.exists(user_data):
                 dirname = os.path.dirname(user_data)
-                self.app.cb_browse_folder({'path': dirname})
+                self.app.cb_browse_folder({"path": dirname})
 
-    class NotificationsCls():
-        """ Watches for filesystem changes and reports them to daemon """
+    class NotificationsCls:
+        """Watches for filesystem changes and reports them to daemon"""
+
         def __init__(self, app, daemon):
             Notify.init("Syncthing GTK")
             # Prepare stuff
@@ -283,26 +289,24 @@ if HAS_DESKTOP_NOTIFY:
             self.notify_devices = {}
 
             # Make deep connection with daemon
-            self.signals = [
-                self.daemon.connect("connected", self.cb_syncthing_connected)
-            ]
+            self.signals = [self.daemon.connect("connected", self.cb_syncthing_connected)]
             if self.app.config["notification_for_error"]:
                 self.signals += [
                     self.daemon.connect("error", self.cb_syncthing_error),
                     self.daemon.connect("folder-rejected", self.cb_syncthing_folder_rejected),
-                    self.daemon.connect("device-rejected", self.cb_syncthing_device_rejected)
+                    self.daemon.connect("device-rejected", self.cb_syncthing_device_rejected),
                 ]
                 log.verbose("Error notifications enabled")
             if self.app.config["notification_for_update"]:
                 self.signals += [
-                    self.daemon.connect('item-started', self.cb_syncthing_item_started),
-                    self.daemon.connect('item-updated', self.cb_syncthing_item_updated),
+                    self.daemon.connect("item-started", self.cb_syncthing_item_started),
+                    self.daemon.connect("item-updated", self.cb_syncthing_item_updated),
                 ]
                 log.verbose("File update notifications enabled")
             if self.app.config["notification_for_folder"]:
                 self.signals += [
-                    self.daemon.connect('folder-sync-progress', self.cb_syncthing_folder_progress),
-                    self.daemon.connect('folder-sync-finished', self.cb_syncthing_folder_finished)
+                    self.daemon.connect("folder-sync-progress", self.cb_syncthing_folder_progress),
+                    self.daemon.connect("folder-sync-finished", self.cb_syncthing_folder_finished),
                 ]
                 log.verbose("Folder notifications enabled")
 
@@ -324,7 +328,7 @@ if HAS_DESKTOP_NOTIFY:
                 dct = {}
 
         def kill(self, *a):
-            """ Removes all event handlers and frees some stuff """
+            """Removes all event handlers and frees some stuff"""
             for s in self.signals:
                 self.daemon.handler_disconnect(s)
             self.clear_notifications()
@@ -334,7 +338,7 @@ if HAS_DESKTOP_NOTIFY:
             self.clear_notifications()
 
         def cb_syncthing_error(self, daemon, message):
-            summary = _('An error occurred in Syncthing!')
+            summary = _("An error occurred in Syncthing!")
             n = Notify.Notification.new(summary, None, ICON_ERR)
             n.set_urgency(Notify.Urgency.CRITICAL)
 

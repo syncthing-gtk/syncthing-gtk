@@ -6,11 +6,11 @@ with small modification
 """
 
 
-
 from gi.repository import GObject
 from syncthing_gtk.tools import init_logging, set_logging_level
 from syncthing_gtk.daemon import Daemon
 import os, logging, urllib.parse
+
 log = logging.getLogger("SyncthingPlugin")
 
 # Output options
@@ -18,14 +18,13 @@ VERBOSE = True
 DEBUG = False
 
 # Magic numbers
-STATE_IDLE      = 1
-STATE_SYNCING   = 2
-STATE_OFFLINE   = 3
-STATE_STOPPED   = 4
+STATE_IDLE = 1
+STATE_SYNCING = 2
+STATE_OFFLINE = 3
+STATE_STOPPED = 4
 
 
 class NautiluslikeExtension(GObject.GObject):
-
     _plugin_module = None
 
     def __init__(self):
@@ -79,7 +78,7 @@ class NautiluslikeExtension(GObject.GObject):
 
     ### Internal stuff
     def _clear_emblems(self):
-        """ Clear emblems on all files that had emblem added """
+        """Clear emblems on all files that had emblem added"""
         for path in self.files:
             self._invalidate(path)
 
@@ -93,7 +92,7 @@ class NautiluslikeExtension(GObject.GObject):
                 self._invalidate(f)
 
     def _invalidate(self, path):
-        """ Forces Nautilus to re-read emblems on specified file """
+        """Forces Nautilus to re-read emblems on specified file"""
         if path in self.files:
             file = self.files[path]
             file.invalidate_extension_info()
@@ -111,10 +110,10 @@ class NautiluslikeExtension(GObject.GObject):
         return None
 
     def _get_path(self, file):
-        """ Returns path for provided FileInfo object """
+        """Returns path for provided FileInfo object"""
         if hasattr(file, "get_location"):
             if not file.get_location().get_path() is None:
-                return file.get_location().get_path().decode('utf-8')
+                return file.get_location().get_path().decode("utf-8")
         return urllib.parse.unquote(file.get_uri().replace("file://", ""))
 
     ### Daemon callbacks
@@ -152,7 +151,7 @@ class NautiluslikeExtension(GObject.GObject):
         for rid in self.rid_to_dev:
             if rid in self.onlide_rids:
                 # Check if repo is attached to any other, online device
-                if len([ x for x in self.rid_to_dev[rid] if x in self.online_nids ]) == 0:
+                if len([x for x in self.rid_to_dev[rid] if x in self.online_nids]) == 0:
                     # Nope
                     log.debug("Repo '%s' now offline", rid)
                     self.onlide_rids.remove(rid)
@@ -175,8 +174,8 @@ class NautiluslikeExtension(GObject.GObject):
         self._invalidate(path)
         # Store repo id in dict of associated devices
         self.rid_to_dev[rid] = set()
-        for d in r['devices']:
-            self.rid_to_dev[rid].add(d['deviceID'])
+        for d in r["devices"]:
+            self.rid_to_dev[rid].add(d["deviceID"])
 
     def cb_syncthing_con_error(self, *a):
         pass
@@ -195,7 +194,7 @@ class NautiluslikeExtension(GObject.GObject):
         self.daemon.reconnect()
 
     def cb_syncthing_folder_state_changed(self, daemon, rid, state):
-        """ Called when folder synchronization starts or stops """
+        """Called when folder synchronization starts or stops"""
         if rid in self.rid_to_path:
             path = self.rid_to_path[rid]
             if self.repos[path] != STATE_OFFLINE:
@@ -206,11 +205,11 @@ class NautiluslikeExtension(GObject.GObject):
                 self._clear_emblems_in_dir(path)
 
     def cb_syncthing_folder_stopped(self, daemon, rid, *a):
-        """ Called when synchronization error is detected """
+        """Called when synchronization error is detected"""
         self.cb_syncthing_folder_state_changed(daemon, rid, STATE_STOPPED)
 
     def cb_syncthing_item_started(self, daemon, rid, filename, *a):
-        """ Called when file download starts """
+        """Called when file download starts"""
         if rid in self.rid_to_path:
             path = self.rid_to_path[rid]
             filepath = os.path.join(path, filename)
@@ -221,9 +220,8 @@ class NautiluslikeExtension(GObject.GObject):
             if placeholderpath in self.files:
                 self._invalidate(placeholderpath)
 
-
     def cb_syncthing_item_updated(self, daemon, rid, filename, *a):
-        """ Called after file is downloaded """
+        """Called after file is downloaded"""
         if rid in self.rid_to_path:
             path = self.rid_to_path[rid]
             filepath = os.path.join(path, filename)
@@ -239,7 +237,8 @@ class NautiluslikeExtension(GObject.GObject):
         path = self._get_path(file)
         pathonly, filename = os.path.split(path)
         self.files[path] = file
-        if not self.ready: return NautiluslikeExtension._plugin_module.OperationResult.COMPLETE
+        if not self.ready:
+            return NautiluslikeExtension._plugin_module.OperationResult.COMPLETE
         # Check if folder is one of repositories managed by syncthing
         if path in self.downloads:
             file.add_emblem("syncthing-active")
@@ -287,12 +286,12 @@ class NautiluslikeExtension(GObject.GObject):
     def cb_remove_repo_menu(self, menuitem, path):
         if path in self.path_to_rid:
             path = os.path.abspath(os.path.expanduser(path))
-            path = path.replace("'", "\'")
+            path = path.replace("'", "'")
             os.system("syncthing-gtk --remove-repo '%s' &" % path)
 
     def cb_add_repo_menu(self, menuitem, path):
         path = os.path.abspath(os.path.expanduser(path))
-        path = path.replace("'", "\'")
+        path = path.replace("'", "'")
         os.system("syncthing-gtk --add-repo '%s' &" % path)
 
     def get_background_items(self, window, item):
@@ -305,26 +304,27 @@ class NautiluslikeExtension(GObject.GObject):
             # Folder is already repository.
             # Add 'remove from ST' item
             menu = NautiluslikeExtension._plugin_module.MenuItem(
-                                    name='STPlugin::remove_repo',
-                                    label='Remove Directory from Syncthing',
-                                    tip='Remove selected directory from Syncthing',
-                                    icon='syncthing-offline')
-            menu.connect('activate', self.cb_remove_repo_menu, path)
+                name="STPlugin::remove_repo",
+                label="Remove Directory from Syncthing",
+                tip="Remove selected directory from Syncthing",
+                icon="syncthing-offline",
+            )
+            menu.connect("activate", self.cb_remove_repo_menu, path)
             return [menu]
         elif self._get_parent_repo_state(path) is None:
             # Folder doesn't belongs to any repository.
             # Add 'add to ST' item
             menu = NautiluslikeExtension._plugin_module.MenuItem(
-                                    name='STPlugin::add_repo',
-                                    label='Synchronize with Syncthing',
-                                    tip='Add selected directory to Syncthing',
-                                    icon='syncthing')
-            menu.connect('activate', self.cb_add_repo_menu, path)
+                name="STPlugin::add_repo",
+                label="Synchronize with Syncthing",
+                tip="Add selected directory to Syncthing",
+                icon="syncthing",
+            )
+            menu.connect("activate", self.cb_add_repo_menu, path)
             return [menu]
         # Folder belongs to some repository.
         # Don't add anything
         return []
-
 
     @staticmethod
     def set_plugin_module(m):

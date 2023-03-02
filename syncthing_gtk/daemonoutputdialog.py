@@ -9,8 +9,10 @@ Displays output from daemon subprocess
 from syncthing_gtk.uibuilder import UIBuilder
 import os
 
+
 class DaemonOutputDialog(object):
-    """ Displays output from daemon subprocess """
+    """Displays output from daemon subprocess"""
+
     def __init__(self, app, proc):
         self.proc = proc
         self.app = app
@@ -18,7 +20,7 @@ class DaemonOutputDialog(object):
         self.handler = 0
 
     def __getitem__(self, name):
-        """ Convince method that allows widgets to be accessed via self["widget"] """
+        """Convince method that allows widgets to be accessed via self["widget"]"""
         return self.builder.get_object(name)
 
     def show_with_lines(self, lines, parent=None):
@@ -36,7 +38,7 @@ class DaemonOutputDialog(object):
             self["dialog"].set_title(title)
         self["dialog"].show_all()
         self["tvOutput"].get_buffer().set_text("\n".join(self.proc.get_output()))
-        self.handler = self.proc.connect('line', self.cb_line)
+        self.handler = self.proc.connect("line", self.cb_line)
 
     def close(self, *a):
         if self.handler > 0:
@@ -49,7 +51,7 @@ class DaemonOutputDialog(object):
         self.builder = UIBuilder()
         self.builder.add_from_file(os.path.join(self.app.gladepath, "daemon-output.glade"))
         self.builder.connect_signals(self)
-        self["tvOutput"].connect('size-allocate', self.scroll)
+        self["tvOutput"].connect("size-allocate", self.scroll)
 
     def cb_line(self, proc, line):
         b = self["tvOutput"].get_buffer()
@@ -57,4 +59,4 @@ class DaemonOutputDialog(object):
 
     def scroll(self, *a):
         adj = self["sw"].get_vadjustment()
-        adj.set_value( adj.get_upper() - adj.get_page_size())
+        adj.set_value(adj.get_upper() - adj.get_page_size())

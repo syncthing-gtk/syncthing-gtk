@@ -8,6 +8,7 @@ Simple abstract class for named, cancelable timers
 
 from gi.repository import GLib
 
+
 class TimerManager(object):
     def __init__(self):
         self._timers = {}
@@ -33,8 +34,8 @@ class TimerManager(object):
             self._timers[name] = method(delay, self._callback, name, callback, *data, **kwdata)
 
     def timer_active(self, name):
-        """ Returns True if named timer is active """
-        return (name in self._timers)
+        """Returns True if named timer is active"""
+        return name in self._timers
 
     def cancel_timer(self, name):
         """
@@ -47,7 +48,7 @@ class TimerManager(object):
         return False
 
     def cancel_all(self):
-        """ Cancels all active timers """
+        """Cancels all active timers"""
         for x in self._timers:
             GLib.source_remove(self._timers[x])
         self._timers = {}

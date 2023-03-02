@@ -7,25 +7,28 @@ Colorful, expandable widget displaying folder/device data
 
 from gi.repository import Gtk, Gdk, GLib, GObject, Pango, Rsvg
 from syncthing_gtk.ribar import RevealerClass
-from syncthing_gtk.tools import _, escape_html_entities # _ is gettext function
+from syncthing_gtk.tools import _, escape_html_entities  # _ is gettext function
 import os, logging, math
+
 log = logging.getLogger("InfoBox")
 
-COLOR_CHANGE_TIMER  = 10    # ms
-COLOR_CHANGE_STEP   = 0.05
-HILIGHT_INTENSITY   = 0.3    # 0.0 to 1.0
-DARKEN_FACTOR       = 0.75    # 0.0 to 1.0
+COLOR_CHANGE_TIMER = 10  # ms
+COLOR_CHANGE_STEP = 0.05
+HILIGHT_INTENSITY = 0.3  # 0.0 to 1.0
+DARKEN_FACTOR = 0.75  # 0.0 to 1.0
 
 svg_cache = {}
 
+
 class InfoBox(Gtk.Container):
-    """ Expandable widget displaying folder/device data """
+    """Expandable widget displaying folder/device data"""
+
     __gtype_name__ = "InfoBox"
     __gsignals__ = {
         # right-click(button, time)
         "right-click": (GObject.SIGNAL_RUN_FIRST, None, (int, int)),
         # doubleclick, no arguments
-        "doubleclick": (GObject.SIGNAL_RUN_FIRST, None, () )
+        "doubleclick": (GObject.SIGNAL_RUN_FIRST, None, ()),
     }
 
     ### Initialization
@@ -44,11 +47,11 @@ class InfoBox(Gtk.Container):
         self.hilight_factor = 0.0
         self.timer_enabled = False
         self.icon = icon
-        self.color = (1, 0, 1, 1)    # rgba
-        self.background = (1, 1, 1, 1)    # rgba
-        self.dark_color  = None    # Overrides background if set
-        self.text_color = (0, 0, 0, 1)    # rgba (text color)
-        self.real_color = self.color    # set color + hilight
+        self.color = (1, 0, 1, 1)  # rgba
+        self.background = (1, 1, 1, 1)  # rgba
+        self.dark_color = None  # Overrides background if set
+        self.text_color = (0, 0, 0, 1)  # rgba (text color)
+        self.real_color = self.color  # set color + hilight
         self.border_width = 2
         self.children = [self.header, self.child]
         # Initialization
@@ -73,8 +76,8 @@ class InfoBox(Gtk.Container):
         # Connect signals
         eb.connect("realize", self.set_header_cursor)
         eb.connect("button-release-event", self.on_header_click)
-        eb.connect('enter-notify-event', self.on_enter_notify)
-        eb.connect('leave-notify-event', self.on_leave_notify)
+        eb.connect("enter-notify-event", self.on_enter_notify)
+        eb.connect("leave-notify-event", self.on_leave_notify)
         # Pack together
         hbox.pack_start(self.icon, False, False, 0)
         hbox.pack_start(self.title, True, True, 0)
@@ -103,8 +106,8 @@ class InfoBox(Gtk.Container):
         # Connect signals
         self.eb.connect("button-release-event", self.on_grid_release)
         self.eb.connect("button-press-event", self.on_grid_click)
-        self.eb.connect('enter-notify-event', self.on_enter_notify)
-        self.eb.connect('leave-notify-event', self.on_leave_notify)
+        self.eb.connect("enter-notify-event", self.on_enter_notify)
+        self.eb.connect("leave-notify-event", self.on_leave_notify)
         # Pack together
         align.add(self.grid)
         self.eb.add(align)
@@ -126,28 +129,28 @@ class InfoBox(Gtk.Container):
             widget.unparent()
 
     def do_child_type(self):
-        return(Gtk.Widget.get_type())
+        return Gtk.Widget.get_type()
 
     def do_forall(self, include_internals, callback, *callback_parameters):
         if not callback is None:
-            if hasattr(self, 'children'): # No idea why this happens...
+            if hasattr(self, "children"):  # No idea why this happens...
                 for c in self.children:
                     if not c is None:
                         callback(c, *callback_parameters)
 
     def do_get_request_mode(self):
-        return(Gtk.SizeRequestMode.CONSTANT_SIZE)
+        return Gtk.SizeRequestMode.CONSTANT_SIZE
 
     def do_get_preferred_height(self):
         mw, nw, mh, nh = self.get_preferred_size()
-        return(mh, nh)
+        return (mh, nh)
 
     def do_get_preferred_width(self):
         mw, nw, mh, nh = self.get_preferred_size()
-        return(mw, nw)
+        return (mw, nw)
 
     def get_preferred_size(self):
-        """ Returns (min_width, nat_width, min_height, nat_height) """
+        """Returns (min_width, nat_width, min_height, nat_height)"""
         min_width, nat_width = 0, 0
         min_height, nat_height = 0, 0
         # Use max of preferred widths from children;
@@ -164,9 +167,9 @@ class InfoBox(Gtk.Container):
         # Add border size
         min_width += self.border_width * 2  # Left + right border
         nat_width += self.border_width * 2
-        min_height += self.border_width * 3 # Top + below header + bottom
+        min_height += self.border_width * 3  # Top + below header + bottom
         nat_height += self.border_width * 3
-        return(min_width, nat_width, min_height, nat_height)
+        return (min_width, nat_width, min_height, nat_height)
 
     def do_size_allocate(self, allocation):
         child_allocation = Gdk.Rectangle()
@@ -189,7 +192,6 @@ class InfoBox(Gtk.Container):
                     # TODO: Handle child that has window (where would i get it?)
                     c.size_allocate(child_allocation)
                     child_allocation.y += child_allocation.height + self.border_width
-
 
     def do_realize(self):
         allocation = self.get_allocation()
@@ -234,13 +236,15 @@ class InfoBox(Gtk.Container):
                 self.border_width,
                 self.border_width,
                 allocation.width - (2 * self.border_width),
-                allocation.height - (2 * self.border_width)
+                allocation.height - (2 * self.border_width),
             )
             cr.fill()
 
         # Header
         cr.set_source_rgba(*self.real_color)
-        cr.rectangle(self.border_width / 2.0, 0, allocation.width - self.border_width, header_al.height + (2 * self.border_width))
+        cr.rectangle(
+            self.border_width / 2.0, 0, allocation.width - self.border_width, header_al.height + (2 * self.border_width)
+        )
         cr.fill()
 
         for c in self.children:
@@ -249,7 +253,7 @@ class InfoBox(Gtk.Container):
 
     ### InfoBox logic
     def set_header_cursor(self, eb, *a):
-        """ Sets cursor over top part of infobox to hand """
+        """Sets cursor over top part of infobox to hand"""
         eb.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.HAND1))
 
     def on_header_click(self, eventbox, event):
@@ -257,25 +261,25 @@ class InfoBox(Gtk.Container):
         Hides or reveals everything below header
         Displays popup menu on right click
         """
-        if event.button == 1:   # left
+        if event.button == 1:  # left
             self.rev.set_reveal_child(not self.rev.get_reveal_child())
             self.app.cb_open_closed(self)
-        elif event.button == 3: # right
-            self.emit('right-click', event.button, 0)
+        elif event.button == 3:  # right
+            self.emit("right-click", event.button, 0)
 
     def on_grid_release(self, eventbox, event):
-        """ Displays popup menu on right click """
-        if event.button == 3:   # right
-            self.emit('right-click', event.button, 0)
+        """Displays popup menu on right click"""
+        if event.button == 3:  # right
+            self.emit("right-click", event.button, 0)
 
     def on_grid_click(self, eventbox, event):
-        """ Emits 'doubleclick' signal """
-        if event.button == 1:   # Left
+        """Emits 'doubleclick' signal"""
+        if event.button == 1:  # Left
             if event.type == Gdk.EventType.DOUBLE_BUTTON_PRESS:
-                self.emit('doubleclick')
+                self.emit("doubleclick")
 
     def hilight_timer(self, *a):
-        """ Called repeatedly while color is changing """
+        """Called repeatedly while color is changing"""
         if self.hilight and self.hilight_factor < 1.0:
             self.hilight_factor = min(1.0, self.hilight_factor + COLOR_CHANGE_STEP)
         elif not self.hilight and self.hilight_factor > 0.0:
@@ -291,10 +295,14 @@ class InfoBox(Gtk.Container):
         self.hilight_factor changes.
         """
         if self.dark_color is None:
-            self.real_color = tuple([ min(1.0, x + HILIGHT_INTENSITY * math.sin(self.hilight_factor)) for x in self.color])
+            self.real_color = tuple(
+                [min(1.0, x + HILIGHT_INTENSITY * math.sin(self.hilight_factor)) for x in self.color]
+            )
         else:
             # Darken colors when dark background is enabled
-            self.real_color = tuple([ min(1.0, DARKEN_FACTOR * (x + HILIGHT_INTENSITY * math.sin(self.hilight_factor))) for x in self.color])
+            self.real_color = tuple(
+                [min(1.0, DARKEN_FACTOR * (x + HILIGHT_INTENSITY * math.sin(self.hilight_factor))) for x in self.color]
+            )
         gdkcol = Gdk.RGBA(*self.real_color)
         self.header.override_background_color(Gtk.StateType.NORMAL, gdkcol)
         try:
@@ -318,21 +326,17 @@ class InfoBox(Gtk.Container):
         self.str_title = t
         inverted = self.header_inverted and self.dark_color is None
         col = "black" if inverted else "white"
-        self.title.set_markup('<span color="%s" %s>%s</span>' % (
-            col,
-            self.app.config["infobox_style"],
-            t
-        ))
+        self.title.set_markup('<span color="%s" %s>%s</span>' % (col, self.app.config["infobox_style"], t))
 
     def get_title(self):
         return self.str_title
 
     def get_icon(self):
-        """ Returns icon widget """
+        """Returns icon widget"""
         return self.icon
 
     def set_icon(self, icon):
-        """ Sets new icon. Expects widget as parameter """
+        """Sets new icon. Expects widget as parameter"""
         self.header_box.remove(self.icon)
         self.header_box.pack_start(icon, False, False, 0)
         self.header_box.reorder_child(icon, 0)
@@ -353,14 +357,12 @@ class InfoBox(Gtk.Container):
     def set_status(self, t, percentage=0.0):
         if percentage > 0.0 and percentage < 1.0:
             percent = percentage * 100.0
-            self.status.set_markup('<span color="white" %s>%s (%.f%%)</span>' % (
-                self.app.config["infobox_style"],
-                t, percent))
+            self.status.set_markup(
+                '<span color="white" %s>%s (%.f%%)</span>' % (self.app.config["infobox_style"], t, percent)
+            )
             log.debug("%s state changed to %s (%s%%)", self.str_title, t, percent)
         else:
-            self.status.set_markup('<span color="white" %s>%s</span>' % (
-                self.app.config["infobox_style"],
-                t))
+            self.status.set_markup('<span color="white" %s>%s</span>' % (self.app.config["infobox_style"], t))
             if self.str_status != t:
                 log.debug("%s state changed to %s", self.str_title, t)
         self.str_status = t
@@ -373,19 +375,19 @@ class InfoBox(Gtk.Container):
         """
         Converts color from AABBCC or #AABBCC format to tuple of floats
         """
-        hx = hx.lstrip('#')
+        hx = hx.lstrip("#")
         l = len(hx)
-        color = [ float(int(hx[i:i+l//3], 16)) / 255.0 for i in range(0, l, l//3) ]
+        color = [float(int(hx[i : i + l // 3], 16)) / 255.0 for i in range(0, l, l // 3)]
         while len(color) < 4:
             color.append(1.0)
         return color
 
     def set_color_hex(self, hx):
-        """ Expects AABBCC or #AABBCC format """
+        """Expects AABBCC or #AABBCC format"""
         self.set_color(*InfoBox.hex2color(hx))
 
     def set_color(self, r, g, b, a):
-        """ Expects floats """
+        """Expects floats"""
         self.color = (r, g, b, a)
         self.recolor()
 
@@ -401,7 +403,7 @@ class InfoBox(Gtk.Container):
         Returns True if specified color is same as color currently used.
         Expects floats.
         """
-        return (self.color == (r, g, b, a))
+        return self.color == (r, g, b, a)
 
     def set_dark_color(self, r, g, b, a):
         """
@@ -443,12 +445,12 @@ class InfoBox(Gtk.Container):
         self.set_title(self.str_title)
 
     def set_bg_color(self, r, g, b, a):
-        """ Expects floats """
+        """Expects floats"""
         if self.dark_color == None:
             self.background = (r, g, b, a)
         col = Gdk.RGBA(r, g, b, a)
         for key in self.value_widgets:
-            for w in self.value_widgets[key ]:
+            for w in self.value_widgets[key]:
                 w.override_background_color(Gtk.StateFlags.NORMAL, col)
         self.eb.override_background_color(Gtk.StateType.NORMAL, Gdk.RGBA(*self.background))
         self.grid.override_background_color(Gtk.StateType.NORMAL, col)
@@ -461,7 +463,7 @@ class InfoBox(Gtk.Container):
         self.rev.set_reveal_child(b)
 
     def is_open(self):
-        """ Returns True if box is open """
+        """Returns True if box is open"""
         return self.rev.get_reveal_child()
 
     def _prepare_icon(self, icon):
@@ -473,7 +475,7 @@ class InfoBox(Gtk.Container):
                     # Recolor svg for dark theme
                     with open(os.path.join(self.app.iconpath, icon), "r") as f:
                         svg_source = f.read()
-                    svg_source = svg_source.replace('fill:rgb(0%,0%,0%)', 'fill:rgb(100%,100%,100%)')
+                    svg_source = svg_source.replace("fill:rgb(0%,0%,0%)", "fill:rgb(100%,100%,100%)")
                     svg = Rsvg.Handle.new_from_data(svg_source.encode("utf-8"))
                 else:
                     # Load svg directly
@@ -489,7 +491,7 @@ class InfoBox(Gtk.Container):
             return Gtk.Image.new_from_icon_name(icon, 1)
 
     def add_value(self, key, icon, title, value="", visible=True):
-        """ Adds new line with provided properties """
+        """Adds new line with provided properties"""
         wIcon = self._prepare_icon(icon)
         wTitle, wValue = Gtk.Label(), Gtk.Label()
         self.value_widgets[key] = (wValue, wIcon, wTitle)
@@ -511,17 +513,17 @@ class InfoBox(Gtk.Container):
                 w.set_no_show_all(True)
 
     def clear_values(self):
-        """ Removes all lines from UI, effectively making all values hidden """
-        for ch in [ ] + self.grid.get_children():
+        """Removes all lines from UI, effectively making all values hidden"""
+        for ch in [] + self.grid.get_children():
             self.grid.remove(ch)
         self.value_widgets = {}
 
     def add_hidden_value(self, key, value):
-        """ Adds value that is saved, but not shown on UI """
+        """Adds value that is saved, but not shown on UI"""
         self.set_value(key, value)
 
     def set_value(self, key, value):
-        """ Updates already existing value """
+        """Updates already existing value"""
         self.values[key] = value
         if key in self.value_widgets:
             if value is None:
@@ -530,41 +532,43 @@ class InfoBox(Gtk.Container):
                 self.value_widgets[key][0].set_text(value)
 
     def hide_value(self, key):
-        """ Hides value added by add_value """
+        """Hides value added by add_value"""
         if key in self.value_widgets:
             for w in self.value_widgets[key]:
                 w.set_no_show_all(True)
                 w.set_visible(False)
 
     def show_value(self, key):
-        """ Shows value added by add_value """
+        """Shows value added by add_value"""
         if key in self.value_widgets:
             for w in self.value_widgets[key]:
                 w.set_no_show_all(False)
                 w.set_visible(True)
 
     def set_visible(self, key, show):
-        """ Sets value visibility """
+        """Sets value visibility"""
         if show:
             self.show_value(key)
         else:
             self.hide_value(key)
 
     def hide_values(self, *keys):
-        """ Same as hide_value, but for multiple keys at once """
-        for k in keys: self.hide_value(k)
+        """Same as hide_value, but for multiple keys at once"""
+        for k in keys:
+            self.hide_value(k)
 
     def show_values(self, *keys):
-        """ Same as show_value, but for multiple keys at once """
-        for k in keys: self.show_value(k)
+        """Same as show_value, but for multiple keys at once"""
+        for k in keys:
+            self.show_value(k)
 
     def get_value(self, key):
         return self.values[key]
 
     def __getitem__(self, key):
-        """ Shortcut to get_value """
+        """Shortcut to get_value"""
         return self.values[key]
 
     def __setitem__(self, key, value):
-        """ Shortcut to set_value. Creates new hidden_value if key doesn't exist """
+        """Shortcut to set_value. Creates new hidden_value if key doesn't exist"""
         self.set_value(key, value)

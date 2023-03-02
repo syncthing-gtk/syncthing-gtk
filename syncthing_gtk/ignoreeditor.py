@@ -4,24 +4,26 @@ Syncthing-GTK - Ignore Pattern Editor
 """
 
 
-from syncthing_gtk.tools import _ # gettext function
+from syncthing_gtk.tools import _  # gettext function
 from syncthing_gtk.uibuilder import UIBuilder
 import os, logging
+
 log = logging.getLogger("IgnoreEditor")
 
+
 class IgnoreEditor(object):
-    """ Standard looking about dialog """
+    """Standard looking about dialog"""
+
     def __init__(self, app, rid, file_location):
         # Store stuff
         self.app = app
-        self.rid  = rid
+        self.rid = rid
         self.file_location = file_location
         # Load UI
         self.setup_widgets()
 
-
     def __getitem__(self, name):
-        """ Convince method that allows widgets to be accessed via self["widget"] """
+        """Convince method that allows widgets to be accessed via self["widget"]"""
         return self.builder.get_object(name)
 
     def show(self, parent=None):
@@ -39,10 +41,11 @@ class IgnoreEditor(object):
         self.builder.add_from_file(os.path.join(self.app.gladepath, "ignore-editor.glade"))
         self.builder.connect_signals(self)
         self["lblLocation"].set_markup(
-            '%s <a href="file://%s">%s</a>' % (
-            _("File location:"),
-            os.path.join(os.path.expanduser(self.file_location), ".stignore"),
-            os.path.join(self.file_location, ".stignore")
+            '%s <a href="file://%s">%s</a>'
+            % (
+                _("File location:"),
+                os.path.join(os.path.expanduser(self.file_location), ".stignore"),
+                os.path.join(self.file_location, ".stignore"),
             )
         )
 
