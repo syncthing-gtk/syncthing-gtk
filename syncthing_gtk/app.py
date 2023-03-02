@@ -7,43 +7,39 @@ Main application window
 
 
 import itertools
+import logging
+import os
+import re
+import shutil
 import signal
-from gi.repository import Gtk, Gio, Gdk, GLib, GdkPixbuf
-from syncthing_gtk.tools import _
-from syncthing_gtk.tools import (
-    IS_UNITY,
-    IS_GNOME,
-    IS_I3,
-    IS_MATE,
-    IS_XFCE,
-    IS_WINDOWS,
-    IS_XP,
-    set_logging_level,
-    generate_folder_id,
-    sizeof_fmt,
-    check_daemon_running,
-    compare_version,
-    can_upgrade_binary,
-)
-from syncthing_gtk.daemon import Daemon, TLSErrorException, InvalidConfigurationException
-from syncthing_gtk.notifications import Notifications, HAS_DESKTOP_NOTIFY
-from syncthing_gtk.statusicon import get_status_icon, StatusIconDummy
+import sys
+import time
+import webbrowser
+from datetime import datetime
+
+from gi.repository import Gdk, GdkPixbuf, Gio, GLib, Gtk
+
+from syncthing_gtk.configuration import Configuration
+from syncthing_gtk.daemon import (Daemon, InvalidConfigurationException,
+                                  TLSErrorException)
 from syncthing_gtk.daemonoutputdialog import DaemonOutputDialog
+from syncthing_gtk.daemonprocess import DaemonProcess
 from syncthing_gtk.deviceeditor import DeviceEditorDialog
 from syncthing_gtk.foldereditor import FolderEditorDialog
-from syncthing_gtk.tools import parse_config_arguments
-from syncthing_gtk.configuration import Configuration
-from syncthing_gtk.daemonprocess import DaemonProcess
-from syncthing_gtk.timermanager import TimerManager
-from syncthing_gtk.uibuilder import UIBuilder
 from syncthing_gtk.identicon import IdentIcon
 from syncthing_gtk.infobox import InfoBox
+from syncthing_gtk.notifications import HAS_DESKTOP_NOTIFY, Notifications
 from syncthing_gtk.ribar import RIBar
+from syncthing_gtk.statusicon import StatusIconDummy, get_status_icon
 from syncthing_gtk.stdownloader import StDownloader
-
-
-from datetime import datetime
-import os, webbrowser, sys, time, logging, shutil, re
+from syncthing_gtk.timermanager import TimerManager
+from syncthing_gtk.tools import (IS_GNOME, IS_I3, IS_MATE, IS_UNITY,
+                                 IS_WINDOWS, IS_XFCE, IS_XP, _,
+                                 can_upgrade_binary, check_daemon_running,
+                                 compare_version, generate_folder_id,
+                                 parse_config_arguments, set_logging_level,
+                                 sizeof_fmt)
+from syncthing_gtk.uibuilder import UIBuilder
 
 log = logging.getLogger("App")
 

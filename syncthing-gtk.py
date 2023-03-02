@@ -1,22 +1,23 @@
 #!/usr/bin/env python3
-import os, sys, gi
+import os
+import sys
+
+import gi
 
 if __name__ == "__main__":
     gi.require_version("Gtk", "3.0")
     gi.require_version("Gdk", "3.0")
     gi.require_version("Rsvg", "2.0")
 
-    from syncthing_gtk.tools import init_logging, init_locale, IS_WINDOWS
+    from syncthing_gtk.tools import IS_WINDOWS, init_locale, init_logging
 
     init_logging()
 
     if IS_WINDOWS:
-        from syncthing_gtk.windows import (
-            enable_localization,
-            fix_localized_system_error_messages,
-            override_menu_borders,
-        )
         from syncthing_gtk.configuration import Configuration
+        from syncthing_gtk.windows import (enable_localization,
+                                           fix_localized_system_error_messages,
+                                           override_menu_borders)
 
         config = Configuration()
         if config["force_dark_theme"]:

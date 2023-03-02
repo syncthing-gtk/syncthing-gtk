@@ -5,7 +5,7 @@ Syncthing-GTK - RIBar
 Infobar wrapped in Revealer, for greater justice
 """
 
-from gi.repository import Gtk, GLib, GObject
+from gi.repository import GLib, GObject, Gtk
 
 RevealerClass = None
 if hasattr(Gtk, "Revealer"):

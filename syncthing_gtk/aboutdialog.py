@@ -4,9 +4,10 @@ Syncthing-GTK - About dialog
 """
 
 
+import os
+
 from syncthing_gtk.tools import IS_WINDOWS
 from syncthing_gtk.uibuilder import UIBuilder
-import os
 
 
 class AboutDialog(object):
@@ -48,7 +49,9 @@ class AboutDialog(object):
                 with open(os.path.join(get_install_path(), "__version__"), "r") as vfile:
                     app_ver = vfile.read().strip(" \t\r\n")
             else:
-                import pkg_resources, syncthing_gtk
+                import pkg_resources
+
+                import syncthing_gtk
 
                 if syncthing_gtk.__file__.startswith(pkg_resources.require("syncthing-gtk")[0].location):
                     app_ver = pkg_resources.require("syncthing-gtk")[0].version

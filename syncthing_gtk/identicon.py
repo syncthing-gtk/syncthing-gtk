@@ -9,9 +9,11 @@ Most of drawing code is ported from
 https://github.com/syncthing/syncthing/blob/master/gui/scripts/syncthing/core/directives/identiconDirective.js"""
 
 
-from gi.repository import Gtk
-from syncthing_gtk.infobox import InfoBox
 import re
+
+from gi.repository import Gtk
+
+from syncthing_gtk.infobox import InfoBox
 
 
 class IdentIcon(Gtk.DrawingArea):

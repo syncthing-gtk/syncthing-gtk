@@ -7,12 +7,19 @@ to given location.
 """
 
 
-from gi.repository import GLib, Gio, GObject
-from syncthing_gtk.tools import get_config_dir, compare_version
-from syncthing_gtk.tools import IS_WINDOWS, is_portable
+import json
+import logging
+import os
+import platform
+import tarfile
+import tempfile
+import zipfile
+
+from gi.repository import Gio, GLib, GObject
+
 from syncthing_gtk.tools import _  # gettext function
-import os, json, platform
-import tempfile, tarfile, zipfile, logging
+from syncthing_gtk.tools import (IS_WINDOWS, compare_version, get_config_dir,
+                                 is_portable)
 
 log = logging.getLogger("StDownloader")
 

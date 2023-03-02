@@ -5,6 +5,7 @@ See syncthing_gtk/nautilusplugin.py for more info
 """
 
 from gi.repository import Nautilus
+
 from syncthing_gtk.nautilusplugin import NautiluslikeExtension
 
 NautiluslikeExtension.set_plugin_module(Nautilus)

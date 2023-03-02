@@ -6,11 +6,18 @@ Dialog with Device ID and generated QR code
 """
 
 
+import http.client
+import logging
+import os
+import ssl
+import tempfile
+import urllib.request
+
 from gi.repository import Gio, GLib
-from .tools import IS_WINDOWS
+
 from syncthing_gtk.uibuilder import UIBuilder
-import urllib.request, http.client, ssl
-import os, tempfile, logging
+
+from .tools import IS_WINDOWS
 
 log = logging.getLogger("IDDialog")
 

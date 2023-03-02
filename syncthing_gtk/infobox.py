@@ -5,10 +5,15 @@ Syncthing-GTK - InfoBox
 Colorful, expandable widget displaying folder/device data
 """
 
-from gi.repository import Gtk, Gdk, GLib, GObject, Pango, Rsvg
+import logging
+import math
+import os
+
+from gi.repository import Gdk, GLib, GObject, Gtk, Pango, Rsvg
+
 from syncthing_gtk.ribar import RevealerClass
-from syncthing_gtk.tools import _, escape_html_entities  # _ is gettext function
-import os, logging, math
+from syncthing_gtk.tools import (_,  # _ is gettext function
+                                 escape_html_entities)
 
 log = logging.getLogger("InfoBox")
 

@@ -9,28 +9,27 @@ Create instance, connect singal handlers and call daemon.reconnect()
 """
 
 
-from gi.repository import Gio, GLib, GObject
-from syncthing_gtk.http import (
-    RESTRequest,
-    RESTPOSTRequest,
-    EventPollLoop,
-    InvalidConfigurationException,
-    TLSUnsupportedException,
-    TLSErrorException,
-    HTTPError,
-    InvalidHTTPResponse,
-    HTTPCode,
-    HTTPAuthException,
-    ConnectionRestarted,
-    HTTP_HEADERS,
-)
-from syncthing_gtk.timermanager import TimerManager
-from syncthing_gtk.tools import parsetime, get_header, compare_version
-from syncthing_gtk.tools import get_config_dir
-from dateutil import tz
-from xml.dom import minidom
+import json
+import logging
+import os
+import sys
+import time
+import urllib.parse
 from datetime import datetime
-import json, os, sys, time, logging, urllib.parse
+from xml.dom import minidom
+
+from dateutil import tz
+from gi.repository import Gio, GLib, GObject
+
+from syncthing_gtk.http import (HTTP_HEADERS, ConnectionRestarted,
+                                EventPollLoop, HTTPAuthException, HTTPCode,
+                                HTTPError, InvalidConfigurationException,
+                                InvalidHTTPResponse, RESTPOSTRequest,
+                                RESTRequest, TLSErrorException,
+                                TLSUnsupportedException)
+from syncthing_gtk.timermanager import TimerManager
+from syncthing_gtk.tools import (compare_version, get_config_dir, get_header,
+                                 parsetime)
 
 log = logging.getLogger("Daemon")
 

@@ -11,9 +11,10 @@ Requirements:
 """
 
 
-import re, os, json
+import json
+import os
+import re
 from urllib import request  # Py3
-
 
 print("Retrieving last version...")
 

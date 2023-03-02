@@ -1,5 +1,6 @@
-from gi.repository import Gtk
 import logging
+
+from gi.repository import Gtk
 
 log = logging.getLogger("FakeRevealer")
 

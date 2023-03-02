@@ -4,11 +4,20 @@ Syncthing-GTK - Windows related stuff.
 """
 
 
-from syncthing_gtk.tools import get_config_dir
-from gi.repository import GLib, Gtk, Gdk
-import os, sys, logging, codecs, msvcrt, win32pipe, win32api, winreg
+import codecs
+import logging
+import msvcrt
+import os
+import sys
+import winreg
+
+import win32api
+import win32pipe
 import win32process
+from gi.repository import Gdk, GLib, Gtk
 from win32com.shell import shell, shellcon
+
+from syncthing_gtk.tools import get_config_dir
 
 log = logging.getLogger("windows.py")
 
@@ -162,8 +171,7 @@ class WinPopenReader:
 
 
 def WinConfiguration():
-    from syncthing_gtk.configuration import _Configuration
-    from syncthing_gtk.configuration import serializer
+    from syncthing_gtk.configuration import _Configuration, serializer
 
     class _WinConfiguration(_Configuration):
         """

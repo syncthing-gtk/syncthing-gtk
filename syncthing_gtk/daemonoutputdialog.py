@@ -6,8 +6,9 @@ Displays output from daemon subprocess
 """
 
 
-from syncthing_gtk.uibuilder import UIBuilder
 import os
+
+from syncthing_gtk.uibuilder import UIBuilder
 
 
 class DaemonOutputDialog(object):

@@ -5,22 +5,19 @@ Syncthing-GTK - DaemonSettingsDialog
 Universal dialog handler for all Syncthing settings and editing
 """
 
+import logging
+import os
+
 from gi.repository import Gtk
-from syncthing_gtk.tools import (
-    IS_UNITY,
-    IS_GNOME,
-    IS_WINDOWS,
-    set_run_on_startup,
-    is_ran_on_startup,
-    get_config_dir,
-    get_executable,
-)
-from syncthing_gtk.notifications import Notifications, HAS_DESKTOP_NOTIFY
-from syncthing_gtk.editordialog import EditorDialog
-from syncthing_gtk.tools import _  # gettext function
+
 from syncthing_gtk.configuration import LONG_AGO
+from syncthing_gtk.editordialog import EditorDialog
+from syncthing_gtk.notifications import HAS_DESKTOP_NOTIFY, Notifications
 from syncthing_gtk.stdownloader import StDownloader
-import os, logging
+from syncthing_gtk.tools import _  # gettext function
+from syncthing_gtk.tools import (IS_GNOME, IS_UNITY, IS_WINDOWS,
+                                 get_config_dir, get_executable,
+                                 is_ran_on_startup, set_run_on_startup)
 
 log = logging.getLogger("UISettingsDialog")
 
