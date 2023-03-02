@@ -14,10 +14,7 @@ from syncthing_gtk.notifications import Notifications, HAS_DESKTOP_NOTIFY
 from syncthing_gtk.editordialog import EditorDialog
 from syncthing_gtk.tools import _ # gettext function
 from syncthing_gtk.configuration import LONG_AGO
-try:
-    from syncthing_gtk.stdownloader import StDownloader
-except ImportError:
-    StDownloader = None
+from syncthing_gtk.stdownloader import StDownloader
 import os, logging
 
 log = logging.getLogger("UISettingsDialog")
@@ -122,10 +119,6 @@ class UISettingsDialog(EditorDialog):
             else:
                 log.warning("Cannot find %s.py required to support %s", plugin, name)
         self["fmLblIntegrationStatus"].set_text("\n".join(status))
-        if StDownloader is None:
-            for name in ("vst_autoupdate", "lblAutoupdate", "lblsyncthing_binary",
-                         "lblsyncthing_binary2", "vsyncthing_binary", "btBrowse"):
-                self[name].set_visible(False)
         self.cb_data_loaded(copy)
         self.cb_check_value()
 

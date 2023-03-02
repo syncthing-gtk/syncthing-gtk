@@ -14,10 +14,7 @@ from syncthing_gtk.configuration import Configuration
 from syncthing_gtk.tools import get_config_dir, IS_WINDOWS, is_portable
 from syncthing_gtk.tools import can_upgrade_binary, compare_version
 from syncthing_gtk.tools import _ # gettext function
-try:
-    from syncthing_gtk.stdownloader import StDownloader
-except ImportError:
-    StDownloader = None
+from syncthing_gtk.stdownloader import StDownloader
 
 import os, socket, random, string, bcrypt
 import logging, traceback, platform
@@ -267,16 +264,13 @@ class FindDaemonPage(Page):
         self.paths += [ self.parent.st_configdir ]
         if is_portable():
             self.paths += [ ".\\data" ]
-        if StDownloader is None:
-            self.binaries = ["syncthing"]
-        else:
-            suffix, trash = StDownloader.determine_platform()
-            self.binaries = ["syncthing", "syncthing%s" % (suffix,)]
-            if suffix == "x64":
-                # Allow 32bit binary on 64bit
-                self.binaries += ["syncthing.x86"]
-            if default_binary not in self.binaries:
-                self.binaries = [ default_binary ] + self.binaries
+        suffix, trash = StDownloader.determine_platform()
+        self.binaries = ["syncthing", "syncthing%s" % (suffix,)]
+        if suffix == "x64":
+            # Allow 32bit binary on 64bit
+            self.binaries += ["syncthing.x86"]
+        if default_binary not in self.binaries:
+            self.binaries = [ default_binary ] + self.binaries
         if IS_WINDOWS:
             self.paths += [ "c:/Program Files/syncthing",
                 "c:/Program Files (x86)/syncthing",
@@ -301,14 +295,6 @@ class FindDaemonPage(Page):
                 # On Windows, don't say anything and download Syncthing
                 # directly
                 self.parent.insert_and_go(DownloadSTPage())
-                return False
-            elif StDownloader is None:
-                # On Linux with updater disabled, generate and
-                # display error page
-                title = _("Syncthing daemon not found.")
-                message = _("Please, use package manager to install the Syncthing package.")
-                page = self.parent.error(self, title, message, False)
-                page.show_all()
                 return False
             else:
                 # On Linux with updater generate similar display error

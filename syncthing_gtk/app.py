@@ -29,10 +29,7 @@ from syncthing_gtk.uibuilder import UIBuilder
 from syncthing_gtk.identicon import IdentIcon
 from syncthing_gtk.infobox import InfoBox
 from syncthing_gtk.ribar import RIBar
-try:
-    from syncthing_gtk.stdownloader import StDownloader
-except ImportError:
-    StDownloader = None
+from syncthing_gtk.stdownloader import StDownloader
 
 
 from datetime import datetime
@@ -198,12 +195,11 @@ class App(Gtk.Application, TimerManager):
                 return 0
             if cl.get_options_dict().contains("home"):
                 self.home_dir_override = cl.get_options_dict().lookup_value("home").get_string()
-            if not StDownloader is None:
-                if cl.get_options_dict().contains("force-update"):
-                    self.force_update_version = \
-                        cl.get_options_dict().lookup_value("force-update").get_string()
-                    if not self.force_update_version.startswith("v"):
-                        self.force_update_version = "v%s" % (self.force_update_version,)
+            if cl.get_options_dict().contains("force-update"):
+                self.force_update_version = \
+                    cl.get_options_dict().lookup_value("force-update").get_string()
+                if not self.force_update_version.startswith("v"):
+                    self.force_update_version = "v%s" % (self.force_update_version,)
             if cl.get_options_dict().contains("add-repo"):
                 path = os.path.abspath(os.path.expanduser(
                     cl.get_options_dict().lookup_value("add-repo").get_string()))
@@ -294,10 +290,9 @@ class App(Gtk.Application, TimerManager):
         aso("remove-repo", 0, "If there is repository assigned with specified path, opens 'remove repository' dialog",
                 GLib.OptionArg.STRING)
         aso("no-status-icon", 0, "Don't show a tray status icon")
-        if not StDownloader is None:
-            aso("force-update", 0,
-                    "Force updater to download specific daemon version",
-                    GLib.OptionArg.STRING, GLib.OptionFlags.HIDDEN)
+        aso("force-update", 0,
+                "Force updater to download specific daemon version",
+                GLib.OptionArg.STRING, GLib.OptionFlags.HIDDEN)
 
     def setup_actions(self):
         def add_simple_action(name, callback):
@@ -506,9 +501,6 @@ class App(Gtk.Application, TimerManager):
         # User response is handled in App.cb_infobar_response
 
     def check_for_upgrade(self, *a):
-        if StDownloader is None:
-            # Can't, someone stole my updater module :(
-            return
         self.cancel_timer("updatecheck")
         if not self.config["st_autoupdate"]:
             # Disabled, don't even bother
@@ -728,7 +720,7 @@ class App(Gtk.Application, TimerManager):
                     else:
                         self.display_run_daemon_dialog()
             self.set_status(False)
-        elif reason == Daemon.OLD_VERSION and self.config["st_autoupdate"] and not self.process is None and not StDownloader is None:
+        elif reason == Daemon.OLD_VERSION and self.config["st_autoupdate"] and not self.process is None:
             # Daemon is too old, but autoupdater is enabled and I have control of deamon.
             # Try to update.
             from .configuration import LONG_AGO
@@ -2139,7 +2131,7 @@ class App(Gtk.Application, TimerManager):
                 self.cb_daemon_startup_failed(proc, "Daemon exits too fast")
                 return
             self.last_restart_time = time.time()
-            if not StDownloader is None and self.config["st_autoupdate"] and os.path.exists(self.config["syncthing_binary"] + ".new"):
+            if self.config["st_autoupdate"] and os.path.exists(self.config["syncthing_binary"] + ".new"):
                 # New daemon version is downloaded and ready to use.
                 # Switch to this version before restarting
                 self.swap_updated_binary()
@@ -2155,38 +2147,26 @@ class App(Gtk.Application, TimerManager):
         """
         # Prepare FindDaemonDialog instance where user can
         # set new path for syncthing_binary
-        try:
-            from syncthing_gtk.finddaemondialog import FindDaemonDialog
-            d = FindDaemonDialog(self)
-        except ImportError:
-            d = None
+        from syncthing_gtk.finddaemondialog import FindDaemonDialog
+        d = FindDaemonDialog(self)
 
-        if d is None:
-            # FindDaemonDialog can be disabled by setup.py; If that's the case,
-            # setting is reset to default and 1st run wizard is started
-            self.config["syncthing_binary"] = self.config.get_default_value("syncthing_binary")
-            self.config.save()
-            self.hide()
-            self.show_wizard()
-            self.wizard.only_page(1)
+        d.load()
+        d.set_transient_for(self["window"] if self.connect_dialog is None
+                else self.connect_dialog)
+        # If binary exists, assume that something is completely wrong,
+        # and change error message
+        if os.path.exists(self.config["syncthing_binary"]):
+            d.set_message("%s\n%s %s\n\n%s" % (
+                    _("Failed to start Syncthing daemon."),
+                    _("Error message:"), str(exception),
+                    _("Please, check your installation or set new path to Syncthing daemon binary."),
+            ))
+            d.hide_download_button()
+        # Let dialog run and try running syncthing again if new
+        # syncthing_binary is acquired
+        r = d.run()
+        d.destroy()
+        if r == FindDaemonDialog.RESPONSE_SAVED:
+            self.cb_daemon_exit(self.process, -1)
         else:
-            d.load()
-            d.set_transient_for(self["window"] if self.connect_dialog is None
-                    else self.connect_dialog)
-            # If binary exists, assume that something is completely wrong,
-            # and change error message
-            if os.path.exists(self.config["syncthing_binary"]):
-                d.set_message("%s\n%s %s\n\n%s" % (
-                        _("Failed to start Syncthing daemon."),
-                        _("Error message:"), str(exception),
-                        _("Please, check your installation or set new path to Syncthing daemon binary."),
-                ))
-                d.hide_download_button()
-            # Let dialog run and try running syncthing again if new
-            # syncthing_binary is acquired
-            r = d.run()
-            d.destroy()
-            if r == FindDaemonDialog.RESPONSE_SAVED:
-                self.cb_daemon_exit(self.process, -1)
-            else:
-                self.quit()
+            self.quit()
