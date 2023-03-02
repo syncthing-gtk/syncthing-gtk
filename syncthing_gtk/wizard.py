@@ -24,8 +24,7 @@ from syncthing_gtk.daemonoutputdialog import DaemonOutputDialog
 from syncthing_gtk.daemonprocess import DaemonProcess
 from syncthing_gtk.stdownloader import StDownloader
 from syncthing_gtk.tools import _  # gettext function
-from syncthing_gtk.tools import (IS_WINDOWS, can_upgrade_binary,
-                                 compare_version, get_config_dir, is_portable)
+from syncthing_gtk.tools import IS_WINDOWS, can_upgrade_binary, compare_version, get_config_dir, is_portable
 
 log = logging.getLogger("Wizard")
 

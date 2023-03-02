@@ -20,8 +20,7 @@ from datetime import datetime
 from gi.repository import Gdk, GdkPixbuf, Gio, GLib, Gtk
 
 from syncthing_gtk.configuration import Configuration
-from syncthing_gtk.daemon import (Daemon, InvalidConfigurationException,
-                                  TLSErrorException)
+from syncthing_gtk.daemon import Daemon, InvalidConfigurationException, TLSErrorException
 from syncthing_gtk.daemonoutputdialog import DaemonOutputDialog
 from syncthing_gtk.daemonprocess import DaemonProcess
 from syncthing_gtk.deviceeditor import DeviceEditorDialog
@@ -33,12 +32,23 @@ from syncthing_gtk.ribar import RIBar
 from syncthing_gtk.statusicon import StatusIconDummy, get_status_icon
 from syncthing_gtk.stdownloader import StDownloader
 from syncthing_gtk.timermanager import TimerManager
-from syncthing_gtk.tools import (IS_GNOME, IS_I3, IS_MATE, IS_UNITY,
-                                 IS_WINDOWS, IS_XFCE, IS_XP, _,
-                                 can_upgrade_binary, check_daemon_running,
-                                 compare_version, generate_folder_id,
-                                 parse_config_arguments, set_logging_level,
-                                 sizeof_fmt)
+from syncthing_gtk.tools import (
+    IS_GNOME,
+    IS_I3,
+    IS_MATE,
+    IS_UNITY,
+    IS_WINDOWS,
+    IS_XFCE,
+    IS_XP,
+    _,
+    can_upgrade_binary,
+    check_daemon_running,
+    compare_version,
+    generate_folder_id,
+    parse_config_arguments,
+    set_logging_level,
+    sizeof_fmt,
+)
 from syncthing_gtk.uibuilder import UIBuilder
 
 log = logging.getLogger("App")

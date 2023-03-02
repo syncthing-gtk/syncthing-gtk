@@ -12,8 +12,7 @@ import os
 from gi.repository import Gdk, GLib, GObject, Gtk, Pango, Rsvg
 
 from syncthing_gtk.ribar import RevealerClass
-from syncthing_gtk.tools import (_,  # _ is gettext function
-                                 escape_html_entities)
+from syncthing_gtk.tools import _, escape_html_entities  # _ is gettext function
 
 log = logging.getLogger("InfoBox")
 

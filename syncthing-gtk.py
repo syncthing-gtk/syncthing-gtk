@@ -15,9 +15,11 @@ if __name__ == "__main__":
 
     if IS_WINDOWS:
         from syncthing_gtk.configuration import Configuration
-        from syncthing_gtk.windows import (enable_localization,
-                                           fix_localized_system_error_messages,
-                                           override_menu_borders)
+        from syncthing_gtk.windows import (
+            enable_localization,
+            fix_localized_system_error_messages,
+            override_menu_borders,
+        )
 
         config = Configuration()
         if config["force_dark_theme"]:
