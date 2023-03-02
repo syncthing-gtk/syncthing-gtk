@@ -119,14 +119,21 @@ executables = [
 ]
 
 
-def get_version(): return "%s-win32" % (_get_version(),)
+def get_version():
+    return "%s-win32" % (_get_version(),)
 
 
 # Monkey-patch _AddVersionResource in cx_Freeze so win32verstamp will
 # not bitch about non-numeric version
 RE_NUMBER = re.compile(r"v?([0-9]+).*")
-def extract_number(x): return RE_NUMBER.match(x).group(1) if RE_NUMBER.match(x) else "0"
-def win32version(x): return ".".join([extract_number(i) for i in x.split(".")[0:4]])
+
+
+def extract_number(x):
+    return RE_NUMBER.match(x).group(1) if RE_NUMBER.match(x) else "0"
+
+
+def win32version(x):
+    return ".".join([extract_number(i) for i in x.split(".")[0:4]])
 
 
 Freezer._AddVersionResource = lambda self, exe: stamp(

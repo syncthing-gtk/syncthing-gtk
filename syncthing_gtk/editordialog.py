@@ -503,8 +503,9 @@ class EditorDialog(GObject.GObject):
         )
 
 
-""" Strips 'v' prefix used in widget IDs """
-def strip_v(x): return x[1:] if x.startswith("v") else x
+def strip_v(x):
+    """ Strips 'v' prefix used in widget IDs """
+    return x[1:] if x.startswith("v") else x
 
 
 class ValueNotFoundError(KeyError):

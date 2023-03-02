@@ -848,12 +848,11 @@ class App(Gtk.Application, TimerManager):
     def cb_syncthing_config_oos(self, *a):
         if self["infobar"] is None:
             r = RIBar(
-                _("The configuration has been saved but not activated.\nSyncthing must restart to activate the new configuration."),
+                _(
+                    "The configuration has been saved but not activated.\nSyncthing must restart to activate the new configuration."
+                ),
                 Gtk.MessageType.WARNING,
-                (RIBar.build_button(
-                    _("_Restart"),
-                    "view-refresh"),
-                 RESPONSE_RESTART),
+                (RIBar.build_button(_("_Restart"), "view-refresh"), RESPONSE_RESTART),
             )
             self["infobar"] = r
             self.show_info_box(r)
@@ -1473,7 +1472,7 @@ class App(Gtk.Application, TimerManager):
         display_path = path
         if IS_WINDOWS:
             if display_path.lower().replace("\\", "/").startswith(os.path.expanduser("~").lower()):
-                display_path = "~%s" % display_path[len(os.path.expanduser("~")):]
+                display_path = "~%s" % display_path[len(os.path.expanduser("~")) :]
         title = folder_id
         if self.config["folder_as_path"]:
             title = display_path
