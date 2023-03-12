@@ -1,7 +1,7 @@
 # Syncthing-GTK
 # Copyright (C) 2014-2015 Kozec and contributors
 # This file is distributed under the same license as the Syncthing-GTK package.
-# 
+#
 # Translators:
 # Daniel Kessel <d.kessel@mailbox.org>, 2015
 # kozec <kozec2@kozec.com>, 2016,2018
@@ -13,1531 +13,1882 @@ msgid ""
 msgstr ""
 "Project-Id-Version: syncthing-gtk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-20 11:27+0200\n"
+"POT-Creation-Date: 2023-03-12 19:35+0100\n"
 "PO-Revision-Date: 2018-02-24 08:00+0000\n"
 "Last-Translator: kozec <kozec2@kozec.com>\n"
-"Language-Team: German (http://www.transifex.com/syncthing-gtk/syncthing-gtk/language/de/)\n"
+"Language-Team: German (http://www.transifex.com/syncthing-gtk/syncthing-gtk/"
+"language/de/)\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: syncthing_gtk/app.py:194
+#: glade/about.glade:7
+msgid "About Syncthing-GTK"
+msgstr "Über Syncthing-GTK"
+
+#: glade/about.glade:68
+msgid "<span size=\"large\"><b>Syncthing-GTK</b></span>"
+msgstr ""
+
+#: glade/about.glade:84
+#, fuzzy
+msgid "(version)"
+msgstr "Version"
+
+#: glade/about.glade:97
+#, fuzzy
+msgid "GUI and notification area icon for Syncthing"
+msgstr "Anwendungs- und Tray Icon für Syncthing"
+
+#: glade/about.glade:112
+msgid ""
+"<b>Code&amp;UI © 2016 Kozec</b>\n"
+"\n"
+"Source code available on <a href=\"http://github.com/kozec/syncthing-"
+"gtk\">GitHub</a>\n"
+"\n"
+"I'd like to express my biggest thanks\n"
+"for all my <b><a href=\"https://www.patreon.com/kozec\">Patreon</a></b> "
+"supporters, with special mention of\n"
+"\n"
+"<b>Deryn L.</b>\n"
+"<b>Eric Duhamel</b>\n"
+"<b>Enric Morales</b>\n"
+"<b>Orivej Desh</b>\n"
+"<b>G. Wilson</b>\n"
+"<b>Joshua M</b>\n"
+"<b>Lutris</b>\n"
+"<b>Taowa</b>\n"
+"and\n"
+"<b>ambidot</b>\n"
+msgstr ""
+
+#: glade/about.glade:145
+msgid ""
+"<small>This program comes with absolutely no warranty.\n"
+"See the <a href=\"http://www.gnu.org/licenses/old-licenses/gpl-2.0."
+"html\">GNU General Public License, version 2 or later</a> for details.</"
+"small>"
+msgstr ""
+
+#: glade/app.glade:216 glade/app.glade:606
+msgid "Open _Web Interface"
+msgstr "Öffne _Weboberfläche"
+
+#: glade/app.glade:220
+msgid "Display _Daemon Output"
+msgstr "Zeige _Dienst-Ausgaben"
+
+#: glade/app.glade:226
+msgid "UI _Settings"
+msgstr "GUI-Ein_stellungen"
+
+#: glade/app.glade:232
+msgid "_About"
+msgstr "Ü_ber"
+
+#: glade/app.glade:236
+msgid "_Quit"
+msgstr "B_eenden"
+
+#: glade/app.glade:247
+msgid "Add Shared _Folder"
+msgstr "Geteilten Ordner hinzu_fügen"
+
+#: glade/app.glade:251
+msgid "Add _Device"
+msgstr "_Gerät hinzufügen"
+
+#: glade/app.glade:257
+msgid "Daemon _Settings"
+msgstr "Dienstein_stellungen"
+
+#: glade/app.glade:261 glade/app.glade:392 glade/app.glade:592
+msgid "Show _ID"
+msgstr "Zeige _ID"
+
+#: glade/app.glade:267
+msgid "Sh_utdown Daemon"
+msgstr "Dienst her_unterfahren"
+
+#: glade/app.glade:271
+msgid "_Restart Daemon"
+msgstr "Dienst neusta_rten"
+
+#: glade/app.glade:286
+msgid "Override Remote Changes"
+msgstr "Änderungen von Gegenstelle überschreiben"
+
+#: glade/app.glade:297
+#, fuzzy
+msgid "Override Local Changes"
+msgstr "Änderungen von Gegenstelle überschreiben"
+
+#: glade/app.glade:324
+msgid "Edit _Ignore Patterns"
+msgstr "Bearbeite _Ignoriermuster"
+
+#: glade/app.glade:351
+msgid "_Rescan"
+msgstr "Neu s_cannen"
+
+#: glade/app.glade:363
+msgid "_Browse"
+msgstr "_Durchsuchen"
+
+#: glade/app.glade:404
+msgid "gtk-media-pause"
+msgstr ""
+
+#: glade/app.glade:415
+msgid "Resume"
+msgstr "Fortsetzen"
+
+#: glade/app.glade:445
+msgid "Connecting to daemon..."
+msgstr "Verbinde mit Dienst…"
+
+#: glade/app.glade:455 syncthing_gtk/app.py:1380
+msgid "Show Window"
+msgstr "Fenster zeigen"
+
+#: glade/app.glade:473
+msgid "S_top Syncthing"
+msgstr "Syncthing _anhalten"
+
+#: glade/app.glade:487
+msgid "Resume Sync_thing"
+msgstr "Syncthing _fortsetzen"
+
+#: glade/app.glade:499 glade/daemon-settings.glade:335
+msgid "_Incoming Rate Limit"
+msgstr "Maximale Empfangsrate"
+
+#: glade/app.glade:513 glade/app.glade:555
+msgid "_Unlimited"
+msgstr "_Unbegrenzt"
+
+#: glade/app.glade:522 glade/app.glade:564
+msgid "_Other"
+msgstr "_Andere"
+
+#: glade/app.glade:541
+msgid "_Outgoing Rate Limit"
+msgstr "_Maximale Senderate"
+
+#: glade/app.glade:618
+msgid "See _Logs"
+msgstr ""
+
+#: glade/app.glade:630
+msgid "_Preferences"
+msgstr ""
+
+#: glade/daemon-output.glade:7
+msgid "Daemon Output"
+msgstr "Dienstausgabe"
+
+#: glade/daemon-settings.glade:106
+msgid "Sync Protocol Listen Addresses"
+msgstr "Lausch-Adressen des Sync-Protokolls"
+
+#: glade/daemon-settings.glade:136
+msgid "Enable Local _Discovery"
+msgstr "Aktiviere lokale Ent_deckung"
+
+#: glade/daemon-settings.glade:153
+msgid "Enable _UPnP"
+msgstr "Aktiviere _UPnP"
+
+#: glade/daemon-settings.glade:171
+msgid "Local Discovery _Port"
+msgstr "_Port für lokale Entdeckung"
+
+#: glade/daemon-settings.glade:212
+msgid "Outgoing _Rate Limit"
+msgstr "Limit für _ausgehende Datenrate"
+
+#: glade/daemon-settings.glade:229
+msgid "Open browser with _WebUI when daemon is starting"
+msgstr "Öffne Browser mit _Weboberfläche, wenn der Dienst startet"
+
+#: glade/daemon-settings.glade:246
+msgid "Enable _Anonymous Usage Reporting"
+msgstr "Aktiviere _Anonymisierte Sammlung von Benutzungsdaten"
+
+#: glade/daemon-settings.glade:262
+msgid "Enable _Global Discovery"
+msgstr "Aktiviere _Globale Entdeckung"
+
+#: glade/daemon-settings.glade:281
+msgid "Global Discovery _Servers"
+msgstr "Globale Entdeckungs-_Server"
+
+#: glade/device-edit.glade:22 syncthing_gtk/app.py:1580
+msgid "All Data"
+msgstr "Alle Daten"
+
+#: glade/device-edit.glade:26 glade/folder-edit.glade:78
+#: syncthing_gtk/app.py:1582
+msgid "Off"
+msgstr "Aus"
+
+#: glade/device-edit.glade:30 syncthing_gtk/app.py:1584
+msgid "Metadata Only"
+msgstr "Nur Metadaten"
+
+#: glade/device-edit.glade:101
+msgid "Device _ID"
+msgstr "Geräte-_ID"
+
+#: glade/device-edit.glade:131
+msgid "Device _Name"
+msgstr "Geräte-_Name"
+
+#: glade/device-edit.glade:161
+msgid "Shown instead of Device ID in the cluster status."
+msgstr "Wird anstelle der Geräte-ID im Cluser-Status angezeigt."
+
+#: glade/device-edit.glade:175
+msgid "_Addresses"
+msgstr "_Adressen"
+
+#: glade/device-edit.glade:205
+msgid ""
+"Enter comma separated \"ip:port\" addresses or \"dynamic\" to perform "
+"automatic discovery of the address."
+msgstr ""
+"Geben Sie durch Kommata getrennte \"ip:port\"-Adressen ein, oder "
+"\"dynamic\", um automatische Entdeckung der Adresse durchzuführen."
+
+#: glade/device-edit.glade:232
+msgid "Share _Folders"
+msgstr "_Ordner teilen"
+
+#: glade/device-edit.glade:249
+msgid "Select the folders to share with this device"
+msgstr "Wählen Sie die mit diesem Gerät geteilten Ordner aus"
+
+#: glade/device-edit.glade:260
+msgid "_Introducer"
+msgstr "_Bekanntmachungs-Knoten - Introducer"
+
+#: glade/device-edit.glade:279
+msgid ""
+"Any devices configured on an introducer device will be added to this device "
+"as well."
+msgstr ""
+"Alle Geräte, die auf einem Bekanntmachungsknoten-Gerät konfiguriert sind, "
+"werden zu diesem Gerät ebenfalls hinzugefügt."
+
+#: glade/device-edit.glade:293
+msgid "_Compression"
+msgstr "_Komprimierung"
+
+#: glade/device-id.glade:14
+msgid "Device Identification"
+msgstr "Geräte-Identifikation"
+
+#: glade/device-id.glade:68
+msgid "XYZ-123-ABC"
+msgstr "XYZ-123-ABC"
+
+#: glade/find-daemon.glade:7 syncthing_gtk/finddaemondialog.py:27
+msgid "Can't invoke the daemon"
+msgstr "Konnte den Dienst nicht aufrufen"
+
+#: glade/find-daemon.glade:126 glade/ui-settings.glade:909
+msgid "_Browse..."
+msgstr "_Suche…"
+
+#: glade/find-daemon.glade:179
+msgid "_Download..."
+msgstr "_Herunterladen"
+
+#: glade/folder-edit.glade:44
+msgctxt "In File Pull Order combobox"
+msgid "Random"
+msgstr "Zufällig"
+
+#: glade/folder-edit.glade:48
+msgctxt "In File Pull Order combobox"
+msgid "Alphabetic"
+msgstr "Alphabetisch"
+
+#: glade/folder-edit.glade:52
+msgctxt "In File Pull Order combobox"
+msgid "Smallest First"
+msgstr "Kleinste zuerst"
+
+#: glade/folder-edit.glade:56
+msgctxt "In File Pull Order combobox"
+msgid "Largest First"
+msgstr "Größste zuerst"
+
+#: glade/folder-edit.glade:60
+msgctxt "In File Pull Order combobox"
+msgid "Oldest First"
+msgstr "Älteste zuerst"
+
+#: glade/folder-edit.glade:64
+msgctxt "In File Pull Order combobox"
+msgid "Newest First"
+msgstr "Neueste zuerst"
+
+#: glade/folder-edit.glade:82
+msgid "Simple"
+msgstr "Einfach"
+
+#: glade/folder-edit.glade:86
+msgid "Staggered"
+msgstr "Gestaffelt"
+
+#: glade/folder-edit.glade:90
+msgid "Trashcan"
+msgstr "Papierkorb"
+
+#: glade/folder-edit.glade:94
+msgid "External"
+msgstr "Extern"
+
+#: glade/folder-edit.glade:171
+msgid "Folder _Label"
+msgstr "Ordner-Bezeich_nung"
+
+#: glade/folder-edit.glade:190
+msgid "Generate Random"
+msgstr ""
+
+#: glade/folder-edit.glade:205
+msgid "Short identifier for the folder. Must be the same on all devices."
+msgstr ""
+"Kurzer Bezeichner für den Ordner. Muss auf allen Geräten identisch sein."
+
+#: glade/folder-edit.glade:219
+msgid "_Path"
+msgstr "_Pfad"
+
+#: glade/folder-edit.glade:237
+msgid ""
+"Path to the folder on the local computer. Will be created if it does not "
+"exist."
+msgstr ""
+"Pfad zu dem Ordner auf dem lokalen Rechner. Wird angelegt, falls er nicht "
+"existiert."
+
+#: glade/folder-edit.glade:251
+msgid "Rescan _Interval"
+msgstr "Rescan _Intervall"
+
+#: glade/folder-edit.glade:269 glade/folder-edit.glade:1092
+msgid "5"
+msgstr ""
+
+#: glade/folder-edit.glade:298
+msgid "Monitor filesystem for _changes"
+msgstr "Überwache Dateisystem für _Änderungen"
+
+#: glade/folder-edit.glade:332
+msgid "Browse..."
+msgstr "Durchsuchen ..."
+
+#: glade/folder-edit.glade:355
+msgid "Folder _ID"
+msgstr "Ordner-_ID"
+
+#: glade/folder-edit.glade:385
+msgid ""
+"Optional descriptive label for the folder. Can be different on each device."
+msgstr "Optionale Ordner-Bezeichnung. Diese kann van Gerät zu Gerät variieren."
+
+#: glade/folder-edit.glade:408
+msgid "_Send Only Folder"
+msgstr "\"Nur senden\" Ordner"
+
+#: glade/folder-edit.glade:429
+msgid ""
+"Files are protected from changes made on other devices, but changes made on "
+"this device will be sent to the rest of the cluster."
+msgstr ""
+"Dateien werden vor Änderungen, die auf anderen Geräten vorgenommen werden "
+"geschützt. Änderungen auf diesem Gerät werden jedoch an den Rest des "
+"Clusters gesendet."
+
+#: glade/folder-edit.glade:453
+#, fuzzy
+msgid "_Receive Only Folder"
+msgstr "\"Nur senden\" Ordner"
+
+#: glade/folder-edit.glade:474
+#, fuzzy
+msgid ""
+"Changes from other devices are applied to files on this device, but changes "
+"made on this device are not sent to the rest of the cluster.\n"
+msgstr ""
+"Dateien werden vor Änderungen, die auf anderen Geräten vorgenommen werden "
+"geschützt. Änderungen auf diesem Gerät werden jedoch an den Rest des "
+"Clusters gesendet."
+
+#: glade/folder-edit.glade:493
+msgid "_Folder Settings"
+msgstr "Ordnereinstellungen"
+
+#: glade/folder-edit.glade:514
+msgid "Select the devices to share this folder with."
+msgstr "Wählen Sie die Geräte, mit denen dieser Ordner geteilt werden soll."
+
+#: glade/folder-edit.glade:566
+msgid "Share With _Devices"
+msgstr "Mit _Geräten teilen"
+
+#: glade/folder-edit.glade:588
+msgid "Versioning _Mode"
+msgstr "Versionierungs_modus"
+
+#: glade/folder-edit.glade:643
+msgid ""
+"Files are moved to date stamped versions in a .stversions folder when "
+"replaced or deleted by syncthing."
+msgstr ""
+"Dateien werden in eine mit Datum versehene Version in einen .stversions "
+"Ordner verschoben, wenn sie von Syncthing ersetzt oder gelöscht werden. "
+
+#: glade/folder-edit.glade:658
+msgid "_Keep Versions"
+msgstr "_Anzahl der zu aufzuhebenden Versionen"
+
+#: glade/folder-edit.glade:695
+msgid "The number of old versions to keep, per file."
+msgstr "Die Anzahl der aufzuhebenden alten Versionen, pro Datei."
+
+#: glade/folder-edit.glade:724
+msgid ""
+"Files are moved to date stamped versions in a .stversions folder when "
+"replaced or deleted by syncthing. Versions are automatically deleted if they "
+"are older than the maximum age or exceed the number of files allowed in an "
+"interval.\n"
+"\n"
+"The following intervals are used: for the first hour a version is kept every "
+"30 seconds, for the first day a version is kept every hour, for the first 30 "
+"days a version is kept every day, until the maximum age a version is kept "
+"every week."
+msgstr ""
+"Dateien werden in eine mit Datum versehene Version in einen .stversions "
+"Ordner verschoben, wenn sie von Syncthing ersetzt oder gelöscht werden. Die "
+"Dateiversionen werden automatisch gelöscht, wenn sie das maximale Alter oder "
+"eine maximale Anzahl in einem gegebenen Intervall erreicht haben.\n"
+"Folgende Intervalle kommen zur Anwendung: während der ersten Stunde wird ein "
+"Version 30 Sekunden, während des ersten Tages wird sie jede Stunde, während "
+"der ersten 30 Tage wird sie jeden Tag und bis zu ihrem maximalen Alter jede "
+"Woche gehalten."
+
+#: glade/folder-edit.glade:741
+msgid "Ma_ximum Age"
+msgstr "Ma_ximales Alter"
+
+#: glade/folder-edit.glade:780
+msgid "Versions _Path"
+msgstr "Versions_pfad"
+
+#: glade/folder-edit.glade:812
+msgid ""
+"Path where versions should be stored (leave empty for the default ."
+"stversions folder)."
+msgstr ""
+"Pfad, wo Versionen gespeichert werden sollen (leer lassen für den Standard ."
+"stversions Ordner)."
+
+#: glade/folder-edit.glade:840
+msgid ""
+"Files are moved to .stversions folder when replaced or deleted by Syncthing"
+msgstr ""
+"Dateien werden in einen .stversions Ordner verschoben, wenn sie von "
+"Syncthing ersetzt oder gelöscht werden."
+
+#: glade/folder-edit.glade:854
+msgid "Clean out _after"
+msgstr "Säubere _nach"
+
+#: glade/folder-edit.glade:893
+msgid "The number of days to keep files in the trash can."
+msgstr "Die Anzahl der Tage, um Dateien im Papierkorb zu halten."
+
+#: glade/folder-edit.glade:922
+msgid ""
+"An external command handles the versioning. It has to remove the file from "
+"the synced folder."
+msgstr ""
+"Ein externer Befehl übernimmt die Versionsverwaltung. Er muss die Datei vom "
+"synchronisierten Ordner entfernen."
+
+#: glade/folder-edit.glade:937
+msgid "Command"
+msgstr "Befehl"
+
+#: glade/folder-edit.glade:970
+msgid ""
+"The first command line parameter is the folder path and the second parameter "
+"is the relative path in the folder."
+msgstr ""
+"Der erste Befehlszeilenparameter ist der Ordnerpfad und der zweite Parameter "
+"ist der relative Pfad im Ordner."
+
+#: glade/folder-edit.glade:1007
+msgid "File _Versioning"
+msgstr "Datei_versionierung"
+
+#: glade/folder-edit.glade:1037
+msgid "Ignore P_ermissions"
+msgstr "_Berechtigungen ignorieren"
+
+#: glade/folder-edit.glade:1058
+msgid ""
+"File permission bits are ignored when looking for changes. Use on FAT "
+"filesystems."
+msgstr ""
+"Bei der Suche nach Änderungen werden Dateiberechtigungen ignoriert. "
+"Verwendung auf FAT Dateisystemen."
+
+#: glade/folder-edit.glade:1073
+msgid "Minimum Free Disk Space"
+msgstr "Minimal freier Speicherplatz"
+
+#: glade/folder-edit.glade:1112
+msgid "File Pull _Order"
+msgstr "Übertragungsreihenfolge von Dateien"
+
+#: glade/folder-edit.glade:1160 glade/ui-settings.glade:1046
+msgid "_Advanced"
+msgstr "_Fortgeschritten"
+
+#: glade/ignore-editor.glade:8
+msgid "Ignore Patterns"
+msgstr "Ignoriere Muster"
+
+#: glade/ignore-editor.glade:99
+msgid ""
+"See <a href=\"http://docs.syncthing.net/users/ignoring.html\">Syncthing "
+"documentation</a> for list of supported patterns"
+msgstr ""
+"Konsultieren Sie die <a href=\"http://docs.syncthing.net/users/ignoring."
+"html\"> Syncthing Dokumentation </a> für eine Liste der unterstützten Muster"
+
+#: glade/ignore-editor.glade:114
+msgid "File location: "
+msgstr "Dateipfad: "
+
+#: glade/ui-settings.glade:27 glade/ui-settings.glade:49
+msgid "Default"
+msgstr ""
+
+#: glade/ui-settings.glade:31
+msgid "Black"
+msgstr ""
+
+#: glade/ui-settings.glade:35
+msgid "White"
+msgstr ""
+
+#: glade/ui-settings.glade:107
+msgid "Lowest"
+msgstr "Am Niedrigsten"
+
+#: glade/ui-settings.glade:111
+msgid "Low"
+msgstr "Niedrig"
+
+#: glade/ui-settings.glade:115
+msgid "Normal"
+msgstr "Normal"
+
+#: glade/ui-settings.glade:119
+msgid "Above Normal"
+msgstr "Über Normal"
+
+#: glade/ui-settings.glade:126
+msgid "Syncthing-GTK Settings"
+msgstr "Syncthing-GTK Einstellungen"
+
+#: glade/ui-settings.glade:149
+msgid "Please, restart Syncthing-GTK to apply all changed settings"
+msgstr "Die Änderung werden erst nach Neustart von Syncthing-GTK wirksam."
+
+#: glade/ui-settings.glade:217
+msgid "When starting and Syncthing daemon is not running..."
+msgstr "Beim Starten und nicht aktivem Syncthing Daemon ..."
+
+#: glade/ui-settings.glade:228
+msgid "... _wait for daemon"
+msgstr "... _auf den Daemon warten"
+
+#: glade/ui-settings.glade:246
+msgid "... start daemon in _background"
+msgstr "... Daemon _im Hintergrund starten"
+
+#: glade/ui-settings.glade:264
+msgid "... _ask me what to do"
+msgstr "... _frag mich, was zu tun ist"
+
+#: glade/ui-settings.glade:285
+msgid "When exiting after daemon was started in background..."
+msgstr "Beim Beenden nachdem der Daemon im Hintergrund gestartet wurde..."
+
+#: glade/ui-settings.glade:296
+msgid "... terminate _daemon"
+msgstr "... Daemon _beenden"
+
+#: glade/ui-settings.glade:314
+msgid "... leave daemon _running"
+msgstr "...Daemon _laufen lassen"
+
+#: glade/ui-settings.glade:332
+msgid "... ask me w_hat to do"
+msgstr "... frag mich w_as zu tun ist"
+
+#: glade/ui-settings.glade:350
+msgid "Us_e traditional window header"
+msgstr "Benutz_e die traditionelle Fensterkopfzeile"
+
+#: glade/ui-settings.glade:371
+msgid "Display desktop notifications for..."
+msgstr "Zeige Desktop Benachrichtigungen für..."
+
+#: glade/ui-settings.glade:382
+msgid "... file updates"
+msgstr "... Dateiaktualisierungen"
+
+#: glade/ui-settings.glade:399
+msgid "... errors"
+msgstr "... Fehler"
+
+#: glade/ui-settings.glade:416
+msgid "... synchronization completion"
+msgstr "... Synchronisationsabschluss"
+
+#: glade/ui-settings.glade:433
+msgid "Start Syncthing-GTK when I login to my desktop"
+msgstr "Syncthing-GTK starten, wenn ich mich an meinem Computer anmelde"
+
+#: glade/ui-settings.glade:450
+msgid "Minimize to _tray on start"
+msgstr "Beim Start in den  _tray minimieren"
+
+#: glade/ui-settings.glade:466
+msgid "Display paths in directories panel"
+msgstr "Zeige Pfade in der Verzeichnisübersichtl"
+
+#: glade/ui-settings.glade:482
+msgid "Force _dark theme"
+msgstr "Erzwinge _dunkles Thema"
+
+#: glade/ui-settings.glade:523
+msgid "Tray icon style"
+msgstr ""
+
+#: glade/ui-settings.glade:536
+msgid "Language"
+msgstr ""
+
+#: glade/ui-settings.glade:575
+msgid "_Interface"
+msgstr "_Schnittstelle"
+
+#: glade/ui-settings.glade:594
+msgid "Integrate Syncthing with filemanagers"
+msgstr "Integriere Syncthing mit Dateimanagern"
+
+#: glade/ui-settings.glade:609
+msgid "Nemo (Cinamon Desktop)"
+msgstr "Nemo (Cinamon Desktop)"
+
+#: glade/ui-settings.glade:626
+msgid "Nautilus (Ubuntu/GNOME)"
+msgstr "Nautilus (Ubuntu/GNOME)"
+
+#: glade/ui-settings.glade:642
+msgid "Caja (MATE Desktop)"
+msgstr "Caja (MATE Desktop)"
+
+#: glade/ui-settings.glade:681
+msgid ""
+"<b>Note:</b> You may need to restart your filemanager after toggling "
+"integration."
+msgstr ""
+"<b>Hinweis:</b> Möglicherweise müssen Sie Ihren Dateimanager nach dem "
+"Einschalten der Integration neu starten.."
+
+#: glade/ui-settings.glade:701
+msgid "_Integration"
+msgstr "_Integration"
+
+#: glade/ui-settings.glade:731
+msgid "Keep Syncthing binary up-to-date"
+msgstr "Halten Sie die Syncthing Programmdatei auf dem neuesten Stand"
+
+#: glade/ui-settings.glade:751
+msgid ""
+"If enabled, Syncthing-GTK will automatically check for new daemon releases "
+"and replace binary with latest version."
+msgstr ""
+"Wenn aktiviert, wird Syncthing-GTK automatisch nach neuen Daemon Versionen "
+"suchen und die Programmdatei mit der aktuellen Version ersetzen."
+
+#: glade/ui-settings.glade:766
+msgid "Daemon process priority"
+msgstr "Daemon Prozesspriorität"
+
+#: glade/ui-settings.glade:802
+msgid ""
+"Priority will be used only if \"<i>start daemon in background</i>\" option "
+"is checked on \"<i>Interface</i>\" page."
+msgstr ""
+"Vorrang wird nur dann eingeräumt werden, wenn \"<i>Starte Daemon im "
+"Hintergrund</i>\" Option auf der \"<i>Interface</i>\" Seite angehakt ist."
+
+#: glade/ui-settings.glade:817
+msgid "Maximum number of CPU cores"
+msgstr "Maximale Anzahl der CPU-Kerne"
+
+#: glade/ui-settings.glade:835
+msgid ""
+"Sets the maximum number of CPU cores for daemon to use. This value will be "
+"used only if \"<i>start daemon in background</i>\" option is checked on "
+"\"<i>Interface</i>\" page."
+msgstr ""
+"Legt die maximale Anzahl der CPU-Kerne für den Daemon fest. This value will "
+"be used only if \"<i>start daemon in background</i>\" option is checked on "
+"\"<i>Interface</i>\" page."
+
+#: glade/ui-settings.glade:873
+msgid "Daemon"
+msgstr "Daemon"
+
+#: glade/ui-settings.glade:896
+msgid ""
+"This binary will be started when syncthing daemon is not running and "
+"\"<i>start daemon in background</i>\" option is checked on \"<i>Interface</"
+"i>\" page."
+msgstr ""
+"Die Programmdatei wird ausgeführt, wenn der Syncthing Daemon nicht läuft und "
+"die \"<i>Daemon im Hintergrund starten</i>\" Option auf der  \"<i>Interface</"
+"i>\" Seite angehakt ist."
+
+#: glade/ui-settings.glade:928
+msgid "Syncthing binary location"
+msgstr "Ort der Syncthing Programmdatei"
+
+#: glade/ui-settings.glade:958
+msgid "Daemon arguments and variables"
+msgstr "Argumente und Variablen für Daemon"
+
+#: glade/ui-settings.glade:988
+msgid ""
+"Space-separated list of arguments and environment variables passed when "
+"starting above binary\n"
+"\n"
+"Use <i>VARIABLE=\"value\"</i> to set variable and <i>-argument=\"value\"</"
+"i>  (with dash) for argument.\n"
+"\n"
+"If you need to pass commandline to different command (such as logger or "
+"ionice), separate prefixed arguments with exclamation mark \"!\"\n"
+"\n"
+"Example:\n"
+"  <i>STTRACE=\"all\" logger -t /var/log/syncthing.log ! -logflags=10</i>"
+msgstr ""
+"Durch Leerzeichen getrennte Liste von Argumenten und Umgebungsvariablen "
+"werden übergeben, wenn die obige Programmdatei gestartet wird.\n"
+"\n"
+"Benutzen Sie <i>VARIABLE=\"value\"</i>, um die Variable zu setzen und <i>-"
+"argument=\"value\"</i> (mit Strich) für das Argument.\n"
+"\n"
+"Wenn Sie die Befehlszeile an ein anderes Kommando (wie bspw. Logger oder "
+"Ionice) weitergeben müssen, trennen Sie die voreingestellten Argumente mit "
+"dem Ausrufezeichen \"!\".\n"
+"\n"
+"Beispiel:\n"
+"<i>STTRACE=\"all\" logger -t /var/log/syncthing.log ! -logflags=10</i>"
+
+#: glade/ui-settings.glade:1012
+msgid ""
+"<b>Warning:</b> Changing settings on this page may prevent you from using "
+"Syncthing-GTK"
+msgstr ""
+"<b>Achtung:</b> Änderungen auf dieser Seite können die Unbenutzbarkeit von "
+"Syncthing-GTK zur Folge haben."
+
+#: syncthing_gtk/app.py:268
 msgid "Syncthing-GTK started and running in notification area"
 msgstr "Syncthing-GTK ist gestartet und läuft im Benachrichtigungsbereich"
 
-#: syncthing_gtk/app.py:288
+#: syncthing_gtk/app.py:369
 #, python-format
 msgid "%s kB/s"
 msgstr "%s kB/s"
 
-#: syncthing_gtk/app.py:302 syncthing_gtk/notifications.py:77
-#: syncthing_gtk/wizard.py:53
+#: syncthing_gtk/app.py:385 syncthing_gtk/wizard.py:62
 msgid "Syncthing-GTK"
 msgstr "Syncthing-GTK"
 
-#: syncthing_gtk/app.py:363 syncthing_gtk/app.py:364 syncthing_gtk/app.py:942
+#: syncthing_gtk/app.py:454 syncthing_gtk/app.py:457 syncthing_gtk/app.py:1110
 msgid "Syncing"
 msgstr "Synchronisiere"
 
-#: syncthing_gtk/app.py:366 syncthing_gtk/app.py:367
+#: syncthing_gtk/app.py:461 syncthing_gtk/app.py:464
 msgid "Scanning"
 msgstr "Suche"
 
-#: syncthing_gtk/app.py:390 syncthing_gtk/app.py:652
+#. ... or already gave permission ...
+#: syncthing_gtk/app.py:490 syncthing_gtk/app.py:770
 msgid "Starting Syncthing daemon"
 msgstr "Starte Syncthing-Dienst"
 
-#: syncthing_gtk/app.py:424
+#: syncthing_gtk/app.py:530
 msgid "Allow Anonymous Usage Reporting?"
 msgstr "Erlaube anonymisierte Sammlung von Benutzungsdaten?"
 
-#: syncthing_gtk/app.py:426
+#: syncthing_gtk/app.py:532
 msgid "The encrypted usage report is sent daily."
 msgstr "Der verschlüsselte Bericht wird täglich verschickt."
 
-#: syncthing_gtk/app.py:427
+#: syncthing_gtk/app.py:534
 msgid "It is used to track common platforms, folder sizes and app versions."
-msgstr "Er wird verwendet, um häufige Plattformen, Ordnergrößen und Anwendungsversionen zu erfassen."
+msgstr ""
+"Er wird verwendet, um häufige Plattformen, Ordnergrößen und "
+"Anwendungsversionen zu erfassen."
 
-#: syncthing_gtk/app.py:428
+#: syncthing_gtk/app.py:536
 msgid ""
 "If the reported data set is changed you will be prompted with this dialog "
 "again."
-msgstr "Wenn sich die erfassten Daten ändern, werden Sie erneut mit diesem Dialog aufgefordert, zuzustimmen."
+msgstr ""
+"Wenn sich die erfassten Daten ändern, werden Sie erneut mit diesem Dialog "
+"aufgefordert, zuzustimmen."
 
-#: syncthing_gtk/app.py:430
+#: syncthing_gtk/app.py:538
 msgid "The aggregated statistics are publicly available at"
 msgstr "Aggregierte Statistiken sind öffentlich einsehbar unter"
 
-#: syncthing_gtk/app.py:486
+#: syncthing_gtk/app.py:589
+#, python-format
+msgid ""
+"Your Windows version doesn't supports cryptographic standards needed\n"
+"for Syncthing-GTK to check for Syncthing updates.\n"
+"Please, install <a href='%(url)s'>this Windows update</a> or disable update "
+"feature."
+msgstr ""
+
+#: syncthing_gtk/app.py:603
 msgid "Extracting update..."
 msgstr "Entpacke Update…"
 
-#: syncthing_gtk/app.py:491
+#: syncthing_gtk/app.py:608
 msgid "Restarting daemon..."
 msgstr "Starte Dienst neu…"
 
-#: syncthing_gtk/app.py:507
+#: syncthing_gtk/app.py:624
 #, python-format
 msgid "Failed to download upgrade: %s"
 msgstr "Download des Updates fehlgeschlagen: %s"
 
-#: syncthing_gtk/app.py:525
+#: syncthing_gtk/app.py:642
 #, python-format
 msgid "Downloading Syncthing %s"
 msgstr "Lade Syncthing %s herunter…"
 
-#: syncthing_gtk/app.py:604
+#. Stupid way to reconfigure window content and keep windows
+#. decorations visible on Windows
+#: syncthing_gtk/app.py:720
 msgid "Connected to Syncthing daemon"
 msgstr "Mit dem Syncthing-Dienst verbunden"
 
-#: syncthing_gtk/app.py:614
+#: syncthing_gtk/app.py:727
 msgid "Connection to Syncthing daemon lost."
 msgstr "Verbindung mit dem Syncthing-Dienst verloren."
 
-#: syncthing_gtk/app.py:615
+#: syncthing_gtk/app.py:728
 msgid "Syncthing is probably restarting or has been shut down."
 msgstr "Syncthing startet wahrscheinlich neu oder wurde heruntergefahren."
 
-#: syncthing_gtk/app.py:617
+#: syncthing_gtk/app.py:731
 msgid "Syncthing has been shut down."
 msgstr "Syncthing wurde heruntergefahren."
 
-#: syncthing_gtk/app.py:621 syncthing_gtk/app.py:1499
+#: syncthing_gtk/app.py:735 syncthing_gtk/app.py:1695
 msgid "Syncthing is restarting."
 msgstr "Syncthing startet neu."
 
-#: syncthing_gtk/app.py:621 syncthing_gtk/app.py:1499
+#: syncthing_gtk/app.py:735 syncthing_gtk/app.py:1695
 msgid "Please wait"
 msgstr "Bitte warten"
 
-#: syncthing_gtk/app.py:644
+#: syncthing_gtk/app.py:759
 #, python-format
 msgid "Connecting to Syncthing daemon at %s..."
 msgstr "Verbindung zum Syncthing-Dienst unter %s wird aufgebaut…"
 
-#: syncthing_gtk/app.py:649
+#: syncthing_gtk/app.py:766
 #, python-format
 msgid "Waiting for Syncthing daemon at %s..."
 msgstr "Warte auf Syncthing-Dienst unter %s…"
 
-#: syncthing_gtk/app.py:664
+#: syncthing_gtk/app.py:784
 msgid "Your syncthing daemon is too old."
 msgstr "Ihr Syncthing-Dienst ist zu alt."
 
-#: syncthing_gtk/app.py:664
+#: syncthing_gtk/app.py:784
 msgid "Attempting to download recent, please wait..."
 msgstr "Es wird versucht, einen aktuelleren herunterzuladen, bitte warten…"
 
-#: syncthing_gtk/app.py:670
+#: syncthing_gtk/app.py:792
 msgid ""
 "Cannot authorize with daemon. Please, use WebUI to generate API key or "
 "disable password authentication."
-msgstr "Kann nicht am Dienst authorisiert werden. Bitte verwenden Sie die Web-Oberfläche, um einen API-Schlüssel zu generieren oder schalten Sie die Passwort-Authentisierung aus."
+msgstr ""
+"Kann nicht am Dienst authorisiert werden. Bitte verwenden Sie die Web-"
+"Oberfläche, um einen API-Schlüssel zu generieren oder schalten Sie die "
+"Passwort-Authentisierung aus."
 
-#: syncthing_gtk/app.py:672
+#: syncthing_gtk/app.py:796
 #, python-format
 msgid ""
 "Your syncthing daemon is too old.\n"
 "Please, upgrade syncthing package at least to version %s and try again."
-msgstr "Ihr Syncthing-Dienst ist zu alt.\nBitte aktualisieren Sie das syncthing-Paket mindestens auf Version %s und versuchen Sie es erneut."
+msgstr ""
+"Ihr Syncthing-Dienst ist zu alt.\n"
+"Bitte aktualisieren Sie das syncthing-Paket mindestens auf Version %s und "
+"versuchen Sie es erneut."
 
-#: syncthing_gtk/app.py:674
+#: syncthing_gtk/app.py:800
 msgid ""
 "Sorry, connecting to HTTPS is not supported on this platform.\n"
 "Please, use WebUI to disable HTTPS try again."
-msgstr "Verbindung per HTTPS ist leider auf dieser Plattform nicht unterstützt.\nBitte verwenden Sie die Web-Oberfläche, um HTTPS auszuschalten und versuchen Sie es erneut."
+msgstr ""
+"Verbindung per HTTPS ist leider auf dieser Plattform nicht unterstützt.\n"
+"Bitte verwenden Sie die Web-Oberfläche, um HTTPS auszuschalten und versuchen "
+"Sie es erneut."
 
-#: syncthing_gtk/app.py:677
+#: syncthing_gtk/app.py:804
 msgid "Connection to daemon failed. Check your configuration and try again."
-msgstr "Die Verbindung mit dem ist Dienst fehlgeschlagen. Prüfen Sie die Konfiguration und versuchen Sie es erneut."
+msgstr ""
+"Die Verbindung mit dem ist Dienst fehlgeschlagen. Prüfen Sie die "
+"Konfiguration und versuchen Sie es erneut."
 
-#: syncthing_gtk/app.py:678 syncthing_gtk/app.py:1992
-#: syncthing_gtk/editordialog.py:314
+#: syncthing_gtk/app.py:805 syncthing_gtk/app.py:2253
+#: syncthing_gtk/editordialog.py:336
 msgid "Error message:"
 msgstr "Fehlernachricht:"
 
-#: syncthing_gtk/app.py:689
+#: syncthing_gtk/app.py:812
+msgid "Possible cause: Is there another web server running on Syncthing port?"
+msgstr ""
+
+#. Anything derived from HTTPError, where full server
+#. response is attached
+#: syncthing_gtk/app.py:824
 msgid "More info"
 msgstr "Mehr Informationen"
 
-#: syncthing_gtk/app.py:715
+#: syncthing_gtk/app.py:852
 msgid ""
 "The configuration has been saved but not activated.\n"
 "Syncthing must restart to activate the new configuration."
-msgstr "Die Konfiguration wurde gespeichert, aber noch nicht aktiviert. Syncthing muss neu starten, um die Konfiguration zu aktivieren."
+msgstr ""
+"Die Konfiguration wurde gespeichert, aber noch nicht aktiviert. Syncthing "
+"muss neu starten, um die Konfiguration zu aktivieren."
 
-#: syncthing_gtk/app.py:717
+#: syncthing_gtk/app.py:855
 msgid "_Restart"
 msgstr "_Neu starten"
 
-#: syncthing_gtk/app.py:784
+#: syncthing_gtk/app.py:911
+msgid "Incompatible"
+msgstr ""
+
+#: syncthing_gtk/app.py:916
+#, python-format
+msgid ""
+"Connecting to <b>%s</b> failed; the remote device speaks an older version of "
+"the protocol (%s) not compatible with this version"
+msgstr ""
+
+#: syncthing_gtk/app.py:954
 #, python-format
 msgid "%(device)s wants to share folder \"%(folder)s\". Add new folder?"
-msgstr "%(device)s möchte den Ordner \"%(folder)s\" teilen. Neuen Ordner hinzufügen?"
+msgstr ""
+"%(device)s möchte den Ordner \"%(folder)s\" teilen. Neuen Ordner hinzufügen?"
 
-#: syncthing_gtk/app.py:791 syncthing_gtk/app.py:813
+#: syncthing_gtk/app.py:964 syncthing_gtk/app.py:991
+msgid "_Ignore"
+msgstr "_Ignorieren"
+
+#: syncthing_gtk/app.py:965 syncthing_gtk/app.py:990
 msgid "_Add"
 msgstr "_Hinzufügen"
 
-#: syncthing_gtk/app.py:806
+#: syncthing_gtk/app.py:980
 #, python-format
 msgid ""
 "Device \"<b>%(name)s</b>\" (%(device)s) at IP \"<b>%(ip)s</b>\" wants to "
 "connect. Add new device?"
-msgstr "Gerät \"<b>%(name)s </b>\" (%(device)s) mit IP \"<b>%(ip)s</b>\" möchte eine Verbindung aufbauen. Neues Gerät hinzufügen?"
+msgstr ""
+"Gerät \"<b>%(name)s </b>\" (%(device)s) mit IP \"<b>%(ip)s</b>\" möchte eine "
+"Verbindung aufbauen. Neues Gerät hinzufügen?"
 
-#: syncthing_gtk/app.py:814
-msgid "_Ignore"
-msgstr "_Ignorieren"
-
-#: syncthing_gtk/app.py:832
+#: syncthing_gtk/app.py:1009
 msgid "RAM Utilization"
 msgstr "RAM-Auslastung"
 
-#: syncthing_gtk/app.py:833
+#: syncthing_gtk/app.py:1010
 msgid "CPU Utilization"
 msgstr "CPU-Auslastung"
 
-#: syncthing_gtk/app.py:834 syncthing_gtk/app.py:1353
+#: syncthing_gtk/app.py:1011 syncthing_gtk/app.py:1554
 msgid "Download Rate"
 msgstr "Downloadrate"
 
-#: syncthing_gtk/app.py:835 syncthing_gtk/app.py:1354
+#: syncthing_gtk/app.py:1012 syncthing_gtk/app.py:1555
 msgid "Upload Rate"
 msgstr "Uploadrate"
 
-#: syncthing_gtk/app.py:836
+#: syncthing_gtk/app.py:1013
 msgid "Announce Server"
 msgstr "Ankündigungsserver"
 
-#: syncthing_gtk/app.py:837 syncthing_gtk/app.py:1356
+#: syncthing_gtk/app.py:1014 syncthing_gtk/app.py:1557
 msgid "Version"
 msgstr "Version"
 
-#: syncthing_gtk/app.py:860 syncthing_gtk/editordialog.py:394
+#: syncthing_gtk/app.py:1037 syncthing_gtk/editordialog.py:415
 msgid "disabled"
 msgstr "deaktiviert"
 
-#: syncthing_gtk/app.py:862
-msgid "Online"
-msgstr "Online"
-
-#: syncthing_gtk/app.py:862
-msgid "offline"
-msgstr "Offline"
-
-#: syncthing_gtk/app.py:864
-#, python-format
-msgid "%(online)s/%(total)s online"
-msgstr "%(online)s/%(total)s online"
-
-#: syncthing_gtk/app.py:891 syncthing_gtk/app.py:1357
-#: syncthing_gtk/app.py:1382
+#: syncthing_gtk/app.py:1059 syncthing_gtk/app.py:1558
+#: syncthing_gtk/app.py:1586
 msgid "Never"
 msgstr "Nie"
 
-#: syncthing_gtk/app.py:899 syncthing_gtk/app.py:1691
-#: syncthing_gtk/app.py:1692
+#: syncthing_gtk/app.py:1067 syncthing_gtk/app.py:1927
+#: syncthing_gtk/app.py:1928
 msgid "Paused"
 msgstr "Pausiert"
 
-#: syncthing_gtk/app.py:899 syncthing_gtk/app.py:924 syncthing_gtk/app.py:939
-#: syncthing_gtk/infobox.py:60
+#. Update color & header
+#: syncthing_gtk/app.py:1067 syncthing_gtk/app.py:1092
+#: syncthing_gtk/app.py:1107 syncthing_gtk/infobox.py:67
 msgid "Disconnected"
 msgstr "Verbindung getrennt"
 
-#: syncthing_gtk/app.py:916
+#. Update color & header
+#: syncthing_gtk/app.py:1084
 msgid "Connected"
 msgstr "Verbunden"
 
-#: syncthing_gtk/app.py:945 syncthing_gtk/app.py:980 syncthing_gtk/app.py:1030
-#: syncthing_gtk/app.py:1031 syncthing_gtk/app.py:1070
+#. Daemon is online and idle
+#: syncthing_gtk/app.py:1113 syncthing_gtk/app.py:1152
+#: syncthing_gtk/app.py:1204 syncthing_gtk/app.py:1205
+#: syncthing_gtk/app.py:1251
 msgid "Up to Date"
 msgstr "Aktuell"
 
-#: syncthing_gtk/app.py:966 syncthing_gtk/app.py:967 syncthing_gtk/app.py:968
+#: syncthing_gtk/app.py:1137 syncthing_gtk/app.py:1138
+#: syncthing_gtk/app.py:1139
 msgid "Files"
 msgstr "Dateien"
 
-#: syncthing_gtk/app.py:980 syncthing_gtk/app.py:1068
+#: syncthing_gtk/app.py:1145
 msgid "Cluster out of sync"
 msgstr "Cluster ist nicht synchron"
 
-#: syncthing_gtk/app.py:995
+#: syncthing_gtk/app.py:1145
+#, fuzzy
+msgid "Local changes"
+msgstr "Lokaler Zustand"
+
+#: syncthing_gtk/app.py:1169
 msgid "Stopped"
 msgstr "Angehalten"
 
-#: syncthing_gtk/app.py:998 syncthing_gtk/app.py:1005
+#. Color, theme-based icon is used here. It's intentional and
+#. supposed to draw attention
+#: syncthing_gtk/app.py:1172 syncthing_gtk/app.py:1179
 msgid "Error"
 msgstr "Fehler"
 
-#: syncthing_gtk/app.py:1024
+#: syncthing_gtk/app.py:1198
 #, python-format
 msgid "Synchronizing '%s'"
 msgstr "Synchronisiere '%s'"
 
-#: syncthing_gtk/app.py:1026
+#: syncthing_gtk/app.py:1200
 #, python-format
 msgid "Synchronizing %s folders"
 msgstr "Synchronisiere %s Ordner"
 
-#: syncthing_gtk/app.py:1035 syncthing_gtk/app.py:1036
+#. Daemon is online, but there is no remote device connected
+#: syncthing_gtk/app.py:1209 syncthing_gtk/app.py:1210
 msgid "All devices offline"
 msgstr "Alle Geräte offline"
 
-#: syncthing_gtk/app.py:1040 syncthing_gtk/app.py:1041
+#. Still connecting to syncthing daemon
+#: syncthing_gtk/app.py:1214 syncthing_gtk/app.py:1215
 msgid "Connecting to Syncthing daemon..."
 msgstr "Verbindung zu Syncthing-Dienst wird aufgebaut…"
 
-#: syncthing_gtk/app.py:1079
+#. No device to share folder with
+#: syncthing_gtk/app.py:1260
 msgid "Unshared"
 msgstr "Nicht geteilt"
 
-#: syncthing_gtk/app.py:1082
+#. Folder is shared, but all devices are offline
+#: syncthing_gtk/app.py:1263
 msgid "Offline"
 msgstr "Offline"
 
-#: syncthing_gtk/app.py:1176
+#: syncthing_gtk/app.py:1364
 msgid "Hide Window"
 msgstr "Fenster verstecken"
 
-#: syncthing_gtk/app.py:1190 app.glade:651
-msgid "Show Window"
-msgstr "Fenster zeigen"
-
-#: syncthing_gtk/app.py:1239
+#: syncthing_gtk/app.py:1434
 msgid "Syncthing daemon doesn't appear to be running."
 msgstr "Syncthing-Dienst scheint nicht zu laufen."
 
-#: syncthing_gtk/app.py:1240
+#: syncthing_gtk/app.py:1434
 msgid "Start it now?"
 msgstr "Soll er gestartet werden?"
 
-#: syncthing_gtk/app.py:1243
+#: syncthing_gtk/app.py:1436
 msgid "Always start daemon automatically"
 msgstr "Dienst immer automatisch starten"
 
-#: syncthing_gtk/app.py:1292
+#. Add visible lines
+#: syncthing_gtk/app.py:1489
 msgid "Folder ID"
 msgstr "Ordner-ID"
 
-#: syncthing_gtk/app.py:1293
+#: syncthing_gtk/app.py:1490
 msgid "Path"
 msgstr "Pfad"
 
-#: syncthing_gtk/app.py:1294
+#: syncthing_gtk/app.py:1491
 msgid "Global State"
 msgstr "Globaler Zustand"
 
-#: syncthing_gtk/app.py:1295
+#: syncthing_gtk/app.py:1492
 msgid "Local State"
 msgstr "Lokaler Zustand"
 
-#: syncthing_gtk/app.py:1296
+#: syncthing_gtk/app.py:1493
 msgid "Out Of Sync"
 msgstr "Nicht synchron"
 
-#: syncthing_gtk/app.py:1297
+#: syncthing_gtk/app.py:1494
 msgid "Folder Type"
 msgstr "Ordnertyp"
 
-#: syncthing_gtk/app.py:1298
+#: syncthing_gtk/app.py:1495
 msgid "Ignore Permissions"
 msgstr "Ignoriere Berechtigungen"
 
-#: syncthing_gtk/app.py:1299
+#: syncthing_gtk/app.py:1496
 msgid "Rescan Interval"
 msgstr "Suchintervall"
 
-#: syncthing_gtk/app.py:1300
+#: syncthing_gtk/app.py:1497
 msgid "Shared With"
 msgstr "Geteilt mit"
 
-#: syncthing_gtk/app.py:1324 syncthing_gtk/app.py:1325
-#: syncthing_gtk/app.py:1381
-msgid "Yes"
-msgstr "Ja"
-
-#: syncthing_gtk/app.py:1324 syncthing_gtk/app.py:1325
-#: syncthing_gtk/app.py:1381
-msgid "No"
-msgstr "Nein"
-
-#: syncthing_gtk/app.py:1327
-msgid "(watch)"
-msgstr "(beobachte)"
-
-#: syncthing_gtk/app.py:1341
-msgid "Unused"
-msgstr "Nicht verwendet"
-
-#: syncthing_gtk/app.py:1350
-msgid "Address"
-msgstr "Adresse"
-
-#: syncthing_gtk/app.py:1351
-msgid "Synchronization"
-msgstr "Synchronisierung"
-
-#: syncthing_gtk/app.py:1352
-msgid "Compression"
-msgstr "Komprimierung"
-
-#: syncthing_gtk/app.py:1355
-msgid "Introducer"
-msgstr "Vorstellender Knoten"
-
-#: syncthing_gtk/app.py:1357
-msgid "Last Seen"
-msgstr "Zuletzt gesehen"
-
-#: syncthing_gtk/app.py:1378 device-edit.glade:22
-msgid "All Data"
-msgstr "Alle Daten"
-
-#: syncthing_gtk/app.py:1379 device-edit.glade:26 folder-edit.glade:78
-msgid "Off"
-msgstr "Aus"
-
-#: syncthing_gtk/app.py:1452
+#: syncthing_gtk/app.py:1524
 msgid "Receive Only"
 msgstr "Nur Empfangen"
 
-#: syncthing_gtk/app.py:1375
+#: syncthing_gtk/app.py:1526
 msgid "Send Only"
 msgstr "Nur senden"
 
-#: syncthing_gtk/app.py:1375
+#: syncthing_gtk/app.py:1528
 msgid "Send & Receive"
 msgstr "Senden und Empfangen"
 
-#: syncthing_gtk/app.py:1380 device-edit.glade:30
-msgid "Metadata Only"
-msgstr "Nur Metadaten"
+#: syncthing_gtk/app.py:1529 syncthing_gtk/app.py:1585
+msgid "Yes"
+msgstr "Ja"
 
-#: syncthing_gtk/app.py:1522
+#: syncthing_gtk/app.py:1529 syncthing_gtk/app.py:1585
+msgid "No"
+msgstr "Nein"
+
+#: syncthing_gtk/app.py:1530
+msgid "(watch)"
+msgstr "(beobachte)"
+
+#: syncthing_gtk/app.py:1542
+msgid "Unused"
+msgstr "Nicht verwendet"
+
+#. Add visible lines
+#: syncthing_gtk/app.py:1551
+msgid "Address"
+msgstr "Adresse"
+
+#: syncthing_gtk/app.py:1552
+msgid "Synchronization"
+msgstr "Synchronisierung"
+
+#: syncthing_gtk/app.py:1553
+msgid "Compression"
+msgstr "Komprimierung"
+
+#: syncthing_gtk/app.py:1556
+msgid "Introducer"
+msgstr "Vorstellender Knoten"
+
+#: syncthing_gtk/app.py:1558
+msgid "Last Seen"
+msgstr "Zuletzt gesehen"
+
+#: syncthing_gtk/app.py:1724
 msgid "Exiting."
 msgstr "Beende."
 
-#: syncthing_gtk/app.py:1523
+#: syncthing_gtk/app.py:1724
 msgid "Shutdown Syncthing daemon as well?"
 msgstr "Syncthing-Dienst auch herunterfahren?"
 
-#: syncthing_gtk/app.py:1528
+#: syncthing_gtk/app.py:1728
 msgid "Always do same; Don't show this window again"
 msgstr "Immer das Gleiche machen; Dieses Fenster nicht mehr fragen"
 
-#: syncthing_gtk/app.py:1768
+#: syncthing_gtk/app.py:2013
 #, python-format
 msgid "Do you really want to permanently stop synchronizing directory '%s'?"
-msgstr "Möchten Sie wirklich auf Dauer aufhören, den Ordner  '%s' zu synchronieren?"
+msgstr ""
+"Möchten Sie wirklich auf Dauer aufhören, den Ordner  '%s' zu synchronieren?"
 
-#: syncthing_gtk/app.py:1770
+#: syncthing_gtk/app.py:2015
 #, python-format
 msgid "Do you really want remove device '%s' from Syncthing?"
 msgstr "Möchten Sie wirklich das Gerät '%s' aus Syncthing entfernen?"
 
-#: syncthing_gtk/app.py:1838
-msgid "Syncthing-Inotify Output"
-msgstr "Ausgabe von Syncthing-Inotify"
-
-#: syncthing_gtk/app.py:1844
-msgid "Syncthing-Inotify is unavailable or failed to start"
-msgstr "Syncthing-Inotify ist nicht verfügbar oder konnte nicht starten"
-
-#: syncthing_gtk/app.py:1991
+#: syncthing_gtk/app.py:2252
 msgid "Failed to start Syncthing daemon."
 msgstr "Der Syncthing-Dienst konnte nicht gestartet werden."
 
-#: syncthing_gtk/app.py:1993
+#: syncthing_gtk/app.py:2255
 msgid ""
 "Please, check your installation or set new path to Syncthing daemon binary."
-msgstr "Bitte prüfen Sie Ihre Installation oder setzen Sie einen neuen Pfad zum Programm für den Syncthing-Dienst."
+msgstr ""
+"Bitte prüfen Sie Ihre Installation oder setzen Sie einen neuen Pfad zum "
+"Programm für den Syncthing-Dienst."
 
-#: syncthing_gtk/daemonsettings.py:24
+#: syncthing_gtk/daemonsettings.py:30
 msgid "Syncthing Daemon Settings"
 msgstr "Syncthing-Dienst-Einstellungen"
 
-#: syncthing_gtk/deviceeditor.py:24
+#: syncthing_gtk/deviceeditor.py:27
 msgid ""
 "The entered device ID does not look valid. It should be a 52 character "
 "string consisting of letters and numbers, with spaces and dashes being "
 "optional."
-msgstr "Die eingegebene Geräte-ID wirkt nicht gültig. Es sollte eine Zeichenkette aus 52 Buchstaben und Ziffern sein. Leerzeichen und Bindestriche sind optional."
+msgstr ""
+"Die eingegebene Geräte-ID wirkt nicht gültig. Es sollte eine Zeichenkette "
+"aus 52 Buchstaben und Ziffern sein. Leerzeichen und Bindestriche sind "
+"optional."
 
-#: syncthing_gtk/editordialog.py:312
+#: syncthing_gtk/editordialog.py:336
 msgid "Failed to load configuration from daemon."
 msgstr "Konnte Konfiguration nicht aus Dienst laden."
 
-#: syncthing_gtk/editordialog.py:313
+#: syncthing_gtk/editordialog.py:336
 msgid "Try again."
 msgstr "Versuche erneut."
 
-#: syncthing_gtk/editordialog.py:387 syncthing_gtk/editordialog.py:396
+#: syncthing_gtk/editordialog.py:408 syncthing_gtk/editordialog.py:417
 #, python-format
 msgid "%ss"
 msgstr "%ss"
 
-#: syncthing_gtk/editordialog.py:402
+#: syncthing_gtk/editordialog.py:423
 #, python-format
 msgid "%s%%"
 msgstr "%s%%"
 
-#: syncthing_gtk/editordialog.py:409
+#: syncthing_gtk/editordialog.py:430
 msgid "no limit"
 msgstr "Keine Begrenzung"
 
-#: syncthing_gtk/editordialog.py:411
+#: syncthing_gtk/editordialog.py:432
 #, python-format
 msgid "%s KiB/s"
 msgstr "%s KiB/s"
 
-#: syncthing_gtk/editordialog.py:418
+#: syncthing_gtk/editordialog.py:439
 msgid "never delete"
 msgstr "nie löschen"
 
-#: syncthing_gtk/editordialog.py:420
+#: syncthing_gtk/editordialog.py:441
 #, python-format
 msgid "%s day"
 msgstr "%s Tag"
 
-#: syncthing_gtk/editordialog.py:422
+#: syncthing_gtk/editordialog.py:443
 #, python-format
 msgid "%s days"
 msgstr "%s Tage"
 
-#: syncthing_gtk/editordialog.py:455
+#: syncthing_gtk/editordialog.py:471
 msgid "Failed to save configuration."
 msgstr "Konnte Konfiguration nicht speichern."
 
-#: syncthing_gtk/finddaemondialog.py:24 find-daemon.glade:7
-msgid "Can't invoke the daemon"
-msgstr "Konnte den Dienst nicht aufrufen"
-
-#: syncthing_gtk/finddaemondialog.py:26
+#: syncthing_gtk/finddaemondialog.py:29
 msgid "Syncthing binary"
 msgstr "Syncthing-Programmdatei"
 
-#: syncthing_gtk/finddaemondialog.py:28 syncthing_gtk/finddaemondialog.py:37
+#: syncthing_gtk/finddaemondialog.py:33 syncthing_gtk/finddaemondialog.py:48
 msgid "Syncthing daemon binary cannot be found."
 msgstr "Syncthing-Dienstprogramm kann nicht gefunden werden."
 
-#: syncthing_gtk/finddaemondialog.py:29
+#: syncthing_gtk/finddaemondialog.py:35
 #, python-format
 msgid ""
 "If you have Syncthing installed, please, set path to %s below or click on "
 "<b>Download</b> button to download latest Syncthing package."
-msgstr "Falls Sie Syncthing installiert haben, bitten Sie den Pfad zu %s unten oder betätigen Sie den <b>Download</b>-Knopf, um das neueste Syncthing-Paket herunterzuladen."
+msgstr ""
+"Falls Sie Syncthing installiert haben, bitten Sie den Pfad zu %s unten oder "
+"betätigen Sie den <b>Download</b>-Knopf, um das neueste Syncthing-Paket "
+"herunterzuladen."
 
-#: syncthing_gtk/finddaemondialog.py:38
+#: syncthing_gtk/finddaemondialog.py:49
 #, python-format
 msgid "If you have Syncthing installed, please, set path to %s below"
-msgstr "Falls Sie Syncthing installiert haben, bitte setzen Sie den Pfad zu %s unten"
+msgstr ""
+"Falls Sie Syncthing installiert haben, bitte setzen Sie den Pfad zu %s unten"
 
-#: syncthing_gtk/finddaemondialog.py:82 syncthing_gtk/wizard.py:411
+#: syncthing_gtk/finddaemondialog.py:90 syncthing_gtk/wizard.py:470
 msgid "Cannot download Syncthing daemon."
 msgstr "Kann Syncthing-Dienst nicht herunterladen."
 
-#: syncthing_gtk/finddaemondialog.py:83 syncthing_gtk/wizard.py:412
+#: syncthing_gtk/finddaemondialog.py:91 syncthing_gtk/wizard.py:470
 #, python-format
 msgid "This platform (%s) is not supported"
 msgstr "Diese Plattform (%s) ist nicht unterstützt"
 
-#: syncthing_gtk/finddaemondialog.py:100
+#. Display message and start downloading
+#: syncthing_gtk/finddaemondialog.py:106
 msgid "Downloading..."
 msgstr "Lade herunter…"
 
-#: syncthing_gtk/finddaemondialog.py:163 syncthing_gtk/stdownloader.py:251
-#: syncthing_gtk/stdownloader.py:279
+#: syncthing_gtk/finddaemondialog.py:166 syncthing_gtk/stdownloader.py:259
+#: syncthing_gtk/stdownloader.py:288
 msgid "Download failed."
 msgstr "Download fehlgeschlagen."
 
-#: syncthing_gtk/finddaemondialog.py:185 syncthing_gtk/wizard.py:458
+#. Everything done. Praise supernatural entities...
+#: syncthing_gtk/finddaemondialog.py:188 syncthing_gtk/wizard.py:508
 msgid "Download finished."
 msgstr "Download abgeschlossen."
 
-#: syncthing_gtk/foldereditor.py:45
+#: syncthing_gtk/foldereditor.py:62
 msgid "Select Folder for new Folder"
 msgstr "Wähle Ordner für neuen Ordner"
 
-#: syncthing_gtk/foldereditor.py:166 syncthing_gtk/foldereditor.py:167
-msgid "Please, install pyinotify package to use this feature"
-msgstr "Bitte installieren Sie das pyinotify-Paket, um diese Funktion zu verwenden"
-
-#: syncthing_gtk/ignoreeditor.py:44
+#: syncthing_gtk/ignoreeditor.py:48
 msgid "File location:"
 msgstr "Ort der Datei:"
 
-#: syncthing_gtk/notifications.py:120
+#: syncthing_gtk/notifications.py:122 syncthing_gtk/notifications.py:123
 #, python-format
-msgid "Unexpected folder ID sent from device \"%s\"."
-msgstr "Unerwartete Ordner ID von Gerät \"%s\""
+msgid "Accept device \"%s\""
+msgstr ""
 
 #: syncthing_gtk/notifications.py:124
 #, python-format
-msgid "Device \"%s\" is trying to connect to syncthing daemon."
-msgstr "Gerät \"%s\" versucht eine Verbindung mit dem syncthing-Daemon aufzubauen."
+msgid "Ignore device \"%s\""
+msgstr ""
 
-#: syncthing_gtk/notifications.py:153
+#: syncthing_gtk/notifications.py:126
+msgid "Unknown Device"
+msgstr ""
+
+#: syncthing_gtk/notifications.py:127
 #, python-format
-msgid "Synchronization of folder '%s' is completed."
-msgstr "Synchronisierung von Ordner '%s' abgeschlossen."
+msgid "Device \"%s\" is trying to connect to syncthing daemon."
+msgstr ""
+"Gerät \"%s\" versucht eine Verbindung mit dem syncthing-Daemon aufzubauen."
 
-#: syncthing_gtk/notifications.py:160
+#: syncthing_gtk/notifications.py:170 syncthing_gtk/notifications.py:171
+#, python-format
+msgid "Accept folder \"%s\""
+msgstr ""
+
+#: syncthing_gtk/notifications.py:172
+#, fuzzy, python-format
+msgid "Ignore folder \"%s\""
+msgstr "Ignoriere Muster"
+
+#: syncthing_gtk/notifications.py:178
+#, fuzzy
+msgid "Folder rejected"
+msgstr "Ordnertyp"
+
+#: syncthing_gtk/notifications.py:179
+#, fuzzy, python-format
+msgid "Unexpected folder \"%(folder)s\" sent from device \"%(device)s\"."
+msgstr "Unerwartete Ordner ID von Gerät \"%s\""
+
+#: syncthing_gtk/notifications.py:211
+#, fuzzy, python-format
+msgid "Completed synchronization in \"%s\""
+msgstr "... Synchronisationsabschluss"
+
+#: syncthing_gtk/notifications.py:213
+#, python-format
+msgid "Updates in folder \"%s\""
+msgstr ""
+
+#: syncthing_gtk/notifications.py:225
 #, python-format
 msgid "%(hostname)s: Downloaded '%(filename)s' to reflect remote changes."
-msgstr "%(hostname)s: Heruntergeladen '%(filename)s' um entfernte Änderungen widerzuspiegeln."
+msgstr ""
+"%(hostname)s: Heruntergeladen '%(filename)s' um entfernte Änderungen "
+"widerzuspiegeln."
 
-#: syncthing_gtk/notifications.py:165
+#: syncthing_gtk/notifications.py:229
 #, python-format
 msgid "%(hostname)s: Deleted '%(filename)s' to reflect remote changes."
-msgstr "%(hostname)s: Gelöscht '%(filename)s' um entfernte Änderungen widerzuspiegeln."
+msgstr ""
+"%(hostname)s: Gelöscht '%(filename)s' um entfernte Änderungen "
+"widerzuspiegeln."
 
-#: syncthing_gtk/notifications.py:168
+#: syncthing_gtk/notifications.py:231
 #, python-format
 msgid "%(hostname)s: Downloaded %(updated)s files to reflect remote changes."
-msgstr "%(hostname)s: Heruntergeladen %(updated)s um entfernte Änderungen widerzuspiegeln."
+msgstr ""
+"%(hostname)s: Heruntergeladen %(updated)s um entfernte Änderungen "
+"widerzuspiegeln."
 
-#: syncthing_gtk/notifications.py:171
+#: syncthing_gtk/notifications.py:233
 #, python-format
 msgid "%(hostname)s: Deleted %(deleted)s files to reflect remote changes."
-msgstr "%(hostname)s:Gelöscht %(deleted)s um entfernte Änderungen widerzuspiegeln"
+msgstr ""
+"%(hostname)s:Gelöscht %(deleted)s um entfernte Änderungen widerzuspiegeln"
 
-#: syncthing_gtk/notifications.py:175
+#: syncthing_gtk/notifications.py:236
 #, python-format
 msgid ""
 "%(hostname)s: downloaded %(updated)s files and deleted %(deleted)s files to "
 "reflect remote changes."
-msgstr "%(hostname)s: Heruntergeladen,  %(updated)s Dateien aktualisiert und  %(deleted)s Dateien gelöscht um entfernte Änderungen widerzuspiegeln."
+msgstr ""
+"%(hostname)s: Heruntergeladen,  %(updated)s Dateien aktualisiert und  "
+"%(deleted)s Dateien gelöscht um entfernte Änderungen widerzuspiegeln."
 
-#: syncthing_gtk/statusicon.py:48
+#: syncthing_gtk/notifications.py:263
+#, python-format
+msgid "Conflicting file in \"%s\""
+msgstr ""
+
+#: syncthing_gtk/notifications.py:264
+#, python-format
+msgid "Conflict in path \"%s\" detected."
+msgstr ""
+
+#: syncthing_gtk/notifications.py:268
+#, fuzzy
+msgid "Open Conflicting file in filemanager"
+msgstr "Integriere Syncthing mit Dateimanagern"
+
+#: syncthing_gtk/notifications.py:343
+msgid "An error occurred in Syncthing!"
+msgstr ""
+
+#: syncthing_gtk/statusicon.py:46
 msgid "Syncthing"
 msgstr "Syncthing"
 
-#: syncthing_gtk/stdownloader.py:174 syncthing_gtk/stdownloader.py:217
-#: syncthing_gtk/stdownloader.py:313 syncthing_gtk/stdownloader.py:344
+#: syncthing_gtk/stdownloader.py:183 syncthing_gtk/stdownloader.py:229
+#: syncthing_gtk/stdownloader.py:327 syncthing_gtk/stdownloader.py:357
 msgid "Failed to determine latest Syncthing version."
 msgstr "Konnte die aktuellste Syncthing-Version nicht feststellen."
 
-#: syncthing_gtk/stdownloader.py:236
-msgid "Failed to create temporaly file."
+#: syncthing_gtk/stdownloader.py:245
+#, fuzzy
+msgid "Failed to create temporary file."
 msgstr "Konnte temporäre Datei nicht anlegen."
 
-#: syncthing_gtk/stdownloader.py:294
+#. Unrecognized format
+#: syncthing_gtk/stdownloader.py:303
 msgid "Downloaded file is corrupted."
 msgstr "Die heruntergeladene Datei ist korrupt."
 
-#: syncthing_gtk/tools.py:192
+#: syncthing_gtk/tools.py:222
 #, python-format
 msgid "~%s hours ago"
 msgstr "vor ~%s Stunden"
 
-#: syncthing_gtk/tools.py:194
+#: syncthing_gtk/tools.py:224
 #, python-format
 msgid "%s minutes ago"
 msgstr "vor %s Minuten"
 
-#: syncthing_gtk/tools.py:196
+#: syncthing_gtk/tools.py:226
 #, python-format
 msgid "%s seconds ago"
 msgstr "vor %s Sekunden"
 
-#: syncthing_gtk/tools.py:197
+#: syncthing_gtk/tools.py:227
 msgid "just now"
 msgstr "gerade eben"
 
-#: syncthing_gtk/tools.py:199
+#: syncthing_gtk/tools.py:229
 #, python-format
 msgid "%s days ago"
 msgstr "vor %s Tagen"
 
-#: syncthing_gtk/tools.py:203
+#: syncthing_gtk/tools.py:233
 #, python-format
 msgid "in %s days"
 msgstr "in %s Tagen"
 
-#: syncthing_gtk/tools.py:205
+#: syncthing_gtk/tools.py:235
 #, python-format
 msgid "~%s hours from now"
 msgstr "in ~%s Stunden"
 
-#: syncthing_gtk/tools.py:207
+#: syncthing_gtk/tools.py:237
 #, python-format
 msgid "%s minutes from now"
 msgstr "in %s Minuten"
 
-#: syncthing_gtk/tools.py:209
+#: syncthing_gtk/tools.py:239
 #, python-format
 msgid "%s seconds from now"
 msgstr "in %s Sekunden"
 
-#: syncthing_gtk/tools.py:210
+#: syncthing_gtk/tools.py:240
 msgid "in a moment"
 msgstr "in einem Moment"
 
-#: syncthing_gtk/uisettingsdialog.py:58
+#: syncthing_gtk/uisettingsdialog.py:80
 msgid "UI Settings"
 msgstr "GUI-Einstellungen"
 
-#: syncthing_gtk/uisettingsdialog.py:70
+#: syncthing_gtk/uisettingsdialog.py:92
 msgid "Unlimited"
 msgstr "Unbegrenzt"
 
-#: syncthing_gtk/uisettingsdialog.py:107
+#: syncthing_gtk/uisettingsdialog.py:131
 #, python-format
 msgid "Install %(package)s package to enable %(feature)s support"
-msgstr "Installieren Sie das Paket %(package)s , um Unterstützung für %(feature)s zu aktivieren"
+msgstr ""
+"Installieren Sie das Paket %(package)s , um Unterstützung für %(feature)s zu "
+"aktivieren"
 
-#: syncthing_gtk/uisettingsdialog.py:312
+#: syncthing_gtk/uisettingsdialog.py:352
 msgid "Browse for Syncthing binary"
 msgstr "Nach Syncthing-Programmdatei suchen"
 
-#: syncthing_gtk/wizard.py:53
+#: syncthing_gtk/wizard.py:62
 msgid "First run wizard"
 msgstr "Ersteinrichtungsasssistent"
 
-#: syncthing_gtk/wizard.py:137
+#: syncthing_gtk/wizard.py:155
 #, python-format
 msgid "Please, check error log and fill bug report on %s."
-msgstr "Bitte prüfen Sie das Fehlerprotokoll und füllen sie einen Fehlerbericht auf %s aus."
+msgstr ""
+"Bitte prüfen Sie das Fehlerprotokoll und füllen sie einen Fehlerbericht auf "
+"%s aus."
 
-#: syncthing_gtk/wizard.py:141
+#. 'Display error log' button
+#: syncthing_gtk/wizard.py:158
 msgid "Display error log"
 msgstr "Fehlerprotokoll anzeigen"
 
-#: syncthing_gtk/wizard.py:198
+#: syncthing_gtk/wizard.py:222
+msgid "Next"
+msgstr ""
+
+#. TODO: Temporal solution, remove later
+#: syncthing_gtk/wizard.py:235
+#, fuzzy
+msgid ""
+"Continue this wizard to create a Syncthing configuration file or abort it to "
+"exit."
+msgstr ""
+"Bitte klicken Sie auf  <b>%s</b> um eine Syncthing-Konfigurationsdatei "
+"anzulegen, oder auf <b>Quit</b> um das Programm zu verlassen."
+
+#: syncthing_gtk/wizard.py:242
 msgid "Welcome to Syncthing-GTK first run wizard!"
 msgstr "Willkommen zum Ersteinrichtungsassistent von Syncthing-GTK!"
 
-#: syncthing_gtk/wizard.py:200
+#: syncthing_gtk/wizard.py:245
 msgid "It looks like you never have used Syncthing."
 msgstr "Es scheint, als hätten Sie Syncthing noch nie verwendet."
 
-#: syncthing_gtk/wizard.py:201
+#: syncthing_gtk/wizard.py:247
 msgid "Initial configuration should be created."
 msgstr "Eine initiale Konfiguration sollte angelegt werden."
 
-#: syncthing_gtk/wizard.py:202
-msgid ""
-"Please click <b>%s</b> to create a Syncthing configuration file or "
-"<b>Quit</b> to exit"
-msgstr "Bitte klicken Sie auf  <b>%s</b> um eine Syncthing-Konfigurationsdatei anzulegen, oder auf <b>Quit</b> um das Programm zu verlassen."
-
-#: syncthing_gtk/wizard.py:204
+#: syncthing_gtk/wizard.py:253
 #, python-format
 msgid ""
-"If you already had Syncthing daemon configured, please, exit this wizard and"
-" check your %s folder"
-msgstr "Falls Sie schon einmal den Syncthing-Dienst konfiguriert haben, verlassen Sie bitte diesen Assistenten und prüfen Sie ihren %s - Ordner"
+"If you already had Syncthing daemon configured, please, exit this wizard and "
+"check your %s folder"
+msgstr ""
+"Falls Sie schon einmal den Syncthing-Dienst konfiguriert haben, verlassen "
+"Sie bitte diesen Assistenten und prüfen Sie ihren %s - Ordner"
 
-#: syncthing_gtk/wizard.py:220
+#: syncthing_gtk/wizard.py:278
 msgid "Searching for Syncthing daemon."
 msgstr "Suche nach Syncthing-Dienstprogramm."
 
-#: syncthing_gtk/wizard.py:222 syncthing_gtk/wizard.py:394
+#: syncthing_gtk/wizard.py:278 syncthing_gtk/wizard.py:451
 msgid "Please wait..."
 msgstr "Bitte warten…"
 
-#: syncthing_gtk/wizard.py:270 syncthing_gtk/wizard.py:287
-msgid "Syncthing daemon not found."
-msgstr "Syncthing-Dienstprogramm nicht gefunden."
-
-#: syncthing_gtk/wizard.py:271
-msgid "Please, use package manager to install the Syncthing package."
-msgstr "Bitte verwenden Sie die Paketverwaltung, um das Syncthing-Paket zu installieren."
-
-#: syncthing_gtk/wizard.py:283
+#: syncthing_gtk/wizard.py:333
 msgid "download latest binary"
 msgstr "laden Sie die neueste Programmdatei"
 
-#: syncthing_gtk/wizard.py:288 syncthing_gtk/wizard.py:302
+#. No binary was found
+#: syncthing_gtk/wizard.py:338
+msgid "Syncthing daemon not found."
+msgstr "Syncthing-Dienstprogramm nicht gefunden."
+
+#: syncthing_gtk/wizard.py:340 syncthing_gtk/wizard.py:352
 #, python-format
 msgid ""
 "Please, use package manager to install the Syncthing package or "
 "%(download_link)s from Syncthing page and save it to your %(target)s "
 "directory."
-msgstr "Bitte verwenden Sie die Paketverwaltung, um das Syncthing-Paket zu installieren oder %(download_link)s von der Syncthing-Webseite herunter und speichern Sie es in Ihrem %(target)s - Verzeichnis."
+msgstr ""
+"Bitte verwenden Sie die Paketverwaltung, um das Syncthing-Paket zu "
+"installieren oder %(download_link)s von der Syncthing-Webseite herunter und "
+"speichern Sie es in Ihrem %(target)s - Verzeichnis."
 
-#: syncthing_gtk/wizard.py:296
+#. Binary was found, but it was too old to be usable
+#: syncthing_gtk/wizard.py:346
 msgid "Syncthing daemon is too old."
 msgstr "Die Syncthing-Programmdatei ist zu alt."
 
-#: syncthing_gtk/wizard.py:297
+#: syncthing_gtk/wizard.py:348
 #, python-format
 msgid ""
 "Syncthing-GTK needs Syncthing daemon %(min)s or newer, but only %(actual)s "
 "were found."
-msgstr "Syncthing-GTK benötigt den Syncthing-Dienst %(min)s oder neuer, aber nur %(actual)s wurde gefunden."
+msgstr ""
+"Syncthing-GTK benötigt den Syncthing-Dienst %(min)s oder neuer, aber nur "
+"%(actual)s wurde gefunden."
 
-#: syncthing_gtk/wizard.py:309
+#: syncthing_gtk/wizard.py:357
 msgid "Alternatively, Syncthing-GTK can download Syncthing binary"
 msgstr "Ansonsten kann Syncthing-GTK die Syncthing-Programmdatei selbst"
 
-#: syncthing_gtk/wizard.py:310
+#: syncthing_gtk/wizard.py:358
 #, python-format
 msgid "to %s and keep it up-to-date, but this option is meant as"
 msgstr "nach %s herunterladen und es aktuell halten, aber diese Option ist als"
 
-#: syncthing_gtk/wizard.py:312
+#: syncthing_gtk/wizard.py:359
 msgid "last resort and generally not suggested."
 msgstr "Notlösung gedacht und wird generell nicht empfohlen."
 
-#: syncthing_gtk/wizard.py:315
+#. Attach [ ] Download Syncthing checkbox
+#: syncthing_gtk/wizard.py:362
 msgid "_Download Syncthing binary"
 msgstr "_Herunterladen der Syncthing-Programmdatei"
 
-#: syncthing_gtk/wizard.py:319
+#. Attach [ ] Autoupdate checkbox
+#: syncthing_gtk/wizard.py:366
 msgid "Auto_update downloaded binary"
 msgstr "A_utomatisch Programmdatei aktualisieren"
 
-#: syncthing_gtk/wizard.py:375
+#: syncthing_gtk/wizard.py:425
 msgid "Syncthing daemon binary found."
 msgstr "Syncthing-Dienst-Programmdatei gefunden."
 
-#: syncthing_gtk/wizard.py:377 syncthing_gtk/wizard.py:460
+#: syncthing_gtk/wizard.py:428 syncthing_gtk/wizard.py:510
 msgid "Binary path:"
 msgstr "Pfad des Programmes:"
 
-#: syncthing_gtk/wizard.py:378
+#: syncthing_gtk/wizard.py:432
 msgid "Version:"
 msgstr "Version:"
 
-#: syncthing_gtk/wizard.py:393
+#: syncthing_gtk/wizard.py:450
 msgid "Downloading Syncthing daemon."
 msgstr "Lade Syncthing-Dienst herunter."
 
-#: syncthing_gtk/wizard.py:441
+#: syncthing_gtk/wizard.py:492
 msgid "Failed to download Syncthing daemon package."
 msgstr "Konnte Paket mit Syncthing-Dienstprogramm nicht herunterladen."
 
-#: syncthing_gtk/wizard.py:472
+#: syncthing_gtk/wizard.py:522
 msgid "Syncthing is generating RSA key and certificate."
 msgstr "Syncthing erzeugt RSA-Schlüssel und -Zertifikat."
 
-#: syncthing_gtk/wizard.py:473
+#: syncthing_gtk/wizard.py:522
 msgid "This may take a while..."
 msgstr "Dies kann eine Weile dauern…"
 
-#: syncthing_gtk/wizard.py:515
+#: syncthing_gtk/wizard.py:566
 msgid "Failed to generate keys"
 msgstr "Konnte Schlüssel nicht erzeugen"
 
-#: syncthing_gtk/wizard.py:516
+#: syncthing_gtk/wizard.py:567
 msgid "Syncthing daemon failed to generate RSA key or certificate."
-msgstr "Der Syncthing-Dienst konnte keinen RSA-Schlüssel oder -Zertifikat erzeugen."
+msgstr ""
+"Der Syncthing-Dienst konnte keinen RSA-Schlüssel oder -Zertifikat erzeugen."
 
-#: syncthing_gtk/wizard.py:526
+#: syncthing_gtk/wizard.py:581
 msgid "WebUI setup"
 msgstr "Weboberflächen-Einstellungen"
 
-#: syncthing_gtk/wizard.py:528
+#: syncthing_gtk/wizard.py:585
 msgid ""
 "Syncthing can be managed remotely using WebUI and even if you are going to "
 "use Syncthing-GTK, WebUI needs to be enabled, as Syncthing-GTK uses it to "
 "communicate with the Syncthing daemon."
-msgstr "Syncthing kann über eine Weboberfläche ferngesteuert werden und selbst wenn Sie Syncthing-GTK verwenden, muss die Weboberfläche aktiviert sein, da Syncthing-GTK diese verwendet, um mit dem Syncthing-Dienst zu kommunizieren."
+msgstr ""
+"Syncthing kann über eine Weboberfläche ferngesteuert werden und selbst wenn "
+"Sie Syncthing-GTK verwenden, muss die Weboberfläche aktiviert sein, da "
+"Syncthing-GTK diese verwendet, um mit dem Syncthing-Dienst zu kommunizieren."
 
-#: syncthing_gtk/wizard.py:533
+#: syncthing_gtk/wizard.py:592
 msgid ""
 "If you prefer to be able to manage Syncthing remotely, over the internet or "
 "on your local network, select <b>listen on all interfaces</b> and set "
 "username and password to protect Syncthing from unauthorized access."
-msgstr "Falls Sie es bevorzugen, Syncthing aus der Ferne zu verwalten, über das Internet oder über Ihr lokales Netzwerk, wählen Sie <b>Auf allen Schnittstellen lauschen</b> und setzen Sie Benutzername und Passwort, um Syncthing vor unberechtigtem Zugriff zu schützen."
+msgstr ""
+"Falls Sie es bevorzugen, Syncthing aus der Ferne zu verwalten, über das "
+"Internet oder über Ihr lokales Netzwerk, wählen Sie <b>Auf allen "
+"Schnittstellen lauschen</b> und setzen Sie Benutzername und Passwort, um "
+"Syncthing vor unberechtigtem Zugriff zu schützen."
 
-#: syncthing_gtk/wizard.py:538
+#: syncthing_gtk/wizard.py:599
 msgid ""
 "Otherwise, select <b>listen on localhost</b>, so only users and programs on "
 "this computer will be able to interact with Syncthing."
-msgstr "Ansonsten wählen Sie <b>Nur auf localhost lauschen</b>, so dass nur Benutzer und Programme auf diesem Rechner mit Syncthing interagieren können."
+msgstr ""
+"Ansonsten wählen Sie <b>Nur auf localhost lauschen</b>, so dass nur Benutzer "
+"und Programme auf diesem Rechner mit Syncthing interagieren können."
 
-#: syncthing_gtk/wizard.py:544
+#. Radiobuttons
+#: syncthing_gtk/wizard.py:606
 msgid "WebUI Listen Addresses"
 msgstr "Weboberflächen-Lausch-Adressen"
 
-#: syncthing_gtk/wizard.py:545
+#: syncthing_gtk/wizard.py:607
 msgid "Listen on _localhost"
 msgstr "Nur auf _localhost lauschen"
 
-#: syncthing_gtk/wizard.py:547
+#: syncthing_gtk/wizard.py:609
 msgid "Listen on _all interfaces"
 msgstr "Auf _allen Schnittstellen lauschen"
 
-#: syncthing_gtk/wizard.py:554
+#: syncthing_gtk/wizard.py:616
 msgid "_Username"
 msgstr "_Benutzername"
 
-#: syncthing_gtk/wizard.py:555
+#: syncthing_gtk/wizard.py:617
 msgid "_Password"
 msgstr "_Passwort"
 
-#: syncthing_gtk/wizard.py:609
+#: syncthing_gtk/wizard.py:675
 msgid "Saving settings..."
 msgstr "Speichere Einstellungen…"
 
-#: syncthing_gtk/wizard.py:610
+#: syncthing_gtk/wizard.py:676
 msgid "Checking for available port..."
 msgstr "Suche nach verfügbarem Port…"
 
-#: syncthing_gtk/wizard.py:631
+#: syncthing_gtk/wizard.py:698
 msgid "Failed to find unused port for listening."
 msgstr "Konnte keinen freien Port zum Lauschen finden."
 
-#: syncthing_gtk/wizard.py:632
+#: syncthing_gtk/wizard.py:699
 msgid "Please, check your firewall settings and try again."
-msgstr "Bitte prüfen Sie Ihre Firewalleinstellungen und versuchen Sie es erneut."
+msgstr ""
+"Bitte prüfen Sie Ihre Firewalleinstellungen und versuchen Sie es erneut."
 
-#: syncthing_gtk/wizard.py:646
+#: syncthing_gtk/wizard.py:713
 msgid "Saving..."
 msgstr "Speichere…"
 
-#: syncthing_gtk/wizard.py:678
+#: syncthing_gtk/wizard.py:746
 msgid "Failed to load Syncthing configuration"
 msgstr "Konnte Syncthing-Konfiguration nicht laden"
 
-#: syncthing_gtk/wizard.py:705
+#: syncthing_gtk/wizard.py:784
 msgid "Failed to modify Syncthing configuration"
 msgstr "Konnte Syncthing-Konfiguration nicht ändern"
 
-#: syncthing_gtk/wizard.py:715
+#: syncthing_gtk/wizard.py:792
 msgid "Failed to save Syncthing configuration"
 msgstr "Konnte Syncthing-Konfiguration nicht speichern"
 
-#: syncthing_gtk/wizard.py:729
+#: syncthing_gtk/wizard.py:807
 msgid "Done."
 msgstr "Abgeschlossen."
 
-#: syncthing_gtk/wizard.py:731
+#: syncthing_gtk/wizard.py:810
 msgid "Syncthing has been successfully configured."
 msgstr "Syncthing wurde erfolgreich konfiguriert."
 
-#: syncthing_gtk/wizard.py:733
+#: syncthing_gtk/wizard.py:813
 msgid ""
 "You can configure more details later, in <b>UI Settings</b> and <b>Daemon "
 "Settings</b> menus in main window of application."
-msgstr "Sie können später mehr Details konfigurieren, in den Menüs <b>GUI-Einstellungen</b> und <b>Dienst-Einstellungen</b> im Hauptmenü der Anwendung."
-
-#: about.glade:7
-msgid "About Syncthing-GTK"
-msgstr "Über Syncthing-GTK"
-
-#: about.glade:10
-msgid "GTK GUI and notification area icon for Syncthing"
-msgstr "Anwendungs- und Tray Icon für Syncthing"
-
-#: about.glade:12
-msgid "GitHub"
-msgstr "GitHub"
-
-#: app.glade:239 app.glade:420 app.glade:802
-msgid "Open _Web Interface"
-msgstr "Öffne _Weboberfläche"
-
-#: app.glade:251 app.glade:424 app.glade:814
-msgid "Display _Daemon Output"
-msgstr "Zeige _Dienst-Ausgaben"
-
-#: app.glade:263
-msgid "Display Syncthing-Inotify Output"
-msgstr "Zeige Ausgabe von Syncthing-Inotify"
-
-#: app.glade:280 app.glade:430
-msgid "UI _Settings"
-msgstr "GUI-Ein_stellungen"
-
-#: app.glade:325 app.glade:451
-msgid "Add Shared _Folder"
-msgstr "Geteilten Ordner hinzu_fügen"
-
-#: app.glade:338 app.glade:455
-msgid "Add _Device"
-msgstr "_Gerät hinzufügen"
-
-#: app.glade:356 app.glade:461
-msgid "Daemon _Settings"
-msgstr "Dienstein_stellungen"
-
-#: app.glade:371 app.glade:465 app.glade:588 app.glade:788
-msgid "Show _ID"
-msgstr "Zeige _ID"
-
-#: app.glade:391 app.glade:471
-msgid "Sh_utdown Daemon"
-msgstr "Dienst her_unterfahren"
-
-#: app.glade:404 app.glade:475
-msgid "_Restart Daemon"
-msgstr "Dienst neusta_rten"
-
-#: app.glade:436
-msgid "_About"
-msgstr "Ü_ber"
-
-#: app.glade:440
-msgid "_Quit"
-msgstr "B_eenden"
-
-#: app.glade:490
-msgid "Override Remote Changes"
-msgstr "Änderungen von Gegenstelle überschreiben"
-
-#: app.glade:519
-msgid "Edit _Ignore Patterns"
-msgstr "Bearbeite _Ignoriermuster"
-
-#: app.glade:547
-msgid "_Rescan"
-msgstr "Neu s_cannen"
-
-#: app.glade:559
-msgid "_Browse"
-msgstr "_Durchsuchen"
-
-#: app.glade:611
-msgid "Resume"
-msgstr "Fortsetzen"
-
-#: app.glade:641
-msgid "Connecting to daemon..."
-msgstr "Verbinde mit Dienst…"
-
-#: app.glade:669
-msgid "S_top Syncthing"
-msgstr "Syncthing _anhalten"
-
-#: app.glade:683
-msgid "Resume Sync_thing"
-msgstr "Syncthing _fortsetzen"
-
-#: app.glade:695 daemon-settings.glade:335
-msgid "_Incoming Rate Limit"
-msgstr "Maximale Empfangsrate"
-
-#: app.glade:709 app.glade:751
-msgid "_Unlimited"
-msgstr "_Unbegrenzt"
-
-#: app.glade:718 app.glade:760
-msgid "_Other"
-msgstr "_Andere"
-
-#: app.glade:737
-msgid "_Outgoing Rate Limit"
-msgstr "_Maximale Senderate"
-
-#: daemon-output.glade:7
-msgid "Daemon Output"
-msgstr "Dienstausgabe"
-
-#: daemon-settings.glade:106
-msgid "Sync Protocol Listen Addresses"
-msgstr "Lausch-Adressen des Sync-Protokolls"
-
-#: daemon-settings.glade:136
-msgid "Enable Local _Discovery"
-msgstr "Aktiviere lokale Ent_deckung"
-
-#: daemon-settings.glade:153
-msgid "Enable _UPnP"
-msgstr "Aktiviere _UPnP"
-
-#: daemon-settings.glade:171
-msgid "Local Discovery _Port"
-msgstr "_Port für lokale Entdeckung"
-
-#: daemon-settings.glade:212
-msgid "Outgoing _Rate Limit"
-msgstr "Limit für _ausgehende Datenrate"
-
-#: daemon-settings.glade:229
-msgid "Open browser with _WebUI when daemon is starting"
-msgstr "Öffne Browser mit _Weboberfläche, wenn der Dienst startet"
-
-#: daemon-settings.glade:246
-msgid "Enable _Anonymous Usage Reporting"
-msgstr "Aktiviere _Anonymisierte Sammlung von Benutzungsdaten"
-
-#: daemon-settings.glade:262
-msgid "Enable _Global Discovery"
-msgstr "Aktiviere _Globale Entdeckung"
-
-#: daemon-settings.glade:281
-msgid "Global Discovery _Servers"
-msgstr "Globale Entdeckungs-_Server"
-
-#: device-edit.glade:102
-msgid "Device _ID"
-msgstr "Geräte-_ID"
-
-#: device-edit.glade:134
-msgid "Device _Name"
-msgstr "Geräte-_Name"
-
-#: device-edit.glade:166
-msgid "Shown instead of Device ID in the cluster status."
-msgstr "Wird anstelle der Geräte-ID im Cluser-Status angezeigt."
-
-#: device-edit.glade:181
-msgid "_Addresses"
-msgstr "_Adressen"
-
-#: device-edit.glade:213
-msgid ""
-"Enter comma separated \"ip:port\" addresses or \"dynamic\" to perform "
-"automatic discovery of the address."
-msgstr "Geben Sie durch Kommata getrennte \"ip:port\"-Adressen ein, oder \"dynamic\", um automatische Entdeckung der Adresse durchzuführen."
-
-#: device-edit.glade:242
-msgid "Share _Folders"
-msgstr "_Ordner teilen"
-
-#: device-edit.glade:276
-msgid "Select the folders to share with this device"
-msgstr "Wählen Sie die mit diesem Gerät geteilten Ordner aus"
-
-#: device-edit.glade:287
-msgid "_Introducer"
-msgstr "_Bekanntmachungs-Knoten - Introducer"
-
-#: device-edit.glade:308
-msgid ""
-"Any devices configured on an introducer device will be added to this device "
-"as well."
-msgstr "Alle Geräte, die auf einem Bekanntmachungsknoten-Gerät konfiguriert sind, werden zu diesem Gerät ebenfalls hinzugefügt."
-
-#: device-edit.glade:323
-msgid "_Compression"
-msgstr "_Komprimierung"
-
-#: device-id.glade:14
-msgid "Device Identification"
-msgstr "Geräte-Identifikation"
-
-#: device-id.glade:68
-msgid "XYZ-123-ABC"
-msgstr "XYZ-123-ABC"
-
-#: find-daemon.glade:126 ui-settings.glade:821
-msgid "_Browse..."
-msgstr "_Suche…"
-
-#: find-daemon.glade:179
-msgid "_Download..."
-msgstr "_Herunterladen"
-
-#: folder-edit.glade:44
-msgctxt "In File Pull Order combobox"
-msgid "Random"
-msgstr "Zufällig"
-
-#: folder-edit.glade:48
-msgctxt "In File Pull Order combobox"
-msgid "Alphabetic"
-msgstr "Alphabetisch"
-
-#: folder-edit.glade:52
-msgctxt "In File Pull Order combobox"
-msgid "Smallest First"
-msgstr "Kleinste zuerst"
-
-#: folder-edit.glade:56
-msgctxt "In File Pull Order combobox"
-msgid "Largest First"
-msgstr "Größste zuerst"
-
-#: folder-edit.glade:60
-msgctxt "In File Pull Order combobox"
-msgid "Oldest First"
-msgstr "Älteste zuerst"
-
-#: folder-edit.glade:64
-msgctxt "In File Pull Order combobox"
-msgid "Newest First"
-msgstr "Neueste zuerst"
-
-#: folder-edit.glade:82
-msgid "Simple"
-msgstr "Einfach"
-
-#: folder-edit.glade:86
-msgid "Staggered"
-msgstr "Gestaffelt"
-
-#: folder-edit.glade:90
-msgid "Trashcan"
-msgstr "Papierkorb"
-
-#: folder-edit.glade:94
-msgid "External"
-msgstr "Extern"
-
-#: folder-edit.glade:171
-msgid "Folder _Label"
-msgstr "Ordner-Bezeich_nung"
-
-#: folder-edit.glade:202
-msgid "Short identifier for the folder. Must be the same on all devices."
-msgstr "Kurzer Bezeichner für den Ordner. Muss auf allen Geräten identisch sein."
-
-#: folder-edit.glade:216
-msgid "_Path"
-msgstr "_Pfad"
-
-#: folder-edit.glade:234
-msgid ""
-"Path to the folder on the local computer. Will be created if it does not "
-"exist."
-msgstr "Pfad zu dem Ordner auf dem lokalen Rechner. Wird angelegt, falls er nicht existiert."
-
-#: folder-edit.glade:248
-msgid "Rescan _Interval"
-msgstr "Rescan _Intervall"
-
-#: folder-edit.glade:293
-msgid "Monitor filesystem for _changes"
-msgstr "Überwache Dateisystem für _Änderungen"
-
-#: folder-edit.glade:314
-msgid ""
-"If enabled, changed, created and delete files are synchronized immediately, as long as Syncthing-GTK is running.\n"
-"Note: Using this along with short Rescan Interval (<300s) may consume a lot of resources."
-msgstr "Wenn aktiviert, werden geänderte, angelegte und gelöschte Dateien - solange Syncthing-GTK läuft - sofort synchronisiert.\nHinweis: Eine derartige Verwendung zusammen mit einem kurzen Rescan-Intervall (<300 s) kann zu einem hohen Ressourcenverbrauch führen."
-
-#: folder-edit.glade:343
-msgid "Browse..."
-msgstr "Durchsuchen ..."
-
-#: folder-edit.glade:366
-msgid "Folder _ID"
-msgstr "Ordner-_ID"
-
-#: folder-edit.glade:396
-msgid ""
-"Optional descriptive label for the folder. Can be different on each device."
-msgstr "Optionale Ordner-Bezeichnung. Diese kann van Gerät zu Gerät variieren."
-
-#: folder-edit.glade:418
-msgid "_Send Only Folder"
-msgstr "\"Nur senden\" Ordner"
-
-#: folder-edit.glade:439
-msgid ""
-"Files are protected from changes made on other devices, but changes made on "
-"this device will be sent to the rest of the cluster."
-msgstr "Dateien werden vor Änderungen, die auf anderen Geräten vorgenommen werden geschützt. Änderungen auf diesem Gerät werden jedoch an den Rest des Clusters gesendet."
-
-#: folder-edit.glade:456
-msgid "_Folder Settings"
-msgstr "Ordnereinstellungen"
-
-#: folder-edit.glade:476
-msgid "Select the devices to share this folder with."
-msgstr "Wählen Sie die Geräte, mit denen dieser Ordner geteilt werden soll."
-
-#: folder-edit.glade:514
-msgid "Share With _Devices"
-msgstr "Mit _Geräten teilen"
-
-#: folder-edit.glade:535
-msgid "Versioning _Mode"
-msgstr "Versionierungs_modus"
-
-#: folder-edit.glade:590
-msgid ""
-"Files are moved to date stamped versions in a .stversions folder when "
-"replaced or deleted by syncthing."
-msgstr "Dateien werden in eine mit Datum versehene Version in einen .stversions Ordner verschoben, wenn sie von Syncthing ersetzt oder gelöscht werden. "
-
-#: folder-edit.glade:605
-msgid "_Keep Versions"
-msgstr "_Anzahl der zu aufzuhebenden Versionen"
-
-#: folder-edit.glade:642
-msgid "The number of old versions to keep, per file."
-msgstr "Die Anzahl der aufzuhebenden alten Versionen, pro Datei."
-
-#: folder-edit.glade:671
-msgid ""
-"Files are moved to date stamped versions in a .stversions folder when replaced or deleted by syncthing. Versions are automatically deleted if they are older than the maximum age or exceed the number of files allowed in an interval.\n"
-"\n"
-"The following intervals are used: for the first hour a version is kept every 30 seconds, for the first day a version is kept every hour, for the first 30 days a version is kept every day, until the maximum age a version is kept every week."
-msgstr "Dateien werden in eine mit Datum versehene Version in einen .stversions Ordner verschoben, wenn sie von Syncthing ersetzt oder gelöscht werden. Die Dateiversionen werden automatisch gelöscht, wenn sie das maximale Alter oder eine maximale Anzahl in einem gegebenen Intervall erreicht haben.\nFolgende Intervalle kommen zur Anwendung: während der ersten Stunde wird ein Version 30 Sekunden, während des ersten Tages wird sie jede Stunde, während der ersten 30 Tage wird sie jeden Tag und bis zu ihrem maximalen Alter jede Woche gehalten."
-
-#: folder-edit.glade:688
-msgid "Ma_ximum Age"
-msgstr "Ma_ximales Alter"
-
-#: folder-edit.glade:727
-msgid "Versions _Path"
-msgstr "Versions_pfad"
-
-#: folder-edit.glade:759
-msgid ""
-"Path where versions should be stored (leave empty for the default "
-".stversions folder)."
-msgstr "Pfad, wo Versionen gespeichert werden sollen (leer lassen für den Standard .stversions Ordner)."
-
-#: folder-edit.glade:787
-msgid ""
-"Files are moved to .stversions folder when replaced or deleted by Syncthing"
-msgstr "Dateien werden in einen .stversions Ordner verschoben, wenn sie von Syncthing ersetzt oder gelöscht werden."
-
-#: folder-edit.glade:801
-msgid "Clean out _after"
-msgstr "Säubere _nach"
-
-#: folder-edit.glade:840
-msgid "The number of days to keep files in the trash can."
-msgstr "Die Anzahl der Tage, um Dateien im Papierkorb zu halten."
-
-#: folder-edit.glade:869
-msgid ""
-"An external command handles the versioning. It has to remove the file from "
-"the synced folder."
-msgstr "Ein externer Befehl übernimmt die Versionsverwaltung. Er muss die Datei vom synchronisierten Ordner entfernen."
-
-#: folder-edit.glade:884
-msgid "Command"
-msgstr "Befehl"
-
-#: folder-edit.glade:917
-msgid ""
-"The first command line parameter is the folder path and the second parameter"
-" is the relative path in the folder."
-msgstr "Der erste Befehlszeilenparameter ist der Ordnerpfad und der zweite Parameter ist der relative Pfad im Ordner."
-
-#: folder-edit.glade:953
-msgid "File _Versioning"
-msgstr "Datei_versionierung"
-
-#: folder-edit.glade:982
-msgid "Ignore P_ermissions"
-msgstr "_Berechtigungen ignorieren"
-
-#: folder-edit.glade:1003
-msgid ""
-"File permission bits are ignored when looking for changes. Use on FAT "
-"filesystems."
-msgstr "Bei der Suche nach Änderungen werden Dateiberechtigungen ignoriert. Verwendung auf FAT Dateisystemen."
-
-#: folder-edit.glade:1018
-msgid "Minimum Free Disk Space"
-msgstr "Minimal freier Speicherplatz"
-
-#: folder-edit.glade:1057
-msgid "File Pull _Order"
-msgstr "Übertragungsreihenfolge von Dateien"
-
-#: folder-edit.glade:1103 ui-settings.glade:954
-msgid "_Advanced"
-msgstr "_Fortgeschritten"
-
-#: ignore-editor.glade:8
-msgid "Ignore Patterns"
-msgstr "Ignoriere Muster"
-
-#: ignore-editor.glade:99
-msgid ""
-"See <a href=\"http://docs.syncthing.net/users/ignoring.html\">Syncthing "
-"documentation</a> for list of supported patterns"
-msgstr "Konsultieren Sie die <a href=\"http://docs.syncthing.net/users/ignoring.html\"> Syncthing Dokumentation </a> für eine Liste der unterstützten Muster"
-
-#: ignore-editor.glade:114
-msgid "File location: "
-msgstr "Dateipfad: "
-
-#: ui-settings.glade:27
-msgid "Lowest"
-msgstr "Am Niedrigsten"
-
-#: ui-settings.glade:31
-msgid "Low"
-msgstr "Niedrig"
-
-#: ui-settings.glade:35
-msgid "Normal"
-msgstr "Normal"
-
-#: ui-settings.glade:39
-msgid "Above Normal"
-msgstr "Über Normal"
-
-#: ui-settings.glade:46
-msgid "Syncthing-GTK Settings"
-msgstr "Syncthing-GTK Einstellungen"
-
-#: ui-settings.glade:69
-msgid "Please, restart Syncthing-GTK to apply all changed settings"
-msgstr "Die Änderung werden erst nach Neustart von Syncthing-GTK wirksam."
-
-#: ui-settings.glade:136
-msgid "When starting and Syncthing daemon is not running..."
-msgstr "Beim Starten und nicht aktivem Syncthing Daemon ..."
-
-#: ui-settings.glade:147
-msgid "... _wait for daemon"
-msgstr "... _auf den Daemon warten"
-
-#: ui-settings.glade:164
-msgid "... start daemon in _background"
-msgstr "... Daemon _im Hintergrund starten"
-
-#: ui-settings.glade:180
-msgid "... _ask me what to do"
-msgstr "... _frag mich, was zu tun ist"
-
-#: ui-settings.glade:199
-msgid "When exiting after daemon was started in background..."
-msgstr "Beim Beenden nachdem der Daemon im Hintergrund gestartet wurde..."
-
-#: ui-settings.glade:210
-msgid "... terminate _daemon"
-msgstr "... Daemon _beenden"
-
-#: ui-settings.glade:226
-msgid "... leave daemon _running"
-msgstr "...Daemon _laufen lassen"
-
-#: ui-settings.glade:242
-msgid "... ask me w_hat to do"
-msgstr "... frag mich w_as zu tun ist"
-
-#: ui-settings.glade:258
-msgid "Us_e traditional window header"
-msgstr "Benutz_e die traditionelle Fensterkopfzeile"
-
-#: ui-settings.glade:278
-msgid "Display desktop notifications for..."
-msgstr "Zeige Desktop Benachrichtigungen für..."
-
-#: ui-settings.glade:289
-msgid "... file updates"
-msgstr "... Dateiaktualisierungen"
-
-#: ui-settings.glade:304
-msgid "... errors"
-msgstr "... Fehler"
-
-#: ui-settings.glade:319
-msgid "... synchronization completion"
-msgstr "... Synchronisationsabschluss"
-
-#: ui-settings.glade:334
-msgid "Start Syncthing-GTK when I login to my desktop"
-msgstr "Syncthing-GTK starten, wenn ich mich an meinem Computer anmelde"
-
-#: ui-settings.glade:350
-msgid "Minimize to _tray on start"
-msgstr "Beim Start in den  _tray minimieren"
-
-#: ui-settings.glade:366
-msgid "Use _icons in menu"
-msgstr "Verwende _icons im Menü"
-
-#: ui-settings.glade:383
-msgid "Display paths in directories panel"
-msgstr "Zeige Pfade in der Verzeichnisübersichtl"
-
-#: ui-settings.glade:399
-msgid "Force _dark theme"
-msgstr "Erzwinge _dunkles Thema"
-
-#: ui-settings.glade:474
-msgid "_Interface"
-msgstr "_Schnittstelle"
-
-#: ui-settings.glade:492
-msgid "Integrate Syncthing with filemanagers"
-msgstr "Integriere Syncthing mit Dateimanagern"
-
-#: ui-settings.glade:507
-msgid "Nemo (Cinamon Desktop)"
-msgstr "Nemo (Cinamon Desktop)"
-
-#: ui-settings.glade:524
-msgid "Nautilus (Ubuntu/GNOME)"
-msgstr "Nautilus (Ubuntu/GNOME)"
-
-#: ui-settings.glade:540
-msgid "Caja (MATE Desktop)"
-msgstr "Caja (MATE Desktop)"
-
-#: ui-settings.glade:579
-msgid ""
-"<b>Note:</b> You may need to restart your filemanager after toggling "
-"integration."
-msgstr "<b>Hinweis:</b> Möglicherweise müssen Sie Ihren Dateimanager nach dem Einschalten der Integration neu starten.."
-
-#: ui-settings.glade:598
-msgid "_Integration"
-msgstr "_Integration"
-
-#: ui-settings.glade:627
-msgid "Keep Syncthing binary up-to-date"
-msgstr "Halten Sie die Syncthing Programmdatei auf dem neuesten Stand"
-
-#: ui-settings.glade:647
-msgid ""
-"If enabled, Syncthing-GTK will automatically check for new daemon releases "
-"and replace binary with latest version."
-msgstr "Wenn aktiviert, wird Syncthing-GTK automatisch nach neuen Daemon Versionen suchen und die Programmdatei mit der aktuellen Version ersetzen."
-
-#: ui-settings.glade:662
-msgid "Daemon process priority"
-msgstr "Daemon Prozesspriorität"
-
-#: ui-settings.glade:698
-msgid ""
-"Priority will be used only if \"<i>start daemon in background</i>\" option "
-"is checked on \"<i>Interface</i>\" page."
-msgstr "Vorrang wird nur dann eingeräumt werden, wenn \"<i>Starte Daemon im Hintergrund</i>\" Option auf der \"<i>Interface</i>\" Seite angehakt ist."
-
-#: ui-settings.glade:713
-msgid "Maximum number of CPU cores"
-msgstr "Maximale Anzahl der CPU-Kerne"
-
-#: ui-settings.glade:731
-msgid ""
-"Sets the maximum number of CPU cores for daemon to use. This value will be "
-"used only if \"<i>start daemon in background</i>\" option is checked on "
-"\"<i>Interface</i>\" page."
-msgstr "Legt die maximale Anzahl der CPU-Kerne für den Daemon fest. This value will be used only if \"<i>start daemon in background</i>\" option is checked on \"<i>Interface</i>\" page."
-
-#: ui-settings.glade:786
-msgid "Daemon"
-msgstr "Daemon"
-
-#: ui-settings.glade:808
-msgid ""
-"This binary will be started when syncthing daemon is not running and "
-"\"<i>start daemon in background</i>\" option is checked on "
-"\"<i>Interface</i>\" page."
-msgstr "Die Programmdatei wird ausgeführt, wenn der Syncthing Daemon nicht läuft und die \"<i>Daemon im Hintergrund starten</i>\" Option auf der  \"<i>Interface</i>\" Seite angehakt ist."
-
-#: ui-settings.glade:838
-msgid "Syncthing binary location"
-msgstr "Ort der Syncthing Programmdatei"
-
-#: ui-settings.glade:867
-msgid "Daemon arguments and variables"
-msgstr "Argumente und Variablen für Daemon"
-
-#: ui-settings.glade:897
-msgid ""
-"Space-separated list of arguments and environment variables passed when starting above binary\n"
-"\n"
-"Use <i>VARIABLE=\"value\"</i> to set variable and <i>-argument=\"value\"</i>  (with dash) for argument.\n"
-"\n"
-"If you need to pass commandline to different command (such as logger or ionice), separate prefixed arguments with exclamation mark \"!\"\n"
-"\n"
-"Example:\n"
-"  <i>STTRACE=\"all\" logger -t /var/log/syncthing.log ! -logflags=10</i>"
-msgstr "Durch Leerzeichen getrennte Liste von Argumenten und Umgebungsvariablen werden übergeben, wenn die obige Programmdatei gestartet wird.\n\nBenutzen Sie <i>VARIABLE=\"value\"</i>, um die Variable zu setzen und <i>-argument=\"value\"</i> (mit Strich) für das Argument.\n\nWenn Sie die Befehlszeile an ein anderes Kommando (wie bspw. Logger oder Ionice) weitergeben müssen, trennen Sie die voreingestellten Argumente mit dem Ausrufezeichen \"!\".\n\nBeispiel:\n<i>STTRACE=\"all\" logger -t /var/log/syncthing.log ! -logflags=10</i>"
-
-#: ui-settings.glade:921
-msgid ""
-"<b>Warning:</b> Changing settings on this page may prevent you from using "
-"Syncthing-GTK"
-msgstr "<b>Achtung:</b> Änderungen auf dieser Seite können die Unbenutzbarkeit von Syncthing-GTK zur Folge haben."
+msgstr ""
+"Sie können später mehr Details konfigurieren, in den Menüs <b>GUI-"
+"Einstellungen</b> und <b>Dienst-Einstellungen</b> im Hauptmenü der Anwendung."
+
+#~ msgid "Online"
+#~ msgstr "Online"
+
+#~ msgid "offline"
+#~ msgstr "Offline"
+
+#, python-format
+#~ msgid "%(online)s/%(total)s online"
+#~ msgstr "%(online)s/%(total)s online"
+
+#~ msgid "Syncthing-Inotify Output"
+#~ msgstr "Ausgabe von Syncthing-Inotify"
+
+#~ msgid "Syncthing-Inotify is unavailable or failed to start"
+#~ msgstr "Syncthing-Inotify ist nicht verfügbar oder konnte nicht starten"
+
+#~ msgid "Please, install pyinotify package to use this feature"
+#~ msgstr ""
+#~ "Bitte installieren Sie das pyinotify-Paket, um diese Funktion zu verwenden"
+
+#, python-format
+#~ msgid "Synchronization of folder '%s' is completed."
+#~ msgstr "Synchronisierung von Ordner '%s' abgeschlossen."
+
+#~ msgid "Please, use package manager to install the Syncthing package."
+#~ msgstr ""
+#~ "Bitte verwenden Sie die Paketverwaltung, um das Syncthing-Paket zu "
+#~ "installieren."
+
+#~ msgid "GitHub"
+#~ msgstr "GitHub"
+
+#~ msgid "Display Syncthing-Inotify Output"
+#~ msgstr "Zeige Ausgabe von Syncthing-Inotify"
+
+#~ msgid ""
+#~ "If enabled, changed, created and delete files are synchronized "
+#~ "immediately, as long as Syncthing-GTK is running.\n"
+#~ "Note: Using this along with short Rescan Interval (<300s) may consume a "
+#~ "lot of resources."
+#~ msgstr ""
+#~ "Wenn aktiviert, werden geänderte, angelegte und gelöschte Dateien - "
+#~ "solange Syncthing-GTK läuft - sofort synchronisiert.\n"
+#~ "Hinweis: Eine derartige Verwendung zusammen mit einem kurzen Rescan-"
+#~ "Intervall (<300 s) kann zu einem hohen Ressourcenverbrauch führen."
+
+#~ msgid "Use _icons in menu"
+#~ msgstr "Verwende _icons im Menü"
