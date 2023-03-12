@@ -61,23 +61,25 @@ def main():
     TMPDIR.mkdir(exist_ok=True)
 
     # First export the intermediate PNGs…
-    threadpool = multiprocessing.pool.ThreadPool(multiprocessing.cpu_count() * 3 // 4)
-
-    def _inkscape_export(size, export_id):
-        threadpool.apply_async(inkscape_export, (size, export_id))
+    inkscape_exports = []
+    def add_inkscape_export(size, export_id):
+        nonlocal inkscape_exports
+        inkscape_exports.append((size, export_id))
 
     for size in SIZES:
-        _inkscape_export(size, "rot0")
-        _inkscape_export(size, "warning")
+        add_inkscape_export(size, "rot0")
+        add_inkscape_export(size, "warning")
 
         for background, rotcolor, color in COLORS:
-            _inkscape_export(size, background)
+            add_inkscape_export(size, background)
             if color == "":
                 continue
-            _inkscape_export(size, f"{rotcolor}-unknown")
+            add_inkscape_export(size, f"{rotcolor}-unknown")
             for frame in FRAMES:
-                _inkscape_export(size, f"{rotcolor}{frame}")
+                add_inkscape_export(size, f"{rotcolor}{frame}")
 
+    threadpool = multiprocessing.pool.ThreadPool(multiprocessing.cpu_count() * 3 // 4)
+    threadpool.starmap(inkscape_export, inkscape_exports)
     threadpool.close()
     threadpool.join()
 
