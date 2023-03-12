@@ -24,7 +24,7 @@ def get_version():
         project_dir_name = Path(__file__).parent.name
         result = re.match(r"syncthing-gtk-(.*)", project_dir_name)
         if result:
-            version = result.group(1).decode("utf-8")
+            version = result.group(1)
         else:
             raise RuntimeError(f'Directory name "{project_dir_name}" does not match "syncthing-gtk-<version>".')
 
