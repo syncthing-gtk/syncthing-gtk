@@ -1,6 +1,10 @@
 iconsdir = get_option('datadir') / 'icons' / 'hicolor'
 pixmapsdir = get_option('datadir') / 'pixmaps'
 
+run_target('generate-icons',
+    command: find_program('generate_icons.py'),
+)
+
 foreach size : [16, 24, 32, 64, 128, 256]
     install_subdir(
         f'@size@x@size@',
@@ -50,11 +54,3 @@ install_data(
     'version.svg',
     install_dir: project_data_dir / 'icons'
 )
-
-# emblem-syncthing-scanning.xcf
-
-# si-idle.png
-# si-syncthing.svg
-# st-gtk-logo.xcf
-# st-logo-128.ico
-# st-logo-512.png
