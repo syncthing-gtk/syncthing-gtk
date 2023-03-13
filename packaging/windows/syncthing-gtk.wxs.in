@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
+
+  <?define ProductName    = '@PRETTY_NAME@' ?>
+  <?define ProductDescr   = 'GTK & Python based GUI for Syncthing' ?>
+  <?define ProductAuthor  = 'Syncthing-GTK' ?>
+  <?define ProductVersion = '@VERSION@' ?>
+  <?define ProductDirname = '@PRETTY_NAME@' ?>
+  <?define ProductURL     = '@PROJECT_URL@' ?>
+
+  <Product
+    Id='*'
+    Name='$(var.ProductName)'
+    Version='$(var.ProductVersion)'
+    Manufacturer='$(var.ProductAuthor)'
+    Language='1033'
+    Codepage='1252'
+    UpgradeCode='73efe264-eb0b-4b82-adfe-ef98caf66ec1'
+    >
+
+    <Package
+      Id='*'
+      Description='$(var.ProductDescr)'
+      Manufacturer='$(var.ProductAuthor)'
+      InstallerVersion='200'
+      Compressed='yes'
+      InstallScope='perMachine'
+    />
+
+    <MajorUpgrade
+      AllowSameVersionUpgrades='yes'
+      DowngradeErrorMessage='A later version of $(var.ProductName) is already installed. Setup will now exit.'
+    />
+
+    <Media Id="1" Cabinet="cabinet.cab" EmbedCab="yes"/>
+
+    <Icon Id='Icon' SourceFile='$(var.ProductIcon)'/>
+    <Property Id='ARPPRODUCTICON' Value='Icon'/>
+    <!-- <Property Id='ARPHELPLINK' Value='$(var.ProductURL)'/> -->
+    <!-- <Property Id='ARPURLINFOABOUT' Value='$(var.ProductURL)'/> -->
+    <!-- <Property Id="ARPNOMODIFY" Value="1"/> -->
+    <Property Id="ARPNOREPAIR" Value="1"/>
+
+
+    <!--Directory structure-->
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+      <Directory Id='ProgramFiles64Folder'>
+        <Directory Id='INSTALLDIR' Name='$(var.ProductDirname)'>
+        </Directory>
+      </Directory>
+
+      <Directory Id='ProgramMenuFolder'>
+         <Directory Id='ProgramMenuSubfolder' Name='$(var.ProductName)'>
+            <Component Id='ApplicationShortcuts' Guid='ad9a1321-a565-4f48-9d10-1f56efde62c6'>
+              <Shortcut Id='ApplicationShortcutMain'
+                Name='$(var.ProductName)'
+                Description='$(var.ProductDescr)'
+                Target='[INSTALLDIR]bin\syncthing-gtk.exe'
+                WorkingDirectory='INSTALLDIR'
+                Icon ='ProductIcon'
+              />
+
+              <RegistryValue Root='HKCU'
+                Key='Software\$(var.ProductDirname)'
+                Name='installed'
+                Type='integer'
+                Value='1'
+                KeyPath='yes'
+              />
+              <RemoveFolder Id='ProgramMenuSubfolder' On='uninstall'/>
+            </Component>
+         </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id='Complete' Level='1'>
+      <ComponentGroupRef Id='CG.syncthing-gtk' />
+    </Feature>
+
+    <Feature Id='ShortcutsFeature' Title='Shortcuts' Level='1'>
+      <ComponentRef Id='ApplicationShortcuts'/>
+    </Feature>
+
+    <UIRef Id="WixUI_Minimal" />
+
+  </Product>
+</Wix>
