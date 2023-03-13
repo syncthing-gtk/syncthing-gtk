@@ -1,6 +1,6 @@
 # Required plugins: NSISdl, ZipDLL, FindProcDLL (by hnedka)
 
-# Initial stuff
+## Initial stuff
 !include MUI2.nsh
 !define APP_NAME SyncthingGTK
 !define LIBRARIES_FILE "syncthing-gtk-windows-libraries-0.8.2.zip"
@@ -78,6 +78,7 @@ SkipDownload:
 		"NoModify" 1
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\SyncthingGTK" \
 		"DisplayIcon" "$INSTDIR\icons\st-logo-128.ico"
+		
 SectionEnd
 
 # Uninstall
