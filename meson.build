@@ -9,12 +9,16 @@ project_name = meson.project_name()
 python_module_name = project_name.underscorify()
 project_data_dir = get_option('datadir') / project_name
 
+# For windows packaging
+license = files('LICENSE')
+
 subdir('doc')
 subdir('glade')
 subdir('icons')
 subdir('locale')
 # subdir('scripts')
 subdir('syncthing_gtk')
+subdir('packaging')
 
 install_data('syncthing-gtk.desktop',
     install_dir: get_option('datadir') / 'applications'
