@@ -11,6 +11,6 @@ configure_file(
 custom_target(
     input: license,
     output: 'License.rtf',
-    command: [find_program('txt2rtf.sh'), '@INPUT@', '@OUTPUT@'],
+    command: ['sh', files('txt2rtf.sh'), '@INPUT@', '@OUTPUT@'],
     build_by_default: true,
 )
