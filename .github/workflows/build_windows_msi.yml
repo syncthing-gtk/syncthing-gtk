@@ -1,0 +1,46 @@
+name: Build Windows MSI
+
+on: [push]
+
+
+jobs:
+  build_msi:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+    - name: Setup MSYS2
+      uses: msys2/setup-msys2@v2
+      with:
+        install: >-
+          git
+          base-devel
+          gcc
+          bc
+        pacboy: >-
+          meson:x
+          vala:x
+          libgsf:x
+          gcab:x
+          gcc:x
+          gobject-introspection:x
+          python3:p
+
+    - name: Install msitools master
+      run: |
+        git clone --recursive https://gitlab.gnome.org/GNOME/msitools
+        cd msitools
+        git checkout fc05f1170929af388a5db60f467c768fb0d6a50c
+        CC=gcc CXX=g++ \
+        meson setup _build --buildtype=release
+        ninja -C _build install
+
+    - uses: actions/checkout@v3
+    - name: '🚧 Build package'
+      run: |
+        ./packaging/windows/build_msi.sh
+        
+    - uses: actions/upload-artifact@v3
+      with:
+        path: syncthing-gtk.msi
