@@ -3,6 +3,7 @@
 Nemo plugin for Syncthing-GTK
 See syncthing_gtk/nautilusplugin.py for more info
 """
+# pylint: disable=invalid-name
 
 from gi.repository import Nemo
 
@@ -12,4 +13,4 @@ NautiluslikeExtension.set_plugin_module(Nemo)
 
 
 class SyncthingNemo(NautiluslikeExtension, Nemo.InfoProvider, Nemo.MenuProvider):
-    pass
+    """Browser extension wrapper"""

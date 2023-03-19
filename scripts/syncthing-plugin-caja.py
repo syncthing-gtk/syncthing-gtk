@@ -3,10 +3,11 @@
 Caja plugin for Syncthing-GTK
 See syncthing_gtk/nautilusplugin.py for more info
 """
+# pylint: disable=invalid-name
 
 import os
 
-from gi.repository import Caja
+from gi.repository import Caja  # pylint: disable=no-name-in-module
 
 # Setting this environment variable will prevent __init__ in
 # syncthing_gtk package from loading stuff that depends on GTK3-only
@@ -19,6 +20,5 @@ os.environ["GTK2APP"] = "1"
 
 NautiluslikeExtension.set_plugin_module(Caja)
 
-
 class CajaNautilus(NautiluslikeExtension, Caja.InfoProvider, Caja.MenuProvider):
-    pass
+    """Browser extension wrapper"""
