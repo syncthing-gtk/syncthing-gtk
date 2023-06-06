@@ -106,3 +106,7 @@ modules:
     sources:
       - type: dir
         path: ../..
+
+finish-args:
+  # DBus access
+  - --socket=session-bus
