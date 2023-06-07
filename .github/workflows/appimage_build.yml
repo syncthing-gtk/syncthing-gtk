@@ -1,0 +1,32 @@
+name: Build Linux AppImage
+
+on: [push]
+
+jobs:
+  build_appimage:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install dependencies
+      uses: awalsh128/cache-apt-pkgs-action@latest
+      with:
+        version: 1.0
+        packages: >
+          binutils coreutils desktop-file-utils fakeroot fuse libgdk-pixbuf2.0-dev patchelf python3-pip python3-setuptools squashfs-tools strace util-linux zsync
+          meson python3 libgtk-3-0
+
+    - name: Install Appimagetool and Appimage Builder
+      run: |
+        # Install appimagetool AppImage (only for appimage-buidler < v1.0.3)
+        sudo wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O /usr/bin/appimagetool
+        sudo wget https://github.com/AppImageCrafters/appimage-builder/releases/download/v1.1.0/appimage-builder-1.1.0-x86_64.AppImage -O /usr/bin/appimage-builder
+        sudo chmod +x /usr/bin/appimagetool /usr/bin/appimage-builder
+
+    - name: Build AppImage
+      run: packaging/appimage/build_appimage.sh
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: AppImage
+        path: "*.AppImage*"
