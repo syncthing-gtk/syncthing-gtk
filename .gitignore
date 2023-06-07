@@ -1,3 +1,12 @@
+# build directories
+_build*
+.flatpak-builder
+appimage-build
+AppDir
+
+# build artifacts
+*.AppImage*
+
 *.pyc
 syncthing.exe
 *~
@@ -6,7 +15,5 @@ syncthing.exe
 *.nupkg
 *.mo
 
-_build*
-.flatpak-builder
 .mypy_cache
 .vscode
