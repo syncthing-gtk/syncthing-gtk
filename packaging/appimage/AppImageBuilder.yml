@@ -1,0 +1,74 @@
+# appimage-builder recipe see https://appimage-builder.readthedocs.io for details
+version: 1
+
+AppImage:
+  arch: x86_64
+  update-information: guess
+
+AppDir:
+  path: ./AppDir
+
+  app_info:
+    id: org.syncthing-gtk.syncthing-gtk
+    name: Syncthing GTK
+    icon: syncthing-gtk
+    version: latest
+    exec: usr/bin/python3
+    exec_args: "$APPDIR/usr/bin/syncthing-gtk $@"
+
+  apt:
+    arch: amd64
+    sources:
+      - sourceline: 'deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy main restricted universe multiverse'
+        key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x871920D1991BC93C'
+
+    include:
+      - dash
+      - bash
+      - python3
+      - python3-dateutil
+      - python3-six
+      - python3-cairo
+      - python3-gi
+      - python3-gi-cairo
+      - python3-bcrypt
+      - libgtk-3-0
+      - libgdk-pixbuf2.0-0
+      - librsvg2-common
+      - libnotify4
+      - libxml2
+      - gir1.2-glib-2.0
+      - gir1.2-gtk-3.0
+      - gir1.2-rsvg-2.0
+      - gir1.2-notify-0.7
+      - gir1.2-ayatanaappindicator3-0.1
+      - syncthing
+
+    exclude:
+      - adwaita-icon-theme
+      - humanity-icon-theme
+
+
+  after_bundle: |
+    # Fixup for Archlinux host
+    libdir="$PWD/AppDir/usr/lib"
+    if [ -d "$libdir/python3.11/site-packages/syncthing_gtk" ]; then
+      mv "$libdir/python3.11/site-packages/syncthing_gtk" "$libdir/python3/dist-packages"
+    fi
+
+  # test:
+  #   fedora-30:
+  #     image: appimagecrafters/tests-env:fedora-30
+  #     command: ./AppRun
+  #   debian-stable:
+  #     image: appimagecrafters/tests-env:debian-stable
+  #     command: ./AppRun
+  #   archlinux-latest:
+  #     image: appimagecrafters/tests-env:archlinux-latest
+  #     command: ./AppRun
+  #   centos-7:
+  #     image: appimagecrafters/tests-env:centos-7
+  #     command: ./AppRun
+  #   ubuntu-xenial:
+  #     image: appimagecrafters/tests-env:ubuntu-xenial
+  #     command: ./AppRun
