@@ -5,3 +5,8 @@ syncthing.exe
 *.zip
 *.nupkg
 *.mo
+
+_build*
+.flatpak-builder
+.mypy_cache
+.vscode
