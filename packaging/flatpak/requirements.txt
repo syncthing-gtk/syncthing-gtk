@@ -1,3 +1,6 @@
+# After editing this file, you need to update python3-requirements.json by runinng
+# flatpak-pip-generator -r requirements.txt
+
 tomli
 typing_extensions
 setuptools_scm
