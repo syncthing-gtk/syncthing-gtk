@@ -5,7 +5,19 @@ build-options:
   env:
     GOBIN: /app/bin
     # build-args:
-    #    - --share=network
+    # - --share=network
+
+# After having updated the Syncthing sources, you need to update its dependencies:
+# * Uncomment build-args --share=network just above
+# * Uncomment syncthing-go-sources.json just below
+# * Run:
+# ```
+# wget https://github.com/flatpak/flatpak-builder-tools/raw/master/go-get/flatpak-go-vendor-generator.py
+# flatpak-builder --user --ccache --keep-build-dirs --force-clean -v _build_fp packaging/flatpak/org.syncthing-gtk.syncthing-gtk.yml
+# rm packaging/flatpak/syncthing-go-sources.json
+# python3 flatpak-go-vendor-generator.py .flatpak-builder/build/syncthing/vendor/modules.txt > packaging/flatpak/syncthing-go-sources.json
+# ```
+# * Revert the changes you just did in this file.
 
 build-commands:
   - |

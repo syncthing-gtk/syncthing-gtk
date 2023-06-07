@@ -53,6 +53,22 @@ modules:
 
   - syncthing.yaml
 
+
+  - name: psmisc
+    sources:
+      - type: archive
+        url: https://gitlab.com/psmisc/psmisc/-/archive/v23.6/psmisc-v23.6.tar.bz2
+        sha256: 91573ca0a1a50bd491b7c3cbe400126b0dadef9a2e328030d6469bb2448e0794
+        x-checker-data:
+          type: anitya
+          project-id: 3721
+          url-template: https://gitlab.com/psmisc/psmisc/-/archive/v$version/psmisc-v$version.tar.bz2
+
+    cleanup:
+      - /bin/fuser
+      - /bin/p*
+      - /share/man
+
   - name: syncthing-gtk
     buildsystem: meson
     config-opts: []
