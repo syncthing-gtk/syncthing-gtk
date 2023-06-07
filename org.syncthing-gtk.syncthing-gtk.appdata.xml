@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2018-2019 kozec -->
-<component type="desktop-application">
-  <id>me.kozec.syncthingtk</id>
-  <translation type="gettext">syncthing-gtk</translation>
+<?xml version='1.0' encoding='utf-8'?>
+<component type="desktop">
+  <!--Created with jdAppdataEdit 5.1-->
+  <id>org.syncthing-gtk.syncthing-gtk</id>
   <name>Syncthing GTK</name>
   <summary>GUI and notification area icon for Syncthing</summary>
-  <developer_name>kozec</developer_name>
+  <developer_name>syncthing-gtk organisation</developer_name>
+  <launchable type="desktop-id">syncthing-gtk.desktop</launchable>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-2.0</project_license>
   <description>
-    <p>
-      Supported Syncthing features:
-    </p>
+    <p>Supported Syncthing features:</p>
     <ul>
       <li>Everything what WebUI can display</li>
       <li>Adding/editing/deleting nodes</li>
@@ -17,9 +17,7 @@
       <li>Restart/shutdown server</li>
       <li>Editing daemon settings</li>
     </ul>
-    <p>
-      Additional features:
-    </p>
+    <p>Additional features:</p>
     <ul>
       <li>First run wizard for initial configuration</li>
       <li>Running Syncthing daemon in background</li>
@@ -31,23 +29,13 @@
   <kudos>
     <kudo>ModernToolkit</kudo>
   </kudos>
-  <project_license>GPL-2.0</project_license>
-  <metadata_license>CC0-1.0</metadata_license>
-  <url type="homepage">https://github.com/syncthing/syncthing-gtk/</url>
-  <url type="bugtracker">https://github.com/syncthing/syncthing-gtk/issues</url>
-  <url type="donation">https://liberapay.com/kozec</url>
-  <url type="translate">https://www.transifex.com/syncthing-gtk/syncthing-gtk/</url>
   <screenshots>
     <screenshot type="default">
-      <caption>Main Application Window</caption>
-      <image height="483" width="987">http://i.imgur.com/RTRgRdC.png</image>
+      <image type="source">https://raw.githubusercontent.com/syncthing-gtk/syncthing-gtk/main/doc/syncthing-gtk.png</image>
     </screenshot>
   </screenshots>
-    <content_rating type="oars-1.1">
-    <content_attribute id="social-info">moderate</content_attribute>
-  </content_rating>
   <releases>
-    <release date="2023-03-12" version="v0.9.4.5">
+    <release version="v0.9.4.5" date="2023-03-12" type="stable">
       <description>
         <p>
           This is the first version of Syncthing-GTK maintained by a new team.
@@ -61,7 +49,7 @@
         </ul>
       </description>
     </release>
-    <release date="2019-08-04" version="v0.9.4.4">
+    <release version="v0.9.4.4" date="2019-08-04" type="stable">
       <description>
         <p>
           Changes:
@@ -80,7 +68,7 @@
         </ul>
       </description>
     </release>
-    <release date="2018-11-13" version="v0.9.4.3">
+    <release version="v0.9.4.3" date="2018-11-13" type="stable">
       <description>
         <p>
           Changes:
@@ -90,7 +78,7 @@
         </ul>
       </description>
     </release>
-    <release date="2018-09-23" version="v0.9.4.2">
+    <release version="v0.9.4.2" date="2018-09-23" type="stable">
       <description>
         <p>
           Changes:
@@ -100,7 +88,7 @@
         </ul>
       </description>
     </release>
-    <release date="2018-09-11" version="v0.9.4.1">
+    <release version="v0.9.4.1" date="2018-09-11" type="stable">
       <description>
         <p>
           Changes:
@@ -118,7 +106,7 @@
         </ul>
       </description>
     </release>
-    <release date="2018-06-05" version="v0.9.4">
+    <release version="v0.9.4" date="2018-06-05" type="stable">
       <description>
         <p>
           Syncthing v0.14.47 and later supports filesystem monitoring by itself, so monitoring by Syncthing-GTK is no longer needed and got removed.
@@ -145,5 +133,21 @@
       </description>
     </release>
   </releases>
-  <launchable type="desktop-id">syncthing-gtk.desktop</launchable>
+  <url type="homepage">https://github.com/syncthing-gtk/syncthing-gtk</url>
+  <url type="bugtracker">https://github.com/syncthing-gtk/syncthing-gtk/issues</url>
+  <url type="vcs-browser">https://github.com/syncthing-gtk/syncthing-gtk</url>
+  <url type="contribute">https://github.com/syncthing-gtk/syncthing-gtk</url>
+  <categories>
+    <category>Utility</category>
+    <category>FileTransfer</category>
+    <category>FileTools</category>
+    <category>GTK</category>
+  </categories>
+  <supports>
+    <internet>always</internet>
+  </supports>
+  <content_rating type="oars-1.1">
+    <content_attribute id="social-info">moderate</content_attribute>
+  </content_rating>
+  <translation type="gettext">syncthing-gtk</translation>
 </component>
