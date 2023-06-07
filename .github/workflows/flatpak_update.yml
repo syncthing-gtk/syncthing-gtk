@@ -2,7 +2,7 @@ name: Update Flatpak dependencies
 on:
   # for scheduling to work this file must be in the default branch
   schedule:
-  - cron: "@weekly"
+  - cron: "17 0 * * MON"
   # can be manually dispatched under GitHub's "Actions" tab
   workflow_dispatch:
 
