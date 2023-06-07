@@ -6,8 +6,6 @@ on:
   # can be manually dispatched under GitHub's "Actions" tab
   workflow_dispatch:
 
-env:
-  PATH_TO_MANIFEST: packaging/flatpak/org.syncthing-gtk.syncthing-gtk.yml
 
 jobs:
   flatpak-external-data-checker:
@@ -32,4 +30,4 @@ jobs:
           EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          args: --update --never-fork $PATH_TO_MANIFEST # e.g. com.organization.myapp.json
+          args: --update --never-fork packaging/flatpak/org.syncthing-gtk.syncthing-gtk.yml
