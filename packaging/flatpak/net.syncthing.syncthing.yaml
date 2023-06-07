@@ -1,0 +1,18 @@
+app-id: net.syncthing.syncthing
+
+runtime: org.freedesktop.Platform
+runtime-version: '22.08'
+sdk: org.freedesktop.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.golang
+
+command: syncthing
+
+finish-args:
+  # Folders for syncing can be anywhere
+  - --filesystem=host
+  # Network access for sync
+  - --share=network
+
+modules:
+  - syncthing.yaml

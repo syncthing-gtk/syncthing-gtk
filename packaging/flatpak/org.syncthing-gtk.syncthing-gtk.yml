@@ -1,103 +1,56 @@
 app-id: org.syncthinggtk.Syncthing-Gtk
+
 runtime: org.gnome.Platform
 runtime-version: '43'
 sdk: org.gnome.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.rust-stable
+  - org.freedesktop.Sdk.Extension.golang
+
 command: syncthing-gtk
+rename-desktop-file: syncthing-gtk.desktop
+rename-icon: syncthing-gtk
+
+finish-args:
+  # DBus access
+  - --socket=session-bus
+  # Wayland
+  - --socket=wayland
+  # Fallback X11 + XShm access
+  - --socket=fallback-x11
+  - --share=ipc
+  # Folders for syncing can be anywhere
+  - --filesystem=host
+  # Network access for sync
+  - --share=network
+  # System tray icon
+  - --talk-name=org.kde.StatusNotifierWatcher
+
+
+# Cleanup after the python modules
+cleanup:
+  - /include
+  - /lib/pkgconfig
+
+
+# Ease rust modules build
+build-options:
+  append-path: /usr/lib/sdk/rust-stable/bin
+  env:
+    CARGO_HOME: /run/build/python3-bcrypt/cargo
+    CARGO_NET_OFFLINE: 'true'
+    RUST_BACKTRACE: '1'
+    RUSTFLAGS: -g
+    # sccache hopefully speeds up subsequent compilations
+    # RUSTC_WRAPPER: /app/bin/sccache
+    # SCCACHE_DIR: /run/ccache/sccache/
+
+
 modules:
-
-  - name: python3-setuptools_scm
-    buildsystem: simple
-    build-commands:
-      - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
-        --prefix=${FLATPAK_DEST} "setuptools_scm" --no-build-isolation
-    sources:
-      - type: file
-        url: https://files.pythonhosted.org/packages/6c/10/a7d0fa5baea8fe7b50f448ab742f26f52b80bfca85ac2be9d35cdd9a3246/pyparsing-3.0.9-py3-none-any.whl
-        sha256: 5026bae9a10eeaefb61dab2f09052b9f4307d44aee4eda64b309723d8d206bbc
-        x-checker-data:
-          name: pyparsing
-          packagetype: bdist_wheel
-          type: pypi
-      - type: file
-        url: https://files.pythonhosted.org/packages/31/25/5abcd82372d3d4a3932e1fa8c3dbf9efac10cc7c0d16e78467460571b404/typing_extensions-4.5.0-py3-none-any.whl
-        sha256: fb33085c39dd998ac16d1431ebc293a8b3eedd00fd4a32de0ff79002c19511b4
-        x-checker-data:
-          name: typing_extensions
-          packagetype: bdist_wheel
-          type: pypi
-      - type: file
-        url: https://files.pythonhosted.org/packages/97/75/10a9ebee3fd790d20926a90a2547f0bf78f371b2f13aa822c759680ca7b9/tomli-2.0.1-py3-none-any.whl
-        sha256: 939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc
-        x-checker-data:
-          name: tomli
-          packagetype: bdist_wheel
-          type: pypi
-      - type: file
-        url: https://files.pythonhosted.org/packages/ed/35/a31aed2993e398f6b09a790a181a7927eb14610ee8bbf02dc14d31677f1c/packaging-23.0-py3-none-any.whl
-        sha256: 714ac14496c3e68c99c29b00845f7a2b85f3bb6f1078fd9f72fd20f0570002b2
-        x-checker-data:
-          name: packaging
-          packagetype: bdist_wheel
-          type: pypi
-      - type: file
-        url: https://files.pythonhosted.org/packages/1d/66/8f42c941be949ef2b22fe905d850c794e7c170a526023612aad5f3a121ad/setuptools_scm-7.1.0-py3-none-any.whl
-        sha256: 73988b6d848709e2af142aa48c986ea29592bbcfca5375678064708205253d8e
-        x-checker-data:
-          name: setuptools_scm
-          packagetype: bdist_wheel
-          type: pypi
-  - name: python3-typing_extensions
-    buildsystem: simple
-    build-commands:
-      - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
-        --prefix=${FLATPAK_DEST} "typing_extensions" --no-build-isolation
-    sources:
-      - type: file
-        url: https://files.pythonhosted.org/packages/31/25/5abcd82372d3d4a3932e1fa8c3dbf9efac10cc7c0d16e78467460571b404/typing_extensions-4.5.0-py3-none-any.whl
-        sha256: fb33085c39dd998ac16d1431ebc293a8b3eedd00fd4a32de0ff79002c19511b4
-        x-checker-data:
-          type: pypi
-          name: typing_extensions
-          packagetype: bdist_wheel
-  - name: python3-setuptools_rust
-    buildsystem: simple
-    build-commands:
-      - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
-        --prefix=${FLATPAK_DEST} "setuptools_rust" --no-build-isolation
-    sources:
-      - type: file
-        url: https://files.pythonhosted.org/packages/7d/31/f2289ce78b9b473d582568c234e104d2a342fd658cc288a7553d83bb8595/semantic_version-2.10.0.tar.gz
-        sha256: bdabb6d336998cbb378d4b9db3a4b56a1e3235701dc05ea2690d9a997ed5041c
-        x-checker-data:
-          type: pypi
-          name: semantic_version
-      - type: file
-        url: https://files.pythonhosted.org/packages/99/db/e4ecb483ffa194d632ed44bda32cb740e564789fed7e56c2be8e2a0e2aa6/setuptools-rust-1.5.2.tar.gz
-        sha256: d8daccb14dc0eae1b6b6eb3ecef79675bd37b4065369f79c35393dd5c55652c7
-        x-checker-data:
-          type: pypi
-          name: setuptools-rust
-  - name: python3-bcrypt
-    build-options:
-      append-path: /usr/lib/sdk/rust-stable/bin
-      env:
-        CARGO_HOME: /run/build/python3-bcrypt/cargo
-        CARGO_NET_OFFLINE: 'true'
-        RUST_BACKTRACE: '1'
-    buildsystem: simple
-    build-commands:
-      - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
-        --prefix=${FLATPAK_DEST} "bcrypt" --no-build-isolation
-    sources:
-      - type: file
-        url: https://files.pythonhosted.org/packages/8c/ae/3af7d006aacf513975fd1948a6b4d6f8b4a307f8a244e1a3d3774b297aad/bcrypt-4.0.1.tar.gz
-        sha256: 27d375903ac8261cfe4047f6709d16f7d18d39b1ec92aaf72af989552a650ebd
-      # The Cargo sources should be updated whenever bcrypt is updated.
-      - bcrypt-cargo-sources.json
-
   - python3-requirements.json
+  - python3-cargo-sources.yaml
+
+  - syncthing.yaml
 
   - name: syncthing-gtk
     buildsystem: meson
@@ -106,7 +59,3 @@ modules:
     sources:
       - type: dir
         path: ../..
-
-finish-args:
-  # DBus access
-  - --socket=session-bus

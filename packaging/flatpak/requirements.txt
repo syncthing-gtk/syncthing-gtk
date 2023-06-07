@@ -1,3 +1,6 @@
-setuptools_rust
+tomli
+typing_extensions
+setuptools_scm
+# setuptools_rust
 python-dateutil
-bcrypt
+# bcrypt

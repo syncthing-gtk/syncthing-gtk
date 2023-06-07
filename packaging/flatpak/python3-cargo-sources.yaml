@@ -1,0 +1,41 @@
+name: python3-cargo-sources
+buildsystem: simple
+build-commands: []
+
+# This can't be in python3-requirements because of cargo specificities
+modules:
+  - name: python3-setuptools_rust
+    buildsystem: simple
+    build-commands:
+      - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
+        --prefix=${FLATPAK_DEST} "setuptools_rust" --no-build-isolation
+    sources:
+      - type: file
+        url: https://files.pythonhosted.org/packages/7d/31/f2289ce78b9b473d582568c234e104d2a342fd658cc288a7553d83bb8595/semantic_version-2.10.0.tar.gz
+        sha256: bdabb6d336998cbb378d4b9db3a4b56a1e3235701dc05ea2690d9a997ed5041c
+        x-checker-data:
+          type: pypi
+          name: semantic_version
+      - type: file
+        url: https://files.pythonhosted.org/packages/99/db/e4ecb483ffa194d632ed44bda32cb740e564789fed7e56c2be8e2a0e2aa6/setuptools-rust-1.5.2.tar.gz
+        sha256: d8daccb14dc0eae1b6b6eb3ecef79675bd37b4065369f79c35393dd5c55652c7
+        x-checker-data:
+          type: pypi
+          name: setuptools-rust
+  - name: python3-bcrypt
+    build-options:
+      append-path: /usr/lib/sdk/rust-stable/bin
+      env:
+        CARGO_HOME: /run/build/python3-bcrypt/cargo
+        CARGO_NET_OFFLINE: 'true'
+        RUST_BACKTRACE: '1'
+    buildsystem: simple
+    build-commands:
+      - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
+        --prefix=${FLATPAK_DEST} "bcrypt" --no-build-isolation
+    sources:
+      - type: file
+        url: https://files.pythonhosted.org/packages/8c/ae/3af7d006aacf513975fd1948a6b4d6f8b4a307f8a244e1a3d3774b297aad/bcrypt-4.0.1.tar.gz
+        sha256: 27d375903ac8261cfe4047f6709d16f7d18d39b1ec92aaf72af989552a650ebd
+      # The Cargo sources should be updated whenever bcrypt is updated.
+      - bcrypt-cargo-sources.json

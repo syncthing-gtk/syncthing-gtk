@@ -1,0 +1,31 @@
+name: syncthing
+disabled: false
+buildsystem: simple
+build-options:
+  env:
+    GOBIN: /app/bin
+    # build-args:
+    #    - --share=network
+
+build-commands:
+  - |
+    . /usr/lib/sdk/golang/enable.sh
+    export GOPATH=$PWD/go
+    go version
+    # go mod vendor
+    # go build -mod=vendor
+    # go mod download -json > download.json
+    env GOFLAGS=-mod=vendor go run build.go -no-upgrade build
+  - install -Dm755 -t /app/bin syncthing
+  - syncthing --version
+
+sources:
+  - syncthing-go-sources.json
+
+  - type: archive
+    url: https://github.com/syncthing/syncthing/releases/download/v1.23.4/syncthing-source-v1.23.4.tar.gz
+    sha256: 06a2882f8ac49e15faf96025b01d0edcd4cc190a419d5de98fbe8271695329fa
+    x-checker-data:
+      type: anitya
+      project-id: 11814
+      url-template: https://github.com/syncthing/syncthing/releases/download/v$version/syncthing-source-v$version.tar.gz
