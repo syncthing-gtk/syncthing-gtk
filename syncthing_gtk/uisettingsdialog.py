@@ -311,20 +311,7 @@ def get_fm_source_path(plugin):
     Returns path to location where plugin file is installed
     """
     filename = "%s.py" % (plugin,)
-    paths = (
-        # Relative path used while developing or when running
-        # ST-GTK without installation
-        "./scripts/",
-        # Default installation path
-        "/usr/share/syncthing-gtk",
-        # Not-so default installation path
-        "/usr/local/share/syncthing-gtk",
-    )
-    for path in paths:
-        fn = os.path.abspath(os.path.join(path, filename))
-        if os.path.exists(fn):
-            return fn
-    return None
+    return os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), "plugins", filename))
 
 
 def is_file_or_symlink(path):

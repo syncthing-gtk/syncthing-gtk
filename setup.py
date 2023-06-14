@@ -48,13 +48,9 @@ def find_mos(parent, lst=[]):
 
 
 if __name__ == "__main__":
-    data_files = (
-        [
-            ("share/syncthing-gtk", glob.glob("glade/*.glade")),
-            ("share/syncthing-gtk", glob.glob("scripts/syncthing-plugin-*.py")),
-            (
-                "share/syncthing-gtk/icons",
-                [
+    package_data = {
+        "syncthing_gtk": ["glade/*.glade", "plugins/*.py"]
+                + [
                     "icons/%s.svg" % x
                     for x in (
                         "add_node",
@@ -82,23 +78,25 @@ if __name__ == "__main__":
                         "rescan",
                     )
                 ]
-                + ["icons/%s.png" % x for x in ("restart", "settings", "shutdown", "st-gtk-logo")],
-            ),
+                + ["icons/%s.png" % x for x in ("restart", "settings", "shutdown", "st-gtk-logo")]
+                + [os.path.relpath(x, "syncthing_gtk") for x in find_mos("syncthing_gtk/locale/")],
+    }
+    data_files = (
+        [
             ("share/man/man1", glob.glob("doc/*")),
-            ("share/icons/hicolor/64x64/emblems", glob.glob("icons/emblem-*.png")),
-            ("share/pixmaps", ["icons/syncthing-gtk.png"]),
+            ("share/icons/hicolor/64x64/emblems", glob.glob("syncthing_gtk/icons/emblem-*.png")),
+            ("share/pixmaps", ["syncthing_gtk/icons/syncthing-gtk.png"]),
             ("share/applications", ["syncthing-gtk.desktop"]),
             ("share/metainfo", ["me.kozec.syncthingtk.appdata.xml"]),
         ]
         + [
-            ("share/icons/hicolor/%sx%s/apps" % (size, size), glob.glob("icons/%sx%s/apps/*" % (size, size)))
+            ("share/icons/hicolor/%sx%s/apps" % (size, size), glob.glob("syncthing_gtk/icons/%sx%s/apps/*" % (size, size)))
             for size in APP_ICON_SIZES
         ]
         + [
-            ("share/icons/hicolor/%sx%s/status" % (size, size), glob.glob("icons/%sx%s/status/*" % (size, size)))
+            ("share/icons/hicolor/%sx%s/status" % (size, size), glob.glob("syncthing_gtk/icons/%sx%s/status/*" % (size, size)))
             for size in SI_ICON_SIZES
         ]
-        + [("share/" + os.path.split(x)[0], (x,)) for x in find_mos("locale/")]
     )
     setup(
         name="syncthing-gtk",
@@ -109,7 +107,14 @@ if __name__ == "__main__":
         install_requires=(
             "python-dateutil",
             "bcrypt",
+            "PyGObject",
         ),
+        package_dir={"syncthing_gtk": "syncthing_gtk"},
         data_files=data_files,
-        scripts=["scripts/syncthing-gtk"],
+        package_data=package_data,
+        entry_points={
+            'gui_scripts': [
+                'syncthing-gtk = syncthing_gtk.main:_main',
+            ]
+        }
     )

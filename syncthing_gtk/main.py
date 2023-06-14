@@ -4,20 +4,11 @@ import sys
 
 import gi
 
-if __name__ == "__main__":
-    systempath = "/usr/share/syncthing-gtk"
-    installpath =  os.path.join(os.path.dirname(os.path.realpath(__file__)),
-            '..', 'share', 'syncthing-gtk')
-    localpath = "/usr/local/share/syncthing-gtk"
-    paths = (systempath, localpath, installpath)
-    # let gettext to decide
-    localedir = None
-    for path in paths:
-        if os.path.exists(path):
-            localedir = os.path.join(path, '..', 'locale')
-            break
-    else:
-        raise IOError("Could not find files in %r", paths)
+def _main():
+    """Main function. Callable from entrypoint in ``setup.py``."""
+
+    path = os.path.dirname(os.path.realpath(__file__))
+    localedir = os.path.join(path, "locale")
 
     gi.require_version('Gtk', '3.0')
     gi.require_version('Gdk', '3.0')
@@ -35,4 +26,4 @@ if __name__ == "__main__":
         Gtk.IconTheme.get_default().prepend_search_path(os.environ["APPDIR"] + "/usr/share/icons/hicolor/32x32/status")
 
     from syncthing_gtk.app import App
-    App(path, os.path.join(path, "icons")).run(sys.argv)
+    App(os.path.join(path, "glade"), os.path.join(path, "icons")).run(sys.argv)
