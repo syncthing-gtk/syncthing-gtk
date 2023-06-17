@@ -280,24 +280,20 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <child>
-        <object class="GtkImageMenuItem" id="menu-popup-override">
+        <object class="GtkMenuItem" id="menu-popup-override">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Override Remote Changes</property>
             <property name="use_underline">True</property>
-            <property name="use_stock">True</property>
-            <property name="image">menu-popup-override-image</property>
             <signal name="activate" handler="cb_menu_popup_override" swapped="no"/>
         </object>
     </child>
     <child>
-        <object class="GtkImageMenuItem" id="menu-popup-revert">
+        <object class="GtkMenuItem" id="menu-popup-revert">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Override Local Changes</property>
             <property name="use_underline">True</property>
-            <property name="use_stock">True</property>
-            <property name="image">menu-popup-revert-image</property>
             <signal name="activate" handler="cb_menu_popup_revert" swapped="no"/>
         </object>
     </child>
@@ -308,33 +304,29 @@
         </object>
     </child>
     <child>
-        <object class="GtkImageMenuItem" id="menu-popup-edit-folder">
+        <object class="GtkMenuItem" id="menu-popup-edit-folder">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label">gtk-edit</property>
+            <property name="label">Edit</property>
             <property name="use_underline">True</property>
-            <property name="use_stock">True</property>
             <signal name="activate" handler="cb_menu_popup_edit_folder" swapped="no"/>
         </object>
     </child>
     <child>
-        <object class="GtkImageMenuItem" id="menu-popup-edit-ignored">
+        <object class="GtkMenuItem" id="menu-popup-edit-ignored">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Edit _Ignore Patterns</property>
             <property name="use_underline">True</property>
-            <property name="always_show_image">True</property>
             <signal name="activate" handler="cb_menu_popup_edit_ignored" swapped="no"/>
         </object>
     </child>
     <child>
-        <object class="GtkImageMenuItem" id="menu-popup-delete-folder">
+        <object class="GtkMenuItem" id="menu-popup-delete-folder">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label">gtk-delete</property>
+            <property name="label">Delete</property>
             <property name="use_underline">True</property>
-            <property name="use_stock">True</property>
-            <property name="always_show_image">True</property>
             <signal name="activate" handler="cb_menu_popup_delete_folder" swapped="no"/>
         </object>
     </child>
@@ -345,26 +337,20 @@
         </object>
     </child>
     <child>
-        <object class="GtkImageMenuItem" id="menu-popup-rescan-folder">
+        <object class="GtkMenuItem" id="menu-popup-rescan-folder">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">_Rescan</property>
             <property name="use_underline">True</property>
-            <property name="use_stock">False</property>
-            <property name="always_show_image">True</property>
-            <property name="image">menu-popup-rescan-folder-image</property>
             <signal name="activate" handler="cb_menu_popup_rescan_folder" swapped="no"/>
         </object>
     </child>
     <child>
-        <object class="GtkImageMenuItem" id="menu-popup-browse-folder">
+        <object class="GtkMenuItem" id="menu-popup-browse-folder">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">_Browse</property>
             <property name="use_underline">True</property>
-            <property name="use_stock">True</property>
-            <property name="always_show_image">True</property>
-            <property name="image">menu-popup-browse-image</property>
             <signal name="activate" handler="cb_menu_popup_browse_folder" swapped="no"/>
         </object>
     </child>
@@ -375,59 +361,47 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <child>
-        <object class="GtkImageMenuItem" id="menu-popup-edit-device">
+        <object class="GtkMenuItem" id="menu-popup-edit-device">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label">gtk-edit</property>
+            <property name="label">Edit</property>
             <property name="use_underline">True</property>
-            <property name="use_stock">True</property>
-            <property name="always_show_image">True</property>
             <signal name="activate" handler="cb_menu_popup_edit_device" swapped="no"/>
         </object>
     </child>
     <child>
-        <object class="GtkImageMenuItem" id="menu-popup-show-id">
+        <object class="GtkMenuItem" id="menu-popup-show-id">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Show _ID</property>
             <property name="use_underline">True</property>
-            <property name="use_stock">True</property>
-            <property name="always_show_image">True</property>
             <signal name="activate" handler="cb_menu_popup_show_id" swapped="no"/>
-            <property name="image">menu-popup-show-id-image</property>
         </object>
     </child>
     <child>
-        <object class="GtkImageMenuItem" id="menu-popup-pause-device">
+        <object class="GtkMenuItem" id="menu-popup-pause-device">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">gtk-media-pause</property>
+            <property name="label" translatable="yes">Pause</property>
             <property name="use_underline">True</property>
-            <property name="use_stock">True</property>
-            <property name="always_show_image">True</property>
             <signal name="activate" handler="cb_menu_popup_pause_device" swapped="no"/>
         </object>
     </child>
     <child>
-        <object class="GtkImageMenuItem" id="menu-popup-resume-device">
+        <object class="GtkMenuItem" id="menu-popup-resume-device">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Resume</property>
-            <property name="image">menu-popup-resume-image</property>
             <property name="use_underline">True</property>
-            <property name="use_stock">True</property>
-            <property name="always_show_image">True</property>
             <signal name="activate" handler="cb_menu_popup_resume_device" swapped="no"/>
         </object>
     </child>
     <child>
-        <object class="GtkImageMenuItem" id="menu-popup-delete-device">
+        <object class="GtkMenuItem" id="menu-popup-delete-device">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label">gtk-delete</property>
+            <property name="label">Delete</property>
             <property name="use_underline">True</property>
-            <property name="use_stock">True</property>
-            <property name="always_show_image">True</property>
             <signal name="activate" handler="cb_menu_popup_delete_device" swapped="no"/>
         </object>
     </child>
@@ -439,7 +413,7 @@
     <property name="can_focus">False</property>
 
     <child>
-        <object class="GtkImageMenuItem" id="menu-si-status">
+        <object class="GtkMenuItem" id="menu-si-status">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Connecting to daemon...</property>
@@ -449,7 +423,7 @@
     </child>
 
     <child>
-        <object class="GtkImageMenuItem" id="menu-si-show">
+        <object class="GtkMenuItem" id="menu-si-show">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Show Window</property>
@@ -467,41 +441,33 @@
     </child>
 
     <child>
-        <object class="GtkImageMenuItem" id="menu-si-shutdown">
+        <object class="GtkMenuItem" id="menu-si-shutdown">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">S_top Syncthing</property>
             <property name="use_underline">True</property>
-            <property name="image">menu-si-shutdown-image</property>
-            <property name="use_stock">False</property>
             <property name="sensitive">False</property>
-            <property name="always_show_image">True</property>
             <signal name="activate" handler="cb_menu_shutdown" swapped="no"/>
         </object>
     </child>
 
     <child>
-        <object class="GtkImageMenuItem" id="menu-si-resume">
+        <object class="GtkMenuItem" id="menu-si-resume">
             <property name="visible">False</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Resume Sync_thing</property>
             <property name="use_underline">True</property>
-            <property name="image">menu-si-resume-image</property>
-            <property name="use_stock">False</property>
             <property name="sensitive">True</property>
-            <property name="always_show_image">True</property>
             <signal name="activate" handler="cb_menu_resume" swapped="no"/>
         </object>
     </child>
 
     <child>
-        <object class="GtkImageMenuItem" id="menu-si-recvlimit">
+        <object class="GtkMenuItem" id="menu-si-recvlimit">
             <property name="label" translatable="yes">_Incoming Rate Limit</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="use_underline">True</property>
-            <property name="image">menu-si-recvlimit-image</property>
-            <property name="use_stock">False</property>
             <child type="submenu">
                 <object class="GtkMenu" id="menu-si-recvlimit-sub">
                     <property name="visible">True</property>
@@ -537,13 +503,11 @@
     </child>
 
     <child>
-        <object class="GtkImageMenuItem" id="menu-si-sendlimit">
+        <object class="GtkMenuItem" id="menu-si-sendlimit">
             <property name="label" translatable="yes">_Outgoing Rate Limit</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="use_underline">True</property>
-            <property name="image">menu-si-sendlimit-image</property>
-            <property name="use_stock">False</property>
             <child type="submenu">
                 <object class="GtkMenu" id="menu-si-sendlimit-sub">
                     <property name="visible">True</property>
@@ -586,51 +550,42 @@
     </child>
 
     <child>
-        <object class="GtkImageMenuItem" id="menu-si-show-id">
+        <object class="GtkMenuItem" id="menu-si-show-id">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Show _ID</property>
             <property name="use_underline">True</property>
-            <property name="image">menu-si-show-id-image</property>
-            <property name="use_stock">False</property>
             <property name="sensitive">False</property>
-            <property name="always_show_image">True</property>
             <signal name="activate" handler="cb_menu_show_id" swapped="no"/>
         </object>
     </child>
 
     <child>
-        <object class="GtkImageMenuItem" id="menu-si-webui">
+        <object class="GtkMenuItem" id="menu-si-webui">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Open _Web Interface</property>
-            <property name="always_show_image">True</property>
             <property name="use_underline">True</property>
-            <property name="image">menu-si-webui-image</property>
             <signal name="activate" handler="cb_menu_webui" swapped="no"/>
         </object>
     </child>
 
     <child>
-        <object class="GtkImageMenuItem" id="menu-si-daemon-output">
+        <object class="GtkMenuItem" id="menu-si-daemon-output">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">See _Logs</property>
             <property name="use_underline">True</property>
-            <property name="always_show_image">True</property>
-            <property name="image">menu-si-daemon-output-image</property>
             <signal name="activate" handler="cb_menu_daemon_output" swapped="no"/>
         </object>
     </child>
 
     <child>
-        <object class="GtkImageMenuItem" id="menu-si-ui-settings">
+        <object class="GtkMenuItem" id="menu-si-ui-settings">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">_Preferences</property>
             <property name="use_underline">True</property>
-            <property name="always_show_image">True</property>
-            <property name="image">menu-si-ui-settings-image</property>
             <signal name="activate" handler="cb_menu_ui_settings" swapped="no"/>
         </object>
     </child>
@@ -643,25 +598,21 @@
     </child>
 
     <child>
-        <object class="GtkImageMenuItem" id="menu-si-about">
+        <object class="GtkMenuItem" id="menu-si-about">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label">gtk-about</property>
-            <property name="always_show_image">True</property>
+            <property name="label">About</property>
             <property name="use_underline">True</property>
-            <property name="use_stock">True</property>
             <signal name="activate" handler="cb_about" swapped="no"/>
         </object>
     </child>
 
     <child>
-        <object class="GtkImageMenuItem" id="menu-si-exit">
+        <object class="GtkMenuItem" id="menu-si-exit">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label">gtk-quit</property>
-            <property name="always_show_image">True</property>
+            <property name="label">Quit</property>
             <property name="use_underline">True</property>
-            <property name="use_stock">True</property>
             <signal name="activate" handler="cb_exit" swapped="no"/>
         </object>
     </child>
