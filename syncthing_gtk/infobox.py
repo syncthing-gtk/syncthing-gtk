@@ -518,8 +518,11 @@ class InfoBox(Gtk.Container):
 
     def clear_values(self):
         """Removes all lines from UI, effectively making all values hidden"""
-        for ch in [] + self.grid.get_children():
+        ch = self.grid.get_first_child()
+        while ch is not None:
+            next = ch.get_next_sibling()
             self.grid.remove(ch)
+            ch = next
         self.value_widgets = {}
 
     def add_hidden_value(self, key, value):

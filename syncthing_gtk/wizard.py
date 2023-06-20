@@ -120,13 +120,16 @@ class Wizard(Gtk.Assistant):
         """
         if parent is None:
             parent = self
-        for w in parent.get_children():
+        w = parent.get_first_child()
+        while w is not None:
+            next = w.get_next_sibling()
             if compare_fn(w):
                 return w
             if isinstance(w, Gtk.Container):
                 r = self.find_widget(compare_fn, w)
                 if r is not None:
                     return r
+            w = next
         return None
 
     def output_line(self, line):
@@ -139,8 +142,11 @@ class Wizard(Gtk.Assistant):
         Called from pages on error. Removes everything from page and
         creates error message.
         """
-        for c in [] + page.get_children():
+        c = page.get_first_child()
+        while c is not None:
+            next = c.get_next_sibling()
             page.remove(c)
+            c = next
         # Title
         l_title = WrappedLabel("<b>%s</b>" % (title,))
         l_title.props.margin_bottom = 15
@@ -222,11 +228,13 @@ class IntroPage(Page):
         next_label = _("Next")
         try:
             # Hacky way to determine label on 'Next' button
-            all_buttons = [
-                b
-                for b in self.dialog.quit_button.get_parent().get_children()
-                if isinstance(b, Gtk.Button) and b is not self.dialog.quit_button
-            ]
+            all_buttons = []
+            b = self.dialog.quit_button.get_parent().get_first_child()
+            while b is not None:
+                next = b.get_next_sibling()
+                if isinstance(b, Gtk.Button) and b is not self.dialog.quit_button:
+                    all_buttons.append(b)
+                b = next
             # order is 'apply, next, back, finish, cancel'
             next_label = all_buttons[1].get_label().replace("_", "")
         except BaseException:

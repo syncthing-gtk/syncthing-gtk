@@ -102,7 +102,9 @@ class EditorDialog(GObject.GObject):
             if id in self:
                 return self[id]  # Do things fast if possible
             parent = self["editor"]
-        for c in parent.get_children():
+        c = parent.get_first_child()
+        while c is not None:
+            next = c.get_next_sibling()
             if hasattr(c, "get_id"):
                 if c.get_id() == id:
                     return c
@@ -110,6 +112,7 @@ class EditorDialog(GObject.GObject):
                 r = self.find_widget_by_id(id, c)
                 if r is not None:
                     return r
+            c = next
         return None
 
     def show(self, parent=None):

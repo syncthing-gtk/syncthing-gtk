@@ -1400,13 +1400,16 @@ class App(Gtk.Application, TimerManager):
             Small, recursive helper function to set label somehwere
             deep in dialog
             """
-            for c in d.get_children():
+            c = d.get_first_child()
+            while c is not None:
+                next = c.get_next_sibling()
                 if isinstance(c, Gtk.Container):
                     if set_label(c, message):
                         return True
                 elif isinstance(c, Gtk.Label):
                     c.set_markup(message)
                     return True
+                c = next
             return False
 
         log.verbose("Setting connect_dialog label %s" % message[0:15])
@@ -1582,9 +1585,12 @@ class App(Gtk.Application, TimerManager):
     def clear(self):
         """Clears folder and device lists."""
         for i in ("devicelist", "folderlist"):
-            for c in [] + self[i].get_children():
+            c = self[i].get_first_child()
+            while c is not None:
+                next = c.get_next_sibling()
                 self[i].remove(c)
                 c.destroy()
+                c = next
         self.devices = {}
         self.folders = {}
 
