@@ -22,6 +22,7 @@ class IdentIcon(Gtk.DrawingArea):
         self.value = re.sub(r"[\W_]", "", device_id, 1)
         self.color = (1, 1, 0.95, 1)  # icon color, rgba
         self.size = 5
+        self.set_draw_func(self.drawing_func)
 
     def set_color_hex(self, hx):
         """Expects AABBCC or #AABBCC format"""
@@ -44,7 +45,7 @@ class IdentIcon(Gtk.DrawingArea):
     def do_get_request_mode(self):
         return Gtk.SizeRequestMode.CONSTANT_SIZE
 
-    def do_draw(self, cr):
+    def drawing_func(self, self2, cr, width, height):
         def fill_rect_at(row, col, ox, oy, rs):
             cr.rectangle(ox + (col * rs), oy + (row * rs), rs, rs)
             cr.fill()
@@ -59,10 +60,9 @@ class IdentIcon(Gtk.DrawingArea):
             return self.size - col - 1
 
         # Prepare stuff
-        allocation = self.get_allocation()
-        rect_size = min(allocation.width, allocation.height) / self.size
-        offset_x = (allocation.width // 2) - (rect_size * self.size // 2)
-        offset_y = (allocation.height // 2) - (rect_size * self.size // 2)
+        rect_size = min(width, height) / self.size
+        offset_x = (width // 2) - (rect_size * self.size // 2)
+        offset_y = (height // 2) - (rect_size * self.size // 2)
         middle_col = self.size // 2
 
         # Set color
