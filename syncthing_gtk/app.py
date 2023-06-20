@@ -58,19 +58,19 @@ INTERNAL_VERSION = "v0.9.4.5"
 # Minimal Syncthing version supported by App
 MIN_ST_VERSION = "0.14.50"
 
-COLOR_DEVICE = "#707070"  # Dark-gray
-COLOR_DEVICE_SYNCING = "#2A89C8"  # Blue
-COLOR_DEVICE_CONNECTED = "#2AAB61"  # Green
-COLOR_DEVICE_OFFLINE = COLOR_DEVICE  # Dark-gray
-COLOR_DEVICE_ERROR = "#87000B"  # Red
-COLOR_OWN_DEVICE = "#C0C0C0"  # Light-gray
-COLOR_FOLDER = "#9246B1"  # Dark-purple
-COLOR_FOLDER_SYNCING = COLOR_DEVICE_SYNCING  # Blue
-COLOR_FOLDER_SCANNING = COLOR_DEVICE_SYNCING  # Blue
-COLOR_FOLDER_IDLE = COLOR_DEVICE_CONNECTED  # Green
-COLOR_FOLDER_STOPPED = COLOR_DEVICE_ERROR  # Red
-COLOR_FOLDER_OFFLINE = COLOR_DEVICE_OFFLINE  # Dark-gray
-COLOR_NEW = COLOR_OWN_DEVICE  # Light-gray
+CLASS_DEVICE = "device"
+CLASS_DEVICE_SYNCING = "device-syncing"
+CLASS_DEVICE_CONNECTED = "device-connected"
+CLASS_DEVICE_OFFLINE = "device-offline"
+CLASS_DEVICE_ERROR = "device-error"
+CLASS_OWN_DEVICE = "own-device"
+CLASS_FOLDER = "folder"
+CLASS_FOLDER_SYNCING = "folder-syncing"
+CLASS_FOLDER_SCANNING = "folder-scanning"
+CLASS_FOLDER_IDLE = "folder-idle"
+CLASS_FOLDER_STOPPED = "folder-stopped"
+CLASS_FOLDER_OFFLINE = "folder-offline"
+CLASS_NEW = "new"
 SI_FRAMES = 12  # Number of animation frames for status icon
 
 # Response IDs
@@ -163,6 +163,12 @@ class App(Gtk.Application, TimerManager):
 
         self.editor_device = None
         self.editor_folder = None
+
+        csspath = os.path.join(self.uipath, "styles.css")
+        css_provider = Gtk.CssProvider()
+        css_provider.load_from_path(csspath)
+        display = Gdk.Display.get_default()
+        Gtk.StyleContext.add_provider_for_display(display, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
     def do_startup(self, *a):
         Gtk.Application.do_startup(self, *a)
@@ -442,19 +448,19 @@ class App(Gtk.Application, TimerManager):
         self.daemon.connect("folder-added", self.cb_syncthing_folder_added)
         self.daemon.connect("folder-error", self.cb_syncthing_folder_error)
         self.daemon.connect("folder-data-changed", self.cb_syncthing_folder_data_changed)
-        self.daemon.connect("folder-data-failed", self.cb_syncthing_folder_state_changed, 0.0, COLOR_NEW, "")
+        self.daemon.connect("folder-data-failed", self.cb_syncthing_folder_state_changed, 0.0, CLASS_NEW, "")
         self.daemon.connect(
-            "folder-sync-started", self.cb_syncthing_folder_state_changed, 0.0, COLOR_FOLDER_SYNCING, _("Syncing")
+            "folder-sync-started", self.cb_syncthing_folder_state_changed, 0.0, CLASS_FOLDER_SYNCING, _("Syncing")
         )
         self.daemon.connect(
-            "folder-sync-progress", self.cb_syncthing_folder_state_changed, COLOR_FOLDER_SYNCING, _("Syncing")
+            "folder-sync-progress", self.cb_syncthing_folder_state_changed, CLASS_FOLDER_SYNCING, _("Syncing")
         )
         self.daemon.connect("folder-sync-finished", self.cb_syncthing_folder_up_to_date)
         self.daemon.connect(
-            "folder-scan-started", self.cb_syncthing_folder_state_changed, 1.0, COLOR_FOLDER_SCANNING, _("Scanning")
+            "folder-scan-started", self.cb_syncthing_folder_state_changed, 1.0, CLASS_FOLDER_SCANNING, _("Scanning")
         )
         self.daemon.connect(
-            "folder-scan-progress", self.cb_syncthing_folder_state_changed, COLOR_FOLDER_SCANNING, _("Scanning")
+            "folder-scan-progress", self.cb_syncthing_folder_state_changed, CLASS_FOLDER_SCANNING, _("Scanning")
         )
         self.daemon.connect("folder-scan-finished", self.cb_syncthing_folder_up_to_date)
         self.daemon.connect("folder-stopped", self.cb_syncthing_folder_stopped)
@@ -900,7 +906,7 @@ class App(Gtk.Application, TimerManager):
             if id in self.devices:
                 device = self.devices[id]
                 display_id = device.get_title()
-                device.set_color_hex(COLOR_DEVICE_ERROR)
+                device.set_class(CLASS_DEVICE_ERROR)
                 device.set_status(_("Incompatible"), 0)
                 device.show_value("version")
                 device["version"] = version
@@ -992,7 +998,7 @@ class App(Gtk.Application, TimerManager):
             # Modify header & color
             device.set_status("")
             device.invert_header(True)
-            device.set_color_hex(COLOR_OWN_DEVICE)
+            device.set_class(CLASS_OWN_DEVICE)
             if self.use_headerbar:
                 self["header"].set_subtitle(device.get_title())
             else:
@@ -1058,7 +1064,7 @@ class App(Gtk.Application, TimerManager):
         if nid in self.devices:  # Should be always
             device = self.devices[nid]
             device.set_status(_("Paused") if paused else _("Disconnected"))
-            device.set_color_hex(COLOR_DEVICE_OFFLINE)
+            device.set_class(CLASS_DEVICE_OFFLINE)
             device["online"] = False
             device["connected"] = False
             # Update visible values
@@ -1075,7 +1081,7 @@ class App(Gtk.Application, TimerManager):
                 if connected:
                     # Update color & header
                     device.set_status(_("Connected"))
-                    device.set_color_hex(COLOR_DEVICE_CONNECTED)
+                    device.set_class(CLASS_DEVICE_CONNECTED)
                     device["online"] = True
                     # Update visible values
                     device.show_values("sync", "inbps", "oubps", "version")
@@ -1083,7 +1089,7 @@ class App(Gtk.Application, TimerManager):
                 else:
                     # Update color & header
                     device.set_status(_("Disconnected"))
-                    device.set_color_hex(COLOR_DEVICE_OFFLINE)
+                    device.set_class(CLASS_DEVICE_OFFLINE)
                     device["online"] = False
                     # Update visible values
                     device.hide_values("sync", "inbps", "outbps", "version")
@@ -1096,13 +1102,13 @@ class App(Gtk.Application, TimerManager):
             device = self.devices[device_id]
             device["sync"] = "%3.f%%" % (sync * 100.0)
             if not device["connected"]:
-                device.set_color_hex(COLOR_DEVICE_OFFLINE)
+                device.set_class(CLASS_DEVICE_OFFLINE)
                 device.set_status(_("Disconnected"))
             elif sync >= 0.0 and sync < 0.99:
-                device.set_color_hex(COLOR_DEVICE_SYNCING)
+                device.set_class(CLASS_DEVICE_SYNCING)
                 device.set_status(_("Syncing"), sync)
             else:
-                device.set_color_hex(COLOR_DEVICE_CONNECTED)
+                device.set_class(CLASS_DEVICE_CONNECTED)
                 device.set_status(_("Up to Date"))
 
     def cb_syncthing_folder_added(self, daemon, rid, r):
@@ -1145,12 +1151,12 @@ class App(Gtk.Application, TimerManager):
             title = _("Up to Date")
             if folder["can_override"]:
                 title = folder["override_title"]
-            self.cb_syncthing_folder_state_changed(daemon, rid, 1.0, COLOR_FOLDER_IDLE, title)
+            self.cb_syncthing_folder_state_changed(daemon, rid, 1.0, CLASS_FOLDER_IDLE, title)
 
-    def cb_syncthing_folder_state_changed(self, daemon, rid, percentage, color, text):
+    def cb_syncthing_folder_state_changed(self, daemon, rid, percentage, classname, text):
         if rid in self.folders:  # Should be always
             folder = self.folders[rid]
-            folder.set_color_hex(color)
+            folder.set_class(classname)
             folder.set_status(text, percentage)
             self.update_folders()
             self.set_status(True)
@@ -1158,7 +1164,7 @@ class App(Gtk.Application, TimerManager):
     def cb_syncthing_folder_stopped(self, daemon, rid, message):
         if rid in self.folders:  # Should be always
             folder = self.folders[rid]
-            folder.set_color_hex(COLOR_FOLDER_STOPPED)
+            folder.set_class(CLASS_FOLDER_STOPPED)
             folder.set_status(_("Stopped"), 0)
             # Color, theme-based icon is used here. It's intentional and
             # supposed to draw attention
@@ -1236,17 +1242,17 @@ class App(Gtk.Application, TimerManager):
             folder = self.folders[rid]
             for device in folder["devices"]:
                 online = online or device["online"]
-            if online and folder.compare_color_hex(COLOR_FOLDER_OFFLINE):
+            if online and folder.compare_class(CLASS_FOLDER_OFFLINE):
                 # Folder was marked as offline but is back online now
                 if folder["can_override"]:
                     folder.set_status(folder["override_title"])
                 else:
                     folder.set_status(_("Up to Date"))
-                folder.set_color_hex(COLOR_FOLDER_IDLE)
-            elif not online and folder.compare_color_hex(COLOR_FOLDER_SCANNING):
+                folder.set_class(CLASS_FOLDER_IDLE)
+            elif not online and folder.compare_class(CLASS_FOLDER_SCANNING):
                 # Folder is offline and in Scanning state
-                folder.set_color_hex(COLOR_FOLDER_OFFLINE)
-            elif not online and folder.compare_color_hex(COLOR_FOLDER_IDLE):
+                folder.set_class(CLASS_FOLDER_OFFLINE)
+            elif not online and folder.compare_class(CLASS_FOLDER_IDLE):
                 # Folder is offline and in Idle state (not scanning)
                 if len([d for d in folder["devices"] if d["id"] != self.daemon.get_my_id()]) == 0:
                     # No device to share folder with
@@ -1254,7 +1260,7 @@ class App(Gtk.Application, TimerManager):
                 else:
                     # Folder is shared, but all devices are offline
                     folder.set_status(_("Offline"))
-                folder.set_color_hex(COLOR_FOLDER_OFFLINE)
+                folder.set_class(CLASS_FOLDER_OFFLINE)
 
     def show_error_box(self, ribar, additional_data={}):
         self.show_info_box(ribar, additional_data)
@@ -1502,7 +1508,7 @@ class App(Gtk.Application, TimerManager):
             box.set_status("Unknown")
             if self.dark_color is not None:
                 box.set_dark_color(*self.dark_color)
-            box.set_color_hex(COLOR_FOLDER)
+            box.set_class(CLASS_FOLDER)
             box.set_vexpand(False)
             GLib.idle_add(box.show_all)  # Window border will dissapear without this on Windows
             self["folderlist"].pack_start(box, False, False, 3)
@@ -1561,7 +1567,7 @@ class App(Gtk.Application, TimerManager):
             # Setup display & signal
             if self.dark_color is not None:
                 box.set_dark_color(*self.dark_color)
-            box.set_color_hex(COLOR_DEVICE)
+            box.set_class(CLASS_DEVICE)
             box.set_vexpand(False)
             box.set_open(id in self.open_boxes)
             box.get_icon().set_size_request(22, 22)

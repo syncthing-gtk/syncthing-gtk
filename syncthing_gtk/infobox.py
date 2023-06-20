@@ -33,6 +33,8 @@ class InfoBox(Gtk.Container):
         "right-click": (GObject.SIGNAL_RUN_FIRST, None, (int, int)),
         # doubleclick, no arguments
         "doubleclick": (GObject.SIGNAL_RUN_FIRST, None, ()),
+        "enter-notify-event": (GObject.SIGNAL_RUN_FIRST, None, (int, int)),
+        "leave-notify-event": (GObject.SIGNAL_RUN_FIRST, None, ()),
     }
 
     # Initialization
@@ -51,6 +53,7 @@ class InfoBox(Gtk.Container):
         self.hilight_factor = 0.0
         self.timer_enabled = False
         self.icon = icon
+        self.current_class = None
         self.color = (1, 0, 1, 1)  # rgba
         self.background = (1, 1, 1, 1)  # rgba
         self.dark_color = None  # Overrides background if set
@@ -78,15 +81,30 @@ class InfoBox(Gtk.Container):
         self.title.set_ellipsize(Pango.EllipsizeMode.START)
         hbox.set_spacing(4)
         # Connect signals
-        eb.connect("realize", self.set_header_cursor)
-        eb.connect("button-release-event", self.on_header_click)
-        eb.connect("enter-notify-event", self.on_enter_notify)
-        eb.connect("leave-notify-event", self.on_leave_notify)
+        hbox.set_cursor(Gdk.Cursor.new_from_name("grab"))
+
+        gesture = Gtk.GestureClick.new()
+        gesture.connect("released", self.on_header_leftclick)
+        eb.add_controller(gesture)
+
+        gesture = Gtk.GestureClick.new()
+        gesture.set_button(Gdk.BUTTON_SECONDARY)
+        gesture.connect("released", self.on_header_rightclick)
+        eb.add_controller(gesture)
+
+        gesture = Gtk.EventControllerMotion.new()
+        gesture.connect("enter", self.on_enter_notify)
+        gesture.connect("leave", self.on_leave_notify)
+        eb.add_controller(gesture)
+
+        # Style
+        self.add_css_class('infobox')
+        hbox.add_css_class('header')
+
         # Pack together
         hbox.pack_start(self.icon, False, False, 0)
         hbox.pack_start(self.title, True, True, 0)
         hbox.pack_start(self.status, False, False, 0)
-        hbox.override_background_color(Gtk.StateFlags.NORMAL, Gdk.RGBA(*self.color))
         eb.add(hbox)
         # Update stuff
         self.header_box = hbox
@@ -105,8 +123,6 @@ class InfoBox(Gtk.Container):
         self.grid.set_column_spacing(3)
         self.rev.set_reveal_child(False)
         align.set_padding(2, 2, 5, 5)
-        self.eb.override_background_color(Gtk.StateType.NORMAL, Gdk.RGBA(*self.background))
-        self.grid.override_background_color(Gtk.StateType.NORMAL, Gdk.RGBA(*self.background))
         # Connect signals
         self.eb.connect("button-release-event", self.on_grid_release)
         self.eb.connect("button-press-event", self.on_grid_click)
@@ -218,42 +234,6 @@ class InfoBox(Gtk.Container):
         self.register_window(window)
         self.set_realized(True)
 
-    def do_draw(self, cr):
-        allocation = self.get_allocation()
-
-        header_al = self.children[0].get_allocation()
-
-        # Border
-        cr.set_source_rgba(*self.real_color)
-        cr.move_to(0, self.border_width / 2.0)
-        cr.line_to(0, allocation.height)
-        cr.line_to(allocation.width, allocation.height)
-        cr.line_to(allocation.width, self.border_width / 2.0)
-        cr.set_line_width(self.border_width * 2)  # Half of border is rendered outside of widget
-        cr.stroke()
-
-        # Background
-        if self.background is not None:
-            # Use set background color
-            cr.set_source_rgba(*self.background)
-            cr.rectangle(
-                self.border_width,
-                self.border_width,
-                allocation.width - (2 * self.border_width),
-                allocation.height - (2 * self.border_width),
-            )
-            cr.fill()
-
-        # Header
-        cr.set_source_rgba(*self.real_color)
-        cr.rectangle(
-            self.border_width / 2.0, 0, allocation.width - self.border_width, header_al.height + (2 * self.border_width)
-        )
-        cr.fill()
-
-        for c in self.children:
-            if c is not None:
-                self.propagate_draw(c, cr)
 
     # InfoBox logic
     def set_header_cursor(self, eb, *a):
@@ -308,21 +288,15 @@ class InfoBox(Gtk.Container):
                 [min(1.0, DARKEN_FACTOR * (x + HILIGHT_INTENSITY * math.sin(self.hilight_factor))) for x in self.color]
             )
         gdkcol = Gdk.RGBA(*self.real_color)
-        self.header.override_background_color(Gtk.StateType.NORMAL, gdkcol)
-        try:
-            self.header.get_children()[0].override_background_color(Gtk.StateFlags.NORMAL, gdkcol)
-        except IndexError:
-            # Happens when recolor is called before header widget is created
-            pass
 
         self.queue_draw()
 
     # Translated events
-    def on_enter_notify(self, eb, event, *data):
-        self.emit("enter-notify-event", None, *data)
+    def on_enter_notify(self, eb, *data):
+        self.emit("enter-notify-event", *data)
 
-    def on_leave_notify(self, eb, event, *data):
-        self.emit("leave-notify-event", None, *data)
+    def on_leave_notify(self, eb, *data):
+        self.emit("leave-notify-event", *data)
 
     # Methods
     def set_title(self, t):
@@ -348,11 +322,10 @@ class InfoBox(Gtk.Container):
         self.icon = icon
 
     def set_hilight(self, h):
-        if self.hilight != h:
-            self.hilight = h
-            if not self.timer_enabled:
-                GLib.timeout_add(COLOR_CHANGE_TIMER, self.hilight_timer)
-                self.timer_enabled = True
+        if h:
+            self.add_css_class("highlighted")
+        else:
+            self.remove_css_class("highlighted")
 
     def invert_header(self, e):
         self.header_inverted = e
@@ -390,10 +363,23 @@ class InfoBox(Gtk.Container):
         """Expects AABBCC or #AABBCC format"""
         self.set_color(*InfoBox.hex2color(hx))
 
+    def set_class(self, classname):
+        """Sets CSS class for styling purposes"""
+        if self.current_class is not None:
+            self.remove_css_class(self.current_class)
+        self.current_class = classname
+        self.add_css_class(classname)
+
     def set_color(self, r, g, b, a):
         """Expects floats"""
         self.color = (r, g, b, a)
         self.recolor()
+
+    def compare_class(self, classname):
+        """
+        Returns True if specified CSS class is same as the one currently used.
+        """
+        return self.current_class == classname
 
     def compare_color_hex(self, hx):
         """
@@ -442,7 +428,7 @@ class InfoBox(Gtk.Container):
                     wValue, trash, wTitle = self.value_widgets[key]
                     self.value_widgets[key] = (wValue, wIcon, wTitle)
                 else:
-                    w.override_color(Gtk.StateFlags.NORMAL, col)
+                    pass
         # Recolor borders
         self.recolor()
         # Recolor header
@@ -453,15 +439,6 @@ class InfoBox(Gtk.Container):
         if self.dark_color is None:
             self.background = (r, g, b, a)
         col = Gdk.RGBA(r, g, b, a)
-        for key in self.value_widgets:
-            for w in self.value_widgets[key]:
-                w.override_background_color(Gtk.StateFlags.NORMAL, col)
-        self.eb.override_background_color(Gtk.StateType.NORMAL, Gdk.RGBA(*self.background))
-        self.grid.override_background_color(Gtk.StateType.NORMAL, col)
-
-    def set_border(self, width):
-        self.border_width = width
-        self.queue_resize()
 
     def set_open(self, b):
         self.rev.set_reveal_child(b)
@@ -511,8 +488,6 @@ class InfoBox(Gtk.Container):
         self.grid.attach_next_to(wTitle, wIcon, Gtk.PositionType.RIGHT, 1, 1)
         self.grid.attach_next_to(wValue, wTitle, Gtk.PositionType.RIGHT, 1, 1)
         for w in self.value_widgets[key]:
-            w.override_background_color(Gtk.StateFlags.NORMAL, Gdk.RGBA(*self.background))
-            w.override_color(Gtk.StateFlags.NORMAL, Gdk.RGBA(*self.text_color))
             if not visible:
                 w.set_no_show_all(True)
 
