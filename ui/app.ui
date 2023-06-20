@@ -19,7 +19,6 @@
                 <object class="GtkMenuButton" id="app-menu-button">
                     <property name="relief">half</property>
                     <property name="menu-model">app-menu</property>
-                    <property name="use-popover">True</property>
                     <style><class name="image-button"/></style>
                     <child>
                         <object class="GtkImage" id="app-menu-button-icon">
@@ -49,7 +48,6 @@
                     <property name="sensitive">False</property>
                     <property name="valign">center</property>
                     <property name="menu-model">edit-menu</property>
-                    <property name="use-popover">True</property>
                     <style><class name="image-button"/></style>
                     <child>
                         <object class="GtkImage" id="edit-menu-icon">
@@ -84,7 +82,6 @@
                         <property name="valign">center</property>
                         <property name="image">app-menu-button-icon</property>
                         <property name="menu-model">app-menu</property>
-                        <property name="use-popover">True</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -108,7 +105,6 @@
                         <property name="valign">center</property>
                         <property name="image">edit-menu-button-icon</property>
                         <property name="menu-model">edit-menu</property>
-                        <property name="use-popover">True</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -255,146 +251,74 @@
 <!-- /Edit popover menu (Right one) -->
 
 <!-- Popup menu for folder -->
-<object class="GtkMenu" id="popup-menu-folder">
-    <property name="can_focus">False</property>
-    <child>
-        <object class="GtkImageMenuItem" id="menu-popup-override">
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Override Remote Changes</property>
-            <property name="use_underline">True</property>
-            <property name="use_stock">True</property>
-            <property name="image">menu-popup-override-image</property>
-            <signal name="activate" handler="cb_menu_popup_override" swapped="no"/>
-        </object>
-    </child>
-    <child>
-        <object class="GtkImageMenuItem" id="menu-popup-revert">
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Override Local Changes</property>
-            <property name="use_underline">True</property>
-            <property name="use_stock">True</property>
-            <property name="image">menu-popup-revert-image</property>
-            <signal name="activate" handler="cb_menu_popup_revert" swapped="no"/>
-        </object>
-    </child>
-    <child>
-        <object class="GtkSeparatorMenuItem" id="menu-separator-override">
-            <property name="can_focus">False</property>
-        </object>
-    </child>
-    <child>
-        <object class="GtkImageMenuItem" id="menu-popup-edit-folder">
-            <property name="can_focus">False</property>
-            <property name="label">gtk-edit</property>
-            <property name="use_underline">True</property>
-            <property name="use_stock">True</property>
-            <signal name="activate" handler="cb_menu_popup_edit_folder" swapped="no"/>
-        </object>
-    </child>
-    <child>
-        <object class="GtkImageMenuItem" id="menu-popup-edit-ignored">
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Edit _Ignore Patterns</property>
-            <property name="use_underline">True</property>
-            <property name="always_show_image">True</property>
-            <signal name="activate" handler="cb_menu_popup_edit_ignored" swapped="no"/>
-        </object>
-    </child>
-    <child>
-        <object class="GtkImageMenuItem" id="menu-popup-delete-folder">
-            <property name="can_focus">False</property>
-            <property name="label">gtk-delete</property>
-            <property name="use_underline">True</property>
-            <property name="use_stock">True</property>
-            <property name="always_show_image">True</property>
-            <signal name="activate" handler="cb_menu_popup_delete_folder" swapped="no"/>
-        </object>
-    </child>
-    <child>
-        <object class="GtkSeparatorMenuItem" id="menu-separator7">
-            <property name="can_focus">False</property>
-        </object>
-    </child>
-    <child>
-        <object class="GtkImageMenuItem" id="menu-popup-rescan-folder">
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">_Rescan</property>
-            <property name="use_underline">True</property>
-            <property name="use_stock">False</property>
-            <property name="always_show_image">True</property>
-            <property name="image">menu-popup-rescan-folder-image</property>
-            <signal name="activate" handler="cb_menu_popup_rescan_folder" swapped="no"/>
-        </object>
-    </child>
-    <child>
-        <object class="GtkImageMenuItem" id="menu-popup-browse-folder">
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">_Browse</property>
-            <property name="use_underline">True</property>
-            <property name="use_stock">True</property>
-            <property name="always_show_image">True</property>
-            <property name="image">menu-popup-browse-image</property>
-            <signal name="activate" handler="cb_menu_popup_browse_folder" swapped="no"/>
-        </object>
-    </child>
-</object>
+<menu id="popup-menu-folder">
+    <section>
+        <item>
+            <attribute name="label" translatable="yes">Override Remote Changes</attribute>
+            <attribute name="action">app.menu_popup_override</attribute>
+            <attribute name="hidden-when">action-disabled</attribute>
+        </item>
+        <item>
+            <attribute name="label" translatable="yes">Override Local Changes</attribute>
+            <attribute name="action">app.menu_popup_revert</attribute>
+            <attribute name="hidden-when">action-disabled</attribute>
+        </item>
+    </section>
+    <section>
+        <item>
+            <attribute name="label" translatable="yes">Edit</attribute>
+            <attribute name="action">app.menu_popup_edit_folder</attribute>
+        </item>
+        <item>
+            <attribute name="label" translatable="yes">Edit _Ignore Patterns</attribute>
+            <attribute name="action">app.menu_popup_edit_ignored</attribute>
+        </item>
+        <item>
+            <attribute name="label" translatable="yes">Delete</attribute>
+            <attribute name="action">app.menu_popup_delete_folder</attribute>
+        </item>
+    </section>
+    <section>
+        <item>
+            <attribute name="label" translatable="yes">_Rescan</attribute>
+            <attribute name="action">app.menu_popup_rescan_folder</attribute>
+        </item>
+        <item>
+            <attribute name="label" translatable="yes">_Browse</attribute>
+            <attribute name="action">app.menu_popup_browse_folder</attribute>
+        </item>
+    </section>
+</menu>
 
 <!-- Popup menu for device -->
-<object class="GtkMenu" id="popup-menu-device">
-    <property name="can_focus">False</property>
-    <child>
-        <object class="GtkImageMenuItem" id="menu-popup-edit-device">
-            <property name="can_focus">False</property>
-            <property name="label">gtk-edit</property>
-            <property name="use_underline">True</property>
-            <property name="use_stock">True</property>
-            <property name="always_show_image">True</property>
-            <signal name="activate" handler="cb_menu_popup_edit_device" swapped="no"/>
-        </object>
-    </child>
-    <child>
-        <object class="GtkImageMenuItem" id="menu-popup-show-id">
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Show _ID</property>
-            <property name="use_underline">True</property>
-            <property name="use_stock">True</property>
-            <property name="always_show_image">True</property>
-            <signal name="activate" handler="cb_menu_popup_show_id" swapped="no"/>
-            <property name="image">menu-popup-show-id-image</property>
-        </object>
-    </child>
-    <child>
-        <object class="GtkImageMenuItem" id="menu-popup-pause-device">
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">gtk-media-pause</property>
-            <property name="use_underline">True</property>
-            <property name="use_stock">True</property>
-            <property name="always_show_image">True</property>
-            <signal name="activate" handler="cb_menu_popup_pause_device" swapped="no"/>
-        </object>
-    </child>
-    <child>
-        <object class="GtkImageMenuItem" id="menu-popup-resume-device">
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Resume</property>
-            <property name="image">menu-popup-resume-image</property>
-            <property name="use_underline">True</property>
-            <property name="use_stock">True</property>
-            <property name="always_show_image">True</property>
-            <signal name="activate" handler="cb_menu_popup_resume_device" swapped="no"/>
-        </object>
-    </child>
-    <child>
-        <object class="GtkImageMenuItem" id="menu-popup-delete-device">
-            <property name="can_focus">False</property>
-            <property name="label">gtk-delete</property>
-            <property name="use_underline">True</property>
-            <property name="use_stock">True</property>
-            <property name="always_show_image">True</property>
-            <signal name="activate" handler="cb_menu_popup_delete_device" swapped="no"/>
-        </object>
-    </child>
-</object>
+<menu id="popup-menu-device">
+    <section>
+        <item>
+            <attribute name="label">Edit</attribute>
+            <attribute name="action">app.menu_popup_edit_device</attribute>
+            <attribute name="hidden-when">action-disabled</attribute>
+        </item>
+        <item>
+            <attribute name="label" translatable="yes">Show _ID</attribute>
+            <attribute name="action">app.menu_popup_show_id</attribute>
+        </item>
+        <item>
+            <attribute name="label" translatable="yes">Pause</attribute>
+            <attribute name="action">app.menu_popup_pause_device</attribute>
+            <attribute name="hidden-when">action-disabled</attribute>
+        </item>
+        <item>
+            <attribute name="label" translatable="yes">Resume</attribute>
+            <attribute name="action">app.menu_popup_resume_device</attribute>
+            <attribute name="hidden-when">action-disabled</attribute>
+        </item>
+        <item>
+            <attribute name="label">Delete</attribute>
+            <attribute name="action">app.menu_popup_delete_device</attribute>
+            <attribute name="hidden-when">action-disabled</attribute>
+        </item>
+    </section>
+</menu>
 
 <!-- Menu & button images -->
 <IF condition="traditional_header">

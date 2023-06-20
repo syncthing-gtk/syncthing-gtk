@@ -347,6 +347,20 @@ class App(Gtk.Application, TimerManager):
         add_simple_action("daemon_shutdown", self.cb_menu_shutdown)
         add_simple_action("daemon_restart", self.cb_menu_restart)
 
+        add_simple_action("menu_popup_override", self.cb_menu_popup_override)
+        add_simple_action("menu_popup_revert", self.cb_menu_popup_revert)
+        add_simple_action("menu_popup_edit_folder", self.cb_menu_popup_edit_folder)
+        add_simple_action("menu_popup_edit_ignored", self.cb_menu_popup_edit_ignored)
+        add_simple_action("menu_popup_delete_folder", self.cb_menu_popup_delete_folder)
+        add_simple_action("menu_popup_rescan_folder", self.cb_menu_popup_rescan_folder)
+        add_simple_action("menu_popup_browse_folder", self.cb_menu_popup_browse_folder)
+
+        add_simple_action("menu_popup_edit_device", self.cb_menu_popup_edit_device)
+        add_simple_action("menu_popup_show_id", self.cb_menu_popup_show_id)
+        add_simple_action("menu_popup_pause_device", self.cb_menu_popup_pause_device)
+        add_simple_action("menu_popup_resume_device", self.cb_menu_popup_resume_device)
+        add_simple_action("menu_popup_delete_device", self.cb_menu_popup_delete_device)
+
     def setup_widgets(self):
         self.builder = UIBuilder()
         # Set conditions for UIBuilder
@@ -1912,26 +1926,20 @@ class App(Gtk.Application, TimerManager):
 
     def cb_popup_menu_folder(self, box, button, time):
         self.rightclick_box = box
-        if box["can_override"]:
-            self["menu-popup-override"].set_visible(box["folder_type_s"] == "sendonly")
-            self["menu-popup-revert"].set_visible(box["folder_type_s"] == "receiveonly")
-            self["menu-separator-override"].set_visible(box["can_override"])
-        else:
-            self["menu-popup-override"].set_visible(False)
-            self["menu-popup-revert"].set_visible(False)
-            self["menu-separator-override"].set_visible(False)
-        self["popup-menu-folder"].popup(None, None, None, None, button, time)
+        self.lookup_action("menu_popup_override").set_enabled(box["can_override"] and box["folder_type_s"] == "sendonly")
+        self.lookup_action("menu_popup_revert").set_enabled(box["can_override"] and box["folder_type_s"] == "receiveonly")
+        box.popup_menu_folder(self["popup-menu-folder"])
 
     def cb_popup_menu_device(self, box, button, time):
         self.rightclick_box = box
         # Display 'edit device' and 'delete device' menu items on
         # everything but my own node
         b = box["id"] != self.daemon.get_my_id()
-        self["menu-popup-edit-device"].set_visible(b)
-        self["menu-popup-delete-device"].set_visible(b)
-        self["menu-popup-pause-device"].set_visible(box.get_status() != _("Paused"))
-        self["menu-popup-resume-device"].set_visible(box.get_status() == _("Paused"))
-        self["popup-menu-device"].popup(None, None, None, None, button, time)
+        self.lookup_action("menu_popup_edit_device").set_enabled(b)
+        self.lookup_action("menu_popup_delete_device").set_enabled(b)
+        self.lookup_action("menu_popup_pause_device").set_enabled(box.get_status() != _("Paused"))
+        self.lookup_action("menu_popup_resume_device").set_enabled(box.get_status() == _("Paused"))
+        box.popup_menu_folder(self["popup-menu-device"])
 
     def cb_menu_popup(self, source, menu):
         """Handler for ubuntu-only toolbar buttons"""
