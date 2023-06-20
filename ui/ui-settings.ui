@@ -160,7 +160,6 @@
             <child>
               <object class="GtkButton" id="btClose">
                 <property name="label">gtk-cancel</property>
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_stock">True</property>
@@ -175,7 +174,6 @@
             <child>
               <object class="GtkButton" id="btSave">
                 <property name="label">gtk-save</property>
-                <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -198,12 +196,10 @@
         </child>
         <child>
           <object class="GtkNotebook" id="ntbPages">
-            <property name="visible">True</property>
             <property name="can_focus">True</property>
             <child>
               <object class="GtkGrid" id="pageInterface">
                 <property name="width_request">400</property>
-                <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="margin_left">5</property>
                 <property name="margin_right">5</property>
@@ -211,7 +207,6 @@
                 <property name="margin_bottom">5</property>
                 <child>
                   <object class="GtkLabel" id="label4">
-                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="margin_top">10</property>
                     <property name="label" translatable="yes">When starting and Syncthing daemon is not running...</property>
@@ -226,7 +221,6 @@
                 <child>
                   <object class="GtkRadioButton" id="rbOnStartWait">
                     <property name="label" translatable="yes">... _wait for daemon</property>
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="margin_left">30</property>
@@ -244,7 +238,6 @@
                 <child>
                   <object class="GtkRadioButton" id="rbOnStartRun">
                     <property name="label" translatable="yes">... start daemon in _background</property>
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="margin_left">30</property>
@@ -262,7 +255,6 @@
                 <child>
                   <object class="GtkRadioButton" id="rbOnStartAsk">
                     <property name="label" translatable="yes">... _ask me what to do</property>
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="margin_left">30</property>
@@ -279,7 +271,6 @@
                 </child>
                 <child>
                   <object class="GtkLabel" id="label5">
-                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="margin_top">10</property>
                     <property name="label" translatable="yes">When exiting after daemon was started in background...</property>
@@ -294,7 +285,6 @@
                 <child>
                   <object class="GtkRadioButton" id="rbOnExitTerminate">
                     <property name="label" translatable="yes">... terminate _daemon</property>
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="margin_left">30</property>
@@ -312,7 +302,6 @@
                 <child>
                   <object class="GtkRadioButton" id="rbOnExitLeave">
                     <property name="label" translatable="yes">... leave daemon _running</property>
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="margin_left">30</property>
@@ -330,7 +319,6 @@
                 <child>
                   <object class="GtkRadioButton" id="rbOnExitAsk">
                     <property name="label" translatable="yes">... ask me w_hat to do</property>
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="margin_left">30</property>
@@ -348,7 +336,6 @@
                 <child>
                   <object class="GtkCheckButton" id="vuse_old_header">
                     <property name="label" translatable="yes">Us_e traditional window header</property>
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="use_underline">True</property>
@@ -364,7 +351,6 @@
                 </child>
                 <child>
                   <object class="GtkLabel" id="lblNotifications">
-                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="margin_top">10</property>
                     <property name="hexpand">True</property>
@@ -380,7 +366,6 @@
                 <child>
                   <object class="GtkCheckButton" id="vnotification_for_update">
                     <property name="label" translatable="yes">... file updates</property>
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="margin_left">30</property>
@@ -397,7 +382,6 @@
                 <child>
                   <object class="GtkCheckButton" id="vnotification_for_error">
                     <property name="label" translatable="yes">... errors</property>
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="margin_left">30</property>
@@ -414,7 +398,6 @@
                 <child>
                   <object class="GtkCheckButton" id="vnotification_for_folder">
                     <property name="label" translatable="yes">... synchronization completion</property>
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="margin_left">30</property>
@@ -431,7 +414,6 @@
                 <child>
                   <object class="GtkCheckButton" id="vautostart">
                     <property name="label" translatable="yes">Start Syncthing-GTK when I login to my desktop</property>
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="hexpand">True</property>
@@ -448,7 +430,6 @@
                 <child>
                   <object class="GtkCheckButton" id="vminimize_on_start">
                     <property name="label" translatable="yes">Minimize to _tray on start</property>
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="use_underline">True</property>
@@ -464,7 +445,6 @@
                 <child>
                   <object class="GtkCheckButton" id="vfolder_as_path">
                     <property name="label" translatable="yes">Display paths in directories panel</property>
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="use_underline">True</property>
@@ -496,7 +476,6 @@
                 </child>
                 <child>
                   <object class="GtkComboBox" id="vicon_theme">
-                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="margin_left">20</property>
                     <property name="margin_top">10</property>
@@ -517,7 +496,6 @@
                 </child>
                 <child>
                   <object class="GtkLabel" id="label19">
-                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="margin_top">10</property>
                     <property name="label" translatable="yes">Tray icon style</property>
@@ -569,7 +547,6 @@
             </child>
             <child type="tab">
               <object class="GtkLabel" id="label1">
-                <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="hexpand">True</property>
                 <property name="label" translatable="yes">_Interface</property>
@@ -582,14 +559,12 @@
             </child>
             <child>
               <object class="GtkGrid" id="pageIntegration">
-                <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="margin_left">5</property>
                 <property name="margin_right">3</property>
                 <property name="margin_top">5</property>
                 <child>
                   <object class="GtkLabel" id="label10">
-                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">Integrate Syncthing with filemanagers</property>
                     <property name="use_underline">True</property>
@@ -607,7 +582,6 @@
                 <child>
                   <object class="GtkCheckButton" id="fmcb_nemo">
                     <property name="label" translatable="yes">Nemo (Cinamon Desktop)</property>
-                    <property name="visible">True</property>
                     <property name="sensitive">False</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
@@ -624,7 +598,6 @@
                 <child>
                   <object class="GtkCheckButton" id="fmcb_nautilus">
                     <property name="label" translatable="yes">Nautilus (Ubuntu/GNOME)</property>
-                    <property name="visible">True</property>
                     <property name="sensitive">False</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
@@ -640,7 +613,6 @@
                 <child>
                   <object class="GtkCheckButton" id="fmcb_caja">
                     <property name="label" translatable="yes">Caja (MATE Desktop)</property>
-                    <property name="visible">True</property>
                     <property name="sensitive">False</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
@@ -655,7 +627,6 @@
                 </child>
                 <child>
                   <object class="GtkLabel" id="fmLblIntegrationStatus">
-                    <property name="visible">True</property>
                     <property name="sensitive">False</property>
                     <property name="can_focus">False</property>
                     <property name="margin_top">7</property>
@@ -674,7 +645,6 @@ Install blahblahblah to enable Caja support</property>
                 </child>
                 <child>
                   <object class="GtkLabel" id="label11">
-                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="margin_top">8</property>
                     <property name="xpad">3</property>
@@ -695,7 +665,6 @@ Install blahblahblah to enable Caja support</property>
             </child>
             <child type="tab">
               <object class="GtkLabel" id="label9">
-                <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="hexpand">True</property>
                 <property name="label" translatable="yes">_Integration</property>
@@ -709,7 +678,6 @@ Install blahblahblah to enable Caja support</property>
             </child>
             <child>
               <object class="GtkGrid" id="pageDaemon">
-                <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="margin_left">5</property>
                 <property name="margin_right">5</property>
@@ -717,7 +685,6 @@ Install blahblahblah to enable Caja support</property>
                 <property name="margin_bottom">5</property>
                 <child>
                   <object class="GtkCheckButton" id="vst_autoupdate">
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="no_show_all">True</property>
@@ -726,7 +693,6 @@ Install blahblahblah to enable Caja support</property>
                     <property name="draw_indicator">True</property>
                     <child>
                       <object class="GtkLabel" id="label7">
-                        <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Keep Syncthing binary up-to-date</property>
                         <property name="xalign">0</property>
@@ -744,7 +710,6 @@ Install blahblahblah to enable Caja support</property>
                 </child>
                 <child>
                   <object class="GtkLabel" id="lblAutoupdate">
-                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="no_show_all">True</property>
                     <property name="margin_left">10</property>
@@ -761,7 +726,6 @@ Install blahblahblah to enable Caja support</property>
                 </child>
                 <child>
                   <object class="GtkLabel" id="label12">
-                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">Daemon process priority</property>
                     <property name="use_underline">True</property>
@@ -778,7 +742,6 @@ Install blahblahblah to enable Caja support</property>
                 </child>
                 <child>
                   <object class="GtkComboBox" id="vdaemon_priority">
-                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="model">lststrPriority</property>
                     <child>
@@ -796,7 +759,6 @@ Install blahblahblah to enable Caja support</property>
                 </child>
                 <child>
                   <object class="GtkLabel" id="label13">
-                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="margin_bottom">10</property>
                     <property name="label" translatable="yes">Priority will be used only if "&lt;i&gt;start daemon in background&lt;/i&gt;" option is checked on "&lt;i&gt;Interface&lt;/i&gt;" page.</property>
@@ -812,7 +774,6 @@ Install blahblahblah to enable Caja support</property>
                 </child>
                 <child>
                   <object class="GtkLabel" id="label14">
-                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">Maximum number of CPU cores</property>
                     <property name="use_underline">True</property>
@@ -829,7 +790,6 @@ Install blahblahblah to enable Caja support</property>
                 </child>
                 <child>
                   <object class="GtkLabel" id="label15">
-                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="margin_bottom">10</property>
                     <property name="label" translatable="yes">Sets the maximum number of CPU cores for daemon to use. This value will be used only if "&lt;i&gt;start daemon in background&lt;/i&gt;" option is checked on "&lt;i&gt;Interface&lt;/i&gt;" page.</property>
@@ -845,7 +805,6 @@ Install blahblahblah to enable Caja support</property>
                 </child>
                 <child>
                   <object class="GtkSpinButton" id="vmax_cpus">
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="margin_bottom">10</property>
                     <property name="text">1</property>
@@ -867,7 +826,6 @@ Install blahblahblah to enable Caja support</property>
             </child>
             <child type="tab">
               <object class="GtkLabel" id="label2">
-                <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="hexpand">True</property>
                 <property name="label" translatable="yes">Daemon</property>
@@ -881,7 +839,6 @@ Install blahblahblah to enable Caja support</property>
             </child>
             <child>
               <object class="GtkGrid" id="pageAdvanced">
-                <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="margin_left">5</property>
                 <property name="margin_right">5</property>
@@ -889,7 +846,6 @@ Install blahblahblah to enable Caja support</property>
                 <property name="margin_bottom">5</property>
                 <child>
                   <object class="GtkLabel" id="lblsyncthing_binary2">
-                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="no_show_all">True</property>
                     <property name="margin_bottom">10</property>
@@ -907,7 +863,6 @@ Install blahblahblah to enable Caja support</property>
                 <child>
                   <object class="GtkButton" id="btBrowse">
                     <property name="label" translatable="yes">_Browse...</property>
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="no_show_all">True</property>
@@ -922,7 +877,6 @@ Install blahblahblah to enable Caja support</property>
                 </child>
                 <child>
                   <object class="GtkLabel" id="lblsyncthing_binary">
-                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="no_show_all">True</property>
                     <property name="label" translatable="yes">Syncthing binary location</property>
@@ -940,7 +894,6 @@ Install blahblahblah to enable Caja support</property>
                 </child>
                 <child>
                   <object class="GtkEntry" id="vsyncthing_binary">
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="no_show_all">True</property>
                     <property name="hexpand">True</property>
@@ -953,7 +906,6 @@ Install blahblahblah to enable Caja support</property>
                 </child>
                 <child>
                   <object class="GtkLabel" id="label16">
-                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">Daemon arguments and variables</property>
                     <property name="use_underline">True</property>
@@ -970,7 +922,6 @@ Install blahblahblah to enable Caja support</property>
                 </child>
                 <child>
                   <object class="GtkEntry" id="vsyncthing_arguments">
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="hexpand">True</property>
                   </object>
@@ -982,7 +933,6 @@ Install blahblahblah to enable Caja support</property>
                 </child>
                 <child>
                   <object class="GtkLabel" id="label17">
-                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="margin_bottom">10</property>
                     <property name="label" translatable="yes">Space-separated list of arguments and environment variables passed when starting above binary
@@ -1005,7 +955,6 @@ Example:
                 </child>
                 <child>
                   <object class="GtkLabel" id="label18">
-                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="margin_left">5</property>
                     <property name="margin_right">5</property>
@@ -1020,7 +969,6 @@ Example:
                 </child>
                 <child>
                   <object class="GtkSeparator" id="separator1">
-                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="margin_left">5</property>
                     <property name="margin_right">5</property>
@@ -1040,7 +988,6 @@ Example:
             </child>
             <child type="tab">
               <object class="GtkLabel" id="label8">
-                <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="hexpand">True</property>
                 <property name="label" translatable="yes">_Advanced</property>

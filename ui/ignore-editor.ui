@@ -27,7 +27,6 @@
             <child>
               <object class="GtkButton" id="btClose">
                 <property name="label">gtk-close</property>
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_stock">True</property>
@@ -42,7 +41,6 @@
             <child>
               <object class="GtkButton" id="btSave">
                 <property name="label">gtk-save</property>
-                <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -65,19 +63,16 @@
         </child>
         <child>
           <object class="GtkBox" id="box1">
-            <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
             <child>
               <object class="GtkScrolledWindow" id="scrolledwindow1">
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="events">GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_STRUCTURE_MASK</property>
                 <property name="margin_top">10</property>
                 <property name="shadow_type">in</property>
                 <child>
                   <object class="GtkTextView" id="tvPatterns">
-                    <property name="visible">True</property>
                     <property name="sensitive">False</property>
                     <property name="can_focus">True</property>
                     <property name="buffer">tbPatterns</property>
@@ -93,7 +88,6 @@
             </child>
             <child>
               <object class="GtkLabel" id="label1">
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="margin_top">15</property>
                 <property name="label" translatable="yes">See &lt;a href="http://docs.syncthing.net/users/ignoring.html"&gt;Syncthing documentation&lt;/a&gt; for list of supported patterns</property>
@@ -108,7 +102,6 @@
             </child>
             <child>
               <object class="GtkLabel" id="lblLocation">
-                <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="margin_top">5</property>
                 <property name="label" translatable="yes">File location: </property>

@@ -55,7 +55,6 @@
             <child>
               <object class="GtkButton" id="btClose">
                 <property name="label">gtk-cancel</property>
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_stock">True</property>
@@ -70,7 +69,6 @@
             <child>
               <object class="GtkButton" id="btSave">
                 <property name="label">gtk-save</property>
-                <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -93,7 +91,6 @@
         </child>
         <child>
           <object class="GtkGrid" id="grid1">
-            <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="margin_left">10</property>
             <property name="margin_right">10</property>
@@ -101,7 +98,6 @@
             <property name="column_homogeneous">True</property>
             <child>
               <object class="GtkLabel" id="label1">
-                <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Sync Protocol Listen Addresses</property>
                 <property name="use_underline">True</property>
@@ -119,7 +115,6 @@
             </child>
             <child>
               <object class="GtkEntry" id="vlistenAddresses">
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="has_focus">True</property>
                 <property name="margin_bottom">10</property>
@@ -134,7 +129,6 @@
             <child>
               <object class="GtkCheckButton" id="vlocalAnnounceEnabled">
                 <property name="label" translatable="yes">Enable Local _Discovery</property>
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="use_underline">True</property>
@@ -151,7 +145,6 @@
             <child>
               <object class="GtkCheckButton" id="vupnpEnabled">
                 <property name="label" translatable="yes">Enable _UPnP</property>
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="use_underline">True</property>
@@ -166,7 +159,6 @@
             </child>
             <child>
               <object class="GtkLabel" id="lblvlocalAnnouncePort">
-                <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Local Discovery _Port</property>
                 <property name="use_underline">True</property>
@@ -184,7 +176,6 @@
             </child>
             <child>
               <object class="GtkSpinButton" id="vmaxSendKbps">
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="margin_bottom">10</property>
                 <property name="adjustment">adjMaxSendKbps</property>
@@ -198,7 +189,6 @@
             </child>
             <child>
               <object class="GtkCheckButton" id="vmaxSendKbpsEnabled">
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="use_underline">True</property>
@@ -207,7 +197,6 @@
                 <signal name="toggled" handler="ui_value_changed" swapped="no"/>
                 <child>
                   <object class="GtkLabel" id="label6">
-                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">Outgoing _Rate Limit</property>
                     <property name="use_underline">True</property>
@@ -227,7 +216,6 @@
             <child>
               <object class="GtkCheckButton" id="vstartBrowser">
                 <property name="label" translatable="yes">Open browser with _WebUI when daemon is starting</property>
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="margin_bottom">10</property>
@@ -244,7 +232,6 @@
             <child>
               <object class="GtkCheckButton" id="vurAccepted">
                 <property name="label" translatable="yes">Enable _Anonymous Usage Reporting</property>
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="use_underline">True</property>
@@ -260,7 +247,6 @@
             <child>
               <object class="GtkCheckButton" id="vglobalAnnounceEnabled">
                 <property name="label" translatable="yes">Enable _Global Discovery</property>
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="use_underline">True</property>
@@ -276,7 +262,6 @@
             </child>
             <child>
               <object class="GtkLabel" id="lblvglobalAnnounceServers">
-                <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Global Discovery _Servers</property>
                 <property name="use_underline">True</property>
@@ -294,7 +279,6 @@
             </child>
             <child>
               <object class="GtkEntry" id="vglobalAnnounceServers">
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="margin_bottom">15</property>
               </object>
@@ -306,7 +290,6 @@
             </child>
             <child>
               <object class="GtkSpinButton" id="vlocalAnnouncePort">
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="margin_bottom">10</property>
                 <property name="text">50</property>
@@ -321,7 +304,6 @@
             </child>
             <child>
               <object class="GtkCheckButton" id="vmaxRecvKbpsEnabled">
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="use_underline">True</property>
@@ -330,7 +312,6 @@
                 <signal name="toggled" handler="ui_value_changed" swapped="no"/>
                 <child>
                   <object class="GtkLabel" id="label2">
-                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">_Incoming Rate Limit</property>
                     <property name="use_underline">True</property>
@@ -349,7 +330,6 @@
             </child>
             <child>
               <object class="GtkSpinButton" id="vmaxRecvKbps">
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="margin_bottom">10</property>
                 <property name="adjustment">adjMaxRecvKbps</property>

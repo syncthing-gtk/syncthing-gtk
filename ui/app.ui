@@ -13,19 +13,16 @@
     <!-- Header Bar -->
     <child if="header_bar" type="titlebar">
         <object class="GtkHeaderBar" id="header">
-            <property name="visible">True</property>
             <property name="show-close-button">True</property>
             <IF condition="!is_gnome">
             <child>
                 <object class="GtkMenuButton" id="app-menu-button">
-                    <property name="visible">True</property>
                     <property name="relief">half</property>
                     <property name="menu-model">app-menu</property>
                     <property name="use-popover">True</property>
                     <style><class name="image-button"/></style>
                     <child>
                         <object class="GtkImage" id="app-menu-button-icon">
-                            <property name="visible">True</property>
                             <property if="!is_windows" name="icon-name">syncthing-gtk</property>
                             <property if="!is_windows" name="icon-size">3</property>
                             <property if="is_windows"  name="file">icons/24x24/apps/syncthing-gtk.png</property>
@@ -49,7 +46,6 @@
             </child>
             <child>
                 <object class="GtkMenuButton" id="edit-menu-button">
-                    <property name="visible">True</property>
                     <property name="sensitive">False</property>
                     <property name="valign">center</property>
                     <property name="menu-model">edit-menu</property>
@@ -57,7 +53,6 @@
                     <style><class name="image-button"/></style>
                     <child>
                         <object class="GtkImage" id="edit-menu-icon">
-                            <property name="visible">True</property>
                             <property name="icon_name">open-menu-symbolic</property>
                             <property name="icon-size">1</property>
                         </object>
@@ -74,21 +69,18 @@
     <!-- Window content -->
     <child>
         <object class="GtkBox" id="content">
-            <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
 
             <!-- Traditional header -->
             <child if="traditional_header">
                 <object class="GtkBox" id="bar_the_hell">
-                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="orientation">horizontal</property>
                     <property name="border_width">6</property>
                     <property name="spacing">6</property>
                     <child>
                       <object class="GtkMenuButton" id="app-menu-button">
-                        <property name="visible">True</property>
                         <property name="valign">center</property>
                         <property name="image">app-menu-button-icon</property>
                         <property name="menu-model">app-menu</property>
@@ -102,7 +94,6 @@
                     </child>
                     <child>
                       <object class="GtkLabel" id="server-name">
-                        <property name="visible">True</property>
                         <property name="label" translatable="no"> </property>
                       </object>
                       <packing>
@@ -113,7 +104,6 @@
                     </child>
                     <child>
                       <object class="GtkMenuButton" id="edit-menu-button">
-                        <property name="visible">True</property>
                         <property name="sensitive">False</property>
                         <property name="valign">center</property>
                         <property name="image">edit-menu-button-icon</property>
@@ -131,7 +121,6 @@
             </child>
             <child>
                 <object class="GtkSeparator" id="separator_the_hell">
-                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="orientation">horizontal</property>
                 </object>
@@ -141,22 +130,18 @@
             <!-- Panels -->
             <child>
             <object class="GtkPaned" id="split">
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="position">500</property>
                 <property name="position_set">True</property>
                 <!-- Left panel -->
                 <child>
                   <object class="GtkScrolledWindow" id="swL">
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <child>
                       <object class="GtkViewport" id="wpL">
-                        <property name="visible">True</property>
                         <property name="can_focus">False</property>
                           <child>
                             <object class="GtkBox" id="folderlist">
-                                <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="orientation">vertical</property>
                                 <property name="border_width">6</property>
@@ -174,15 +159,12 @@
                 <!-- Right panel -->
                 <child>
                   <object class="GtkScrolledWindow" id="swR">
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <child>
                       <object class="GtkViewport" id="wpR">
-                        <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <child>
                           <object class="GtkBox" id="devicelist">
-                            <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="orientation">vertical</property>
                             <property name="border_width">6</property>
@@ -274,11 +256,9 @@
 
 <!-- Popup menu for folder -->
 <object class="GtkMenu" id="popup-menu-folder">
-    <property name="visible">True</property>
     <property name="can_focus">False</property>
     <child>
         <object class="GtkImageMenuItem" id="menu-popup-override">
-            <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Override Remote Changes</property>
             <property name="use_underline">True</property>
@@ -289,7 +269,6 @@
     </child>
     <child>
         <object class="GtkImageMenuItem" id="menu-popup-revert">
-            <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Override Local Changes</property>
             <property name="use_underline">True</property>
@@ -300,13 +279,11 @@
     </child>
     <child>
         <object class="GtkSeparatorMenuItem" id="menu-separator-override">
-            <property name="visible">True</property>
             <property name="can_focus">False</property>
         </object>
     </child>
     <child>
         <object class="GtkImageMenuItem" id="menu-popup-edit-folder">
-            <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label">gtk-edit</property>
             <property name="use_underline">True</property>
@@ -316,7 +293,6 @@
     </child>
     <child>
         <object class="GtkImageMenuItem" id="menu-popup-edit-ignored">
-            <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Edit _Ignore Patterns</property>
             <property name="use_underline">True</property>
@@ -326,7 +302,6 @@
     </child>
     <child>
         <object class="GtkImageMenuItem" id="menu-popup-delete-folder">
-            <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label">gtk-delete</property>
             <property name="use_underline">True</property>
@@ -337,13 +312,11 @@
     </child>
     <child>
         <object class="GtkSeparatorMenuItem" id="menu-separator7">
-            <property name="visible">True</property>
             <property name="can_focus">False</property>
         </object>
     </child>
     <child>
         <object class="GtkImageMenuItem" id="menu-popup-rescan-folder">
-            <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">_Rescan</property>
             <property name="use_underline">True</property>
@@ -355,7 +328,6 @@
     </child>
     <child>
         <object class="GtkImageMenuItem" id="menu-popup-browse-folder">
-            <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">_Browse</property>
             <property name="use_underline">True</property>
@@ -369,11 +341,9 @@
 
 <!-- Popup menu for device -->
 <object class="GtkMenu" id="popup-menu-device">
-    <property name="visible">True</property>
     <property name="can_focus">False</property>
     <child>
         <object class="GtkImageMenuItem" id="menu-popup-edit-device">
-            <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label">gtk-edit</property>
             <property name="use_underline">True</property>
@@ -384,7 +354,6 @@
     </child>
     <child>
         <object class="GtkImageMenuItem" id="menu-popup-show-id">
-            <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Show _ID</property>
             <property name="use_underline">True</property>
@@ -396,7 +365,6 @@
     </child>
     <child>
         <object class="GtkImageMenuItem" id="menu-popup-pause-device">
-            <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">gtk-media-pause</property>
             <property name="use_underline">True</property>
@@ -407,7 +375,6 @@
     </child>
     <child>
         <object class="GtkImageMenuItem" id="menu-popup-resume-device">
-            <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Resume</property>
             <property name="image">menu-popup-resume-image</property>
@@ -419,7 +386,6 @@
     </child>
     <child>
         <object class="GtkImageMenuItem" id="menu-popup-delete-device">
-            <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label">gtk-delete</property>
             <property name="use_underline">True</property>
@@ -433,7 +399,6 @@
 <!-- Menu & button images -->
 <IF condition="traditional_header">
     <object class="GtkImage" id="app-menu-button-icon">
-        <property name="visible">True</property>
         <property if="!is_windows" name="icon-name">syncthing-gtk</property>
         <property if="!is_windows" name="icon-size">3</property>
         <property if="is_windows"  name="pixbuf">icons/16x16/apps/syncthing-gtk.png</property>
@@ -443,12 +408,10 @@
 </IF>
 
 <object class="GtkImage" id="edit-menu-button-icon">
-    <property name="visible">True</property>
     <property name="icon_name">open-menu-symbolic</property>
 </object>
 
 <object class="GtkImage" id="menu-add-folder-image">
-    <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_size">1</property>
     <property name="icon_name">drive-harddisk</property>
@@ -457,63 +420,54 @@
 <!-- App & edit icon menu images -->
 <IF condition="traditional_header">
     <object class="GtkImage" id="menu-add-device-image">
-        <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="icon_size">1</property>
         <property name="icon_name">computer</property>
     </object>
 
     <object class="GtkImage" id="menu-daemon-settings-image">
-        <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="icon_size">1</property>
         <property name="icon_name">preferences-system</property>
     </object>
 
     <object class="GtkImage" id="menu-ui-settings-image">
-        <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="icon_size">1</property>
         <property name="icon_name">preferences-system</property>
     </object>
 
     <object class="GtkImage" id="menu-show-id-image">
-        <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="icon_size">1</property>
         <property name="pixbuf">icons/show_id.svg</property>
     </object>
 
     <object class="GtkImage" id="menu-shutdown-image">
-        <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="icon_size">1</property>
         <property name="icon_name">system-shutdown</property>
     </object>
 
     <object class="GtkImage" id="menu-restart-image">
-        <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="icon_size">1</property>
         <property name="icon_name">view-refresh</property>
     </object>
 
     <object class="GtkImage" id="menu-webui-image">
-        <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="icon_size">1</property>
         <property name="icon_name">text-html</property>
     </object>
 
     <object class="GtkImage" id="menu-daemon-output-image">
-        <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="icon_size">1</property>
         <property name="icon_name">utilities-terminal</property>
     </object>
 
     <object class="GtkImage" id="menu-exit-image">
-        <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="icon_size">1</property>
         <property name="icon_name">view-refresh</property>
@@ -523,63 +477,54 @@
 
 <!-- Status icon menu images -->
 <object class="GtkImage" id="menu-si-show-id-image">
-    <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_size">1</property>
     <property name="pixbuf">icons/show_id.svg</property>
 </object>
 
 <object class="GtkImage" id="menu-si-shutdown-image">
-    <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_size">1</property>
     <property name="icon_name">system-shutdown</property>
 </object>
 
 <object class="GtkImage" id="menu-si-resume-image">
-    <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_size">1</property>
     <property name="icon_name">media-playback-start</property>
 </object>
 
 <object class="GtkImage" id="menu-si-restart-image">
-    <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_size">1</property>
     <property name="icon_name">view-refresh</property>
 </object>
 
 <object class="GtkImage" id="menu-si-webui-image">
-    <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_size">1</property>
     <property name="icon_name">text-html</property>
 </object>
 
 <object class="GtkImage" id="menu-si-daemon-output-image">
-    <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_size">1</property>
     <property name="icon_name">utilities-terminal</property>
 </object>
 
 <object class="GtkImage" id="menu-si-recvlimit-image">
-    <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon-size">1</property>
     <property name="icon-name">go-down</property>
 </object>
 
 <object class="GtkImage" id="menu-si-sendlimit-image">
-    <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon-size">1</property>
     <property name="icon-name">go-up</property>
 </object>
 
 <object class="GtkImage" id="menu-si-ui-settings-image">
-    <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_size">1</property>
     <property name="icon_name">preferences-system</property>
@@ -588,45 +533,38 @@
 
 <!-- Popup menu icon images -->
 <object class="GtkImage" id="menu-popup-edit-ignored-image">
-    <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_size">1</property>
     <property name="pixbuf">icons/eye.svg</property>
 </object>
 
 <object class="GtkImage" id="menu-popup-show-id-image">
-    <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_size">1</property>
     <property name="pixbuf">icons/show_id.svg</property>
 </object>
 
 <object class="GtkImage" id="menu-popup-override-image">
-    <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon-name">edit-undo</property>
 </object>
 
 <object class="GtkImage" id="menu-popup-revert-image">
-    <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon-name">edit-undo</property>
 </object>
 
 <object class="GtkImage" id="menu-popup-rescan-folder-image">
-    <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon-name">view-refresh</property>
 </object>
 
 <object class="GtkImage" id="menu-popup-browse-image">
-    <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon-name">folder-open</property>
 </object>
 
 <object class="GtkImage" id="menu-popup-resume-image">
-    <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon-name">gtk-media-play</property>
 </object>

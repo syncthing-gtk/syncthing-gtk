@@ -20,7 +20,6 @@
             <child>
               <object class="GtkButton" id="btnClose">
                 <property name="label">gtk-close</property>
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_stock">True</property>
@@ -41,7 +40,6 @@
         </child>
         <child>
           <object class="GtkBox" id="vb3">
-            <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="margin_left">50</property>
             <property name="margin_right">50</property>
@@ -50,7 +48,6 @@
             <property name="orientation">vertical</property>
             <child>
               <object class="GtkImage" id="image1">
-                <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="margin_bottom">10</property>
                 <property name="pixbuf">icons/st-gtk-logo.png</property>
@@ -63,7 +60,6 @@
             </child>
             <child>
               <object class="GtkLabel" id="label1">
-                <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">&lt;span size="large"&gt;&lt;b&gt;Syncthing-GTK&lt;/b&gt;&lt;/span&gt;</property>
                 <property name="use_markup">True</property>
@@ -77,7 +73,6 @@
             </child>
             <child>
               <object class="GtkLabel" id="lblVersion">
-                <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="margin_top">5</property>
                 <property name="margin_bottom">10</property>
@@ -91,7 +86,6 @@
             </child>
             <child>
               <object class="GtkLabel" id="label4">
-                <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="margin_bottom">20</property>
                 <property name="label" translatable="yes">GUI and notification area icon for Syncthing</property>
@@ -106,7 +100,6 @@
             </child>
             <child>
               <object class="GtkLabel" id="label3">
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="margin_bottom">25</property>
                 <property name="label" translatable="yes">&lt;b&gt;Code&amp;amp;UI © 2016 Kozec&lt;/b&gt;
@@ -139,7 +132,6 @@ and
             </child>
             <child>
               <object class="GtkLabel" id="label2">
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="margin_top">10</property>
                 <property name="label" translatable="yes">&lt;small&gt;This program comes with absolutely no warranty.
