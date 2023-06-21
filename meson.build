@@ -24,7 +24,7 @@ install_data('syncthing-gtk.desktop',
     install_dir: get_option('datadir') / 'applications'
 )
 
-install_data('me.kozec.syncthingtk.appdata.xml',
+install_data('org.syncthing-gtk.syncthing-gtk.appdata.xml',
     install_dir: get_option('datadir') / 'metainfo'
 )
 
