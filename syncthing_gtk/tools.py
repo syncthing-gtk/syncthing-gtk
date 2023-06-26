@@ -432,6 +432,7 @@ if IS_WINDOWS:
         Returns installation path from registry.
         Available only on Windows
         """
+        # FIXME: Buggy is_portable
         if is_portable():
             return os.environ["XDG_CONFIG_HOME"]
         try:

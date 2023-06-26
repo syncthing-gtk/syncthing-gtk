@@ -28,6 +28,7 @@ install_data('org.syncthing-gtk.syncthing-gtk.appdata.xml',
     install_dir: get_option('datadir') / 'metainfo'
 )
 
-install_data('scripts/syncthing-gtk',
+install_data('syncthing-gtk.py',
     install_dir: get_option('bindir'),
+    rename: ['syncthing-gtk'],
 )
