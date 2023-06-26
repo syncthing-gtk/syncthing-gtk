@@ -1,0 +1,86 @@
+syncthing-gtk (0.9.4.4+ds+git20221205+12a9702d29ab-1) unstable; urgency=medium
+
+  * Pick up recent upstream development snapshot.
+
+ -- Andrej Shadura <andrewsh@debian.org>  Mon, 05 Dec 2022 16:00:03 +0100
+
+syncthing-gtk (0.9.4.4+ds+git20220108+9023143f8b93-1) unstable; urgency=medium
+
+  * Cherry-pick patches from upstream pull requests.
+  * Drop KDE 4 support.
+  * Reshuffle menu items to better match GNOME HIG.
+  * Add a list of folders to the indicator menu.
+  * Use dh-sequence-python3.
+  * Generate locales.
+  * Generate and install upstream changelog.
+
+ -- Andrej Shadura <andrewsh@debian.org>  Sat, 08 Jan 2022 19:48:03 +0100
+
+syncthing-gtk (0.9.4.4+ds+git20201209+c46fbd8-1) unstable; urgency=medium
+
+  [ Rowan Thorpe ]
+  * Encode the password before applying bcrypt.
+  * Argument to socket.socket.listen must be an integer.
+    Closes: #976675.
+
+  [ Andrej Shadura ]
+  * Use Ayatana indicators.
+  * Wrap and sort debian/control.
+  * Bump debhelper from old 12 to 13.
+
+ -- Andrej Shadura <andrewsh@debian.org>  Thu, 10 Dec 2020 10:00:02 +0100
+
+syncthing-gtk (0.9.4.4+ds+git20200927+d09a2ef-3) unstable; urgency=medium
+
+  * Rebuild with no changes to the source.
+
+ -- Andrej Shadura <andrewsh@debian.org>  Thu, 05 Nov 2020 08:54:40 +0100
+
+syncthing-gtk (0.9.4.4+ds+git20200927+d09a2ef-2) unstable; urgency=medium
+
+  * Reintroduce the package to Debian.
+  * Switch to a Debian fork based on a Python 3 port.
+  * Update debian/watch.
+  * Build with Python 3.
+
+ -- Andrej Shadura <andrewsh@debian.org>  Wed, 04 Nov 2020 12:31:41 +0100
+
+syncthing-gtk (0.9.4.4-2) unstable; urgency=medium
+
+  [ Debian Janitor ]
+  * Set upstream metadata fields: Repository-Browse.
+
+ -- Jelmer Vernooĳ <jelmer@debian.org>  Sun, 15 Mar 2020 15:11:56 +0000
+
+syncthing-gtk (0.9.4.4-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Add suggests for nemo-python, python-nautilus or python-caja.
+    Closes: #939576
+  * Bump debhelper from old 11 to 12.
+  * Remove obsolete fields Name from debian/upstream/metadata.
+
+ -- Jelmer Vernooĳ <jelmer@debian.org>  Sat, 21 Sep 2019 21:10:56 +0000
+
+syncthing-gtk (0.9.4.3-1) unstable; urgency=medium
+
+  * Add Enhances: nautilus, nemo, caja. Closes: #913650
+  * add gitlab ci configuration.
+  * Add watch file.
+  * New upstream version.
+
+ -- Jelmer Vernooĳ <jelmer@debian.org>  Thu, 15 Nov 2018 02:19:43 +0000
+
+syncthing-gtk (0.9.4.2-2) unstable; urgency=high
+
+  [ Steve Langasek ]
+  * Fix typo in dependencies: gir-1.2-glib-2.0 => gir1.2-glib2.0.
+    Closes: #913771
+
+ -- Jelmer Vernooĳ <jelmer@debian.org>  Thu, 15 Nov 2018 01:51:13 +0000
+
+syncthing-gtk (0.9.4.2-1) unstable; urgency=low
+
+  * Initial release. (Closes: #829561)
+
+ -- Jelmer Vernooĳ <jelmer@debian.org>  Fri, 09 Nov 2018 20:56:34 +0000
