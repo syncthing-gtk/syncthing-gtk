@@ -19,6 +19,7 @@ jobs:
           gcc
           bc
         pacboy: >-
+          msitools:x
           meson:x
           vala:x
           libgsf:x
@@ -27,20 +28,11 @@ jobs:
           gobject-introspection:x
           python3:p
 
-    - name: Install msitools master
-      run: |
-        git clone --recursive https://gitlab.gnome.org/GNOME/msitools
-        cd msitools
-        git checkout fc05f1170929af388a5db60f467c768fb0d6a50c
-        CC=gcc CXX=g++ \
-        meson setup _build --buildtype=release
-        ninja -C _build install
-
     - uses: actions/checkout@v3
     - name: '🚧 Build package'
       run: |
         ./packaging/windows/build_msi.sh
-        
+
     - uses: actions/upload-artifact@v3
       with:
         path: syncthing-gtk.msi
