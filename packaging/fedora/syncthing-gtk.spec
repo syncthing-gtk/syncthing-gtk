@@ -1,21 +1,18 @@
-# See https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_example_spec_file
+# See https://docs.fedoraproject.org/en-US/packaging-guidelines/Meson/#_example_rpm_spec_file
+%global _vpath_srcdir sdk/%{name}/projects/meson
 
-%define debug_package %{nil}
-
-%define _name syncthing-gtk
-
-%define mybuildnumber %{?build_number}%{?!build_number:1}
-
-Name:           %{_name}
-Version:        0.9.4.4.1
-Release:        %{mybuildnumber}%{?dist}
-Summary:        GTK3 & python based GUI for Syncthing
+Name:           syncthing-gtk
+Version:        0.9.4.5
+Release:        1%{?dist}
+Summary:        A GTK UI for Syncthing
 
 License:        GPLv2.0
-URL:            https://github.com/Rudd-O/%{_name}
-Source:         %{url}/archive/v%{version}/%{_name}-%{version}.tar.gz
+URL:            https://github.com/syncthing-gtk/syncthing-gtk
+Source:         %{url}/archive/v%{version}/syncthing-gtk-%{version}.tar.gz
 
 BuildArch:      noarch
+BuildRequires:  meson
+
 BuildRequires:  pyproject-rpm-macros
 BuildRequires:  sed
 
@@ -43,38 +40,30 @@ Additional features
 %description %_description
 
 %prep
-%autosetup -p1 -n %{_name}-%{version}
-
-%generate_buildrequires
-%pyproject_buildrequires
-
+%autosetup -c
 
 %build
-sed -i 's|#!.*|#!%{_bindir}/python3|'  scripts/%{name}
-%pyproject_wheel
-
+%meson
+%meson_build
 
 %install
-%pyproject_install
-
-%pyproject_save_files syncthing_gtk
-
+%meson_install
 
 %check
-/bin/true
+%meson_test
 
+%files
+%{_bindir}/syncthing-gtk
+%{_libdir}/python3*/site-packages/syncthing_gtk
+%{_datadir}/applications/syncthing-gtk.desktop
+%{_datadir}/icons/hicolor/*/*/*syncthing*
+%{_datadir}/locale/*/LC_MESSAGES/syncthing-gtk.mo
+%{_datadir}/man/man1/syncthing-gtk*
+%{_datadir}/metainfo/org.syncthing-gtk.syncthing-gtk.appdata.xml
+%{_datadir}/pixmaps/syncthing-gtk.png
+%{_datadir}/syncthing-gtk
 
-%files -n %{_name} -f %{pyproject_files}
-%{_datadir}/%{name}
-%{_datadir}/locale/*/*/%{name}.mo
-%{_datadir}/metainfo/me.kozec.syncthingtk.appdata.xml
-%{_datadir}/pixmaps/%{name}.png
-%{_datadir}/icons/*/*/*/*syncthing*
-%attr(0755, root, root) %{_bindir}/%{name}
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/man/man1/%{name}*
 %doc README.md
-
 
 %changelog
 * Sat Jun 25 2022 Manuel Amador <rudd-o@rudd-o.com> 0.9.4.4.1
