@@ -106,7 +106,7 @@ class App(Gtk.Application, TimerManager):
     after start.
     """
 
-    def __init__(self, uipath="/usr/share/syncthing-gtk", iconpath="/usr/share/syncthing-gtk/icons"):
+    def __init__(self, uipath="/usr/share/syncthing-gtk/ui", iconpath="/usr/share/syncthing-gtk/icons"):
         Gtk.Application.__init__(
             self, application_id="me.kozec.syncthingtk", flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE
         )

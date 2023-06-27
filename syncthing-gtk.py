@@ -33,7 +33,7 @@ def check_if_source_directory():
     Checks if this looks like we're running in a source directory.
     """
     source_path = Path(__file__).parent
-    test_subpaths = ["LICENSE", "README.md", "syncthing_gtk", "setup.py", "locale"]
+    test_subpaths = ["LICENSE", "README.md", "syncthing_gtk", "setup.py", "po"]
 
     return all((source_path / subpath).exists() for subpath in test_subpaths)
 
@@ -92,18 +92,15 @@ if __name__ == "__main__":
 
         # Running from current directory
         data_path = Path(__file__).parent
-        locale_path = data_path / "locale"
-        icons_path = data_path / "icons"
-        ui_path = data_path / "ui"
 
-        data_path = data_path / "data"
-        if not data_path.exists():
-            print(f"creating {data_path}")
-            data_path.mkdir(parents=True, exist_ok=True)
+        storage_path = data_path / "data"
+        if not storage_path.exists():
+            print(f"creating {storage_path}")
+            storage_path.mkdir(parents=True, exist_ok=True)
 
-        os.environ["LOCALAPPDATA"] = str(data_path)
-        os.environ["APPDATA"] = str(data_path)
-        os.environ["XDG_CONFIG_HOME"] = str(data_path)
+        os.environ["LOCALAPPDATA"] = str(storage_path)
+        os.environ["APPDATA"] = str(storage_path)
+        os.environ["XDG_CONFIG_HOME"] = str(storage_path)
 
         # Override syncthing_binary value in _Configuration class
         # FIXME: Should not be needed with latest refactoring
@@ -111,22 +108,14 @@ if __name__ == "__main__":
 
     elif check_if_source_directory():
         data_path = Path(__file__).parent
-        locale_path = data_path / "locale"
-        icons_path = data_path / "icons"
-        ui_path = data_path / "ui"
 
     elif data_path := find_installation_directory():
-        locale_path = data_path / "locale"
-        icons_path = data_path / "icons"
-        ui_path = data_path
+        pass
 
     elif IS_WINDOWS:
         # Running from C:/program files
         assert callable(get_install_path)  # Silent the mypy warning just after
         data_path = Path(get_install_path())
-        locale_path = data_path / "locale"
-        icons_path = data_path / "icons"
-        ui_path = data_path / "ui"
 
         os.environ["PATH"] = str(data_path)
         os.chdir(data_path)
@@ -151,5 +140,5 @@ if __name__ == "__main__":
         for subpath in icon_subpaths:
             Gtk.IconTheme.get_default().prepend_search_path(os.environ["APPDIR"] + subpath)
 
-    init_locale(str(locale_path))
-    App(str(ui_path), str(icons_path)).run(sys.argv)
+    init_locale(str(data_path / "locale"))
+    App(str(data_path / "ui"), str(data_path / "icons")).run(sys.argv)

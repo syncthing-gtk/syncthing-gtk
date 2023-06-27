@@ -9,5 +9,5 @@ install_data(
     'folder-edit.ui',
     'ignore-editor.ui',
     'ui-settings.ui',
-    install_dir: project_data_dir
+    install_dir: project_data_dir / 'ui'
 )
