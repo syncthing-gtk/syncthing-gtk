@@ -314,11 +314,11 @@ def get_fm_source_path(plugin):
     paths = (
         # Relative path used while developing or when running
         # ST-GTK without installation
-        "./scripts/",
+        "./plugins/",
         # Default installation path
-        "/usr/share/syncthing-gtk",
+        "/usr/share/syncthing-gtk/plugins",
         # Not-so default installation path
-        "/usr/local/share/syncthing-gtk",
+        "/usr/local/share/syncthing-gtk/plugins",
     )
     for path in paths:
         fn = os.path.abspath(os.path.join(path, filename))

@@ -23,5 +23,5 @@ jobs:
         pylint -E \
           syncthing-gtk.py \
           syncthing_gtk \
-          scripts/*.py \
-          icons/*.py
+          icons/*.py \
+          plugins/*.py

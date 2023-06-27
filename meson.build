@@ -16,7 +16,7 @@ subdir('doc')
 subdir('ui')
 subdir('icons')
 subdir('po')
-# subdir('scripts')
+subdir('plugins')
 subdir('syncthing_gtk')
 subdir('packaging')
 
