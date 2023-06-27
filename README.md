@@ -62,7 +62,15 @@ Get the installer [here](https://github.com/syncthing-gtk/syncthing-gtk/releases
 
 ## How to build
 
-TODO:
+We use the Meson build system.
+
+```shell
+# Sets up a build directory named _build
+meson setup _build --prefix=/usr
+cd _build
+ninja
+DESTDIR=$PWD/install ninja install
+```
 
 ## Related links
 
