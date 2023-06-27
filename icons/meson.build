@@ -21,11 +21,6 @@ install_data(
 )
 
 install_data(
-    'syncthing-gtk.png',
-    install_dir: pixmapsdir
-)
-
-install_data(
     'add_node.svg',
     'add_repo.svg',
     'address.svg',
