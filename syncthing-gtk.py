@@ -42,7 +42,7 @@ def check_if_source_directory():
     Checks if this looks like we're running in a source directory.
     """
     source_path = Path(__file__).parent
-    test_subpaths = ["LICENSE", "README.md", "syncthing_gtk", "setup.py", "po"]
+    test_subpaths = ["LICENSE", "README.md", "syncthing_gtk", "po", "icons"]
 
     return all((source_path / subpath).exists() for subpath in test_subpaths)
 
@@ -136,8 +136,8 @@ if __name__ == "__main__":
         # It's not in the huge if..elif..elif because it should be run in all cases
         windows_setup()
 
-    Gtk.IconTheme.get_default().prepend_search_path(str(data_path / "icons"))
-    Gtk.IconTheme.get_default().prepend_search_path(str(data_path / "icons/32x32/status"))
+    # Gtk.IconTheme.get_default().prepend_search_path(str(data_path / "icons"))
+    # Gtk.IconTheme.get_default().prepend_search_path(str(data_path / "icons/32x32/status"))
 
     if "APPDIR" in os.environ:
         # Running as AppImage
@@ -149,5 +149,6 @@ if __name__ == "__main__":
         for subpath in icon_subpaths:
             Gtk.IconTheme.get_default().prepend_search_path(os.environ["APPDIR"] + subpath)
 
+    print(Gtk.IconTheme.get_default().get_search_path())
     init_locale(str(data_path / "locale"))
     App(str(data_path / "ui"), str(data_path / "icons")).run(sys.argv)
