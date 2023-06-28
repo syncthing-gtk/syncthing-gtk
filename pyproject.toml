@@ -4,3 +4,6 @@ max-line-length = 120
 [tool.black]
 line-length = 120
 target-version = ['py310']
+
+[tool.mypy]
+check_untyped_defs = true
