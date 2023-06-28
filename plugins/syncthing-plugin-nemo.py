@@ -1,4 +1,5 @@
 #!/usr/bin/env python2
+# pylint: disable=import-error,too-few-public-methods
 """
 Nemo plugin for Syncthing-GTK
 See syncthing_gtk/nautilusplugin.py for more info
