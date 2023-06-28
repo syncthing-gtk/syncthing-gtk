@@ -20,9 +20,9 @@ try:
         import gi
 
         try:
-            gi.require_version('Notify', '0.8')
+            gi.require_version("Notify", "0.8")
         except ValueError:
-            gi.require_version('Notify', '0.7')
+            gi.require_version("Notify", "0.7")
         from gi.repository import Notify
 
         HAS_DESKTOP_NOTIFY = True

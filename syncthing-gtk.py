@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Optional
 
 import gi
+
 gi.require_version("Gtk", "3.0")
 gi.require_version("Gdk", "3.0")
 gi.require_version("Rsvg", "2.0")
@@ -15,10 +16,14 @@ from gi.repository import Gtk  # noqa: E402
 
 from syncthing_gtk.app import App  # noqa: E402
 from syncthing_gtk.tools import (  # noqa: E402
-    init_locale, init_logging,
-    IS_WINDOWS, get_install_path, make_portable,
+    init_locale,
+    init_logging,
+    IS_WINDOWS,
+    get_install_path,
+    make_portable,
 )
 from syncthing_gtk.configuration import Configuration  # noqa: E402
+
 if IS_WINDOWS:
     from syncthing_gtk.windows import (  # noqa: E402
         enable_localization,
