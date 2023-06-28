@@ -5,9 +5,8 @@ This program is part of Syncthing-GTK, but can be used independently
 with small modification
 """
 
-
-import logging
 import os
+import logging
 import urllib.parse
 
 from gi.repository import GObject
@@ -32,7 +31,6 @@ class NautiluslikeExtension(GObject.GObject):
     _plugin_module = None
 
     def __init__(self):
-        # Prepare stuff
         init_logging()
         set_logging_level(VERBOSE, DEBUG)
         log.info("Initializing...")
@@ -41,11 +39,11 @@ class NautiluslikeExtension(GObject.GObject):
         self.ready = False
         try:
             self.daemon = Daemon()
-        except Exception as e:
+        except Exception as err:
             # Syncthing is not configured, most likely never launched.
-            log.error("%s", e)
-            log.error("Failed to read Syncthing configuration.")
+            log.error("Failed to read Syncthing configuration: %s", err)
             return
+
         # List of known repos + their states
         self.repos = {}
         self.rid_to_path = {}
@@ -311,7 +309,7 @@ class NautiluslikeExtension(GObject.GObject):
                 name="STPlugin::remove_repo",
                 label="Remove Directory from Syncthing",
                 tip="Remove selected directory from Syncthing",
-                icon="syncthing-offline",
+                icon="syncthing-gtk-error",
             )
             menu.connect("activate", self.cb_remove_repo_menu, path)
             return [menu]
