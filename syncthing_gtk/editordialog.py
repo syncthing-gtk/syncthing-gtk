@@ -135,9 +135,8 @@ class EditorDialog(GObject.GObject):
 
     def setup_widgets(self, uifile, title):
         # Load ui file
-        self.builder = UIBuilder()
+        self.builder = UIBuilder(self)
         self.builder.add_from_file(os.path.join(self.app.uipath, uifile))
-        self.builder.connect_signals(self)
         self["editor"].set_title(title)
         # Disable everything until configuration is loaded
         self["editor"].set_sensitive(False)

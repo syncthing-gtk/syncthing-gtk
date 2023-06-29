@@ -49,9 +49,8 @@ class DaemonOutputDialog(object):
 
     def setup_widgets(self):
         # Load ui file
-        self.builder = UIBuilder()
+        self.builder = UIBuilder(self)
         self.builder.add_from_file(os.path.join(self.app.uipath, "daemon-output.ui"))
-        self.builder.connect_signals(self)
         self["tvOutput"].connect("size-allocate", self.scroll)
 
     def cb_line(self, proc, line):

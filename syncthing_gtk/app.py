@@ -362,7 +362,7 @@ class App(Gtk.Application, TimerManager):
         add_simple_action("menu_popup_delete_device", self.cb_menu_popup_delete_device)
 
     def setup_widgets(self):
-        self.builder = UIBuilder()
+        self.builder = UIBuilder(self)
         # Set conditions for UIBuilder
         if self.use_headerbar:
             self.builder.enable_condition("header_bar")
@@ -376,7 +376,6 @@ class App(Gtk.Application, TimerManager):
         self.builder.replace_icon_path("icons/", self.iconpath)
         # Load ui file
         self.builder.add_from_file(os.path.join(self.uipath, "app.ui"))
-        self.builder.connect_signals(self)
         # Dunno how to do this from ui-file
         if self.use_headerbar and IS_GNOME:
             self.set_app_menu(self["app-menu"])

@@ -27,8 +27,8 @@ log = logging.getLogger("UIBuilder")
 
 
 class UIBuilder(Gtk.Builder):
-    def __init__(self):
-        Gtk.Builder.__init__(self)
+    def __init__(self, scope):
+        Gtk.Builder.__init__(self, scope)
         self.set_translation_domain(GETTEXT_DOMAIN)
         self.conditions = set([])
         self.icon_paths = []
