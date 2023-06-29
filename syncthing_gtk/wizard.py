@@ -51,7 +51,7 @@ class Wizard(Gtk.Assistant):
         self.st_configdir = os.path.join(get_config_dir(), "syncthing")
         self.st_configfile = os.path.join(get_config_dir(), "syncthing", "config.xml")
         # Window setup
-        self.set_position(Gtk.WindowPosition.CENTER)
+        #self.set_position(Gtk.WindowPosition.CENTER)
         self.set_size_request(720, -1)
         self.set_default_size(720, 300)
         self.set_deletable(True)
@@ -61,7 +61,7 @@ class Wizard(Gtk.Assistant):
             self.set_icon_name("syncthing-gtk")
         self.set_title("%s %s" % (_("Syncthing-GTK"), _("First run wizard")))
         # Add "Quit" button
-        self.quit_button = Gtk.Button.new_from_stock("gtk-quit")
+        self.quit_button = Gtk.Button.new_with_label("Quit")
         self.add_action_widget(self.quit_button)
         self.quit_button.set_visible(True)
         self.quit_button.connect("clicked", lambda *a: self.emit("cancel"))
@@ -166,7 +166,6 @@ class Wizard(Gtk.Assistant):
             page.attach(button, 1, 3, 2, 1)
             button.connect("clicked", lambda *a: self.show_output())
 
-        page.show_all()
         return page
 
     def show_output(self, *a):
@@ -192,9 +191,10 @@ class WrappedLabel(Gtk.Label):
     def __init__(self, markup):
         Gtk.Label.__init__(self)
         self.set_justify(Gtk.Justification.LEFT)
-        self.set_line_wrap(True)
+        self.set_wrap(True)
         self.set_markup(markup)
-        self.set_alignment(0, 0.5)
+        self.set_xalign(0)
+        self.set_yalign(0.5)
 
 
 # @AbstractClass
@@ -206,7 +206,6 @@ class Page(Gtk.Grid):
         self.dialog = dialog
         self.parent = None
         self.init_page()
-        self.show_all()
 
     def prepare(self):
         """Sets page as complete by default"""
@@ -367,14 +366,13 @@ class FindDaemonPage(Page):
                 message += _("last resort and generally not suggested.")
                 page = self.parent.error(self, title, message, False)
                 # Attach [ ] Download Syncthing checkbox
-                cb = Gtk.CheckButton(_("_Download Syncthing binary"), use_underline=True)
+                cb = Gtk.CheckButton.new_with_mnemonic(_("_Download Syncthing binary"))
                 cb.connect("toggled", lambda cb, *a: self.parent.set_page_complete(page, cb.get_active()))
                 page.attach(cb, 0, 2, 2, 1)
                 # Attach [ ] Autoupdate checkbox
-                cb = Gtk.CheckButton(_("Auto_update downloaded binary"), use_underline=True)
+                cb = Gtk.CheckButton.new_with_mnemonic(_("Auto_update downloaded binary"))
                 cb.connect("toggled", lambda cb, *a: self.parent.config.set("st_autoupdate", cb.get_active()))
                 page.attach(cb, 0, 3, 2, 1)
-                page.show_all()
                 # Add Download page
                 self.parent.insert(DownloadSTPage())
                 return False
@@ -612,24 +610,24 @@ class HttpSettingsPage(Page):
         )
         # Radiobuttons
         lbl_radios = WrappedLabel("<b>" + _("WebUI Listen Addresses") + "</b>")
-        self.rb_localhost = Gtk.RadioButton(label=_("Listen on _localhost"))
-        self.rb_all_intfs = Gtk.RadioButton.new_from_widget(self.rb_localhost)
-        self.rb_all_intfs.set_label(_("Listen on _all interfaces"))
+        self.rb_localhost = Gtk.CheckButton(label=_("Listen on _localhost"))
+        self.rb_all_intfs = Gtk.CheckButton(label=_("Listen on _all interfaces"))
+        self.rb_all_intfs.set_group(self.rb_localhost)
         for x in (self.rb_localhost, self.rb_all_intfs):
             x.set_use_underline(True)
-            x.set_property("margin-left", 15)
+            x.set_property("margin-start", 15)
         # Username & password input boxes
         self.tx_username = Gtk.Entry()
-        self.tx_password = Gtk.Entry()
+        self.tx_password = Gtk.PasswordEntry()
         self.lbl_username = WrappedLabel(_("_Username"))
         self.lbl_password = WrappedLabel(_("_Password"))
         self.lbl_username.set_mnemonic_widget(self.tx_username)
         self.lbl_password.set_mnemonic_widget(self.tx_password)
-        self.tx_password.set_visibility(False)
-        self.tx_password.props.caps_lock_warning = True
+        #self.tx_password.set_visibility(False)
+        #self.tx_password.props.caps_lock_warning = True
         for x in (self.lbl_username, self.lbl_password):
             x.set_use_underline(True)
-            x.set_property("margin-left", 45)
+            x.set_property("margin-start", 45)
             x.set_property("margin-bottom", 5)
         for x in (self.tx_username, self.tx_password):
             x.set_property("margin-bottom", 5)
@@ -681,7 +679,7 @@ class SaveSettingsPage(Page):
     def init_page(self):
         """Displayed while settings are being saved"""
         self.label = WrappedLabel("<b>" + _("Saving settings...") + "</b>" + "\n\n")
-        self.status = Gtk.Label(_("Checking for available port..."))
+        self.status = Gtk.Label.new(_("Checking for available port..."))
         self.attach(self.label, 0, 0, 1, 1)
         self.attach(self.status, 0, 1, 1, 1)
 

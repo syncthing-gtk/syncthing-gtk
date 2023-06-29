@@ -39,7 +39,7 @@ class IDDialog(object):
     def show(self, parent=None):
         if parent is not None:
             self["dialog"].set_transient_for(parent)
-        self["dialog"].show_all()
+        self["dialog"].set_visible(True)
 
     def close(self):
         self["dialog"].hide()
@@ -49,6 +49,7 @@ class IDDialog(object):
         # Load ui file
         self.builder = UIBuilder(self)
         self.builder.add_from_file(os.path.join(self.app.uipath, "device-id.ui"))
+        self["dialog"].connect("response", self.cb_btClose_clicked)
         self["vID"].set_text(self.device_id)
 
     def load_data(self):

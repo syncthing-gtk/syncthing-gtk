@@ -24,7 +24,7 @@ DARKEN_FACTOR = 0.75  # 0.0 to 1.0
 svg_cache = {}
 
 
-class InfoBox(Gtk.Container):
+class InfoBox(Gtk.Box):
     """Expandable widget displaying folder/device data"""
 
     __gtype_name__ = "InfoBox"
@@ -39,6 +39,9 @@ class InfoBox(Gtk.Container):
 
     # Initialization
     def __init__(self, app, title, icon):
+        Gtk.Box.__init__(self)
+        self.set_layout_manager(Gtk.BoxLayout())
+        self.set_orientation(Gtk.Orientation.VERTICAL)
         # Variables
         self.app = app
         self.child = None
@@ -61,8 +64,8 @@ class InfoBox(Gtk.Container):
         self.real_color = self.color  # set color + hilight
         self.border_width = 2
         self.children = [self.header, self.child]
+        self.popup_menu = None
         # Initialization
-        Gtk.Container.__init__(self)
         self.init_header()
         self.init_grid()
         # Settings
@@ -71,13 +74,16 @@ class InfoBox(Gtk.Container):
 
     def init_header(self):
         # Create widgets
-        eb = Gtk.EventBox()
+        eb = Gtk.Box()
         self.title = Gtk.Label()
         self.status = Gtk.Label()
-        hbox = Gtk.HBox()
+        hbox = Gtk.Box()
         # Set values
-        self.title.set_alignment(0.0, 0.5)
-        self.status.set_alignment(1.0, 0.5)
+        self.title.set_hexpand(True)
+        self.title.set_xalign(0.0)
+        self.title.set_yalign(0.5)
+        self.status.set_xalign(1.0)
+        self.status.set_yalign(0.5)
         self.title.set_ellipsize(Pango.EllipsizeMode.START)
         hbox.set_spacing(4)
         # Connect signals
@@ -101,11 +107,18 @@ class InfoBox(Gtk.Container):
         self.add_css_class('infobox')
         hbox.add_css_class('header')
 
+        self.popup_menu = Gtk.PopoverMenu()
+        eb.append(self.popup_menu)
+
+        #eb.connect("button-release-event", self.on_header_click)
+        #eb.connect("enter-notify-event", self.on_enter_notify)
+        #eb.connect("leave-notify-event", self.on_leave_notify)
         # Pack together
-        hbox.pack_start(self.icon, False, False, 0)
-        hbox.pack_start(self.title, True, True, 0)
-        hbox.pack_start(self.status, False, False, 0)
-        eb.add(hbox)
+        hbox.append(self.icon)
+        hbox.append(self.title)
+        hbox.append(self.status)
+        #hbox.override_background_color(Gtk.StateFlags.NORMAL, Gdk.RGBA(*self.color))
+        eb.append(hbox)
         # Update stuff
         self.header_box = hbox
         self.header = eb
@@ -116,23 +129,30 @@ class InfoBox(Gtk.Container):
         # Create widgets
         self.grid = Gtk.Grid()
         self.rev = RevealerClass()
-        align = Gtk.Alignment()
-        self.eb = Gtk.EventBox()
+        #align = Gtk.Alignment()
+        self.eb = Gtk.Box()
         # Set values
         self.grid.set_row_spacing(1)
         self.grid.set_column_spacing(3)
         self.rev.set_reveal_child(False)
-        align.set_padding(2, 2, 5, 5)
+        self.grid.set_margin_top(2)
+        self.grid.set_margin_bottom(2)
+        self.grid.set_margin_start(5)
+        self.grid.set_margin_end(5)
+        #align.set_padding(2, 2, 5, 5)
+        #self.eb.override_background_color(Gtk.StateType.NORMAL, Gdk.RGBA(*self.background))
+        #self.grid.override_background_color(Gtk.StateType.NORMAL, Gdk.RGBA(*self.background))
         # Connect signals
-        self.eb.connect("button-release-event", self.on_grid_release)
-        self.eb.connect("button-press-event", self.on_grid_click)
-        self.eb.connect("enter-notify-event", self.on_enter_notify)
-        self.eb.connect("leave-notify-event", self.on_leave_notify)
+        #self.eb.connect("button-release-event", self.on_grid_release)
+        #self.eb.connect("button-press-event", self.on_grid_click)
+        #self.eb.connect("enter-notify-event", self.on_enter_notify)
+        #self.eb.connect("leave-notify-event", self.on_leave_notify)
         # Pack together
-        align.add(self.grid)
-        self.eb.add(align)
-        self.rev.add(self.eb)
-        self.add(self.rev)
+        #align.add(self.grid)
+        #self.eb.add(align)
+        self.eb.append(self.grid)
+        self.rev.set_child(self.eb)
+        self.append(self.rev)
 
     # GtkWidget-related stuff
     def do_add(self, widget):
@@ -168,6 +188,10 @@ class InfoBox(Gtk.Container):
     def do_get_preferred_width(self):
         mw, nw, mh, nh = self.get_preferred_size()
         return (mw, nw)
+
+    def measure(self, orientation, for_size):
+        print('measure')
+        pass
 
     def get_preferred_size(self):
         """Returns (min_width, nat_width, min_height, nat_height)"""
@@ -213,43 +237,94 @@ class InfoBox(Gtk.Container):
                     c.size_allocate(child_allocation)
                     child_allocation.y += child_allocation.height + self.border_width
 
-    def do_realize(self):
-        allocation = self.get_allocation()
+# TODO??
+#    def do_realize(self):
+#        allocation = self.get_allocation()
+#
+#        if allocation.width < 100:
+#            allocation.width = 100
+#        if allocation.height < 100:
+#            allocation.height = 100
+#
+#        print("%d x %d" % (allocation.width, allocation.height))
+#        assert(allocation.width > 0)
+#
+#        anchor_rect = Gdk.Rectangle(allocation.x, allocation.y, allocation.width, allocation.height)
+#        layout = Gdk.PopupLayout(anchor_rect, Gdk.Gravity.CENTER, Gdk.Gravity.CENTER)
+#        #attr = Gdk.WindowAttr()
+#        #attr.window_type = Gdk.WindowType.CHILD
+#        #attr.x = allocation.x
+#        #attr.y = allocation.y
+#        #attr.width = allocation.width
+#        #attr.height = allocation.height
+#        #attr.visual = self.get_visual()
+#        #attr.event_mask = self.get_events() | Gdk.EventMask.EXPOSURE_MASK
+#
+#        #WAT = Gdk.WindowAttributesType
+#        #mask = WAT.X | WAT.Y | WAT.VISUAL
+#
+#        #window = Gdk.Surface(self.get_root(), None, None)
+#        window = Gdk.Surface.new_popup(self.get_root().get_surface(), False)
+#        #window.set_decorations(0)
+#        #self.set_window(window)
+#        #self.register_window(window)
+#        #self.set_realized(True)
+#        window.present(allocation.width, allocation.height, layout)
 
-        attr = Gdk.WindowAttr()
-        attr.window_type = Gdk.WindowType.CHILD
-        attr.x = allocation.x
-        attr.y = allocation.y
-        attr.width = allocation.width
-        attr.height = allocation.height
-        attr.visual = self.get_visual()
-        attr.event_mask = self.get_events() | Gdk.EventMask.EXPOSURE_MASK
+#    def do_draw(self, cr):
+#        allocation = self.get_allocation()
+#
+#        header_al = self.children[0].get_allocation()
+#
+#        # Border
+#        cr.set_source_rgba(*self.real_color)
+#        cr.move_to(0, self.border_width / 2.0)
+#        cr.line_to(0, allocation.height)
+#        cr.line_to(allocation.width, allocation.height)
+#        cr.line_to(allocation.width, self.border_width / 2.0)
+#        cr.set_line_width(self.border_width * 2)  # Half of border is rendered outside of widget
+#        cr.stroke()
+#
+#        # Background
+#        if self.background is not None:
+#            # Use set background color
+#            cr.set_source_rgba(*self.background)
+#            cr.rectangle(
+#                self.border_width,
+#                self.border_width,
+#                allocation.width - (2 * self.border_width),
+#                allocation.height - (2 * self.border_width),
+#            )
+#            cr.fill()
+#
+#        # Header
+#        cr.set_source_rgba(*self.real_color)
+#        cr.rectangle(
+#            self.border_width / 2.0, 0, allocation.width - self.border_width, header_al.height + (2 * self.border_width)
+#        )
+#        cr.fill()
+#
+#        for c in self.children:
+#            if c is not None:
+#                self.propagate_draw(c, cr)
 
-        WAT = Gdk.WindowAttributesType
-        mask = WAT.X | WAT.Y | WAT.VISUAL
-
-        window = Gdk.Window(self.get_parent_window(), attr, mask)
-        window.set_decorations(0)
-        self.set_window(window)
-        self.register_window(window)
-        self.set_realized(True)
-
-
-    # InfoBox logic
-    def set_header_cursor(self, eb, *a):
-        """Sets cursor over top part of infobox to hand"""
-        eb.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.HAND1))
-
-    def on_header_click(self, eventbox, event):
+    #def on_header_click(self, eventbox, event):
+    def on_header_leftclick(self, gesture, n_press, x, y):
         """
         Hides or reveals everything below header
+        """
+        self.rev.set_reveal_child(not self.rev.get_reveal_child())
+        self.app.cb_open_closed(self)
+
+    def on_header_rightclick(self, gesture, n_press, x, y):
+        """
         Displays popup menu on right click
         """
-        if event.button == 1:  # left
-            self.rev.set_reveal_child(not self.rev.get_reveal_child())
-            self.app.cb_open_closed(self)
-        elif event.button == 3:  # right
-            self.emit("right-click", event.button, 0)
+        self.emit("right-click", Gdk.BUTTON_SECONDARY, 0)
+
+    def popup_menu_folder(self, model):
+        self.popup_menu.set_menu_model(model)
+        self.popup_menu.popup()
 
     def on_grid_release(self, eventbox, event):
         """Displays popup menu on right click"""
@@ -288,6 +363,12 @@ class InfoBox(Gtk.Container):
                 [min(1.0, DARKEN_FACTOR * (x + HILIGHT_INTENSITY * math.sin(self.hilight_factor))) for x in self.color]
             )
         gdkcol = Gdk.RGBA(*self.real_color)
+        #self.header.override_background_color(Gtk.StateType.NORMAL, gdkcol)
+        #try:
+        #    self.header.get_children()[0].override_background_color(Gtk.StateFlags.NORMAL, gdkcol)
+        #except IndexError:
+        #    # Happens when recolor is called before header widget is created
+        #    pass
 
         self.queue_draw()
 
@@ -318,7 +399,7 @@ class InfoBox(Gtk.Container):
         self.header_box.remove(self.icon)
         self.header_box.pack_start(icon, False, False, 0)
         self.header_box.reorder_child(icon, 0)
-        self.header_box.show_all()
+        #self.header_box.show_all()
         self.icon = icon
 
     def set_hilight(self, h):
@@ -418,17 +499,17 @@ class InfoBox(Gtk.Container):
                     else:
                         la = self.grid.child_get_property(w, "left-attach")
                         ta = self.grid.child_get_property(w, "top-attach")
-                    vis = not w.get_no_show_all()
+                    vis = w.get_visible()
                     wIcon = self._prepare_icon(self.icons[key])
                     w.get_parent().remove(w)
                     self.grid.attach(wIcon, la, ta, 1, 1)
                     if not vis:
-                        wIcon.set_no_show_all(True)
                         wIcon.set_visible(False)
                     wValue, trash, wTitle = self.value_widgets[key]
                     self.value_widgets[key] = (wValue, wIcon, wTitle)
                 else:
                     pass
+                    #w.override_color(Gtk.StateFlags.NORMAL, col)
         # Recolor borders
         self.recolor()
         # Recolor header
@@ -439,6 +520,11 @@ class InfoBox(Gtk.Container):
         if self.dark_color is None:
             self.background = (r, g, b, a)
         col = Gdk.RGBA(r, g, b, a)
+        #for key in self.value_widgets:
+            #for w in self.value_widgets[key]:
+                #w.override_background_color(Gtk.StateFlags.NORMAL, col)
+        #self.eb.override_background_color(Gtk.StateType.NORMAL, Gdk.RGBA(*self.background))
+        #self.grid.override_background_color(Gtk.StateType.NORMAL, col)
 
     def set_open(self, b):
         self.rev.set_reveal_child(b)
@@ -469,7 +555,7 @@ class InfoBox(Gtk.Container):
             return Gtk.Image.new_from_file(os.path.join(self.app.iconpath, icon))
         else:
             # Icon is theme icon name
-            return Gtk.Image.new_from_icon_name(icon, 1)
+            return Gtk.Image.new_from_icon_name(icon)
 
     def add_value(self, key, icon, title, value="", visible=True):
         """Adds new line with provided properties"""
@@ -479,17 +565,21 @@ class InfoBox(Gtk.Container):
         self.set_value(key, value)
         self.icons[key] = icon
         wTitle.set_text(title)
-        wTitle.set_alignment(0.0, 0.5)
-        wValue.set_alignment(1.0, 0.5)
+        wTitle.set_xalign(0.0)
+        wTitle.set_yalign(0.5)
+        wValue.set_xalign(1.0)
+        wValue.set_yalign(0.5)
         wValue.set_ellipsize(Pango.EllipsizeMode.START)
-        wTitle.set_property("expand", True)
+        wTitle.set_property("hexpand", True)
         line = len(self.value_widgets)
         self.grid.attach(wIcon, 0, line, 1, 1)
         self.grid.attach_next_to(wTitle, wIcon, Gtk.PositionType.RIGHT, 1, 1)
         self.grid.attach_next_to(wValue, wTitle, Gtk.PositionType.RIGHT, 1, 1)
         for w in self.value_widgets[key]:
+            #w.override_background_color(Gtk.StateFlags.NORMAL, Gdk.RGBA(*self.background))
+            #w.override_color(Gtk.StateFlags.NORMAL, Gdk.RGBA(*self.text_color))
             if not visible:
-                w.set_no_show_all(True)
+                w.set_visible(False)
 
     def clear_values(self):
         """Removes all lines from UI, effectively making all values hidden"""
@@ -517,14 +607,12 @@ class InfoBox(Gtk.Container):
         """Hides value added by add_value"""
         if key in self.value_widgets:
             for w in self.value_widgets[key]:
-                w.set_no_show_all(True)
                 w.set_visible(False)
 
     def show_value(self, key):
         """Shows value added by add_value"""
         if key in self.value_widgets:
             for w in self.value_widgets[key]:
-                w.set_no_show_all(False)
                 w.set_visible(True)
 
     def set_visible(self, key, show):

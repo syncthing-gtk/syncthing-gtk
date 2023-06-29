@@ -9,7 +9,7 @@ Base class and universal handler for all Syncthing settings and editing
 import logging
 import os
 
-from gi.repository import Gdk, GLib, GObject, Gtk
+from gi.repository import Gdk, Gio, GLib, GObject, Gtk
 
 from syncthing_gtk.daemon import ConnectionRestarted
 from syncthing_gtk.tools import _  # gettext function
@@ -54,7 +54,8 @@ class EditorDialog(GObject.GObject):
         self.setup_widgets(uifile, title)
         # Move entire dialog content to ScrolledWindow if screen height
         # is too small
-        if Gdk.Screen.get_default().height() < 900:
+        #if Gdk.Display.get_default().height() < 900:
+        if False:
             if not self["editor-content"] is None:
                 parent = self["editor-content"].get_parent()
                 if isinstance(parent, Gtk.Notebook):
@@ -65,14 +66,17 @@ class EditorDialog(GObject.GObject):
                         parent.remove(c)
                     for c in order:
                         sw = Gtk.ScrolledWindow()
-                        sw.add_with_viewport(c)
+                        # TODO need a wrapper container? (formerly sw.add)
+                        sw.set_child(c)
                         parent.append_page(sw, labels[c])
                 else:
                     sw = Gtk.ScrolledWindow()
                     parent.remove(self["editor-content"])
-                    sw.add_with_viewport(self["editor-content"])
-                    parent.pack_start(sw, True, True, 0)
-                self["editor"].resize(self["editor"].get_size()[0], Gdk.Screen.get_default().height() * 2 / 3)
+                    # TODO need a wrapper container? (formerly sw.add)
+                    sw.set_child(self["editor-content"])
+                    parent.append(sw)
+                # TODO
+                #self["editor"].resize(self["editor"].get_size()[0], Gdk.Screen.get_default().height() * 2 / 3)
 
     def load(self):
         """Loads configuration data and pre-fills values to fields"""
@@ -108,10 +112,10 @@ class EditorDialog(GObject.GObject):
             if hasattr(c, "get_id"):
                 if c.get_id() == id:
                     return c
-            if isinstance(c, Gtk.Container):
-                r = self.find_widget_by_id(id, c)
-                if r is not None:
-                    return r
+            #if isinstance(c, Gtk.Container):
+            #    r = self.find_widget_by_id(id, c)
+            #    if r is not None:
+            #        return r
             c = next
         return None
 
@@ -119,7 +123,6 @@ class EditorDialog(GObject.GObject):
         if parent is not None:
             self["editor"].set_transient_for(parent)
         self["editor"].set_modal(True)
-        self["editor"].show_all()
 
     def present(self, values=[]):
         self["editor"].present()
@@ -137,6 +140,7 @@ class EditorDialog(GObject.GObject):
         # Load ui file
         self.builder = UIBuilder(self)
         self.builder.add_from_file(os.path.join(self.app.uipath, uifile))
+        self["editor"].connect("response", self.cb_response)
         self["editor"].set_title(title)
         # Disable everything until configuration is loaded
         self["editor"].set_sensitive(False)
@@ -340,8 +344,11 @@ class EditorDialog(GObject.GObject):
         d.run()
         self.close()
 
-    def cb_btClose_clicked(self, *a):
-        self.close()
+    def cb_response(self, dialog, response_type):
+        if response_type == Gtk.ResponseType.CLOSE or response_type == Gtk.ResponseType.CANCEL or response_type == Gtk.ResponseType.DELETE_EVENT:
+            self.close()
+        elif response_type == Gtk.ResponseType.APPLY:
+            self.on_save_requested()
 
     def cb_check_value(self, *a):
         self["btSave"].set_sensitive(True)
@@ -361,10 +368,6 @@ class EditorDialog(GObject.GObject):
                 self.display_error_message(x)
             else:
                 self.hide_error_message(x)
-
-    def cb_btSave_clicked(self, *a):
-        """Calls on_save_requested to do actual work"""
-        self.on_save_requested()
 
     def on_save_requested(self, config):
         """

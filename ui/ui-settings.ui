@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.4 -->
 <interface>
-  <requires lib="gtk+" version="3.8"/>
+  <requires lib="gtk" version="4.0"/>
   <object class="GtkAdjustment" id="adjKeepVersions">
     <property name="lower">1</property>
     <property name="upper">99999</property>
@@ -45,7 +44,7 @@
     </columns>
     <data>
       <row>
-        <col id="0"/>
+        <col id="0"></col>
         <col id="1" translatable="yes">Default</col>
       </row>
       <row>
@@ -122,894 +121,753 @@
   </object>
   <object class="GtkDialog" id="editor">
     <property name="width_request">550</property>
-    <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Syncthing-GTK Settings</property>
-    <property name="role">ui-settings</property>
-    <property name="modal">True</property>
+    <property name="title" translatable="1">Syncthing-GTK Settings</property>
+    <property name="modal">1</property>
     <property name="default_width">500</property>
-    <property name="type_hint">dialog</property>
-    <property name="skip_taskbar_hint">True</property>
-    <property name="skip_pager_hint">True</property>
-    <child internal-child="vbox">
+    <child internal-child="content_area">
       <object class="GtkBox" id="dialog-vbox1">
-        <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area1">
-            <property name="can_focus">False</property>
-            <property name="margin_top">5</property>
-            <property name="margin_bottom">5</property>
-            <property name="layout_style">end</property>
-            <child>
-              <object class="GtkLabel" id="lblRestartNeeded">
-                <property name="can_focus">False</property>
-                <property name="no_show_all">True</property>
-                <property name="margin_left">20</property>
-                <property name="label" translatable="yes">Please, restart Syncthing-GTK to apply all changed settings</property>
-                <attributes>
-                  <attribute name="style" value="oblique"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="btClose">
-                <property name="label">gtk-cancel</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
-                <signal name="clicked" handler="cb_btClose_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="btSave">
-                <property name="label">gtk-save</property>
-                <property name="sensitive">False</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
-                <signal name="clicked" handler="cb_btSave_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="pack_type">end</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
         <child>
           <object class="GtkNotebook" id="ntbPages">
-            <property name="can_focus">True</property>
+            <property name="vexpand">1</property>
             <child>
-              <object class="GtkGrid" id="pageInterface">
-                <property name="width_request">400</property>
-                <property name="can_focus">False</property>
-                <property name="margin_left">5</property>
-                <property name="margin_right">5</property>
-                <property name="margin_top">5</property>
-                <property name="margin_bottom">5</property>
-                <child>
-                  <object class="GtkLabel" id="label4">
-                    <property name="can_focus">False</property>
-                    <property name="margin_top">10</property>
-                    <property name="label" translatable="yes">When starting and Syncthing daemon is not running...</property>
-                    <property name="xalign">0</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">10</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkRadioButton" id="rbOnStartWait">
-                    <property name="label" translatable="yes">... _wait for daemon</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="margin_left">30</property>
-                    <property name="use_underline">True</property>
-                    <property name="xalign">0</property>
-                    <property name="active">True</property>
-                    <property name="draw_indicator">True</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">11</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkRadioButton" id="rbOnStartRun">
-                    <property name="label" translatable="yes">... start daemon in _background</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="margin_left">30</property>
-                    <property name="use_underline">True</property>
-                    <property name="xalign">0</property>
-                    <property name="draw_indicator">True</property>
-                    <property name="group">rbOnStartWait</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">12</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkRadioButton" id="rbOnStartAsk">
-                    <property name="label" translatable="yes">... _ask me what to do</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="margin_left">30</property>
-                    <property name="use_underline">True</property>
-                    <property name="xalign">0</property>
-                    <property name="draw_indicator">True</property>
-                    <property name="group">rbOnStartWait</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">13</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="label5">
-                    <property name="can_focus">False</property>
-                    <property name="margin_top">10</property>
-                    <property name="label" translatable="yes">When exiting after daemon was started in background...</property>
-                    <property name="xalign">0</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">14</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkRadioButton" id="rbOnExitTerminate">
-                    <property name="label" translatable="yes">... terminate _daemon</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="margin_left">30</property>
-                    <property name="use_underline">True</property>
-                    <property name="xalign">0</property>
-                    <property name="draw_indicator">True</property>
-                    <property name="group">rbOnExitLeave</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">15</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkRadioButton" id="rbOnExitLeave">
-                    <property name="label" translatable="yes">... leave daemon _running</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="margin_left">30</property>
-                    <property name="use_underline">True</property>
-                    <property name="xalign">0</property>
-                    <property name="active">True</property>
-                    <property name="draw_indicator">True</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">16</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkRadioButton" id="rbOnExitAsk">
-                    <property name="label" translatable="yes">... ask me w_hat to do</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="margin_left">30</property>
-                    <property name="use_underline">True</property>
-                    <property name="xalign">0</property>
-                    <property name="draw_indicator">True</property>
-                    <property name="group">rbOnExitLeave</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">17</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkCheckButton" id="vuse_old_header">
-                    <property name="label" translatable="yes">Us_e traditional window header</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="use_underline">True</property>
-                    <property name="xalign">0</property>
-                    <property name="draw_indicator">True</property>
-                    <signal name="toggled" handler="ui_value_changed" swapped="no"/>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">2</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="lblNotifications">
-                    <property name="can_focus">False</property>
-                    <property name="margin_top">10</property>
-                    <property name="hexpand">True</property>
-                    <property name="label" translatable="yes">Display desktop notifications for...</property>
-                    <property name="xalign">0</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">6</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkCheckButton" id="vnotification_for_update">
-                    <property name="label" translatable="yes">... file updates</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="margin_left">30</property>
-                    <property name="use_underline">True</property>
-                    <property name="xalign">0</property>
-                    <property name="draw_indicator">True</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">7</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkCheckButton" id="vnotification_for_error">
-                    <property name="label" translatable="yes">... errors</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="margin_left">30</property>
-                    <property name="use_underline">True</property>
-                    <property name="xalign">0</property>
-                    <property name="draw_indicator">True</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">9</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkCheckButton" id="vnotification_for_folder">
-                    <property name="label" translatable="yes">... synchronization completion</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="margin_left">30</property>
-                    <property name="use_underline">True</property>
-                    <property name="xalign">0</property>
-                    <property name="draw_indicator">True</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">8</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkCheckButton" id="vautostart">
-                    <property name="label" translatable="yes">Start Syncthing-GTK when I login to my desktop</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="hexpand">True</property>
-                    <property name="use_underline">True</property>
-                    <property name="xalign">0</property>
-                    <property name="draw_indicator">True</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">0</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkCheckButton" id="vminimize_on_start">
-                    <property name="label" translatable="yes">Minimize to _tray on start</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="use_underline">True</property>
-                    <property name="xalign">0</property>
-                    <property name="draw_indicator">True</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">1</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkCheckButton" id="vfolder_as_path">
-                    <property name="label" translatable="yes">Display paths in directories panel</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="use_underline">True</property>
-                    <property name="xalign">0</property>
-                    <property name="draw_indicator">True</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">5</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkCheckButton" id="vforce_dark_theme">
-                    <property name="label" translatable="yes">Force _dark theme</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="no_show_all">True</property>
-                    <property name="use_underline">True</property>
-                    <property name="xalign">0</property>
-                    <property name="draw_indicator">True</property>
-                    <signal name="toggled" handler="ui_value_changed" swapped="no"/>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">3</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkComboBox" id="vicon_theme">
-                    <property name="can_focus">False</property>
-                    <property name="margin_left">20</property>
-                    <property name="margin_top">10</property>
-                    <property name="hexpand">True</property>
-                    <property name="model">lst_vicon_theme</property>
-                    <child>
-                      <object class="GtkCellRendererText" id="crIconTheme"/>
-                      <attributes>
-                        <attribute name="single-paragraph-mode">0</attribute>
-                        <attribute name="text">1</attribute>
-                      </attributes>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="left_attach">1</property>
-                    <property name="top_attach">18</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="label19">
-                    <property name="can_focus">False</property>
-                    <property name="margin_top">10</property>
-                    <property name="label" translatable="yes">Tray icon style</property>
-                    <property name="xalign">0</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">18</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="lbl_vlanguage">
-                    <property name="can_focus">False</property>
-                    <property name="no_show_all">True</property>
-                    <property name="margin_top">5</property>
-                    <property name="label" translatable="yes">Language</property>
-                    <property name="xalign">0</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">19</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkComboBox" id="vlanguage">
-                    <property name="can_focus">False</property>
-                    <property name="no_show_all">True</property>
-                    <property name="margin_left">20</property>
-                    <property name="margin_top">5</property>
-                    <property name="hexpand">True</property>
-                    <property name="model">lst_vlanguage</property>
-                    <child>
-                      <object class="GtkCellRendererText" id="crIconTheme1"/>
-                      <attributes>
-                        <attribute name="single-paragraph-mode">0</attribute>
-                        <attribute name="text">1</attribute>
-                      </attributes>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="left_attach">1</property>
-                    <property name="top_attach">19</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
+              <object class="GtkNotebookPage">
                 <property name="tab_expand">True</property>
-              </packing>
-            </child>
-            <child type="tab">
-              <object class="GtkLabel" id="label1">
-                <property name="can_focus">False</property>
-                <property name="hexpand">True</property>
-                <property name="label" translatable="yes">_Interface</property>
-                <property name="use_underline">True</property>
-              </object>
-              <packing>
-                <property name="tab_expand">True</property>
-                <property name="tab_fill">False</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkGrid" id="pageIntegration">
-                <property name="can_focus">False</property>
-                <property name="margin_left">5</property>
-                <property name="margin_right">3</property>
-                <property name="margin_top">5</property>
-                <child>
-                  <object class="GtkLabel" id="label10">
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Integrate Syncthing with filemanagers</property>
-                    <property name="use_underline">True</property>
-                    <property name="ellipsize">end</property>
-                    <property name="xalign">0</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkCheckButton" id="fmcb_nemo">
-                    <property name="label" translatable="yes">Nemo (Cinamon Desktop)</property>
-                    <property name="sensitive">False</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="margin_left">10</property>
+                <property name="child">
+                  <object class="GtkGrid" id="pageInterface">
+                    <property name="width_request">400</property>
+                    <property name="margin-start">5</property>
+                    <property name="margin-end">5</property>
                     <property name="margin_top">5</property>
-                    <property name="xalign">0</property>
-                    <property name="draw_indicator">True</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkCheckButton" id="fmcb_nautilus">
-                    <property name="label" translatable="yes">Nautilus (Ubuntu/GNOME)</property>
-                    <property name="sensitive">False</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="margin_left">10</property>
-                    <property name="xalign">0</property>
-                    <property name="draw_indicator">True</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkCheckButton" id="fmcb_caja">
-                    <property name="label" translatable="yes">Caja (MATE Desktop)</property>
-                    <property name="sensitive">False</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="margin_left">10</property>
-                    <property name="xalign">0</property>
-                    <property name="draw_indicator">True</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">3</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="fmLblIntegrationStatus">
-                    <property name="sensitive">False</property>
-                    <property name="can_focus">False</property>
-                    <property name="margin_top">7</property>
-                    <property name="label">Install blahblahblah to enable Nemo support
-Install blahblahblah to enable Nautilus support
-Install blahblahblah to enable Caja support</property>
-                    <property name="xalign">0</property>
-                    <attributes>
-                      <attribute name="style" value="italic"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">5</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="label11">
-                    <property name="can_focus">False</property>
-                    <property name="margin_top">8</property>
-                    <property name="xpad">3</property>
-                    <property name="label" translatable="yes">&lt;b&gt;Note:&lt;/b&gt; You may need to restart your filemanager after toggling integration.</property>
-                    <property name="use_markup">True</property>
-                    <property name="wrap">True</property>
-                    <property name="xalign">0</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">4</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child type="tab">
-              <object class="GtkLabel" id="label9">
-                <property name="can_focus">False</property>
-                <property name="hexpand">True</property>
-                <property name="label" translatable="yes">_Integration</property>
-                <property name="use_underline">True</property>
-              </object>
-              <packing>
-                <property name="position">1</property>
-                <property name="tab_expand">True</property>
-                <property name="tab_fill">False</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkGrid" id="pageDaemon">
-                <property name="can_focus">False</property>
-                <property name="margin_left">5</property>
-                <property name="margin_right">5</property>
-                <property name="margin_top">5</property>
-                <property name="margin_bottom">5</property>
-                <child>
-                  <object class="GtkCheckButton" id="vst_autoupdate">
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="no_show_all">True</property>
-                    <property name="margin_top">10</property>
-                    <property name="xalign">0</property>
-                    <property name="draw_indicator">True</property>
+                    <property name="margin_bottom">5</property>
                     <child>
-                      <object class="GtkLabel" id="label7">
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Keep Syncthing binary up-to-date</property>
+                      <object class="GtkLabel" id="label4">
+                        <property name="margin_top">10</property>
+                        <property name="label" translatable="1">When starting and Syncthing daemon is not running...</property>
                         <property name="xalign">0</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">10</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="rbOnStartWait">
+                        <property name="label" translatable="1">... _wait for daemon</property>
+                        <property name="margin_start">30</property>
+                        <property name="use_underline">1</property>
+                        <!--property name="xalign">0</property-->
+                        <property name="active">1</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">11</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="rbOnStartRun">
+                        <property name="label" translatable="1">... start daemon in _background</property>
+                        <property name="margin_start">30</property>
+                        <property name="use_underline">1</property>
+                        <!--property name="xalign">0</property-->
+                        <property name="group">rbOnStartWait</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">12</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="rbOnStartAsk">
+                        <property name="label" translatable="1">... _ask me what to do</property>
+                        <property name="margin_start">30</property>
+                        <property name="use_underline">1</property>
+                        <!--property name="xalign">0</property-->
+                        <property name="group">rbOnStartWait</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">13</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label5">
+                        <property name="margin_top">10</property>
+                        <property name="label" translatable="1">When exiting after daemon was started in background...</property>
+                        <property name="xalign">0</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">14</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="rbOnExitTerminate">
+                        <property name="label" translatable="1">... terminate _daemon</property>
+                        <property name="margin_start">30</property>
+                        <property name="use_underline">1</property>
+                        <!--property name="xalign">0</property-->
+                        <property name="group">rbOnExitLeave</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">15</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="rbOnExitLeave">
+                        <property name="label" translatable="1">... leave daemon _running</property>
+                        <property name="margin_start">30</property>
+                        <property name="use_underline">1</property>
+                        <!--property name="xalign">0</property-->
+                        <property name="active">1</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">16</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="rbOnExitAsk">
+                        <property name="label" translatable="1">... ask me w_hat to do</property>
+                        <property name="margin_start">30</property>
+                        <property name="use_underline">1</property>
+                        <!--property name="xalign">0</property-->
+                        <property name="group">rbOnExitLeave</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">17</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="vuse_old_header">
+                        <property name="label" translatable="1">Us_e traditional window header</property>
+                        <property name="use_underline">1</property>
+                        <!--property name="xalign">0</property-->
+                        <signal name="toggled" handler="ui_value_changed" swapped="no"/>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">2</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="lblNotifications">
+                        <property name="margin_top">10</property>
+                        <property name="hexpand">1</property>
+                        <property name="label" translatable="1">Display desktop notifications for...</property>
+                        <property name="xalign">0</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">6</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="vnotification_for_update">
+                        <property name="label" translatable="1">... file updates</property>
+                        <property name="margin-start">30</property>
+                        <property name="use_underline">1</property>
+                        <!--property name="xalign">0</property-->
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">7</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="vnotification_for_error">
+                        <property name="label" translatable="1">... errors</property>
+                        <property name="margin-start">30</property>
+                        <property name="use_underline">1</property>
+                        <!--property name="xalign">0</property-->
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">9</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="vnotification_for_folder">
+                        <property name="label" translatable="1">... synchronization completion</property>
+                        <property name="margin-start">30</property>
+                        <property name="use_underline">1</property>
+                        <!--property name="xalign">0</property-->
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">8</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="vautostart">
+                        <property name="label" translatable="1">Start Syncthing-GTK when I login to my desktop</property>
+                        <property name="hexpand">1</property>
+                        <property name="use_underline">1</property>
+                        <!--property name="xalign">0</property-->
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">0</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="vminimize_on_start">
+                        <property name="label" translatable="1">Minimize to _tray on start</property>
+                        <property name="use_underline">1</property>
+                        <!--property name="xalign">0</property-->
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">1</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="vfolder_as_path">
+                        <property name="label" translatable="1">Display paths in directories panel</property>
+                        <property name="use_underline">1</property>
+                        <!--property name="xalign">0</property-->
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">5</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="vforce_dark_theme">
+                        <property name="label" translatable="1">Force _dark theme</property>
+                        <property name="visible">False</property>
+                        <property name="use_underline">1</property>
+                        <!--property name="xalign">0</property-->
+                        <signal name="toggled" handler="ui_value_changed" swapped="no"/>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">3</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkComboBox" id="vicon_theme">
+                        <property name="margin-start">20</property>
+                        <property name="margin_top">10</property>
+                        <property name="hexpand">1</property>
+                        <property name="model">lst_vicon_theme</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="crIconTheme"/>
+                          <attributes>
+                            <!--attribute name="single-paragraph-mode">0</attribute-->
+                            <attribute name="text">1</attribute>
+                          </attributes>
+                        </child>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">18</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label19">
+                        <property name="margin_top">10</property>
+                        <property name="label" translatable="1">Tray icon style</property>
+                        <property name="xalign">0</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">18</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="lbl_vlanguage">
+                        <property name="visible">False</property>
+                        <property name="margin_top">5</property>
+                        <property name="label" translatable="1">Language</property>
+                        <property name="xalign">0</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">19</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkComboBox" id="vlanguage">
+                        <property name="visible">False</property>
+                        <property name="margin-start">20</property>
+                        <property name="margin_top">5</property>
+                        <property name="hexpand">1</property>
+                        <property name="model">lst_vlanguage</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="crIconTheme1"/>
+                          <attributes>
+                            <!--attribute name="single-paragraph-mode">0</attribute-->
+                            <attribute name="text">1</attribute>
+                          </attributes>
+                        </child>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">19</property>
+                        </layout>
                       </object>
                     </child>
                   </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">6</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="lblAutoupdate">
-                    <property name="can_focus">False</property>
-                    <property name="no_show_all">True</property>
-                    <property name="margin_left">10</property>
-                    <property name="label" translatable="yes">If enabled, Syncthing-GTK will automatically check for new daemon releases and replace binary with latest version.</property>
-                    <property name="use_markup">True</property>
-                    <property name="wrap">True</property>
-                    <property name="xalign">0</property>
+                </property>
+                <property name="tab">
+                  <object class="GtkLabel" id="label1">
+                    <property name="hexpand">1</property>
+                    <property name="label" translatable="1">_Interface</property>
+                    <property name="use_underline">1</property>
                   </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">7</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="label12">
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Daemon process priority</property>
-                    <property name="use_underline">True</property>
-                    <property name="xalign">0</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">0</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkComboBox" id="vdaemon_priority">
-                    <property name="can_focus">False</property>
-                    <property name="model">lststrPriority</property>
-                    <child>
-                      <object class="GtkCellRendererText" id="cellrenderertext1"/>
-                      <attributes>
-                        <attribute name="text">1</attribute>
-                      </attributes>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">1</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="label13">
-                    <property name="can_focus">False</property>
-                    <property name="margin_bottom">10</property>
-                    <property name="label" translatable="yes">Priority will be used only if "&lt;i&gt;start daemon in background&lt;/i&gt;" option is checked on "&lt;i&gt;Interface&lt;/i&gt;" page.</property>
-                    <property name="use_markup">True</property>
-                    <property name="wrap">True</property>
-                    <property name="xalign">0</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">2</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="label14">
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Maximum number of CPU cores</property>
-                    <property name="use_underline">True</property>
-                    <property name="xalign">0</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">3</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="label15">
-                    <property name="can_focus">False</property>
-                    <property name="margin_bottom">10</property>
-                    <property name="label" translatable="yes">Sets the maximum number of CPU cores for daemon to use. This value will be used only if "&lt;i&gt;start daemon in background&lt;/i&gt;" option is checked on "&lt;i&gt;Interface&lt;/i&gt;" page.</property>
-                    <property name="use_markup">True</property>
-                    <property name="wrap">True</property>
-                    <property name="xalign">0</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">5</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkSpinButton" id="vmax_cpus">
-                    <property name="can_focus">True</property>
-                    <property name="margin_bottom">10</property>
-                    <property name="text">1</property>
-                    <property name="adjustment">adjMaxCPUs</property>
-                    <property name="value">1</property>
-                    <signal name="value-changed" handler="cb_vmax_cpus_value_changed" swapped="no"/>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">4</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
+                </property>
               </object>
-              <packing>
-                <property name="position">2</property>
-                <property name="tab_expand">True</property>
-              </packing>
-            </child>
-            <child type="tab">
-              <object class="GtkLabel" id="label2">
-                <property name="can_focus">False</property>
-                <property name="hexpand">True</property>
-                <property name="label" translatable="yes">Daemon</property>
-                <property name="use_underline">True</property>
-              </object>
-              <packing>
-                <property name="position">2</property>
-                <property name="tab_expand">True</property>
-                <property name="tab_fill">False</property>
-              </packing>
             </child>
             <child>
-              <object class="GtkGrid" id="pageAdvanced">
-                <property name="can_focus">False</property>
-                <property name="margin_left">5</property>
-                <property name="margin_right">5</property>
-                <property name="margin_top">5</property>
-                <property name="margin_bottom">5</property>
-                <child>
-                  <object class="GtkLabel" id="lblsyncthing_binary2">
-                    <property name="can_focus">False</property>
-                    <property name="no_show_all">True</property>
-                    <property name="margin_bottom">10</property>
-                    <property name="label" translatable="yes">This binary will be started when syncthing daemon is not running and "&lt;i&gt;start daemon in background&lt;/i&gt;" option is checked on "&lt;i&gt;Interface&lt;/i&gt;" page.</property>
-                    <property name="use_markup">True</property>
-                    <property name="wrap">True</property>
-                    <property name="xalign">0</property>
+              <object class="GtkNotebookPage">
+                <property name="position">1</property>
+                <property name="child">
+                  <object class="GtkGrid" id="pageIntegration">
+                    <property name="margin-start">5</property>
+                    <property name="margin-end">3</property>
+                    <property name="margin_top">5</property>
+                    <child>
+                      <object class="GtkLabel" id="label10">
+                        <property name="label" translatable="1">Integrate Syncthing with filemanagers</property>
+                        <property name="use_underline">1</property>
+                        <property name="ellipsize">end</property>
+                        <property name="xalign">0</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"></attribute>
+                        </attributes>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="fmcb_nemo">
+                        <property name="label" translatable="1">Nemo (Cinamon Desktop)</property>
+                        <property name="sensitive">0</property>
+                        <property name="margin-start">10</property>
+                        <property name="margin_top">5</property>
+                        <!--property name="xalign">0</property-->
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="fmcb_nautilus">
+                        <property name="label" translatable="1">Nautilus (Ubuntu/GNOME)</property>
+                        <property name="sensitive">0</property>
+                        <property name="margin-start">10</property>
+                        <!--property name="xalign">0</property-->
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="fmcb_caja">
+                        <property name="label" translatable="1">Caja (MATE Desktop)</property>
+                        <property name="sensitive">0</property>
+                        <property name="margin-start">10</property>
+                        <!--property name="xalign">0</property-->
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">3</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="fmLblIntegrationStatus">
+                        <property name="sensitive">0</property>
+                        <property name="margin_top">7</property>
+                        <property name="label">Install blahblahblah to enable Nemo support
+Install blahblahblah to enable Nautilus support
+Install blahblahblah to enable Caja support</property>
+                        <property name="xalign">0</property>
+                        <attributes>
+                          <attribute name="style" value="italic"></attribute>
+                        </attributes>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">5</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label11">
+                        <property name="margin_top">8</property>
+                        <!--property name="xpad">3</property-->
+                        <property name="label" translatable="1">&lt;b&gt;Note:&lt;/b&gt; You may need to restart your filemanager after toggling integration.</property>
+                        <property name="use_markup">1</property>
+                        <property name="wrap">1</property>
+                        <property name="xalign">0</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">4</property>
+                        </layout>
+                      </object>
+                    </child>
                   </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">4</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkButton" id="btBrowse">
-                    <property name="label" translatable="yes">_Browse...</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <property name="no_show_all">True</property>
-                    <property name="use_underline">True</property>
-                    <property name="yalign">0.51999998092651367</property>
-                    <signal name="clicked" handler="cb_btBrowse_clicked" swapped="no"/>
+                </property>
+                <property name="tab">
+                  <object class="GtkLabel" id="label9">
+                    <property name="hexpand">1</property>
+                    <property name="label" translatable="1">_Integration</property>
+                    <property name="use_underline">1</property>
                   </object>
-                  <packing>
-                    <property name="left_attach">1</property>
-                    <property name="top_attach">3</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="lblsyncthing_binary">
-                    <property name="can_focus">False</property>
-                    <property name="no_show_all">True</property>
-                    <property name="label" translatable="yes">Syncthing binary location</property>
-                    <property name="use_underline">True</property>
-                    <property name="xalign">0</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">2</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkEntry" id="vsyncthing_binary">
-                    <property name="can_focus">True</property>
-                    <property name="no_show_all">True</property>
-                    <property name="hexpand">True</property>
-                    <signal name="changed" handler="cb_check_value" swapped="no"/>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">3</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="label16">
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Daemon arguments and variables</property>
-                    <property name="use_underline">True</property>
-                    <property name="xalign">0</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">5</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkEntry" id="vsyncthing_arguments">
-                    <property name="can_focus">True</property>
-                    <property name="hexpand">True</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">6</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="label17">
-                    <property name="can_focus">False</property>
-                    <property name="margin_bottom">10</property>
-                    <property name="label" translatable="yes">Space-separated list of arguments and environment variables passed when starting above binary
-
-Use &lt;i&gt;VARIABLE="value"&lt;/i&gt; to set variable and &lt;i&gt;-argument="value"&lt;/i&gt;  (with dash) for argument.
-
-If you need to pass commandline to different command (such as logger or ionice), separate prefixed arguments with exclamation mark "!"
-
-Example:
-  &lt;i&gt;STTRACE="all" logger -t /var/log/syncthing.log ! -logflags=10&lt;/i&gt;</property>
-                    <property name="use_markup">True</property>
-                    <property name="wrap">True</property>
-                    <property name="xalign">0</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">7</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="label18">
-                    <property name="can_focus">False</property>
-                    <property name="margin_left">5</property>
-                    <property name="margin_right">5</property>
-                    <property name="label" translatable="yes">&lt;b&gt;Warning:&lt;/b&gt; Changing settings on this page may prevent you from using Syncthing-GTK</property>
-                    <property name="use_markup">True</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">0</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkSeparator" id="separator1">
-                    <property name="can_focus">False</property>
-                    <property name="margin_left">5</property>
-                    <property name="margin_right">5</property>
+                </property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkNotebookPage">
+                <property name="position">2</property>
+                <property name="tab_expand">True</property>
+                <property name="child">
+                  <object class="GtkGrid" id="pageDaemon">
+                    <property name="margin-start">5</property>
+                    <property name="margin-end">5</property>
                     <property name="margin_top">5</property>
                     <property name="margin_bottom">5</property>
+                    <child>
+                      <object class="GtkCheckButton" id="vst_autoupdate">
+                        <property name="visible">False</property>
+                        <property name="margin_top">10</property>
+                        <!--property name="xalign">0</property-->
+                        <child>
+                          <object class="GtkLabel" id="label7">
+                            <property name="label" translatable="1">Keep Syncthing binary up-to-date</property>
+                            <property name="xalign">0</property>
+                            <attributes>
+                              <attribute name="weight" value="bold"></attribute>
+                            </attributes>
+                          </object>
+                        </child>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">6</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="lblAutoupdate">
+                        <property name="visible">False</property>
+                        <property name="margin-start">10</property>
+                        <property name="label" translatable="1">If enabled, Syncthing-GTK will automatically check for new daemon releases and replace binary with latest version.</property>
+                        <property name="use_markup">1</property>
+                        <property name="wrap">1</property>
+                        <property name="xalign">0</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">7</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label12">
+                        <property name="label" translatable="1">Daemon process priority</property>
+                        <property name="use_underline">1</property>
+                        <property name="xalign">0</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"></attribute>
+                        </attributes>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">0</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkComboBox" id="vdaemon_priority">
+                        <property name="model">lststrPriority</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="cellrenderertext1"/>
+                          <attributes>
+                            <attribute name="text">1</attribute>
+                          </attributes>
+                        </child>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">1</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label13">
+                        <property name="margin_bottom">10</property>
+                        <property name="label" translatable="1">Priority will be used only if &quot;&lt;i&gt;start daemon in background&lt;/i&gt;&quot; option is checked on &quot;&lt;i&gt;Interface&lt;/i&gt;&quot; page.</property>
+                        <property name="use_markup">1</property>
+                        <property name="wrap">1</property>
+                        <property name="xalign">0</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">2</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label14">
+                        <property name="label" translatable="1">Maximum number of CPU cores</property>
+                        <property name="use_underline">1</property>
+                        <property name="xalign">0</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"></attribute>
+                        </attributes>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">3</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label15">
+                        <property name="margin_bottom">10</property>
+                        <property name="label" translatable="1">Sets the maximum number of CPU cores for daemon to use. This value will be used only if &quot;&lt;i&gt;start daemon in background&lt;/i&gt;&quot; option is checked on &quot;&lt;i&gt;Interface&lt;/i&gt;&quot; page.</property>
+                        <property name="use_markup">1</property>
+                        <property name="wrap">1</property>
+                        <property name="xalign">0</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">5</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSpinButton" id="vmax_cpus">
+                        <property name="margin_bottom">10</property>
+                        <property name="text">1</property>
+                        <property name="adjustment">adjMaxCPUs</property>
+                        <property name="value">1</property>
+                        <signal name="value-changed" handler="cb_vmax_cpus_value_changed" swapped="no"/>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">4</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
                   </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">1</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
+                </property>
+                <property name="tab">
+                  <object class="GtkLabel" id="label2">
+                    <property name="hexpand">1</property>
+                    <property name="label" translatable="1">Daemon</property>
+                    <property name="use_underline">1</property>
+                  </object>
+                </property>
               </object>
-              <packing>
-                <property name="position">3</property>
-              </packing>
             </child>
-            <child type="tab">
-              <object class="GtkLabel" id="label8">
-                <property name="can_focus">False</property>
-                <property name="hexpand">True</property>
-                <property name="label" translatable="yes">_Advanced</property>
-                <property name="use_underline">True</property>
-              </object>
-              <packing>
+            <child>
+              <object class="GtkNotebookPage">
                 <property name="position">3</property>
-                <property name="tab_expand">True</property>
-                <property name="tab_fill">False</property>
-              </packing>
+                <property name="child">
+                  <object class="GtkGrid" id="pageAdvanced">
+                    <property name="margin-start">5</property>
+                    <property name="margin-end">5</property>
+                    <property name="margin_top">5</property>
+                    <property name="margin_bottom">5</property>
+                    <child>
+                      <object class="GtkLabel" id="lblsyncthing_binary2">
+                        <property name="margin_bottom">10</property>
+                        <property name="label" translatable="1">This binary will be started when syncthing daemon is not running and &quot;&lt;i&gt;start daemon in background&lt;/i&gt;&quot; option is checked on &quot;&lt;i&gt;Interface&lt;/i&gt;&quot; page.</property>
+                        <property name="use_markup">1</property>
+                        <property name="wrap">1</property>
+                        <property name="xalign">0</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">4</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="btBrowse">
+                        <property name="label" translatable="1">_Browse...</property>
+                        <property name="receives_default">1</property>
+                        <property name="use_underline">1</property>
+                        <!--property name="yalign">0.51999998092651367</property-->
+                        <signal name="clicked" handler="cb_btBrowse_clicked" swapped="no"/>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">3</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="lblsyncthing_binary">
+                        <property name="label" translatable="1">Syncthing binary location</property>
+                        <property name="use_underline">1</property>
+                        <property name="xalign">0</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"></attribute>
+                        </attributes>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">2</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkEntry" id="vsyncthing_binary">
+                        <property name="hexpand">1</property>
+                        <signal name="changed" handler="cb_check_value" swapped="no"/>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">3</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label16">
+                        <property name="label" translatable="1">Daemon arguments and variables</property>
+                        <property name="use_underline">1</property>
+                        <property name="xalign">0</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"></attribute>
+                        </attributes>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">5</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkEntry" id="vsyncthing_arguments">
+                        <property name="hexpand">1</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">6</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label17">
+                        <property name="margin_bottom">10</property>
+                        <property name="label" translatable="1">Space-separated list of arguments and environment variables passed when starting above binary
+
+Use &lt;i&gt;VARIABLE=&quot;value&quot;&lt;/i&gt; to set variable and &lt;i&gt;-argument=&quot;value&quot;&lt;/i&gt;  (with dash) for argument.
+
+If you need to pass commandline to different command (such as logger or ionice), separate prefixed arguments with exclamation mark &quot;!&quot;
+
+Example:
+  &lt;i&gt;STTRACE=&quot;all&quot; logger -t /var/log/syncthing.log ! -logflags=10&lt;/i&gt;</property>
+                        <property name="use_markup">1</property>
+                        <property name="wrap">1</property>
+                        <property name="xalign">0</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">7</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label18">
+                        <property name="margin-start">5</property>
+                        <property name="margin-end">5</property>
+                        <property name="label" translatable="1">&lt;b&gt;Warning:&lt;/b&gt; Changing settings on this page may prevent you from using Syncthing-GTK</property>
+                        <property name="use_markup">1</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">0</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSeparator" id="separator1">
+                        <property name="margin-start">5</property>
+                        <property name="margin-end">5</property>
+                        <property name="margin_top">5</property>
+                        <property name="margin_bottom">5</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="row">1</property>
+                          <property name="column-span">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </property>
+                <property name="tab">
+                  <object class="GtkLabel" id="label8">
+                    <property name="hexpand">1</property>
+                    <property name="label" translatable="1">_Advanced</property>
+                    <property name="use_underline">1</property>
+                  </object>
+                </property>
+              </object>
             </child>
           </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
         </child>
       </object>
     </child>
     <child>
       <placeholder/>
     </child>
+    <child internal-child="action_area">
+      <object class="GtkBox" id="dialog-action_area1">
+        <property name="margin_top">5</property>
+        <property name="margin_bottom">5</property>
+        <child>
+          <object class="GtkLabel" id="lblRestartNeeded">
+            <property name="visible">False</property>
+            <property name="margin-start">20</property>
+            <property name="label" translatable="1">Please, restart Syncthing-GTK to apply all changed settings</property>
+            <attributes>
+              <attribute name="style" value="oblique"></attribute>
+            </attributes>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="btClose">
+            <property name="label">Cancel</property>
+            <property name="receives_default">1</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="btSave">
+            <property name="label">Save</property>
+            <property name="sensitive">0</property>
+            <property name="receives_default">1</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="cancel">btClose</action-widget>
+      <action-widget response="apply">btSave</action-widget>
+    </action-widgets>
   </object>
 </interface>

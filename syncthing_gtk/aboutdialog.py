@@ -38,6 +38,7 @@ class AboutDialog(object):
         # Load ui file
         self.builder.add_from_file(os.path.join(self.uipath, "about.ui"))
         self.dialog = self.builder.get_object("dialog")
+        self.dialog.connect("response", self.on_dialog_response)
         # Get app version
         app_ver = "unknown"
         try:

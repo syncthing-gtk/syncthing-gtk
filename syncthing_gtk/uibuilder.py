@@ -142,8 +142,8 @@ class UIBuilder(Gtk.Builder):
             if child.nodeType == child.ELEMENT_NODE:
                 self._replace_icon_paths(child)
                 if child.tagName.lower() == "property":
-                    if child.getAttribute("name") == "pixbuf":
-                        # GtkImage, pixbuf path
+                    if child.getAttribute("name") == "file":
+                        # GtkImage, file path
                         self._check_icon_path(child)
                     elif child.getAttribute("name") == "icon":
                         # window or dialog, icon path

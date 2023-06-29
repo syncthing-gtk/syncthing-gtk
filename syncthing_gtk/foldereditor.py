@@ -198,11 +198,11 @@ class FolderEditorDialog(EditorDialog):
             nids = [n["deviceID"] for n in self.get_value("devices")]
             for device in list(self.app.devices.values()):
                 if device["id"] != self.app.daemon.get_my_id():
-                    b = Gtk.CheckButton(device.get_title(), False)
+                    b = Gtk.CheckButton.new_with_label(device.get_title())
                     b.set_tooltip_text(device["id"])
-                    self["vdevices"].pack_start(b, False, False, 0)
+                    self["vdevices"].append(b)
                     b.set_active(device["id"] in nids)
-            self["vdevices"].show_all()
+            self["vdevices"].set_visible(True)
         else:
             EditorDialog.display_value(self, key, w)
 

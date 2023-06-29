@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.4 -->
 <interface>
-  <requires lib="gtk+" version="3.8"/>
+  <requires lib="gtk" version="4.0"/>
   <object class="GtkAdjustment" id="adjKeepVersions">
     <property name="lower">1</property>
     <property name="upper">99999</property>
@@ -32,68 +31,53 @@
     </data>
   </object>
   <object class="GtkDialog" id="editor">
-    <property name="can_focus">False</property>
-    <property name="role">device-edit</property>
     <property name="modal">True</property>
     <property name="default_width">500</property>
-    <property name="type_hint">dialog</property>
-    <property name="skip_taskbar_hint">True</property>
-    <property name="skip_pager_hint">True</property>
-    <child internal-child="vbox">
+    <child internal-child="content_area">
       <object class="GtkBox" id="dialog-vbox1">
-        <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area1">
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
-            <child>
+          <object class="GtkBox" id="dialog-action_area1">
+            <!--property name="layout_style">end</property-->
+            <child type="action">
               <object class="GtkButton" id="btClose">
-                <property name="label">gtk-cancel</property>
-                <property name="can_focus">True</property>
+                <property name="label">Cancel</property>
                 <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
-                <signal name="clicked" handler="cb_btClose_clicked" swapped="no"/>
+                <layout>
+                  <property name="expand">True</property>
+                  <property name="fill">True</property>
+                  <property name="position">0</property>
+                </layout>
               </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
             </child>
-            <child>
+            <child type="action">
               <object class="GtkButton" id="btSave">
-                <property name="label">gtk-save</property>
+                <property name="label">Save</property>
                 <property name="sensitive">False</property>
-                <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
-                <signal name="clicked" handler="cb_btSave_clicked" swapped="no"/>
+                <layout>
+                  <property name="expand">True</property>
+                  <property name="fill">True</property>
+                  <property name="position">1</property>
+                </layout>
               </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
             </child>
+            <layout>
+              <property name="expand">False</property>
+              <property name="fill">True</property>
+              <property name="pack_type">end</property>
+              <property name="position">0</property>
+            </layout>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="pack_type">end</property>
-            <property name="position">0</property>
-          </packing>
         </child>
         <child>
           <object class="GtkGrid" id="editor-content">
-            <property name="can_focus">False</property>
-            <property name="margin_left">10</property>
-            <property name="margin_right">10</property>
+            <property name="margin_start">10</property>
+            <property name="margin_end">10</property>
             <property name="column_spacing">3</property>
             <child>
               <object class="GtkLabel" id="label1">
-                <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Device _ID</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">vdeviceID</property>
@@ -101,27 +85,25 @@
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">0</property>
+                  <property name="column-span">2</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
-                <property name="width">2</property>
-              </packing>
             </child>
             <child>
               <object class="GtkEntry" id="vdeviceID">
-                <property name="can_focus">True</property>
                 <signal name="changed" handler="cb_check_value" swapped="no"/>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">1</property>
+                  <property name="column-span">2</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">1</property>
-                <property name="width">2</property>
-              </packing>
             </child>
             <child>
               <object class="GtkLabel" id="label3">
-                <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Device _Name</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">vname</property>
@@ -129,40 +111,37 @@
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">3</property>
+                  <property name="column-span">2</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">3</property>
-                <property name="width">2</property>
-              </packing>
             </child>
             <child>
               <object class="GtkEntry" id="vname">
-                <property name="can_focus">True</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">4</property>
+                  <property name="column-span">2</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">4</property>
-                <property name="width">2</property>
-              </packing>
             </child>
             <child>
               <object class="GtkLabel" id="lblvname">
-                <property name="can_focus">False</property>
                 <property name="margin_bottom">10</property>
                 <property name="label" translatable="yes">Shown instead of Device ID in the cluster status.</property>
                 <property name="wrap">True</property>
                 <property name="xalign">0</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">5</property>
+                  <property name="column-span">2</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">5</property>
-                <property name="width">2</property>
-              </packing>
             </child>
             <child>
               <object class="GtkLabel" id="label2">
-                <property name="can_focus">False</property>
                 <property name="label" translatable="yes">_Addresses</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">vaddresses</property>
@@ -170,109 +149,101 @@
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">6</property>
+                  <property name="column-span">2</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">6</property>
-                <property name="width">2</property>
-              </packing>
             </child>
             <child>
               <object class="GtkEntry" id="vaddresses">
-                <property name="can_focus">True</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">7</property>
+                  <property name="column-span">2</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">7</property>
-                <property name="width">2</property>
-              </packing>
             </child>
             <child>
               <object class="GtkLabel" id="label7">
-                <property name="can_focus">False</property>
                 <property name="margin_bottom">10</property>
                 <property name="label" translatable="yes">Enter comma separated "ip:port" addresses or "dynamic" to perform automatic discovery of the address.</property>
                 <property name="wrap">True</property>
                 <property name="xalign">0</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">8</property>
+                  <property name="column-span">2</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">8</property>
-                <property name="width">2</property>
-              </packing>
             </child>
             <child>
               <object class="GtkLabel" id="lblvdeviceID">
-                <property name="can_focus">False</property>
                 <property name="wrap">True</property>
                 <property name="xalign">0</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">2</property>
+                  <property name="column-span">2</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">2</property>
-                <property name="width">2</property>
-              </packing>
             </child>
             <child>
               <object class="GtkLabel" id="label4">
-                <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Share _Folders</property>
                 <property name="use_underline">True</property>
                 <property name="xalign">0</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">13</property>
+                  <property name="column-span">2</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">13</property>
-                <property name="width">2</property>
-              </packing>
             </child>
             <child>
               <object class="GtkLabel" id="label5">
-                <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Select the folders to share with this device</property>
                 <property name="xalign">0</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">15</property>
+                  <property name="column-span">2</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">15</property>
-                <property name="width">2</property>
-              </packing>
             </child>
             <child>
               <object class="GtkCheckButton" id="vintroducer">
                 <property name="label" translatable="yes">_Introducer</property>
-                <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="use_underline">True</property>
-                <property name="xalign">0</property>
-                <property name="draw_indicator">True</property>
+                <!--property name="xalign">0</property-->
+                <!--property name="draw_indicator">True</property-->
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">11</property>
+                  <property name="column-span">2</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">11</property>
-                <property name="width">2</property>
-              </packing>
             </child>
             <child>
               <object class="GtkLabel" id="label6">
-                <property name="can_focus">False</property>
                 <property name="margin_bottom">10</property>
                 <property name="label" translatable="yes">Any devices configured on an introducer device will be added to this device as well.</property>
                 <property name="wrap">True</property>
                 <property name="xalign">0</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">12</property>
+                  <property name="column-span">2</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">12</property>
-                <property name="width">2</property>
-              </packing>
             </child>
             <child>
               <object class="GtkLabel" id="label8">
-                <property name="can_focus">False</property>
                 <property name="label" translatable="yes">_Compression</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">vaddresses</property>
@@ -280,16 +251,15 @@
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">9</property>
+                  <property name="column-span">2</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">9</property>
-                <property name="width">2</property>
-              </packing>
             </child>
             <child>
               <object class="GtkComboBox" id="vcompression">
-                <property name="can_focus">False</property>
                 <property name="margin_bottom">10</property>
                 <property name="model">lststrCompression</property>
                 <child>
@@ -298,24 +268,21 @@
                     <attribute name="text">1</attribute>
                   </attributes>
                 </child>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">10</property>
+                  <property name="column-span">2</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">10</property>
-                <property name="width">2</property>
-              </packing>
             </child>
             <child>
               <object class="GtkScrolledWindow" id="sw-folders">
                 <property name="height_request">100</property>
-                <property name="can_focus">True</property>
                 <property name="vexpand">True</property>
                 <child>
                   <object class="GtkViewport" id="vp-folders">
-                    <property name="can_focus">False</property>
                     <child>
                       <object class="GtkBox" id="vfolders">
-                        <property name="can_focus">False</property>
                         <property name="orientation">vertical</property>
                         <child>
                           <placeholder/>
@@ -324,25 +291,29 @@
                     </child>
                   </object>
                 </child>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">14</property>
+                  <property name="column-span">2</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">14</property>
-                <property name="width">2</property>
-              </packing>
             </child>
+            <layout>
+              <property name="expand">True</property>
+              <property name="fill">True</property>
+              <property name="padding">1</property>
+              <property name="position">1</property>
+            </layout>
           </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="padding">1</property>
-            <property name="position">1</property>
-          </packing>
         </child>
       </object>
     </child>
     <child>
       <placeholder/>
     </child>
+    <action-widgets>
+      <action-widget response="cancel">btClose</action-widget>
+      <action-widget response="apply">btSave</action-widget>
+    </action-widgets>
   </object>
 </interface>

@@ -27,7 +27,7 @@ class DaemonOutputDialog(object):
     def show_with_lines(self, lines, parent=None):
         if parent is not None:
             self["dialog"].set_transient_for(parent)
-        self["dialog"].show_all()
+        self["dialog"].set_visible(True)
         self["tvOutput"].get_buffer().set_text("\n".join(lines))
 
     def show(self, parent=None, title=None):
@@ -37,7 +37,7 @@ class DaemonOutputDialog(object):
             self["dialog"].set_transient_for(parent)
         if title is not None:
             self["dialog"].set_title(title)
-        self["dialog"].show_all()
+        self["dialog"].set_visible(True)
         self["tvOutput"].get_buffer().set_text("\n".join(self.proc.get_output()))
         self.handler = self.proc.connect("line", self.cb_line)
 
@@ -51,7 +51,7 @@ class DaemonOutputDialog(object):
         # Load ui file
         self.builder = UIBuilder(self)
         self.builder.add_from_file(os.path.join(self.app.uipath, "daemon-output.ui"))
-        self["tvOutput"].connect("size-allocate", self.scroll)
+        self["dialog"].connect("response", self.close)
 
     def cb_line(self, proc, line):
         b = self["tvOutput"].get_buffer()

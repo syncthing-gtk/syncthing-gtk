@@ -7,6 +7,8 @@ Syncthing-GTK - Ignore Pattern Editor
 import logging
 import os
 
+from gi.repository import Gtk
+
 from syncthing_gtk.tools import _  # gettext function
 from syncthing_gtk.uibuilder import UIBuilder
 
@@ -31,7 +33,7 @@ class IgnoreEditor(object):
     def show(self, parent=None):
         if parent is not None:
             self["dialog"].set_transient_for(parent)
-        self["dialog"].show_all()
+        self["dialog"].set_visible(True)
 
     def close(self, *a):
         self["dialog"].set_visible(False)
@@ -41,6 +43,7 @@ class IgnoreEditor(object):
         # Load ui file
         self.builder = UIBuilder(self)
         self.builder.add_from_file(os.path.join(self.app.uipath, "ignore-editor.ui"))
+        self["dialog"].connect("response", self.on_dialog_response)
         self["lblLocation"].set_markup(
             '%s <a href="file://%s">%s</a>'
             % (
@@ -50,11 +53,11 @@ class IgnoreEditor(object):
             )
         )
 
-    def on_dialog_response(self, *a):
-        self.close()
-
-    def cb_btClose_clicked(self, *a):
-        self.close()
+    def on_dialog_response(self, dialog, response_type):
+        if response_type == Gtk.ResponseType.CLOSE or response_type == Gtk.ResponseType.CANCEL or response_type == Gtk.ResponseType.DELETE_EVENT:
+            self.close()
+        elif response_type == Gtk.ResponseType.APPLY:
+            self.btSave_clicked_cb()
 
     def on_lblLocation_activate_link(self, *a):
         # Called when user clicks on file location link. Clicking there
