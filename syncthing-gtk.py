@@ -16,7 +16,7 @@ gi.require_version("Gdk", "4.0")
 gi.require_version("Rsvg", "2.0")
 
 # pylint: disable=wrong-import-position
-from gi.repository import Gtk  # noqa: E402
+from gi.repository import Gdk, Gtk  # noqa: E402
 
 from syncthing_gtk.app import App  # noqa: E402
 from syncthing_gtk.tools import (  # noqa: E402
@@ -83,9 +83,10 @@ def windows_setup() -> None:
 
     # Set icon directories
     icons_root = Path.cwd()
-    Gtk.IconTheme.get_default().prepend_search_path(str(icons_root / "icons/32x32/apps"))
-    Gtk.IconTheme.get_default().prepend_search_path(str(icons_root / "icons/32x32/status"))
-    Gtk.IconTheme.get_default().prepend_search_path(str(icons_root))
+    icon_theme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default())
+    icon_theme.add_search_path(str(icons_root / "icons/32x32/apps"))
+    icon_theme.add_search_path(str(icons_root / "icons/32x32/status"))
+    icon_theme.add_search_path(str(icons_root))
 
 
 if __name__ == "__main__":
@@ -136,8 +137,9 @@ if __name__ == "__main__":
         # It's not in the huge if..elif..elif because it should be run in all cases
         windows_setup()
 
-    # Gtk.IconTheme.get_default().prepend_search_path(str(data_path / "icons"))
-    # Gtk.IconTheme.get_default().prepend_search_path(str(data_path / "icons/32x32/status"))
+    icon_theme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default())
+    # icon_theme.add_search_path(str(data_path / "icons"))
+    # icon_theme.add_search_path(str(data_path / "icons/32x32/status"))
 
     if "APPDIR" in os.environ:
         # Running as AppImage
@@ -147,8 +149,8 @@ if __name__ == "__main__":
             "/usr/share/icons/hicolor/32x32/status",
         ]
         for subpath in icon_subpaths:
-            Gtk.IconTheme.get_default().prepend_search_path(os.environ["APPDIR"] + subpath)
+            icon_theme.add_search_path(os.environ["APPDIR"] + subpath)
 
-    print(Gtk.IconTheme.get_default().get_search_path())
+    print(icon_theme.get_search_path())
     init_locale(str(data_path / "locale"))
     App(str(data_path / "ui"), str(data_path / "icons")).run(sys.argv)
