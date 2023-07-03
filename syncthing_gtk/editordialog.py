@@ -407,42 +407,42 @@ class EditorDialog(GObject.GObject):
 
     def cb_format_value_s(self, spinner):
         """Formats spinner value"""
-        spinner.get_buffer().set_text(_("%ss") % (int(spinner.get_adjustment().get_value()),), -1)
+        spinner.get_delegate().set_text(_("%ss") % (int(spinner.get_adjustment().get_value()),))
         return True
 
     def cb_format_value_s_or_disabed(self, spinner):
         """Formats spinner value"""
         val = int(spinner.get_adjustment().get_value())
         if val < 1:
-            spinner.get_buffer().set_text(_("disabled"), -1)
+            spinner.get_delegate().set_text(_("disabled"))
         else:
-            spinner.get_buffer().set_text(_("%ss") % (val,), -1)
+            spinner.get_delegate().set_text(_("%ss") % (val,))
         return True
 
     def cb_format_value_percent(self, spinner):
         """Formats spinner value"""
         val = int(spinner.get_adjustment().get_value())
-        spinner.get_buffer().set_text(_("%s%%") % (val,), -1)
+        spinner.get_delegate().set_text(_("%s%%") % (val,))
         return True
 
     def cb_format_value_kibps_or_no_limit(self, spinner):
         """Formats spinner value"""
         val = int(spinner.get_adjustment().get_value())
         if val < 1:
-            spinner.get_buffer().set_text(_("no limit"), -1)
+            spinner.get_delegate().set_text(_("no limit"))
         else:
-            spinner.get_buffer().set_text(_("%s KiB/s") % (val,), -1)
+            spinner.get_delegate().set_text(_("%s KiB/s") % (val,))
         return True
 
     def cb_format_value_days(self, spinner):
         """Formats spinner value"""
         v = int(spinner.get_adjustment().get_value())
         if v == 0:
-            spinner.get_buffer().set_text(_("never delete"), -1)
+            spinner.get_delegate().set_text(_("never delete"))
         elif v == 1:
-            spinner.get_buffer().set_text(_("%s day") % (v,), -1)
+            spinner.get_delegate().set_text(_("%s day") % (v,))
         else:
-            spinner.get_buffer().set_text(_("%s days") % (v,), -1)
+            spinner.get_delegate().set_text(_("%s days") % (v,))
         return True
 
     def post_config(self):
