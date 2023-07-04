@@ -823,13 +823,12 @@ class App(Gtk.Application, TimerManager):
                         message,
                         _("Possible cause: Is there another web server running on Syncthing port?"),
                     )
-            d = Gtk.MessageDialog(
-                self["window"],
-                Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
-                Gtk.MessageType.ERROR,
-                Gtk.ButtonsType.CLOSE,
-                message,
-            )
+            d = Gtk.Dialog.new()
+            d.set_transient_for(self["window"])
+            d.set_modal(True)
+            d.set_destroy_with_parent(True)
+            d.add_button("Close", RESPONSE_QUIT)
+            d.get_content_area().append(Gtk.Label.new(message))
             if exception is not None and hasattr(exception, "full_response"):
                 # Anything derived from HTTPError, where full server
                 # response is attached
@@ -850,12 +849,9 @@ class App(Gtk.Application, TimerManager):
                 swin.add_with_viewport(tview)
                 swin.set_size_request(300, 400)
                 ex.add(swin)
-                d.get_message_area().pack_end(ex, True, True, 1)
-                ex.show_all()
-            d.run()
-            d.hide()
-            d.destroy()
-            self.quit()
+                d.get_content_area().append(ex)
+            d.connect("response", self.cb_connect_dialog_response, None)
+            d.set_visible(True)
 
     def cb_syncthing_config_oos(self, *a):
         if self["infobar"] is None:
@@ -1290,17 +1286,13 @@ class App(Gtk.Application, TimerManager):
     def fatal_error(self, text):
         # TODO: Better way to handle this
         log.error(text)
-        d = Gtk.MessageDialog(
-            None,
-            Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
-            Gtk.MessageType.ERROR,
-            Gtk.ButtonsType.CLOSE,
-            text,
-        )
-        d.run()
-        d.hide()
-        d.destroy()
-        self.quit()
+        d = Gtk.Dialog.new()
+        d.set_transient_for(self["window"])
+        d.set_modal(True)
+        d.add_button("Close", RESPONSE_QUIT)
+        d.get_content_area().append(Gtk.Label.new(text))
+        d.connect("response", self.cb_connect_dialog_response, None)
+        d.set_visible(True)
 
     def get_folder_n_path(self, path):
         """
@@ -1400,15 +1392,13 @@ class App(Gtk.Application, TimerManager):
         """
         if self.connect_dialog is None:
             log.debug("Creating connect_dialog")
-            self.connect_dialog = Gtk.MessageDialog(
-                self["window"],
-                Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
-                Gtk.MessageType.INFO,
-                0,
-                "-",
-            )
+            self.connect_dialog = Gtk.Dialog.new()
+            self.connect_dialog.set_transient_for(self["window"])
+            self.connect_dialog.set_modal(True)
+            self.connect_dialog.set_destroy_with_parent(True)
+            self.connect_dialog.get_content_area().append(Gtk.Label.new("-"))
             if quit_button:
-                self.connect_dialog.add_button("gtk-quit", RESPONSE_QUIT)
+                self.connect_dialog.add_button("Quit", RESPONSE_QUIT)
             # There is only one response available on this dialog
             self.connect_dialog.connect("response", self.cb_connect_dialog_response, None)
             if self.is_visible():
@@ -1441,17 +1431,18 @@ class App(Gtk.Application, TimerManager):
         """
         if self.connect_dialog is None:  # Don't override already existing dialog
             log.debug("Creating run_daemon_dialog")
-            self.connect_dialog = Gtk.MessageDialog(
-                self["window"],
-                Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
-                Gtk.MessageType.INFO,
-                0,
+            self.connect_dialog = Gtk.Dialog.new()
+            self.connect_dialog.set_transient_for(self["window"])
+            self.connect_dialog.set_modal(True)
+            self.connect_dialog.set_destroy_with_parent(True)
+            self.connect_dialog.get_content_area().append(Gtk.Label.new(
                 "%s\n%s" % (_("Syncthing daemon doesn't appear to be running."), _("Start it now?")),
-            )
-            cb = Gtk.CheckButton(_("Always start daemon automatically"))
-            self.connect_dialog.get_content_area().pack_end(cb, False, False, 2)
+                ))
+            cb = Gtk.CheckButton.new_with_label(_("Always start daemon automatically"))
+            self.connect_dialog.get_content_area().append(cb)
             self.connect_dialog.add_button("_Start", RESPONSE_START_DAEMON)
-            self.connect_dialog.add_button("gtk-quit", RESPONSE_QUIT)
+            self.connect_dialog.add_button("_Quit", RESPONSE_QUIT)
+            self.connect_dialog.set_modal(True)
             # There is only one response available on this dialog
             self.connect_dialog.connect("response", self.cb_connect_dialog_response, cb)
             if self.is_visible():
@@ -1734,17 +1725,15 @@ class App(Gtk.Application, TimerManager):
                 self.process.kill()
                 self.process = None
             elif self.config["autokill_daemon"] == 2:  # Ask
-                d = Gtk.MessageDialog(
-                    self["window"],
-                    Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
-                    Gtk.MessageType.INFO,
-                    0,
-                    "%s\n%s" % (_("Exiting."), _("Shutdown Syncthing daemon as well?")),
-                )
+                d = Gtk.Dialog.new()
+                d.set_transient_for(self["window"])
+                d.set_modal(True)
+                d.set_destroy_with_parent(True)
+                d.get_content_area().append(Gtk.Label.new("%s\n%s" % (_("Exiting."), _("Shutdown Syncthing daemon as well?"))))
                 d.add_button("gtk-yes", RESPONSE_SLAIN_DAEMON)
                 d.add_button("gtk-no", RESPONSE_SPARE_DAEMON)
-                cb = Gtk.CheckButton(_("Always do same; Don't show this window again"))
-                d.get_content_area().pack_end(cb, False, False, 2)
+                cb = Gtk.CheckButton.new_with_label(_("Always do same; Don't show this window again"))
+                d.get_content_area().append(cb)
                 d.connect("response", self.cb_kill_daemon_response, cb)
                 d.show_all()
                 return
@@ -2025,19 +2014,21 @@ class App(Gtk.Application, TimerManager):
         msg = _("Do you really want to permanently stop synchronizing directory '%s'?")
         if mode == "device":
             msg = _("Do you really want remove device '%s' from Syncthing?")
-        d = Gtk.MessageDialog(
-            self["window"],
-            Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
-            Gtk.MessageType.QUESTION,
-            Gtk.ButtonsType.YES_NO,
-            msg % name,
-        )
-        r = d.run()
-        d.hide()
-        d.destroy()
-        if r == Gtk.ResponseType.YES:
+        d = Gtk.Dialog.new()
+        d.set_transient_for(self["window"])
+        d.set_modal(True)
+        d.set_destroy_with_parent(True)
+        d.get_content_area().append(Gtk.Label.new(msg % name))
+        d.add_button("Yes", Gtk.ResponseType.APPLY)
+        d.add_button("No", Gtk.ResponseType.CANCEL)
+        d.connect("response", self.cb_check_delete_dialog_response, mode)
+        d.set_visible(True)
+
+    def cb_check_delete_dialog_response(self, dialog, response, mode):
+        if response == Gtk.ResponseType.APPLY:
             # Load config from server (to have something to delete from)
             self.daemon.read_config(self.cb_delete_config_loaded, None, mode, id)
+        dialog.destroy()
 
     def cb_delete_config_loaded(self, config, mode, id):
         """
