@@ -8,7 +8,7 @@ Universal dialog handler for all Syncthing settings and editing
 import logging
 import os
 
-from gi.repository import Gtk
+from gi.repository import Gio, GLib, Gtk
 
 from syncthing_gtk.configuration import LONG_AGO
 from syncthing_gtk.editordialog import EditorDialog
@@ -348,13 +348,10 @@ def browse_for_binary(parent_window, settings_dialog, value):
     Used here and by FindDaemonDialog as well.
     """
     # Prepare dialog
-    d = Gtk.FileChooserDialog(
-        _("Browse for Syncthing binary"),
-        parent_window,
-        Gtk.FileChooserAction.OPEN,
-        (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK),
-    )
+    d = Gtk.FileDialog.new()
+    d.set_title(_("Browse for Syncthing binary"))
     # Prepare filter
+    filters = Gio.ListStore.new(Gtk.FileFilter)
     f = Gtk.FileFilter()
     if IS_WINDOWS:
         f.set_name("Executables")
@@ -363,24 +360,36 @@ def browse_for_binary(parent_window, settings_dialog, value):
         f.set_name("Binaries")
         f.add_mime_type("application/x-executable")
         f.add_mime_type("application/x-shellscript")
-    d.add_filter(f)
+    filters.append(f)
+    d.set_filters(filters)
     # Set default path
     confdir = os.path.join(get_config_dir(), "syncthing")
     prevvalue = str(settings_dialog[value].get_text()).strip()
     if prevvalue and os.path.exists(os.path.split(prevvalue)[0]):
-        d.set_current_folder(os.path.split(prevvalue)[0])
+        d.set_initial_folder(Gio.File.new_for_path(os.path.split(prevvalue)[0]))
     elif os.path.exists(confdir):
-        d.set_current_folder(confdir)
+        d.set_initial_folder(Gio.File.new_for_path(confdir))
     elif IS_WINDOWS:
         if "CommonProgramFiles" in os.environ:
-            d.set_current_folder(os.environ["CommonProgramFiles"])
+            d.set_initial_folder(Gio.File.new_for_path(os.environ["CommonProgramFiles"]))
         elif os.path.exists("C:\\Program Files"):
-            d.set_current_folder("C:\\Program Files")
+            d.set_initial_folder(Gio.File.new_for_path("C:\\Program Files"))
         # Else nothing, just start whatever you like
     else:
-        d.set_current_folder("/usr/bin")
+        d.set_initial_folder(Gio.File.new_for_path("/usr/bin"))
 
+    d.open(
+        parent_window,
+        None,
+        file_dialog_cb,
+        settings_dialog[value],
+    )
+
+def file_dialog_cb(dialog, async_result, target_field):
+    try:
+        result = dialog.open_finish(async_result)
+    except GLib.GError:
+        # dialog is dismissed without selecting a folder
+        return
     # Get response
-    if d.run() == Gtk.ResponseType.OK:
-        settings_dialog[value].set_text(d.get_filename())
-    d.destroy()
+    target_field.set_text(result.get_path())
