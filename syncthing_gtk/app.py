@@ -2259,11 +2259,5 @@ class App(Gtk.Application, TimerManager):
                 )
             )
             d.hide_download_button()
-        # Let dialog run and try running syncthing again if new
-        # syncthing_binary is acquired
-        r = d.run()
-        d.destroy()
-        if r == FindDaemonDialog.RESPONSE_SAVED:
-            self.cb_daemon_exit(self.process, -1)
-        else:
-            self.quit()
+        # The dialog will try running syncthing again if new
+        # syncthing_binary is acquired, or exit otherwise.

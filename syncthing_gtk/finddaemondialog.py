@@ -61,9 +61,6 @@ class FindDaemonDialog(EditorDialog):
     def hide_download_button(self):
         self["btDownload"].set_visible(False)
 
-    def run(self):
-        return self["editor"].run()
-
     def destroy(self):
         self.close()
 
@@ -113,7 +110,9 @@ class FindDaemonDialog(EditorDialog):
 
     def cb_btQuit_clicked(self, *a):
         """Handler for 'Quit' button"""
-        self["editor"].response(FindDaemonDialog.RESPONSE_QUIT)
+        # Still no binary, just exit the whole program
+        self.destroy()
+        self.app.quit()
 
     def cb_bt_ui_settings_clicked(self, *a):
         """Handler for 'UI Settings' button"""
@@ -144,6 +143,10 @@ class FindDaemonDialog(EditorDialog):
     def update_special_widgets(self, *a):
         pass
 
+    def cb_btSave_clicked(self, *a):
+        """Calls on_save_requested to do actual work"""
+        self.on_save_requested()
+
     # @Overrides
     def on_save_requested(self):
         self.store_values(VALUES)
@@ -155,7 +158,10 @@ class FindDaemonDialog(EditorDialog):
 
     # @Overrides
     def on_saved(self):
-        self["editor"].response(FindDaemonDialog.RESPONSE_SAVED)
+        print("on_saved")
+        # Try running syncthing again with the new syncthing_binary
+        self.destroy()
+        self.app.cb_daemon_exit(self.app.process, -1)
 
     # Downloader callbacks
     def cb_download_error(self, downloader, error, message):
