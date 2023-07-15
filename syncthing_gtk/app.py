@@ -58,19 +58,19 @@ INTERNAL_VERSION = "v0.9.4.5"
 # Minimal Syncthing version supported by App
 MIN_ST_VERSION = "0.14.50"
 
-COLOR_DEVICE = "#707070"  # Dark-gray
-COLOR_DEVICE_SYNCING = "#2A89C8"  # Blue
-COLOR_DEVICE_CONNECTED = "#2AAB61"  # Green
-COLOR_DEVICE_OFFLINE = COLOR_DEVICE  # Dark-gray
-COLOR_DEVICE_ERROR = "#87000B"  # Red
-COLOR_OWN_DEVICE = "#C0C0C0"  # Light-gray
-COLOR_FOLDER = "#9246B1"  # Dark-purple
-COLOR_FOLDER_SYNCING = COLOR_DEVICE_SYNCING  # Blue
-COLOR_FOLDER_SCANNING = COLOR_DEVICE_SYNCING  # Blue
-COLOR_FOLDER_IDLE = COLOR_DEVICE_CONNECTED  # Green
-COLOR_FOLDER_STOPPED = COLOR_DEVICE_ERROR  # Red
-COLOR_FOLDER_OFFLINE = COLOR_DEVICE_OFFLINE  # Dark-gray
-COLOR_NEW = COLOR_OWN_DEVICE  # Light-gray
+CLASS_DEVICE = "device"
+CLASS_DEVICE_SYNCING = "device-syncing"
+CLASS_DEVICE_CONNECTED = "device-connected"
+CLASS_DEVICE_OFFLINE = "device-offline"
+CLASS_DEVICE_ERROR = "device-error"
+CLASS_OWN_DEVICE = "own-device"
+CLASS_FOLDER = "folder"
+CLASS_FOLDER_SYNCING = "folder-syncing"
+CLASS_FOLDER_SCANNING = "folder-scanning"
+CLASS_FOLDER_IDLE = "folder-idle"
+CLASS_FOLDER_STOPPED = "folder-stopped"
+CLASS_FOLDER_OFFLINE = "folder-offline"
+CLASS_NEW = "new"
 SI_FRAMES = 12  # Number of animation frames for status icon
 
 # Response IDs
@@ -163,6 +163,12 @@ class App(Gtk.Application, TimerManager):
 
         self.editor_device = None
         self.editor_folder = None
+
+        csspath = os.path.join(self.uipath, "styles.css")
+        css_provider = Gtk.CssProvider()
+        css_provider.load_from_path(csspath)
+        display = Gdk.Display.get_default()
+        Gtk.StyleContext.add_provider_for_display(display, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
     def do_startup(self, *a):
         Gtk.Application.do_startup(self, *a)
@@ -271,7 +277,7 @@ class App(Gtk.Application, TimerManager):
         else:
             if self.wizard is None:
                 # Show main window
-                self.cb_statusicon_click()
+                self.show()
         self.hide_window = False
 
     def setup_commandline(self):
@@ -341,8 +347,22 @@ class App(Gtk.Application, TimerManager):
         add_simple_action("daemon_shutdown", self.cb_menu_shutdown)
         add_simple_action("daemon_restart", self.cb_menu_restart)
 
+        add_simple_action("menu_popup_override", self.cb_menu_popup_override)
+        add_simple_action("menu_popup_revert", self.cb_menu_popup_revert)
+        add_simple_action("menu_popup_edit_folder", self.cb_menu_popup_edit_folder)
+        add_simple_action("menu_popup_edit_ignored", self.cb_menu_popup_edit_ignored)
+        add_simple_action("menu_popup_delete_folder", self.cb_menu_popup_delete_folder)
+        add_simple_action("menu_popup_rescan_folder", self.cb_menu_popup_rescan_folder)
+        add_simple_action("menu_popup_browse_folder", self.cb_menu_popup_browse_folder)
+
+        add_simple_action("menu_popup_edit_device", self.cb_menu_popup_edit_device)
+        add_simple_action("menu_popup_show_id", self.cb_menu_popup_show_id)
+        add_simple_action("menu_popup_pause_device", self.cb_menu_popup_pause_device)
+        add_simple_action("menu_popup_resume_device", self.cb_menu_popup_resume_device)
+        add_simple_action("menu_popup_delete_device", self.cb_menu_popup_delete_device)
+
     def setup_widgets(self):
-        self.builder = UIBuilder()
+        self.builder = UIBuilder(self)
         # Set conditions for UIBuilder
         if self.use_headerbar:
             self.builder.enable_condition("header_bar")
@@ -356,29 +376,30 @@ class App(Gtk.Application, TimerManager):
         self.builder.replace_icon_path("icons/", self.iconpath)
         # Load ui file
         self.builder.add_from_file(os.path.join(self.uipath, "app.ui"))
-        self.builder.connect_signals(self)
         # Dunno how to do this from ui-file
         if self.use_headerbar and IS_GNOME:
-            self.set_app_menu(self["app-menu"])
+            self.set_menubar(self["app-menu"])
 
-        # Create speedlimit submenus for incoming and outcoming speeds
-        L_MEH = [("menu-si-sendlimit", self.cb_menu_sendlimit), ("menu-si-recvlimit", self.cb_menu_recvlimit)]
-        for limitmenu, eventhandler in L_MEH:
-            submenu = self["%s-sub" % (limitmenu,)]
-            for speed in SPEED_LIMIT_VALUES:
-                menuitem = Gtk.CheckMenuItem(_("%s kB/s") % (speed,))
-                item_id = "%s-%s" % (limitmenu, speed)
-                menuitem.connect("activate", eventhandler, speed)
-                self[item_id] = menuitem
-                submenu.add(menuitem)
-            self[limitmenu].show_all()
+        ## Create speedlimit submenus for incoming and outcoming speeds
+        #L_MEH = [("menu-si-sendlimit", self.cb_menu_sendlimit), ("menu-si-recvlimit", self.cb_menu_recvlimit)]
+        #for limitmenu, eventhandler in L_MEH:
+            #submenu = self["%s-sub" % (limitmenu,)]
+            #for speed in SPEED_LIMIT_VALUES:
+            #    menuitem = Gtk.CheckMenuItem(_("%s kB/s") % (speed,))
+            #    item_id = "%s-%s" % (limitmenu, speed)
+            #    menuitem.connect("activate", eventhandler, speed)
+            #    self[item_id] = menuitem
+            #    submenu.add(menuitem)
+            #self[limitmenu].show_all()
 
         # Set window title in way that even Gnome can understand
         icon = os.path.join(self.iconpath, "syncthing-gtk.png")
-        self["window"].set_title(_("Syncthing-GTK"))
-        self["window"].set_wmclass("Syncthing GTK", "Syncthing GTK")
-        if os.path.exists(icon):
-            self["window"].set_icon(GdkPixbuf.Pixbuf.new_from_file(icon))
+        if self.use_headerbar:
+            self["window"].set_title(_("Syncthing-GTK"))
+            self["header-title"].set_label(_("Syncthing-GTK"))
+        #self["window"].set_wmclass("Syncthing GTK", "Syncthing GTK")
+        #if os.path.exists(icon):
+        #    self["window"].set_icon(GdkPixbuf.Pixbuf.new_from_file(icon))
         self.add_window(self["window"])
 
     def setup_statusicon(self):
@@ -442,19 +463,19 @@ class App(Gtk.Application, TimerManager):
         self.daemon.connect("folder-added", self.cb_syncthing_folder_added)
         self.daemon.connect("folder-error", self.cb_syncthing_folder_error)
         self.daemon.connect("folder-data-changed", self.cb_syncthing_folder_data_changed)
-        self.daemon.connect("folder-data-failed", self.cb_syncthing_folder_state_changed, 0.0, COLOR_NEW, "")
+        self.daemon.connect("folder-data-failed", self.cb_syncthing_folder_state_changed, 0.0, CLASS_NEW, "")
         self.daemon.connect(
-            "folder-sync-started", self.cb_syncthing_folder_state_changed, 0.0, COLOR_FOLDER_SYNCING, _("Syncing")
+            "folder-sync-started", self.cb_syncthing_folder_state_changed, 0.0, CLASS_FOLDER_SYNCING, _("Syncing")
         )
         self.daemon.connect(
-            "folder-sync-progress", self.cb_syncthing_folder_state_changed, COLOR_FOLDER_SYNCING, _("Syncing")
+            "folder-sync-progress", self.cb_syncthing_folder_state_changed, CLASS_FOLDER_SYNCING, _("Syncing")
         )
         self.daemon.connect("folder-sync-finished", self.cb_syncthing_folder_up_to_date)
         self.daemon.connect(
-            "folder-scan-started", self.cb_syncthing_folder_state_changed, 1.0, COLOR_FOLDER_SCANNING, _("Scanning")
+            "folder-scan-started", self.cb_syncthing_folder_state_changed, 1.0, CLASS_FOLDER_SCANNING, _("Scanning")
         )
         self.daemon.connect(
-            "folder-scan-progress", self.cb_syncthing_folder_state_changed, COLOR_FOLDER_SCANNING, _("Scanning")
+            "folder-scan-progress", self.cb_syncthing_folder_state_changed, CLASS_FOLDER_SCANNING, _("Scanning")
         )
         self.daemon.connect("folder-scan-finished", self.cb_syncthing_folder_up_to_date)
         self.daemon.connect("folder-stopped", self.cb_syncthing_folder_stopped)
@@ -467,7 +488,7 @@ class App(Gtk.Application, TimerManager):
         self.wizard = Wizard(self.uipath, self.iconpath, self.config)
         self.wizard.connect("cancel", self.cb_wizard_finished)
         self.wizard.connect("close", self.cb_wizard_finished)
-        self.wizard.show()
+        self.wizard.set_visible(True)
 
     def start_daemon_ui(self):
         """
@@ -476,8 +497,8 @@ class App(Gtk.Application, TimerManager):
         menu items in notification icon menu.
         """
         # Swap menu items in notification menu
-        self["menu-si-shutdown"].set_visible(True)
-        self["menu-si-resume"].set_visible(False)
+        #self["menu-si-shutdown"].set_visible(True)
+        #self["menu-si-resume"].set_visible(False)
         # Display message
         self.close_connect_dialog()
         self.display_connect_dialog(_("Starting Syncthing daemon"))
@@ -494,7 +515,7 @@ class App(Gtk.Application, TimerManager):
                     return
             self.ct_process()
             self.lookup_action("daemon_output").set_enabled(True)
-            self["menu-si-daemon-output"].set_sensitive(True)
+            #self["menu-si-daemon-output"].set_sensitive(True)
 
     def ct_process(self):
         """
@@ -597,7 +618,7 @@ class App(Gtk.Application, TimerManager):
             pb.set_fraction(0.0)
 
         def cb_cu_extract_finished(sd, r, l, pb):
-            pb.hide()
+            pb.set_visible(False)
             l.set_text(_("Restarting daemon..."))
             if self.daemon.is_connected():
                 self.daemon.restart()
@@ -635,9 +656,8 @@ class App(Gtk.Application, TimerManager):
                 l = Gtk.Label(_("Downloading Syncthing %s") % (version,))
                 l.set_alignment(0, 0.5)
                 box = Gtk.VBox()
-                box.pack_start(l, True, True, 0)
-                box.pack_start(pb, False, True, 1)
-                box.show_all()
+                box.append(l)
+                box.append(pb)
                 r = RIBar(box, Gtk.MessageType.INFO)
                 r.disable_close_button()
                 self.show_info_box(r)
@@ -703,10 +723,10 @@ class App(Gtk.Application, TimerManager):
         self.close_connect_dialog()
         self.set_status(True)
         self["edit-menu-button"].set_sensitive(True)
-        self["menu-si-shutdown"].set_sensitive(True)
-        self["menu-si-show-id"].set_sensitive(True)
-        self["menu-si-recvlimit"].set_sensitive(True)
-        self["menu-si-sendlimit"].set_sensitive(True)
+        #self["menu-si-shutdown"].set_sensitive(True)
+        #self["menu-si-show-id"].set_sensitive(True)
+        #self["menu-si-recvlimit"].set_sensitive(True)
+        #self["menu-si-sendlimit"].set_sensitive(True)
         if IS_WINDOWS and not self.use_headerbar:
             # Stupid way to reconfigure window content and keep windows
             # decorations visible on Windows
@@ -722,8 +742,8 @@ class App(Gtk.Application, TimerManager):
         )
         if reason == Daemon.SHUTDOWN:
             message = _("Syncthing has been shut down.")
-            self["menu-si-shutdown"].set_visible(False)
-            self["menu-si-resume"].set_visible(True)
+            #self["menu-si-shutdown"].set_visible(False)
+            #self["menu-si-resume"].set_visible(True)
         elif reason == Daemon.RESTART:
             message = "%s %s..." % (_("Syncthing is restarting."), _("Please wait"))
         self.display_connect_dialog(message, quit_button=reason != Daemon.RESTART)
@@ -804,13 +824,12 @@ class App(Gtk.Application, TimerManager):
                         message,
                         _("Possible cause: Is there another web server running on Syncthing port?"),
                     )
-            d = Gtk.MessageDialog(
-                self["window"],
-                Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
-                Gtk.MessageType.ERROR,
-                Gtk.ButtonsType.CLOSE,
-                message,
-            )
+            d = Gtk.Dialog.new()
+            d.set_transient_for(self["window"])
+            d.set_modal(True)
+            d.set_destroy_with_parent(True)
+            d.add_button("Close", RESPONSE_QUIT)
+            d.get_content_area().append(Gtk.Label.new(message))
             if exception is not None and hasattr(exception, "full_response"):
                 # Anything derived from HTTPError, where full server
                 # response is attached
@@ -831,12 +850,9 @@ class App(Gtk.Application, TimerManager):
                 swin.add_with_viewport(tview)
                 swin.set_size_request(300, 400)
                 ex.add(swin)
-                d.get_message_area().pack_end(ex, True, True, 1)
-                ex.show_all()
-            d.run()
-            d.hide()
-            d.destroy()
-            self.quit()
+                d.get_content_area().append(ex)
+            d.connect("response", self.cb_connect_dialog_response, None)
+            d.set_visible(True)
 
     def cb_syncthing_config_oos(self, *a):
         if self["infobar"] is None:
@@ -860,16 +876,16 @@ class App(Gtk.Application, TimerManager):
         # Used to change indicating UI components
         self.recv_limit = config["options"]["maxRecvKbps"]
         self.send_limit = config["options"]["maxSendKbps"]
-        L_MEV = [("menu-si-sendlimit", self.send_limit), ("menu-si-recvlimit", self.recv_limit)]
+        #L_MEV = [("menu-si-sendlimit", self.send_limit), ("menu-si-recvlimit", self.recv_limit)]
 
-        for limitmenu, value in L_MEV:
-            other = True
-            for speed in [0] + SPEED_LIMIT_VALUES:
-                menuitem = self["%s-%s" % (limitmenu, speed)]
-                menuitem.set_active(speed == value)
-                if speed == value:
-                    other = False
-            self["%s-other" % (limitmenu,)].set_active(other)
+        #for limitmenu, value in L_MEV:
+            #other = True
+            #for speed in [0] + SPEED_LIMIT_VALUES:
+                #menuitem = self["%s-%s" % (limitmenu, speed)]
+                #menuitem.set_active(speed == value)
+                #if speed == value:
+                    #other = False
+            #self["%s-other" % (limitmenu,)].set_active(other)
 
         if config["options"]["urAccepted"] == 0:
             # User did not responded to usage reporting yet. Ask
@@ -900,7 +916,7 @@ class App(Gtk.Application, TimerManager):
             if id in self.devices:
                 device = self.devices[id]
                 display_id = device.get_title()
-                device.set_color_hex(COLOR_DEVICE_ERROR)
+                device.set_class(CLASS_DEVICE_ERROR)
                 device.set_status(_("Incompatible"), 0)
                 device.show_value("version")
                 device["version"] = version
@@ -988,13 +1004,13 @@ class App(Gtk.Application, TimerManager):
         if device_id in self.devices:
             device = self.devices[device_id]
             # Move my device to top
-            self["devicelist"].reorder_child(device, 0)
+            self["devicelist"].reorder_child_after(device, None)
             # Modify header & color
             device.set_status("")
             device.invert_header(True)
-            device.set_color_hex(COLOR_OWN_DEVICE)
+            device.set_class(CLASS_OWN_DEVICE)
             if self.use_headerbar:
-                self["header"].set_subtitle(device.get_title())
+                self["header-subtitle"].set_label(device.get_title())
             else:
                 self["server-name"].set_markup("<b>%s</b>" % (device.get_title(),))
             # Modify values
@@ -1005,7 +1021,6 @@ class App(Gtk.Application, TimerManager):
             device.add_value("outbps", "up_rate.svg", _("Upload Rate"), "0 B/s (0 B)")
             device.add_value("announce", "announce.svg", _("Announce Server"), "")
             device.add_value("version", "version.svg", _("Version"), None)
-            device.show_all()
             # Expand my own device box right after startup
             if self.devices_never_loaded:
                 self.open_boxes.add(device["id"])
@@ -1058,7 +1073,7 @@ class App(Gtk.Application, TimerManager):
         if nid in self.devices:  # Should be always
             device = self.devices[nid]
             device.set_status(_("Paused") if paused else _("Disconnected"))
-            device.set_color_hex(COLOR_DEVICE_OFFLINE)
+            device.set_class(CLASS_DEVICE_OFFLINE)
             device["online"] = False
             device["connected"] = False
             # Update visible values
@@ -1075,7 +1090,7 @@ class App(Gtk.Application, TimerManager):
                 if connected:
                     # Update color & header
                     device.set_status(_("Connected"))
-                    device.set_color_hex(COLOR_DEVICE_CONNECTED)
+                    device.set_class(CLASS_DEVICE_CONNECTED)
                     device["online"] = True
                     # Update visible values
                     device.show_values("sync", "inbps", "oubps", "version")
@@ -1083,7 +1098,7 @@ class App(Gtk.Application, TimerManager):
                 else:
                     # Update color & header
                     device.set_status(_("Disconnected"))
-                    device.set_color_hex(COLOR_DEVICE_OFFLINE)
+                    device.set_class(CLASS_DEVICE_OFFLINE)
                     device["online"] = False
                     # Update visible values
                     device.hide_values("sync", "inbps", "outbps", "version")
@@ -1096,13 +1111,13 @@ class App(Gtk.Application, TimerManager):
             device = self.devices[device_id]
             device["sync"] = "%3.f%%" % (sync * 100.0)
             if not device["connected"]:
-                device.set_color_hex(COLOR_DEVICE_OFFLINE)
+                device.set_class(CLASS_DEVICE_OFFLINE)
                 device.set_status(_("Disconnected"))
             elif sync >= 0.0 and sync < 0.99:
-                device.set_color_hex(COLOR_DEVICE_SYNCING)
+                device.set_class(CLASS_DEVICE_SYNCING)
                 device.set_status(_("Syncing"), sync)
             else:
-                device.set_color_hex(COLOR_DEVICE_CONNECTED)
+                device.set_class(CLASS_DEVICE_CONNECTED)
                 device.set_status(_("Up to Date"))
 
     def cb_syncthing_folder_added(self, daemon, rid, r):
@@ -1145,12 +1160,12 @@ class App(Gtk.Application, TimerManager):
             title = _("Up to Date")
             if folder["can_override"]:
                 title = folder["override_title"]
-            self.cb_syncthing_folder_state_changed(daemon, rid, 1.0, COLOR_FOLDER_IDLE, title)
+            self.cb_syncthing_folder_state_changed(daemon, rid, 1.0, CLASS_FOLDER_IDLE, title)
 
-    def cb_syncthing_folder_state_changed(self, daemon, rid, percentage, color, text):
+    def cb_syncthing_folder_state_changed(self, daemon, rid, percentage, classname, text):
         if rid in self.folders:  # Should be always
             folder = self.folders[rid]
-            folder.set_color_hex(color)
+            folder.set_class(classname)
             folder.set_status(text, percentage)
             self.update_folders()
             self.set_status(True)
@@ -1158,7 +1173,7 @@ class App(Gtk.Application, TimerManager):
     def cb_syncthing_folder_stopped(self, daemon, rid, message):
         if rid in self.folders:  # Should be always
             folder = self.folders[rid]
-            folder.set_color_hex(COLOR_FOLDER_STOPPED)
+            folder.set_class(CLASS_FOLDER_STOPPED)
             folder.set_status(_("Stopped"), 0)
             # Color, theme-based icon is used here. It's intentional and
             # supposed to draw attention
@@ -1187,25 +1202,25 @@ class App(Gtk.Application, TimerManager):
             if self.daemon.syncing():
                 # Daemon is online and at work
                 sr = self.daemon.get_syncing_list()
-                if len(sr) == 1:
-                    self["menu-si-status"].set_label(_("Synchronizing '%s'") % (sr[0],))
-                else:
-                    self["menu-si-status"].set_label(_("Synchronizing %s folders") % (len(sr),))
+                #if len(sr) == 1:
+                    #self["menu-si-status"].set_label(_("Synchronizing '%s'") % (sr[0],))
+                #else:
+                    #self["menu-si-status"].set_label(_("Synchronizing %s folders") % (len(sr),))
                 self.animate_status()
             elif self.any_device_online():
                 # Daemon is online and idle
                 self.statusicon.set("si-%s-idle" % (self.config["icon_theme"],), _("Up to Date"))
-                self["menu-si-status"].set_label(_("Up to Date"))
+                #self["menu-si-status"].set_label(_("Up to Date"))
                 self.cancel_timer("icon")
             else:
                 # Daemon is online, but there is no remote device connected
                 self.statusicon.set("si-%s-unknown" % (self.config["icon_theme"],), _("All devices offline"))
-                self["menu-si-status"].set_label(_("All devices offline"))
+                #self["menu-si-status"].set_label(_("All devices offline"))
                 self.cancel_timer("icon")
         else:
             # Still connecting to syncthing daemon
-            self.statusicon.set("si-%s-unknown" % (self.config["icon_theme"],), _("Connecting to Syncthing daemon..."))
-            self["menu-si-status"].set_label(_("Connecting to Syncthing daemon..."))
+            #self.statusicon.set("si-%s-unknown" % (self.config["icon_theme"],), _("Connecting to Syncthing daemon..."))
+            #self["menu-si-status"].set_label(_("Connecting to Syncthing daemon..."))
             self.cancel_timer("icon")
 
     def animate_status(self):
@@ -1236,17 +1251,17 @@ class App(Gtk.Application, TimerManager):
             folder = self.folders[rid]
             for device in folder["devices"]:
                 online = online or device["online"]
-            if online and folder.compare_color_hex(COLOR_FOLDER_OFFLINE):
+            if online and folder.compare_class(CLASS_FOLDER_OFFLINE):
                 # Folder was marked as offline but is back online now
                 if folder["can_override"]:
                     folder.set_status(folder["override_title"])
                 else:
                     folder.set_status(_("Up to Date"))
-                folder.set_color_hex(COLOR_FOLDER_IDLE)
-            elif not online and folder.compare_color_hex(COLOR_FOLDER_SCANNING):
+                folder.set_class(CLASS_FOLDER_IDLE)
+            elif not online and folder.compare_class(CLASS_FOLDER_SCANNING):
                 # Folder is offline and in Scanning state
-                folder.set_color_hex(COLOR_FOLDER_OFFLINE)
-            elif not online and folder.compare_color_hex(COLOR_FOLDER_IDLE):
+                folder.set_class(CLASS_FOLDER_OFFLINE)
+            elif not online and folder.compare_class(CLASS_FOLDER_IDLE):
                 # Folder is offline and in Idle state (not scanning)
                 if len([d for d in folder["devices"] if d["id"] != self.daemon.get_my_id()]) == 0:
                     # No device to share folder with
@@ -1254,34 +1269,30 @@ class App(Gtk.Application, TimerManager):
                 else:
                     # Folder is shared, but all devices are offline
                     folder.set_status(_("Offline"))
-                folder.set_color_hex(COLOR_FOLDER_OFFLINE)
+                folder.set_class(CLASS_FOLDER_OFFLINE)
 
     def show_error_box(self, ribar, additional_data={}):
         self.show_info_box(ribar, additional_data)
         self.error_boxes.append(ribar)
 
     def show_info_box(self, ribar, additional_data=None):
-        self["content"].pack_start(ribar, False, False, 0)
+        self["content"].append(ribar)
         self["content"].reorder_child(ribar, 0 if self.use_headerbar else 1)
         ribar.connect("close", self.cb_infobar_close)
         ribar.connect("response", self.cb_infobar_response, additional_data)
-        ribar.show()
+        ribar.set_visible(True)
         ribar.set_reveal_child(True)
 
     def fatal_error(self, text):
         # TODO: Better way to handle this
         log.error(text)
-        d = Gtk.MessageDialog(
-            None,
-            Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
-            Gtk.MessageType.ERROR,
-            Gtk.ButtonsType.CLOSE,
-            text,
-        )
-        d.run()
-        d.hide()
-        d.destroy()
-        self.quit()
+        d = Gtk.Dialog.new()
+        d.set_transient_for(self["window"])
+        d.set_modal(True)
+        d.add_button("Close", RESPONSE_QUIT)
+        d.get_content_area().append(Gtk.Label.new(text))
+        d.connect("response", self.cb_connect_dialog_response, None)
+        d.set_visible(True)
 
     def get_folder_n_path(self, path):
         """
@@ -1342,7 +1353,7 @@ class App(Gtk.Application, TimerManager):
             self.daemon.set_refresh_interval(REFRESH_INTERVAL_DEFAULT)
             self.daemon.request_events()
         if not self["window"].is_visible():
-            self["window"].show()
+            self["window"].set_visible(True)
             if IS_WINDOWS and not self.config["window_position"] is None:
                 scr = Gdk.Screen.get_default()
                 self.config["window_position"] = (
@@ -1351,15 +1362,15 @@ class App(Gtk.Application, TimerManager):
                 )
                 self["window"].move(*self.config["window_position"])
             if self.connect_dialog is not None:
-                self.connect_dialog.show()
+                self.connect_dialog.set_visible(True)
         else:
             self["window"].present()
-        self["menu-si-show"].set_label(_("Hide Window"))
+        #self["menu-si-show"].set_label(_("Hide Window"))
 
     def hide(self):
         """Hides main windows and 'Connecting' dialog, if displayed"""
         if self.connect_dialog is not None:
-            self.connect_dialog.hide()
+            self.connect_dialog.set_visible(False)
         if IS_WINDOWS:
             x, y = self["window"].get_position()
             if x < 0:
@@ -1369,8 +1380,8 @@ class App(Gtk.Application, TimerManager):
             # Yes, it is possible for window to have negative position
             # on Windows...
             self.config["window_position"] = (x, y)
-        self["window"].hide()
-        self["menu-si-show"].set_label(_("Show Window"))
+        self["window"].set_visible(False)
+        #self["menu-si-show"].set_label(_("Show Window"))
         if self.daemon is not None:
             self.daemon.set_refresh_interval(REFRESH_INTERVAL_TRAY)
 
@@ -1381,32 +1392,35 @@ class App(Gtk.Application, TimerManager):
         """
         if self.connect_dialog is None:
             log.debug("Creating connect_dialog")
-            self.connect_dialog = Gtk.MessageDialog(
-                self["window"],
-                Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
-                Gtk.MessageType.INFO,
-                0,
-                "-",
-            )
+            self.connect_dialog = Gtk.Dialog.new()
+            self.connect_dialog.set_transient_for(self["window"])
+            self.connect_dialog.set_modal(True)
+            self.connect_dialog.set_destroy_with_parent(True)
+            self.connect_dialog.get_content_area().append(Gtk.Label.new("-"))
             if quit_button:
-                self.connect_dialog.add_button("gtk-quit", RESPONSE_QUIT)
+                self.connect_dialog.add_button("Quit", RESPONSE_QUIT)
             # There is only one response available on this dialog
+            # TODO "unknown signal name: response"??
             self.connect_dialog.connect("response", self.cb_connect_dialog_response, None)
             if self.is_visible():
-                self.connect_dialog.show_all()
+                self.connect_dialog.set_visible(True)
 
         def set_label(d, message):
             """
             Small, recursive helper function to set label somehwere
             deep in dialog
             """
-            for c in d.get_children():
-                if isinstance(c, Gtk.Container):
-                    if set_label(c, message):
-                        return True
-                elif isinstance(c, Gtk.Label):
+            c = d.get_first_child()
+            while c is not None:
+                next = c.get_next_sibling()
+                #if isinstance(c, Gtk.Container):
+                #    if set_label(c, message):
+                #        return True
+                #elif isinstance(c, Gtk.Label):
+                if isinstance(c, Gtk.Label):
                     c.set_markup(message)
                     return True
+                c = next
             return False
 
         log.verbose("Setting connect_dialog label %s" % message[0:15])
@@ -1419,30 +1433,31 @@ class App(Gtk.Application, TimerManager):
         """
         if self.connect_dialog is None:  # Don't override already existing dialog
             log.debug("Creating run_daemon_dialog")
-            self.connect_dialog = Gtk.MessageDialog(
-                self["window"],
-                Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
-                Gtk.MessageType.INFO,
-                0,
+            self.connect_dialog = Gtk.Dialog.new()
+            self.connect_dialog.set_transient_for(self["window"])
+            self.connect_dialog.set_modal(True)
+            self.connect_dialog.set_destroy_with_parent(True)
+            self.connect_dialog.get_content_area().append(Gtk.Label.new(
                 "%s\n%s" % (_("Syncthing daemon doesn't appear to be running."), _("Start it now?")),
-            )
-            cb = Gtk.CheckButton(_("Always start daemon automatically"))
-            self.connect_dialog.get_content_area().pack_end(cb, False, False, 2)
+                ))
+            cb = Gtk.CheckButton.new_with_label(_("Always start daemon automatically"))
+            self.connect_dialog.get_content_area().append(cb)
             self.connect_dialog.add_button("_Start", RESPONSE_START_DAEMON)
-            self.connect_dialog.add_button("gtk-quit", RESPONSE_QUIT)
+            self.connect_dialog.add_button("_Quit", RESPONSE_QUIT)
+            self.connect_dialog.set_modal(True)
             # There is only one response available on this dialog
             self.connect_dialog.connect("response", self.cb_connect_dialog_response, cb)
             if self.is_visible():
-                self.connect_dialog.show_all()
+                self.connect_dialog.set_visible(True)
             else:
-                cb.show()  # Keep this one visible, even if dialog is not
+                cb.set_visible(True)  # Keep this one visible, even if dialog is not
             # Update notification icon menu so user can start daemon from there
-            self["menu-si-shutdown"].set_visible(False)
-            self["menu-si-resume"].set_visible(True)
+            #self["menu-si-shutdown"].set_visible(False)
+            #self["menu-si-resume"].set_visible(True)
 
     def close_connect_dialog(self):
         if self.connect_dialog is not None:
-            self.connect_dialog.hide()
+            self.connect_dialog.set_visible(False)
             self.connect_dialog.destroy()
             self.connect_dialog = None
 
@@ -1477,7 +1492,7 @@ class App(Gtk.Application, TimerManager):
             box.set_title(title)
         else:
             # Create new box
-            box = InfoBox(self, title, Gtk.Image.new_from_icon_name("drive-harddisk", Gtk.IconSize.LARGE_TOOLBAR))
+            box = InfoBox(self, title, Gtk.Image.new_from_icon_name("drive-harddisk"))
             # Add visible lines
             box.add_value("id", "version.svg", _("Folder ID"), folder_id)
             box.add_value("path", "folder.svg", _("Path"))
@@ -1499,10 +1514,10 @@ class App(Gtk.Application, TimerManager):
             box.set_status("Unknown")
             if self.dark_color is not None:
                 box.set_dark_color(*self.dark_color)
-            box.set_color_hex(COLOR_FOLDER)
+            box.set_class(CLASS_FOLDER)
             box.set_vexpand(False)
-            GLib.idle_add(box.show_all)  # Window border will dissapear without this on Windows
-            self["folderlist"].pack_start(box, False, False, 3)
+            GLib.idle_add(box.is_visible)  # Window border will dissapear without this on Windows
+            self["folderlist"].append(box)
             box.set_open(folder_id in self.open_boxes or self.folders_never_loaded)
             box.connect("right-click", self.cb_popup_menu_folder)
             box.connect("doubleclick", self.cb_browse_folder)
@@ -1558,12 +1573,12 @@ class App(Gtk.Application, TimerManager):
             # Setup display & signal
             if self.dark_color is not None:
                 box.set_dark_color(*self.dark_color)
-            box.set_color_hex(COLOR_DEVICE)
+            box.set_class(CLASS_DEVICE)
             box.set_vexpand(False)
             box.set_open(id in self.open_boxes)
             box.get_icon().set_size_request(22, 22)
-            GLib.idle_add(box.show_all)  # Window border will dissapear without this on Windows
-            self["devicelist"].pack_start(box, False, False, 3)
+            GLib.idle_add(box.is_visible)  # Window border will dissapear without this on Windows
+            self["devicelist"].append(box)
             box.connect("right-click", self.cb_popup_menu_device)
             box.connect("enter-notify-event", self.cb_box_mouse_enter)
             box.connect("leave-notify-event", self.cb_box_mouse_leave)
@@ -1582,9 +1597,11 @@ class App(Gtk.Application, TimerManager):
     def clear(self):
         """Clears folder and device lists."""
         for i in ("devicelist", "folderlist"):
-            for c in [] + self[i].get_children():
+            c = self[i].get_first_child()
+            while c is not None:
+                next = c.get_next_sibling()
                 self[i].remove(c)
-                c.destroy()
+                c = next
         self.devices = {}
         self.folders = {}
 
@@ -1594,10 +1611,10 @@ class App(Gtk.Application, TimerManager):
         to daemon.
         """
         self["edit-menu-button"].set_sensitive(False)
-        self["menu-si-shutdown"].set_sensitive(False)
-        self["menu-si-show-id"].set_sensitive(False)
-        self["menu-si-recvlimit"].set_sensitive(False)
-        self["menu-si-sendlimit"].set_sensitive(False)
+        #self["menu-si-shutdown"].set_sensitive(False)
+        #self["menu-si-show-id"].set_sensitive(False)
+        #self["menu-si-recvlimit"].set_sensitive(False)
+        #self["menu-si-sendlimit"].set_sensitive(False)
         if not self["infobar"] is None:
             self.cb_infobar_close(self["infobar"])
         for r in self.error_boxes:
@@ -1709,19 +1726,16 @@ class App(Gtk.Application, TimerManager):
                 self.process.kill()
                 self.process = None
             elif self.config["autokill_daemon"] == 2:  # Ask
-                d = Gtk.MessageDialog(
-                    self["window"],
-                    Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
-                    Gtk.MessageType.INFO,
-                    0,
-                    "%s\n%s" % (_("Exiting."), _("Shutdown Syncthing daemon as well?")),
-                )
+                d = Gtk.Dialog.new()
+                d.set_transient_for(self["window"])
+                d.set_modal(True)
+                d.set_destroy_with_parent(True)
+                d.get_content_area().append(Gtk.Label.new("%s\n%s" % (_("Exiting."), _("Shutdown Syncthing daemon as well?"))))
                 d.add_button("gtk-yes", RESPONSE_SLAIN_DAEMON)
                 d.add_button("gtk-no", RESPONSE_SPARE_DAEMON)
-                cb = Gtk.CheckButton(_("Always do same; Don't show this window again"))
-                d.get_content_area().pack_end(cb, False, False, 2)
+                cb = Gtk.CheckButton.new_with_label(_("Always do same; Don't show this window again"))
+                d.get_content_area().append(cb)
                 d.connect("response", self.cb_kill_daemon_response, cb)
-                d.show_all()
                 return
             elif self.config["autokill_daemon"] == 1:  # Yes
                 self.process.terminate()
@@ -1810,10 +1824,10 @@ class App(Gtk.Application, TimerManager):
 
         AboutDialog(self, self.uipath, self.iconpath).show(self["window"])
 
-    def cb_delete_event(self, *e):
-        # Hide main window
-        self.hide()
-        return True
+    #def cb_delete_event(self, *e):
+    #    # Hide main window
+    #    self.hide()
+    #    return True
 
     def cb_realized(self, widget, *a):
         context = widget.get_style_context()
@@ -1900,26 +1914,20 @@ class App(Gtk.Application, TimerManager):
 
     def cb_popup_menu_folder(self, box, button, time):
         self.rightclick_box = box
-        if box["can_override"]:
-            self["menu-popup-override"].set_visible(box["folder_type_s"] == "sendonly")
-            self["menu-popup-revert"].set_visible(box["folder_type_s"] == "receiveonly")
-            self["menu-separator-override"].set_visible(box["can_override"])
-        else:
-            self["menu-popup-override"].set_visible(False)
-            self["menu-popup-revert"].set_visible(False)
-            self["menu-separator-override"].set_visible(False)
-        self["popup-menu-folder"].popup(None, None, None, None, button, time)
+        self.lookup_action("menu_popup_override").set_enabled(box["can_override"] and box["folder_type_s"] == "sendonly")
+        self.lookup_action("menu_popup_revert").set_enabled(box["can_override"] and box["folder_type_s"] == "receiveonly")
+        box.popup_menu_folder(self["popup-menu-folder"])
 
     def cb_popup_menu_device(self, box, button, time):
         self.rightclick_box = box
         # Display 'edit device' and 'delete device' menu items on
         # everything but my own node
         b = box["id"] != self.daemon.get_my_id()
-        self["menu-popup-edit-device"].set_visible(b)
-        self["menu-popup-delete-device"].set_visible(b)
-        self["menu-popup-pause-device"].set_visible(box.get_status() != _("Paused"))
-        self["menu-popup-resume-device"].set_visible(box.get_status() == _("Paused"))
-        self["popup-menu-device"].popup(None, None, None, None, button, time)
+        self.lookup_action("menu_popup_edit_device").set_enabled(b)
+        self.lookup_action("menu_popup_delete_device").set_enabled(b)
+        self.lookup_action("menu_popup_pause_device").set_enabled(box.get_status() != _("Paused"))
+        self.lookup_action("menu_popup_resume_device").set_enabled(box.get_status() == _("Paused"))
+        box.popup_menu_folder(self["popup-menu-device"])
 
     def cb_menu_popup(self, source, menu):
         """Handler for ubuntu-only toolbar buttons"""
@@ -2006,19 +2014,21 @@ class App(Gtk.Application, TimerManager):
         msg = _("Do you really want to permanently stop synchronizing directory '%s'?")
         if mode == "device":
             msg = _("Do you really want remove device '%s' from Syncthing?")
-        d = Gtk.MessageDialog(
-            self["window"],
-            Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
-            Gtk.MessageType.QUESTION,
-            Gtk.ButtonsType.YES_NO,
-            msg % name,
-        )
-        r = d.run()
-        d.hide()
-        d.destroy()
-        if r == Gtk.ResponseType.YES:
+        d = Gtk.Dialog.new()
+        d.set_transient_for(self["window"])
+        d.set_modal(True)
+        d.set_destroy_with_parent(True)
+        d.get_content_area().append(Gtk.Label.new(msg % name))
+        d.add_button("Yes", Gtk.ResponseType.APPLY)
+        d.add_button("No", Gtk.ResponseType.CANCEL)
+        d.connect("response", self.cb_check_delete_dialog_response, mode)
+        d.set_visible(True)
+
+    def cb_check_delete_dialog_response(self, dialog, response, mode):
+        if response == Gtk.ResponseType.APPLY:
             # Load config from server (to have something to delete from)
             self.daemon.read_config(self.cb_delete_config_loaded, None, mode, id)
+        dialog.destroy()
 
     def cb_delete_config_loaded(self, config, mode, id):
         """
@@ -2104,7 +2114,7 @@ class App(Gtk.Application, TimerManager):
     def cb_menu_daemon_output(self, *a):
         if self.process is not None:
             d = DaemonOutputDialog(self, self.process)
-            d.show(None)
+            d.show(self["window"])
 
     def cb_statusicon_click(self, *a):
         """Called when user clicks on status icon"""
@@ -2189,7 +2199,7 @@ class App(Gtk.Application, TimerManager):
         self.wizard = None
         if wizard.is_finished() and not self.exit_after_wizard:
             # Good, try connecting again
-            wizard.hide()
+            wizard.set_visible(False)
             wizard.destroy()
             self.show()
             if self.process:
@@ -2249,11 +2259,5 @@ class App(Gtk.Application, TimerManager):
                 )
             )
             d.hide_download_button()
-        # Let dialog run and try running syncthing again if new
-        # syncthing_binary is acquired
-        r = d.run()
-        d.destroy()
-        if r == FindDaemonDialog.RESPONSE_SAVED:
-            self.cb_daemon_exit(self.process, -1)
-        else:
-            self.quit()
+        # The dialog will try running syncthing again if new
+        # syncthing_binary is acquired, or exit otherwise.

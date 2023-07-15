@@ -1,0 +1,109 @@
+@define-color dark-gray #707070;
+@define-color blue #2A89C8;
+@define-color green #2AAB61;
+@define-color red #87000B;
+@define-color light-gray #C0C0C0;
+@define-color dark-purple #9246B1;
+
+.infobox {
+    margin: 3px 6px;
+    border: 2px solid @dark-purple;
+}
+
+.infobox.device {
+    border-color: @dark-gray;
+}
+.infobox.device .header {
+    background: @dark-gray;
+}
+
+.infobox.device-syncing {
+    border-color: @blue;
+}
+.infobox.device-syncing .header {
+    background: @blue;
+}
+
+.infobox.device-connected {
+    border-color: @green;
+}
+.infobox.device-connected .header {
+    background: @green;
+}
+
+.infobox.device-offline {
+    border-color: @dark-gray;
+}
+.infobox.device-offline .header {
+    background: @dark-gray;
+}
+
+.infobox.device-error {
+    border-color: @red;
+}
+.infobox.device-error .header {
+    background: @red;
+}
+
+.infobox.own-device {
+    border-color: @light-gray;
+}
+.infobox.own-device .header {
+    background: @light-gray;
+}
+
+.infobox.folder {
+    border-color: @dark-purple;
+}
+.infobox.folder .header {
+    background: @dark-purple;
+}
+
+.infobox.folder-syncing {
+    border-color: @blue;
+}
+.infobox.folder-syncing .header {
+    background: @blue;
+}
+
+.infobox.folder-scanning {
+    border-color: @blue;
+}
+.infobox.folder-scanning .header {
+    background: @blue;
+}
+
+.infobox.folder-idle {
+    border-color: @green;
+}
+.infobox.folder-idle .header {
+    background: @green;
+}
+
+.infobox.folder-stopped {
+    border-color: @red;
+}
+.infobox.folder-stopped .header {
+    background: @red;
+}
+
+.infobox.folder-offline {
+    border-color: @dark-gray;
+}
+.infobox.folder-offline .header {
+    background: @dark-gray;
+}
+
+.infobox.new {
+    border-color: @light-gray;
+}
+.infobox.new .header {
+    background: @light-gray;
+}
+
+.infobox.highlighted {
+    border-color: #bbb;
+}
+.infobox.highlighted .header {
+    background: #bbb;
+}

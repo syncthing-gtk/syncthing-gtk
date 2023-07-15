@@ -10,7 +10,7 @@ import logging
 import os
 import re
 
-from gi.repository import Gtk
+from gi.repository import Gio, GLib, Gtk
 
 from syncthing_gtk.editordialog import EditorDialog, strip_v
 from syncthing_gtk.tools import _  # gettext function
@@ -58,27 +58,32 @@ class FolderEditorDialog(EditorDialog):
         if not self.is_new:
             return
         # Prepare dialog
-        d = Gtk.FileChooserDialog(
-            _("Select Folder for new Folder"),  # fuck me...
-            self["editor"],
-            Gtk.FileChooserAction.SELECT_FOLDER,
-            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK),
-        )
+        d = Gtk.FileDialog.new()
+        d.set_title(_("Select Folder for new Folder")) # 😂
         # Set default path to home directory
-        d.set_current_folder(os.path.expanduser("~"))
-        # Get response
-        if d.run() == Gtk.ResponseType.OK:
-            self["vpath"].set_text(d.get_filename())
-            if len(self["vid"].get_text().strip()) == 0:
-                # ID is empty, fill it with last path element
-                try:
-                    lpl = os.path.split(d.get_filename())[-1]
-                    id = RE_GEN_ID.search(lpl).group(0).lower()
-                    self["vid"].set_text(id)
-                except AttributeError:
-                    # Can't regexp anything
-                    pass
-        d.destroy()
+        d.set_initial_folder(Gio.File.new_for_path(os.path.expanduser("~")))
+        d.select_folder(
+            self["editor"],
+            None,
+            self.file_dialog_cb,
+        )
+
+    def file_dialog_cb(self, dialog, async_result):
+        try:
+            result = dialog.select_folder_finish(async_result)
+        except GLib.GError:
+            # dialog is dismissed without selecting a folder
+            return
+        self["vpath"].set_text(result.get_path())
+        if len(self["vid"].get_text().strip()) == 0:
+            # ID is empty, fill it with last path element
+            try:
+                lpl = result.get_basename()
+                id = RE_GEN_ID.search(lpl).group(0).lower()
+                self["vid"].set_text(id)
+            except AttributeError:
+                # Can't regexp anything
+                pass
 
     def on_vid_icon_press(self, *a):
         if self["vid"].get_sensitive():
@@ -193,11 +198,11 @@ class FolderEditorDialog(EditorDialog):
             nids = [n["deviceID"] for n in self.get_value("devices")]
             for device in list(self.app.devices.values()):
                 if device["id"] != self.app.daemon.get_my_id():
-                    b = Gtk.CheckButton(device.get_title(), False)
+                    b = Gtk.CheckButton.new_with_label(device.get_title())
                     b.set_tooltip_text(device["id"])
-                    self["vdevices"].pack_start(b, False, False, 0)
+                    self["vdevices"].append(b)
                     b.set_active(device["id"] in nids)
-            self["vdevices"].show_all()
+            self["vdevices"].set_visible(True)
         else:
             EditorDialog.display_value(self, key, w)
 

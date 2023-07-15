@@ -9,7 +9,7 @@ Base class and universal handler for all Syncthing settings and editing
 import logging
 import os
 
-from gi.repository import Gdk, GLib, GObject, Gtk
+from gi.repository import Gdk, Gio, GLib, GObject, Gtk
 
 from syncthing_gtk.daemon import ConnectionRestarted
 from syncthing_gtk.tools import _  # gettext function
@@ -54,7 +54,8 @@ class EditorDialog(GObject.GObject):
         self.setup_widgets(uifile, title)
         # Move entire dialog content to ScrolledWindow if screen height
         # is too small
-        if Gdk.Screen.get_default().height() < 900:
+        #if Gdk.Display.get_default().height() < 900:
+        if False:
             if not self["editor-content"] is None:
                 parent = self["editor-content"].get_parent()
                 if isinstance(parent, Gtk.Notebook):
@@ -65,14 +66,17 @@ class EditorDialog(GObject.GObject):
                         parent.remove(c)
                     for c in order:
                         sw = Gtk.ScrolledWindow()
-                        sw.add_with_viewport(c)
+                        # TODO need a wrapper container? (formerly sw.add)
+                        sw.set_child(c)
                         parent.append_page(sw, labels[c])
                 else:
                     sw = Gtk.ScrolledWindow()
                     parent.remove(self["editor-content"])
-                    sw.add_with_viewport(self["editor-content"])
-                    parent.pack_start(sw, True, True, 0)
-                self["editor"].resize(self["editor"].get_size()[0], Gdk.Screen.get_default().height() * 2 / 3)
+                    # TODO need a wrapper container? (formerly sw.add)
+                    sw.set_child(self["editor-content"])
+                    parent.append(sw)
+                # TODO
+                #self["editor"].resize(self["editor"].get_size()[0], Gdk.Screen.get_default().height() * 2 / 3)
 
     def load(self):
         """Loads configuration data and pre-fills values to fields"""
@@ -102,21 +106,23 @@ class EditorDialog(GObject.GObject):
             if id in self:
                 return self[id]  # Do things fast if possible
             parent = self["editor"]
-        for c in parent.get_children():
+        c = parent.get_first_child()
+        while c is not None:
+            next = c.get_next_sibling()
             if hasattr(c, "get_id"):
                 if c.get_id() == id:
                     return c
-            if isinstance(c, Gtk.Container):
-                r = self.find_widget_by_id(id, c)
-                if r is not None:
-                    return r
+            #if isinstance(c, Gtk.Container):
+            #    r = self.find_widget_by_id(id, c)
+            #    if r is not None:
+            #        return r
+            c = next
         return None
 
     def show(self, parent=None):
         if parent is not None:
             self["editor"].set_transient_for(parent)
         self["editor"].set_modal(True)
-        self["editor"].show_all()
 
     def present(self, values=[]):
         self["editor"].present()
@@ -132,9 +138,9 @@ class EditorDialog(GObject.GObject):
 
     def setup_widgets(self, uifile, title):
         # Load ui file
-        self.builder = UIBuilder()
+        self.builder = UIBuilder(self)
         self.builder.add_from_file(os.path.join(self.app.uipath, uifile))
-        self.builder.connect_signals(self)
+        self["editor"].connect("response", self.cb_response)
         self["editor"].set_title(title)
         # Disable everything until configuration is loaded
         self["editor"].set_sensitive(False)
@@ -338,8 +344,11 @@ class EditorDialog(GObject.GObject):
         d.run()
         self.close()
 
-    def cb_btClose_clicked(self, *a):
-        self.close()
+    def cb_response(self, dialog, response_type):
+        if response_type == Gtk.ResponseType.CLOSE or response_type == Gtk.ResponseType.CANCEL or response_type == Gtk.ResponseType.DELETE_EVENT:
+            self.close()
+        elif response_type == Gtk.ResponseType.APPLY:
+            self.on_save_requested()
 
     def cb_check_value(self, *a):
         self["btSave"].set_sensitive(True)
@@ -359,10 +368,6 @@ class EditorDialog(GObject.GObject):
                 self.display_error_message(x)
             else:
                 self.hide_error_message(x)
-
-    def cb_btSave_clicked(self, *a):
-        """Calls on_save_requested to do actual work"""
-        self.on_save_requested()
 
     def on_save_requested(self, config):
         """
@@ -405,42 +410,42 @@ class EditorDialog(GObject.GObject):
 
     def cb_format_value_s(self, spinner):
         """Formats spinner value"""
-        spinner.get_buffer().set_text(_("%ss") % (int(spinner.get_adjustment().get_value()),), -1)
+        spinner.get_delegate().set_text(_("%ss") % (int(spinner.get_adjustment().get_value()),))
         return True
 
     def cb_format_value_s_or_disabed(self, spinner):
         """Formats spinner value"""
         val = int(spinner.get_adjustment().get_value())
         if val < 1:
-            spinner.get_buffer().set_text(_("disabled"), -1)
+            spinner.get_delegate().set_text(_("disabled"))
         else:
-            spinner.get_buffer().set_text(_("%ss") % (val,), -1)
+            spinner.get_delegate().set_text(_("%ss") % (val,))
         return True
 
     def cb_format_value_percent(self, spinner):
         """Formats spinner value"""
         val = int(spinner.get_adjustment().get_value())
-        spinner.get_buffer().set_text(_("%s%%") % (val,), -1)
+        spinner.get_delegate().set_text(_("%s%%") % (val,))
         return True
 
     def cb_format_value_kibps_or_no_limit(self, spinner):
         """Formats spinner value"""
         val = int(spinner.get_adjustment().get_value())
         if val < 1:
-            spinner.get_buffer().set_text(_("no limit"), -1)
+            spinner.get_delegate().set_text(_("no limit"))
         else:
-            spinner.get_buffer().set_text(_("%s KiB/s") % (val,), -1)
+            spinner.get_delegate().set_text(_("%s KiB/s") % (val,))
         return True
 
     def cb_format_value_days(self, spinner):
         """Formats spinner value"""
         v = int(spinner.get_adjustment().get_value())
         if v == 0:
-            spinner.get_buffer().set_text(_("never delete"), -1)
+            spinner.get_delegate().set_text(_("never delete"))
         elif v == 1:
-            spinner.get_buffer().set_text(_("%s day") % (v,), -1)
+            spinner.get_delegate().set_text(_("%s day") % (v,))
         else:
-            spinner.get_buffer().set_text(_("%s days") % (v,), -1)
+            spinner.get_delegate().set_text(_("%s days") % (v,))
         return True
 
     def post_config(self):

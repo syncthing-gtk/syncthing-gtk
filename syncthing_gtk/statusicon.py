@@ -23,7 +23,6 @@ log = logging.getLogger("StatusIcon")
 # ----------------+-----------------+-----------+------------+------------+----------------------+---------------------+-----------+
 # StatusIconQt5  | very good (KF5) | -         | -          | -          | -                    | -                   | -         |
 # StatusIconAppI | good²           | none      | excellent  | none       | none                 | excellent           | good²     |
-# StatusIconGTK3 | good            | excellent | none       | very good¹ | very good¹           | none                | good⁴     |
 #
 # Notes:
 #  - StatusIconQt5:
@@ -203,61 +202,6 @@ class StatusIconDummy(StatusIcon):
 
         self._get_icon(icon)
         self._get_text(text)
-
-
-class StatusIconGTK3(StatusIcon):
-    """
-    Gtk.StatusIcon based status icon backend
-    """
-
-    def __init__(self, *args, **kwargs):
-        StatusIcon.__init__(self, *args, **kwargs)
-
-        if not self._is_forced():
-            if IS_UNITY:
-                # Unity fakes SysTray support but actually hides all icons...
-                raise NotImplementedError
-
-        self._tray = Gtk.StatusIcon()
-
-        self._tray.connect("activate", self._on_click)
-        self._tray.connect("popup-menu", self._on_rclick)
-        self._tray.connect("notify::embedded", self._on_embedded_change)
-
-        self._tray.set_visible(True)
-        self._tray.set_name("syncthing-gtk")
-        self._tray.set_title(self.TRAY_TITLE)
-
-        # self._tray.is_embedded() must be called asynchronously
-        # See: http://stackoverflow.com/a/6365904/277882
-        GLib.idle_add(self._on_embedded_change)
-
-    def set(self, icon=None, text=None):
-        StatusIcon.set(self, icon, text)
-
-        self._tray.set_from_icon_name(self._get_icon(icon))
-        self._tray.set_tooltip_text(self._get_text(text))
-
-    def _on_embedded_change(self, *args):
-        # Without an icon update at this point GTK might consider the icon embedded and visible even through
-        # it can't actually be seen...
-        self._tray.set_from_icon_name(self._get_icon())
-
-        # An invisible tray icon will never be embedded but it also should not be replaced
-        # by a fallback icon
-        is_embedded = self._tray.is_embedded() or not self._tray.get_visible()
-        # On some desktops, above check fails but tray is always visible
-        is_embedded = is_embedded or IS_KDE or IS_LXQT or IS_CINNAMON
-        if is_embedded != self.get_property("active"):
-            self.set_property("active", is_embedded)
-
-    def _on_rclick(self, si, button, time):
-        self._get_popupmenu().popup(None, None, None, None, button, time)
-
-    def _set_visible(self, active):
-        StatusIcon._set_visible(self, active)
-
-        self._tray.set_visible(active)
 
 
 class StatusIconDBus(StatusIcon):
@@ -444,43 +388,19 @@ class StatusIconProxy(StatusIcon):
 
         self._arguments = (args, kwargs)
         self._status_fb = None
-        self._status_gtk = None
         self.set("si-syncthing-unknown", "")
 
         # Do not ever force-show indicators when they do not think they'll work
         if "force" in self._arguments[1]:
             del self._arguments[1]["force"]
 
-        try:
-            # Try loading GTK native status icon
-            self._status_gtk = StatusIconGTK3(*args, **kwargs)
-            self._status_gtk.connect("clicked", self._on_click)
-            self._status_gtk.connect("notify::active", self._on_notify_active_gtk)
-            self._on_notify_active_gtk()
-
-            log.info("Using backend StatusIconGTK3 (primary)")
-        except NotImplementedError:
-            # Directly load fallback implementation
-            self._load_fallback()
+        self._load_fallback()
 
     def _on_click(self, *args):
         self.emit("clicked")
 
-    def _on_notify_active_gtk(self, *args):
-        if self._status_fb:
-            # Hide fallback icon if GTK icon is active and vice-versa
-            if self._status_gtk.get_active():
-                self._status_fb.hide()
-            else:
-                self._status_fb.show()
-        elif not self._status_gtk.get_active():
-            # Load fallback implementation
-            self._load_fallback()
-
     def _on_notify_active_fb(self, *args):
         active = False
-        if self._status_gtk and self._status_gtk.get_active():
-            active = True
         if self._status_fb and self._status_fb.get_active():
             active = True
         self.set_property("active", active)
@@ -514,20 +434,14 @@ class StatusIconProxy(StatusIcon):
         self._icon = icon
         self._text = text
 
-        if self._status_gtk:
-            self._status_gtk.set(icon, text)
         if self._status_fb:
             self._status_fb.set(icon, text)
 
     def hide(self):
-        if self._status_gtk:
-            self._status_gtk.hide()
         if self._status_fb:
             self._status_fb.hide()
 
     def show(self):
-        if self._status_gtk:
-            self._status_gtk.show()
         if self._status_fb:
             self._status_fb.show()
 

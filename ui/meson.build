@@ -9,5 +9,6 @@ install_data(
     'folder-edit.ui',
     'ignore-editor.ui',
     'ui-settings.ui',
+    'styles.css',
     install_dir: project_data_dir / 'ui'
 )

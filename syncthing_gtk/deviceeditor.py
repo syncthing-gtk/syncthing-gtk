@@ -95,11 +95,11 @@ class DeviceEditorDialog(EditorDialog):
                         rids.append(r["id"])
             # Create CheckButtons
             for folder in reversed(sorted(list(self.app.folders.values()), key=lambda x: x["id"])):
-                b = Gtk.CheckButton(folder["path"], False)
+                b = Gtk.CheckButton.new_with_label(folder["path"])
                 b.set_tooltip_text(folder["id"])
-                self["vfolders"].pack_start(b, False, False, 0)
+                self["vfolders"].append(b)
                 b.set_active(folder["id"] in rids)
-            self["vfolders"].show_all()
+            self["vfolders"].set_visible(True)
         else:
             EditorDialog.display_value(self, key, w)
 

@@ -32,13 +32,13 @@ class AboutDialog(object):
             self.dialog.destroy()
 
     def setup_widgets(self, app):
-        self.builder = UIBuilder()
+        self.builder = UIBuilder(self)
         # Fix icon path
         self.builder.replace_icon_path("icons/", self.iconpath)
         # Load ui file
         self.builder.add_from_file(os.path.join(self.uipath, "about.ui"))
-        self.builder.connect_signals(self)
         self.dialog = self.builder.get_object("dialog")
+        self.dialog.connect("response", self.on_dialog_response)
         # Get app version
         app_ver = "unknown"
         try:
