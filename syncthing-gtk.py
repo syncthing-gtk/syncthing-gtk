@@ -149,6 +149,5 @@ if __name__ == "__main__":
         for subpath in icon_subpaths:
             Gtk.IconTheme.get_default().prepend_search_path(os.environ["APPDIR"] + subpath)
 
-    print(Gtk.IconTheme.get_default().get_search_path())
     init_locale(str(data_path / "locale"))
     App(str(data_path / "ui"), str(data_path / "icons")).run(sys.argv)
