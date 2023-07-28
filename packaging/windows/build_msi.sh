@@ -21,6 +21,7 @@ find "$DESTDIR" | wixl-heat -p "$DESTDIR/usr/local/" \
 
 # Generate the MSI file
 wixl -v --ext ui --arch x64 \
+    --extdir /mingw64/share/wixl-0.102/ext \
     -D SourceDir="$DESTDIR/usr/local" \
     -D ProductIcon="$PWD/icons/st-logo-128.ico" \
     "$BUILDDIR/packaging/windows/syncthing-gtk.wxs" \
