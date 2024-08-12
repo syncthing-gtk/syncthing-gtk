@@ -17,8 +17,8 @@ modules:
           type: pypi
           name: semantic_version
       - type: file
-        url: https://files.pythonhosted.org/packages/0e/c9/6f9de9f7a8404416d5d22484ccdeb138f469cc1e11bbd62a2bd26d5c1385/setuptools-rust-1.6.0.tar.gz
-        sha256: c86e734deac330597998bfbc08da45187e6b27837e23bd91eadb320732392262
+        url: https://files.pythonhosted.org/packages/b8/86/4f34594f21f529623b8650fe729548e3a2ad6c9ad81583391f03f74dd11a/setuptools_rust-1.10.1.tar.gz
+        sha256: d79035fc54cdf9342e9edf4b009491ecab06c3a652b37c3c137c7ba85547d3e6
         x-checker-data:
           type: pypi
           name: setuptools-rust
