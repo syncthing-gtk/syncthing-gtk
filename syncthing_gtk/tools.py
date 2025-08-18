@@ -18,7 +18,7 @@ import sys
 from base64 import b32decode
 from datetime import timedelta, tzinfo
 from gettext import gettext as _
-from subprocess import Popen
+from subprocess import Popen, PIPE
 
 import __main__
 from dateutil import parser
@@ -49,6 +49,7 @@ if os.environ.get("DESKTOP_STARTUP_ID", "").startswith("i3/"):
 
 LUHN_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567"  # Characters valid in device id
 VERSION_NUMBER = re.compile(r"^v?([0-9\.]*).*")
+DAEMON_VERSION_STRING = re.compile(r"^syncthing v(\d+\.\d+\.\d+) .*")
 LOG_FORMAT = "%(levelname)s %(name)-13s %(message)s"
 GETTEXT_DOMAIN = "syncthing-gtk"  # used by "_" function
 DESKTOP_FILE = """[Desktop Entry]
@@ -385,6 +386,22 @@ def compare_version(a, b):
     Returns False, if b > a
     """
     return parse_version(a) >= parse_version(b)
+
+
+def get_daemon_version() -> str | None:
+    """
+    Returns the version of the installed syncthing daemon.
+    """
+
+    # run `syncthing --version` and parse the output
+    p = Popen(["syncthing", "--version"], stdout=PIPE, stderr=PIPE)
+    out, _ = p.communicate()
+    if p.returncode != 0:
+        return None
+    match = DAEMON_VERSION_STRING.match(out.decode("utf-8"))
+    if not match:
+        return None
+    return match.group(1)
 
 
 def get_config_dir():
