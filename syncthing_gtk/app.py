@@ -501,7 +501,7 @@ class App(Gtk.Application, TimerManager):
         Sets self.process, adds related handlers and starts daemon.
         Just so I don't have to write same code all over the place.
         """
-        cmdline = [self.config["syncthing_binary"], "-no-browser"]
+        cmdline = [self.config["syncthing_binary"], "--no-browser"]
         vars, preargs, args = parse_config_arguments(self.config["syncthing_arguments"])
         cmdline = preargs + cmdline + args
         if self.home_dir_override:
