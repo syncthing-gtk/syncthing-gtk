@@ -45,7 +45,6 @@ from syncthing_gtk.tools import (
     check_daemon_running,
     compare_version,
     generate_folder_id,
-    get_daemon_version,
     parse_config_arguments,
     set_logging_level,
     sizeof_fmt,
@@ -502,20 +501,11 @@ class App(Gtk.Application, TimerManager):
         Sets self.process, adds related handlers and starts daemon.
         Just so I don't have to write same code all over the place.
         """
-        major_version: int
-        if version := get_daemon_version():
-            major_version = int(version.split(".")[0])
-        else:
-            # fall back to post-v2.0 behavior since the --version flag doesn't work on v2.0.0 and v2.0.1
-            log.warning("Failed to get daemon version, falling back to post-v2.0 behavior")
-            major_version = 2
-        post_v2: bool = major_version >= 2
-
-        cmdline = [self.config["syncthing_binary"], "--no-browser" if post_v2 else "-no-browser"]
+        cmdline = [self.config["syncthing_binary"], "--no-browser"]
         vars, preargs, args = parse_config_arguments(self.config["syncthing_arguments"])
         cmdline = preargs + cmdline + args
         if self.home_dir_override:
-            cmdline += ["--home" if post_v2 else "-home", self.home_dir_override]
+            cmdline += ["--home", self.home_dir_override]
 
         self.process = DaemonProcess(cmdline, self.config["daemon_priority"], self.config["max_cpus"], env=vars)
         self.process.connect("failed", self.cb_daemon_startup_failed)
