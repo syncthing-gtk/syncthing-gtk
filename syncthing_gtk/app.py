@@ -56,7 +56,7 @@ log = logging.getLogger("App")
 # Internal version used by updater (if enabled)
 INTERNAL_VERSION = "v0.9.5.0"
 # Minimal Syncthing version supported by App
-MIN_ST_VERSION = "0.14.50"
+MIN_ST_VERSION = "2.0.0"
 
 COLOR_DEVICE = "#707070"  # Dark-gray
 COLOR_DEVICE_SYNCING = "#2A89C8"  # Blue
