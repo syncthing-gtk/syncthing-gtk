@@ -54,7 +54,7 @@ from syncthing_gtk.uibuilder import UIBuilder
 log = logging.getLogger("App")
 
 # Internal version used by updater (if enabled)
-INTERNAL_VERSION = "v0.9.4.5"
+INTERNAL_VERSION = "v0.9.5.0"
 # Minimal Syncthing version supported by App
 MIN_ST_VERSION = "0.14.50"
 

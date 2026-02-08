@@ -35,6 +35,17 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="v0.9.5.0" date="2026-02-08" type="stable">
+      <description>
+        <p>
+          Small sanity changes
+        </p>
+        <ul>
+          <li>Fix compatibility with Syncthing v2</li>
+          <li>Dependencies updates</li>
+        </ul>
+      </description>
+    </release>
     <release version="v0.9.4.5" date="2023-03-12" type="stable">
       <description>
         <p>
