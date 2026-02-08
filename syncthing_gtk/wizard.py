@@ -2,7 +2,7 @@
 """
 Syncthing-GTK - 1st run wizard
 
-Basically runs Syncthing daemon with -generate option and setups some
+Basically runs Syncthing daemon with generate option and setups some
 values afterwards.
 """
 
@@ -528,7 +528,7 @@ class GenerateKeysPage(Page):
 
     def start_binary(self):
         """
-        Starts Syncthing binary with -generate parameter and waits until
+        Starts Syncthing binary with generate parameter and waits until
         key generation is finished
         """
         self.parent.output_line("syncthing-gtk: Configuration directory: '%s'" % (self.parent.st_configdir,))
@@ -538,10 +538,10 @@ class GenerateKeysPage(Page):
         except Exception as e:
             self.parent.output_line("syncthing-gtk: Failed to create configuration directory")
             self.parent.output_line("syncthing-gtk: %s" % (str(e),))
-        # Run syncthing -generate
+        # Run syncthing generate
         self.parent.output_line("syncthing-gtk: Syncthing configuration directory: %s" % (self.parent.st_configdir,))
         self.process = DaemonProcess(
-            [self.parent.config["syncthing_binary"], "-generate=%s" % self.parent.st_configdir]
+            [self.parent.config["syncthing_binary"], "generate", "--home", self.parent.st_configdir]
         )
         self.process.connect("line", lambda proc, line: self.parent.output_line(line))
         self.process.connect("exit", self.cb_daemon_exit)
