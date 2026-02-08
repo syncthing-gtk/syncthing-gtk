@@ -16,7 +16,7 @@ jobs:
         branch: [ main ] # list all branches to check
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
         with:
           ref: ${{ matrix.branch }}
 

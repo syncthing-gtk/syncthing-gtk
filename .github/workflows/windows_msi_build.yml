@@ -28,11 +28,11 @@ jobs:
           gobject-introspection:x
           python3:p
 
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v6
     - name: '🚧 Build package'
       run: |
         ./packaging/windows/build_msi.sh
 
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v6
       with:
         path: syncthing-gtk.msi
