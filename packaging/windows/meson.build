@@ -3,7 +3,7 @@ configure_file(
     output: 'syncthing-gtk.wxs',
     configuration: {
         'PRETTY_NAME': 'Syncthing-GTK',
-        'VERSION': '0.9.4.5',
+        'VERSION': '0.10.0',
 
     }
 )

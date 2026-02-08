@@ -35,6 +35,16 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="v0.10.0" date="2026-02-08" type="stable">
+      <description>
+        <p>
+          Require Syncthing v2.0
+        </p>
+        <ul>
+          <li>Require Syncthing v2.0</li>
+        </ul>
+      </description>
+    </release>
     <release version="v0.9.5.0" date="2026-02-08" type="stable">
       <description>
         <p>
