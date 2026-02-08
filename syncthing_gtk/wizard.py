@@ -381,7 +381,7 @@ class FindDaemonPage(Page):
                     log.info("Binary found in %s", bin_path)
                     if IS_WINDOWS:
                         bin_path = bin_path.replace("/", "\\")
-                    p = DaemonProcess([bin_path, "-version"])
+                    p = DaemonProcess([bin_path, "--version"])
                     p.connect("line", self.cb_process_output)
                     p.connect("exit", self.cb_process_exit)
                     p.connect("failed", self.cb_process_exit)
@@ -436,7 +436,7 @@ class FindDaemonPage(Page):
         else:
             # Found daemon binary too old to be usable.
             # Just ignore it and try to find better one.
-            log.info("Binary in %s is too old", bin_path)
+            log.info("Binary in %s is too old (%s)", bin_path, self.version_string)
             self.ignored_version = self.version_string
             GLib.idle_add(self.search)
 
