@@ -22,6 +22,7 @@ jobs:
           msitools:x
           meson:x
           vala:x
+          jq:x
           libgsf:x
           gcab:x
           gcc:x
