@@ -505,7 +505,7 @@ class App(Gtk.Application, TimerManager):
         vars, preargs, args = parse_config_arguments(self.config["syncthing_arguments"])
         cmdline = preargs + cmdline + args
         if self.home_dir_override:
-            cmdline += ["-home", self.home_dir_override]
+            cmdline += ["--home", self.home_dir_override]
 
         self.process = DaemonProcess(cmdline, self.config["daemon_priority"], self.config["max_cpus"], env=vars)
         self.process.connect("failed", self.cb_daemon_startup_failed)
