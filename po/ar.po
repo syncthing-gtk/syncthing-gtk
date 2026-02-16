@@ -1,0 +1,1802 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the syncthing-gtk package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: syncthing-gtk\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-06-27 13:15+0200\n"
+"PO-Revision-Date: 2026-02-16 23:15+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.6\n"
+
+#: ui/about.ui:7
+msgid "About Syncthing-GTK"
+msgstr "حول Syncthing-GTK"
+
+#: ui/about.ui:68
+msgid "<span size=\"large\"><b>Syncthing-GTK</b></span>"
+msgstr "<span size=\"large\"><b>Syncthing-GTK</b></span>"
+
+#: ui/about.ui:84
+msgid "(version)"
+msgstr "(الإصدار)"
+
+#: ui/about.ui:97
+msgid "GUI and notification area icon for Syncthing"
+msgstr "واجهة المستخدم الرسومية وأيقونة منطقة الإشعارات لـ Syncthing"
+
+#: ui/about.ui:112
+msgid ""
+"<b>Code&amp;UI © 2016 Kozec</b>\n"
+"\n"
+"Source code available on <a href=\"http://github.com/kozec/syncthing-"
+"gtk\">GitHub</a>\n"
+"\n"
+"I'd like to express my biggest thanks\n"
+"for all my <b><a href=\"https://www.patreon.com/kozec\">Patreon</a></b> "
+"supporters, with special mention of\n"
+"\n"
+"<b>Deryn L.</b>\n"
+"<b>Eric Duhamel</b>\n"
+"<b>Enric Morales</b>\n"
+"<b>Orivej Desh</b>\n"
+"<b>G. Wilson</b>\n"
+"<b>Joshua M</b>\n"
+"<b>Lutris</b>\n"
+"<b>Taowa</b>\n"
+"and\n"
+"<b>ambidot</b>\n"
+msgstr ""
+"<b>الكود وواجهة المستخدم © 2016 Kozec <b>\n"
+"\n"
+"الكود المصدري متاح على <a href=\"http://github.com/kozec/syncthing-"
+"gtk\">GitHub</a>\n"
+"\n"
+"أود أن أعرب عن خالص امتناني\n"
+"لجميع داعميّ على <b><a href=\"https://www.patreon.com/kozec\">Patreon</a></b>  "
+"مع شكر خاص لكل من:\n"
+"\n"
+"<b>Deryn L. ديرين ل</b>\n"
+"<b>Eric Duhamel إريك دوهاميل</b>\n"
+"<b>Enric Morales إنريك موراليس</b>\n"
+"<b>Orivej Desh أوريفيج ديش</b>\n"
+"<b>G. Wilson جي. ويلسون</b>\n"
+"<b>Joshua M جوشوا م</b>\n"
+"<b>Lutris لوتريس</b>\n"
+"<b>Taowa تاوا</b>\n"
+"and\n"
+"<b>ambidot أمبيدوت</b>\n"
+
+#: ui/about.ui:145
+msgid ""
+"<small>This program comes with absolutely no warranty.\n"
+"See the <a href=\"http://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">GNU "
+"General Public License, version 2 or later</a> for details.</small>"
+msgstr ""
+"<small>هذا البرنامج مُقدّم بدون أي ضمان.\n"
+"\n"
+"للمزيد من التفاصيل، يُرجى مراجعة <a href=\"http://www.gnu.org/licenses/old-"
+"licenses/gpl-2.0.html\"> رخصة جنو العمومية العامة، الإصدار 2 أو أحدث<a/> "
+"للتفاصيل.<small/>"
+
+#: ui/app.ui:216 ui/app.ui:606
+msgid "Open _Web Interface"
+msgstr "فتح واجهة البرنامج في المتصفح"
+
+#: ui/app.ui:220
+msgid "Display _Daemon Output"
+msgstr "عرض مخرجات الـ_خدمة الخلفية"
+
+#: ui/app.ui:226
+msgid "UI _Settings"
+msgstr "إعدادات _واجهة المستخدم"
+
+#: ui/app.ui:232
+msgid "_About"
+msgstr "_حول"
+
+#: ui/app.ui:236
+msgid "_Quit"
+msgstr "_خروج"
+
+#: ui/app.ui:247
+msgid "Add Shared _Folder"
+msgstr "إضافة _مجلد مشترك"
+
+#: ui/app.ui:251
+msgid "Add _Device"
+msgstr "إضافة _جهاز"
+
+#: ui/app.ui:257
+msgid "Daemon _Settings"
+msgstr "إعدادات الـ_خدمة الخلفية"
+
+#: ui/app.ui:261 ui/app.ui:392 ui/app.ui:592
+msgid "Show _ID"
+msgstr "إظهار الـ_معرف"
+
+#: ui/app.ui:267
+msgid "Sh_utdown Daemon"
+msgstr "إ_غلاق الخدمة الخلفية"
+
+#: ui/app.ui:271
+msgid "_Restart Daemon"
+msgstr "إ_عادة تشغيل الخدمة الخلفية"
+
+#: ui/app.ui:286
+msgid "Override Remote Changes"
+msgstr "تجاهل التعديلات الخارجية"
+
+#: ui/app.ui:297
+msgid "Override Local Changes"
+msgstr "تجاهل التعديلات المحلية"
+
+#: ui/app.ui:324
+msgid "Edit _Ignore Patterns"
+msgstr "تحرير قواعد الـ_تجاهل"
+
+#: ui/app.ui:351
+msgid "_Rescan"
+msgstr "إعادة الم_سح"
+
+#: ui/app.ui:363
+msgid "_Browse"
+msgstr "_تصفح"
+
+#: ui/app.ui:404
+msgid "gtk-media-pause"
+msgstr "إيقاف مؤقت"
+
+#: ui/app.ui:415
+msgid "Resume"
+msgstr "إستئناف"
+
+#: ui/app.ui:445
+msgid "Connecting to daemon..."
+msgstr "جار الاتصال بالخدمة الخلفية..."
+
+#: ui/app.ui:455 syncthing_gtk/app.py:1380
+msgid "Show Window"
+msgstr "عرض النافذة"
+
+#: ui/app.ui:473
+msgid "S_top Syncthing"
+msgstr "إيـ_قاف Syncthing"
+
+#: ui/app.ui:487
+msgid "Resume Sync_thing"
+msgstr "استئـ_ناف  Syncthing"
+
+#: ui/app.ui:499 ui/daemon-settings.ui:335
+msgid "_Incoming Rate Limit"
+msgstr "حد معدل الـ_وارد"
+
+#: ui/app.ui:513 ui/app.ui:555
+msgid "_Unlimited"
+msgstr "_غير محدود"
+
+#: ui/app.ui:522 ui/app.ui:564
+msgid "_Other"
+msgstr "_أخرى"
+
+#: ui/app.ui:541
+msgid "_Outgoing Rate Limit"
+msgstr "حد معدل الـ_صادر"
+
+#: ui/app.ui:618
+msgid "See _Logs"
+msgstr "عرض السـ_جلات"
+
+#: ui/app.ui:630
+msgid "_Preferences"
+msgstr "التـ_فضيلات"
+
+#: ui/daemon-output.ui:7
+msgid "Daemon Output"
+msgstr "مخرجات الخدمة الخلفية"
+
+#: ui/daemon-settings.ui:106
+msgid "Sync Protocol Listen Addresses"
+msgstr "عناوين استقبال بروتوكول المزامنة"
+
+#: ui/daemon-settings.ui:136
+msgid "Enable Local _Discovery"
+msgstr "تفعيل خاصية الا_كتشاف المحلي"
+
+#: ui/daemon-settings.ui:153
+msgid "Enable _UPnP"
+msgstr "تفع_يل (UPnP) التوصيل والتشغيل العالمي"
+
+#: ui/daemon-settings.ui:171
+msgid "Local Discovery _Port"
+msgstr "منفـ_ذ الاكتشاف المحلي"
+
+#: ui/daemon-settings.ui:212
+msgid "Outgoing _Rate Limit"
+msgstr "حد معـ_دل الصادر"
+
+#: ui/daemon-settings.ui:229
+msgid "Open browser with _WebUI when daemon is starting"
+msgstr ""
+"افتح المتصفح باستخدام واجهة المستخدم الرسومية (WebUI_) عند بدء تشغيل الخدمة"
+
+#: ui/daemon-settings.ui:246
+msgid "Enable _Anonymous Usage Reporting"
+msgstr "تفعيل إرسال تقارير الاستخدام المج_هولة"
+
+#: ui/daemon-settings.ui:262
+msgid "Enable _Global Discovery"
+msgstr "تفعيل الاكتشاف الخا_رجي"
+
+#: ui/daemon-settings.ui:281
+msgid "Global Discovery _Servers"
+msgstr "_خوادم الاكتشاف العالمي"
+
+#: ui/device-edit.ui:22 syncthing_gtk/app.py:1580
+msgid "All Data"
+msgstr "جميع البيانات"
+
+#: ui/device-edit.ui:26 ui/folder-edit.ui:78 syncthing_gtk/app.py:1582
+msgid "Off"
+msgstr "معطل"
+
+#: ui/device-edit.ui:30 syncthing_gtk/app.py:1584
+msgid "Metadata Only"
+msgstr "البيانات الوصفية فقط"
+
+#: ui/device-edit.ui:101
+msgid "Device _ID"
+msgstr "معرف الجهاز"
+
+#: ui/device-edit.ui:131
+msgid "Device _Name"
+msgstr "اسم الجهاز"
+
+#: ui/device-edit.ui:161
+msgid "Shown instead of Device ID in the cluster status."
+msgstr "يظهر بدلاً من معرف الجهاز في حالة المجموعة."
+
+#: ui/device-edit.ui:175
+msgid "_Addresses"
+msgstr "العناوين"
+
+#: ui/device-edit.ui:205
+msgid ""
+"Enter comma separated \"ip:port\" addresses or \"dynamic\" to perform automatic "
+"discovery of the address."
+msgstr ""
+"أدخل العناوين بصيغة \"ip:port\" مفصولة بفواصل، أو اكتب \"dynamic\" للاكتشاف "
+"التلقائي."
+
+#: ui/device-edit.ui:232
+msgid "Share _Folders"
+msgstr "مشاركة المجلدات"
+
+#: ui/device-edit.ui:249
+msgid "Select the folders to share with this device"
+msgstr "حدد المجلدات التي تريد مشاركتها مع هذا الجهاز"
+
+#: ui/device-edit.ui:260
+msgid "_Introducer"
+msgstr "وسيط تعارف"
+
+#: ui/device-edit.ui:279
+msgid ""
+"Any devices configured on an introducer device will be added to this device as "
+"well."
+msgstr ""
+"ستتم إضافة أي أجهزة تم تكوينها على الجهاز المحدد كـوسيط تعارف إلى هذا الجهاز "
+"أيضًا."
+
+#: ui/device-edit.ui:293
+msgid "_Compression"
+msgstr "_ضغط"
+
+#: ui/device-id.ui:14
+msgid "Device Identification"
+msgstr "تحديد هوية الجهاز"
+
+#: ui/device-id.ui:68
+msgid "XYZ-123-ABC"
+msgstr "مثال: \"XYZ-123-ABC\""
+
+#: ui/find-daemon.ui:7 syncthing_gtk/finddaemondialog.py:27
+msgid "Can't invoke the daemon"
+msgstr "لا يمكن استدعاء البرنامج الخفي"
+
+#: ui/find-daemon.ui:126 ui/ui-settings.ui:909
+msgid "_Browse..."
+msgstr "_تصفح..."
+
+#: ui/find-daemon.ui:179
+msgid "_Download..."
+msgstr "_تنزيل..."
+
+#: ui/folder-edit.ui:44
+msgctxt "In File Pull Order combobox"
+msgid "Random"
+msgstr "عشوائي"
+
+#: ui/folder-edit.ui:48
+msgctxt "In File Pull Order combobox"
+msgid "Alphabetic"
+msgstr "أبجدياً"
+
+#: ui/folder-edit.ui:52
+msgctxt "In File Pull Order combobox"
+msgid "Smallest First"
+msgstr "الأصغر أولاً"
+
+#: ui/folder-edit.ui:56
+msgctxt "In File Pull Order combobox"
+msgid "Largest First"
+msgstr "الأكبر أولاً"
+
+#: ui/folder-edit.ui:60
+msgctxt "In File Pull Order combobox"
+msgid "Oldest First"
+msgstr "الأقدم أولاً"
+
+#: ui/folder-edit.ui:64
+msgctxt "In File Pull Order combobox"
+msgid "Newest First"
+msgstr "الأحدث أولاً"
+
+#: ui/folder-edit.ui:82
+msgid "Simple"
+msgstr "عادي"
+
+#: ui/folder-edit.ui:86
+msgid "Staggered"
+msgstr "أرشفة متدرجة"
+
+#: ui/folder-edit.ui:90
+msgid "Trashcan"
+msgstr "سلة المهملات"
+
+#: ui/folder-edit.ui:94
+msgid "External"
+msgstr "خارجي"
+
+#: ui/folder-edit.ui:171
+msgid "Folder _Label"
+msgstr "اسم الـمجلد الوصفي"
+
+#: ui/folder-edit.ui:190
+msgid "Generate Random"
+msgstr "توليد عشوائي"
+
+#: ui/folder-edit.ui:205
+msgid "Short identifier for the folder. Must be the same on all devices."
+msgstr "معرّف مختصر للمجلد. يجب أن يكون نفسه على جميع الأجهزة."
+
+#: ui/folder-edit.ui:219
+msgid "_Path"
+msgstr "المسار"
+
+#: ui/folder-edit.ui:237
+msgid ""
+"Path to the folder on the local computer. Will be created if it does not exist."
+msgstr "مسار المجلد على الحاسوب المحلي. سيتم إنشاؤه إذا لم يكن موجودًا."
+
+#: ui/folder-edit.ui:251
+msgid "Rescan _Interval"
+msgstr "مدة إعادة الفحص"
+
+#: ui/folder-edit.ui:269 ui/folder-edit.ui:1092
+msgid "5"
+msgstr "5"
+
+#: ui/folder-edit.ui:298
+msgid "Monitor filesystem for _changes"
+msgstr "مراقبة الملفات بحثاً عن تـغييرات"
+
+#: ui/folder-edit.ui:332
+msgid "Browse..."
+msgstr "تصفح..."
+
+#: ui/folder-edit.ui:355
+msgid "Folder _ID"
+msgstr "معرف المجلد"
+
+#: ui/folder-edit.ui:385
+msgid ""
+"Optional descriptive label for the folder. Can be different on each device."
+msgstr "تسمية وصفية اختيارية للمجلد. يمكن أن تختلف من جهاز لآخر."
+
+#: ui/folder-edit.ui:408
+msgid "_Send Only Folder"
+msgstr "مجلد للإرسال فقط"
+
+#: ui/folder-edit.ui:429
+msgid ""
+"Files are protected from changes made on other devices, but changes made on "
+"this device will be sent to the rest of the cluster."
+msgstr ""
+"يتم حماية الملفات من التغييرات التي يتم إجراؤها على الأجهزة الأخرى، ولكن "
+"التغييرات التي يتم إجراؤها على هذا الجهاز سيتم إرسالها إلى بقية المجموعة."
+
+#: ui/folder-edit.ui:453
+msgid "_Receive Only Folder"
+msgstr "مجلد للإستقبال فقط"
+
+#: ui/folder-edit.ui:474
+msgid ""
+"Changes from other devices are applied to files on this device, but changes "
+"made on this device are not sent to the rest of the cluster.\n"
+msgstr ""
+"يتم تطبيق التغييرات من الأجهزة الأخرى على الملفات الموجودة على هذا الجهاز، ولكن "
+"التغييرات التي يتم إجراؤها على هذا الجهاز لا يتم إرسالها إلى بقية المجموعة.\n"
+
+#: ui/folder-edit.ui:493
+msgid "_Folder Settings"
+msgstr "إعدادات المجلد"
+
+#: ui/folder-edit.ui:514
+msgid "Select the devices to share this folder with."
+msgstr "حدد الأجهزة التي تريد مشاركة هذا المجلد معها."
+
+#: ui/folder-edit.ui:566
+msgid "Share With _Devices"
+msgstr "مشاركة مع الأجهزة"
+
+#: ui/folder-edit.ui:588
+msgid "Versioning _Mode"
+msgstr "أسلوب أرشفة النسخ"
+
+#: ui/folder-edit.ui:643
+msgid ""
+"Files are moved to date stamped versions in a .stversions folder when replaced "
+"or deleted by syncthing."
+msgstr ""
+"عند قيام Syncthing بحذف ملف أو استبداله، تُنقل النسخ السابقة إلى مجلد "
+"\"‎.stversions\" مع إضافة ختم زمني لاسم الملف."
+
+#: ui/folder-edit.ui:658
+msgid "_Keep Versions"
+msgstr "الاحتفاظ بالإصدارات"
+
+#: ui/folder-edit.ui:695
+msgid "The number of old versions to keep, per file."
+msgstr "عدد الإصدارات القديمة التي يجب الاحتفاظ بها لكل ملف."
+
+#: ui/folder-edit.ui:724
+msgid ""
+"Files are moved to date stamped versions in a .stversions folder when replaced "
+"or deleted by syncthing. Versions are automatically deleted if they are older "
+"than the maximum age or exceed the number of files allowed in an interval.\n"
+"\n"
+"The following intervals are used: for the first hour a version is kept every 30 "
+"seconds, for the first day a version is kept every hour, for the first 30 days "
+"a version is kept every day, until the maximum age a version is kept every week."
+msgstr ""
+"تُنقل الملفات عند استبدالها أو حذفها بواسطة Syncthing إلى نسخ مؤرخة داخل مجلد "
+"\".stversions\". تُحذف النسخ تلقائياً إذا تجاوزت الحد الأقصى للعمر أو تجاوزت عدد "
+"الملفات المسموح به في الفترة الزمنية.\n"
+"\n"
+"تُستخدم الفترات الزمنية التالية: خلال الساعة الأولى تُحفظ نسخة كل 30 ثانية، وخلال "
+"اليوم الأول تُحفظ نسخة كل ساعة، وخلال الثلاثين يوماً الأولى تُحفظ نسخة يومية، وبعد "
+"ذلك تُحفظ نسخة أسبوعية حتى الوصول للحد الأقصى للعمر."
+
+#: ui/folder-edit.ui:741
+msgid "Ma_ximum Age"
+msgstr "الحد الأقصى للعمر"
+
+#: ui/folder-edit.ui:780
+msgid "Versions _Path"
+msgstr "مسار الإصدارات"
+
+#: ui/folder-edit.ui:812
+msgid ""
+"Path where versions should be stored (leave empty for the default .stversions "
+"folder)."
+msgstr ""
+"المسار الذي يجب تخزين الإصدارات فيه (اتركه فارغًا لمجلد .stversions الافتراضي)."
+
+#: ui/folder-edit.ui:840
+msgid ""
+"Files are moved to .stversions folder when replaced or deleted by Syncthing"
+msgstr ""
+"يتم نقل الملفات إلى مجلد .stversions عند استبدالها أو حذفها بواسطة Syncthing"
+
+#: ui/folder-edit.ui:854
+msgid "Clean out _after"
+msgstr "إزالة النسخ ال_قديمة بعد"
+
+#: ui/folder-edit.ui:893
+msgid "The number of days to keep files in the trash can."
+msgstr "عدد الأيام التي يجب فيها الاحتفاظ بالملفات في سلة المهملات."
+
+#: ui/folder-edit.ui:922
+msgid ""
+"An external command handles the versioning. It has to remove the file from the "
+"synced folder."
+msgstr ""
+"يتولى أمر خارجي عملية التحكم في الإصدارات. يجب على هذا الأمر نقل الملف من "
+"المجلد المتزامن."
+
+#: ui/folder-edit.ui:937
+msgid "Command"
+msgstr "أمر"
+
+#: ui/folder-edit.ui:970
+msgid ""
+"The first command line parameter is the folder path and the second parameter is "
+"the relative path in the folder."
+msgstr ""
+"يكون معامل سطر الأوامر الأول هو \"مسار المجلد\"، والمعامل الثاني هو \"المسار "
+"النسبي\" داخل المجلد."
+
+#: ui/folder-edit.ui:1007
+msgid "File _Versioning"
+msgstr "إدارة إصدارات الملفات"
+
+#: ui/folder-edit.ui:1037
+msgid "Ignore P_ermissions"
+msgstr "تجاهل الأذونات"
+
+#: ui/folder-edit.ui:1058
+msgid ""
+"File permission bits are ignored when looking for changes. Use on FAT "
+"filesystems."
+msgstr ""
+"يتم تجاهل بتات صلاحيات الملفات عند البحث عن التغييرات. يُستخدم هذا الخيار مع "
+"أنظمة ملفات FAT."
+
+#: ui/folder-edit.ui:1073
+msgid "Minimum Free Disk Space"
+msgstr "الحد الأدنى من مساحة القرص الحرة"
+
+#: ui/folder-edit.ui:1112
+msgid "File Pull _Order"
+msgstr "طلب سحب الملف"
+
+#: ui/folder-edit.ui:1160 ui/ui-settings.ui:1046
+msgid "_Advanced"
+msgstr "متقدم"
+
+#: ui/ignore-editor.ui:8
+msgid "Ignore Patterns"
+msgstr "تجاهل الأنماط"
+
+#: ui/ignore-editor.ui:99
+msgid ""
+"See <a href=\"http://docs.syncthing.net/users/ignoring.html\">Syncthing "
+"documentation</a> for list of supported patterns"
+msgstr ""
+"راجع <a href=\"http://docs.syncthing.net/users/ignoring.html\">وثائق Syncthing</"
+"a> للاطلاع على قائمة الأنماط المدعومة"
+
+#: ui/ignore-editor.ui:114
+msgid "File location: "
+msgstr "موقع الملف: "
+
+#: ui/ui-settings.ui:27 ui/ui-settings.ui:49
+msgid "Default"
+msgstr "الافتراضي"
+
+#: ui/ui-settings.ui:31
+msgid "Black"
+msgstr "أسود"
+
+#: ui/ui-settings.ui:35
+msgid "White"
+msgstr "أبيض"
+
+#: ui/ui-settings.ui:107
+msgid "Lowest"
+msgstr "الأدني"
+
+#: ui/ui-settings.ui:111
+msgid "Low"
+msgstr "منخفض"
+
+#: ui/ui-settings.ui:115
+msgid "Normal"
+msgstr "عادي"
+
+#: ui/ui-settings.ui:119
+msgid "Above Normal"
+msgstr "أعلى من العادي"
+
+#: ui/ui-settings.ui:126
+msgid "Syncthing-GTK Settings"
+msgstr "إعدادات Syncthing-GTK"
+
+#: ui/ui-settings.ui:149
+msgid "Please, restart Syncthing-GTK to apply all changed settings"
+msgstr "يرجى إعادة تشغيل Syncthing-GTK لتطبيق جميع الإعدادات التي تم تغييرها"
+
+#: ui/ui-settings.ui:217
+msgid "When starting and Syncthing daemon is not running..."
+msgstr "عند بدء التشغيل، لا يكون برنامج Syncthing قيد التشغيل..."
+
+#: ui/ui-settings.ui:228
+msgid "... _wait for daemon"
+msgstr "... انتظر حتى يظهر الخدمة الخلفية"
+
+#: ui/ui-settings.ui:246
+msgid "... start daemon in _background"
+msgstr "... بدء تشغيل الخدمة في الخلفية"
+
+#: ui/ui-settings.ui:264
+msgid "... _ask me what to do"
+msgstr "... اسألني ماذا أفعل"
+
+#: ui/ui-settings.ui:285
+msgid "When exiting after daemon was started in background..."
+msgstr "عند الخروج بعد بدء تشغيل البرنامج الخفي في الخلفية..."
+
+#: ui/ui-settings.ui:296
+msgid "... terminate _daemon"
+msgstr "... إنهاء _برنامج الخدمة الخلفية"
+
+#: ui/ui-settings.ui:314
+msgid "... leave daemon _running"
+msgstr "اترك الخدمة الخلفية تعمل"
+
+#: ui/ui-settings.ui:332
+msgid "... ask me w_hat to do"
+msgstr "... اسألني ماذا أفعل"
+
+#: ui/ui-settings.ui:350
+msgid "Us_e traditional window header"
+msgstr "استخدم رأس النافذة التقليدي"
+
+#: ui/ui-settings.ui:371
+msgid "Display desktop notifications for..."
+msgstr "عرض إشعارات سطح المكتب لـ..."
+
+#: ui/ui-settings.ui:382
+msgid "... file updates"
+msgstr "... تحديثات الملفات"
+
+#: ui/ui-settings.ui:399
+msgid "... errors"
+msgstr "... أخطاء"
+
+#: ui/ui-settings.ui:416
+msgid "... synchronization completion"
+msgstr "... اكتمال التزامن"
+
+#: ui/ui-settings.ui:433
+msgid "Start Syncthing-GTK when I login to my desktop"
+msgstr "تشغيل Syncthing-GTK عند تسجيل الدخول إلى سطح المكتب الخاص بي"
+
+#: ui/ui-settings.ui:450
+msgid "Minimize to _tray on start"
+msgstr "تصغير النافذة إلى شريط المهام عند بدء التشغيل"
+
+#: ui/ui-settings.ui:466
+msgid "Display paths in directories panel"
+msgstr "عرض المسارات في قائمة المجلدات"
+
+#: ui/ui-settings.ui:482
+msgid "Force _dark theme"
+msgstr "فرض الوضع الداكن"
+
+#: ui/ui-settings.ui:523
+msgid "Tray icon style"
+msgstr "مظهر أيقونة منطقة الإشعارات"
+
+#: ui/ui-settings.ui:536
+msgid "Language"
+msgstr "اللغة"
+
+#: ui/ui-settings.ui:575
+msgid "_Interface"
+msgstr "الواجهة"
+
+#: ui/ui-settings.ui:594
+msgid "Integrate Syncthing with filemanagers"
+msgstr "دمج Syncthing مع برامج إدارة الملفات"
+
+#: ui/ui-settings.ui:609
+msgid "Nemo (Cinamon Desktop)"
+msgstr "نيـمو (Nemo) (بيئة سطح المكتب Cinnamon)"
+
+#: ui/ui-settings.ui:626
+msgid "Nautilus (Ubuntu/GNOME)"
+msgstr "نوتيلوس (Nautilus) (Ubuntu/GNOME)"
+
+#: ui/ui-settings.ui:642
+msgid "Caja (MATE Desktop)"
+msgstr "كاخا (سطح المكتب MATE)"
+
+#: ui/ui-settings.ui:681
+msgid ""
+"<b>Note:</b> You may need to restart your filemanager after toggling "
+"integration."
+msgstr "<b>ملاحظة:</b> قد تحتاج إلى إعادة تشغيل مدير الملفات بعد تبديل التكامل."
+
+#: ui/ui-settings.ui:701
+msgid "_Integration"
+msgstr "اندماج"
+
+#: ui/ui-settings.ui:731
+msgid "Keep Syncthing binary up-to-date"
+msgstr "إبقاء ملف Syncthing البرمجي محدّثاً"
+
+#: ui/ui-settings.ui:751
+msgid ""
+"If enabled, Syncthing-GTK will automatically check for new daemon releases and "
+"replace binary with latest version."
+msgstr ""
+"في حالة التمكين، سيقوم Syncthing-GTK تلقائيًا بالتحقق من إصدارات البرنامج الخفي "
+"الجديدة واستبدال الملف البرمجي بأحدث إصدار."
+
+#: ui/ui-settings.ui:766
+msgid "Daemon process priority"
+msgstr "أولوية عملية البرنامج الخفي"
+
+#: ui/ui-settings.ui:802
+msgid ""
+"Priority will be used only if \"<i>start daemon in background</i>\" option is "
+"checked on \"<i>Interface</i>\" page."
+msgstr ""
+"سيتم استخدام الأولوية فقط إذا تم تحديد خيار \"<i>بدء تشغيل البرنامج الخفي في "
+"الخلفية</i>\" في صفحة \"<i>الواجهة</i>\"."
+
+#: ui/ui-settings.ui:817
+msgid "Maximum number of CPU cores"
+msgstr "الحد الأقصى لعدد أنوية المعالجة"
+
+#: ui/ui-settings.ui:835
+msgid ""
+"Sets the maximum number of CPU cores for daemon to use. This value will be used "
+"only if \"<i>start daemon in background</i>\" option is checked on "
+"\"<i>Interface</i>\" page."
+msgstr ""
+"يُحدد هذا الخيار الحد الأقصى لعدد أنوية المعالج التي يمكن للبرنامج الخفي "
+"استخدامها. سيتم استخدام هذه القيمة فقط في حال تم تحديد خيار \"تشغيل البرنامج "
+"الخفي في الخلفية\" في صفحة \"الواجهة\"."
+
+#: ui/ui-settings.ui:873
+msgid "Daemon"
+msgstr "الخدمة الخلفية"
+
+#: ui/ui-settings.ui:896
+msgid ""
+"This binary will be started when syncthing daemon is not running and \"<i>start "
+"daemon in background</i>\" option is checked on \"<i>Interface</i>\" page."
+msgstr ""
+"سيتم تشغيل هذا الملف البرمجي عندما لا يكون \"محرك Syncthing\" قيد العمل، ومع "
+"تفعيل خيار \"<i>بدء المحرك في الخلفية</i>\" في صفحة \"<i>الواجهة</i>\"."
+
+#: ui/ui-settings.ui:928
+msgid "Syncthing binary location"
+msgstr "موقع ملف Syncthing البرمجي"
+
+#: ui/ui-settings.ui:958
+msgid "Daemon arguments and variables"
+msgstr "وسائط ومتغيرات البرنامج الخفي"
+
+#: ui/ui-settings.ui:988
+msgid ""
+"Space-separated list of arguments and environment variables passed when "
+"starting above binary\n"
+"\n"
+"Use <i>VARIABLE=\"value\"</i> to set variable and <i>-argument=\"value\"</i>  "
+"(with dash) for argument.\n"
+"\n"
+"If you need to pass commandline to different command (such as logger or "
+"ionice), separate prefixed arguments with exclamation mark \"!\"\n"
+"\n"
+"Example:\n"
+"  <i>STTRACE=\"all\" logger -t /var/log/syncthing.log ! -logflags=10</i>"
+msgstr ""
+"قائمة مفصولة بمسافات للمعاملات ومتغيرات البيئة التي يتم تمريرها عند تشغيل الملف "
+"البرمجي أعلاه.\n"
+"\n"
+"استخدم VARIABLE=\"value\" لضبط المتغير، و -argument=\"value\" (مع الشرطة) "
+"للمعامل.\n"
+"\n"
+"إذا كنت بحاجة لتمرير سطر أوامر إلى أمر مختلف (مثل logger أو ionice)، فافصل "
+"المعاملات المسبقة بعلامة التعجب \"!\".\n"
+"\n"
+"مثال:\n"
+"STTRACE=\"all\" logger -t /var/log/syncthing.log ! -logflags=10"
+
+#: ui/ui-settings.ui:1012
+msgid ""
+"<b>Warning:</b> Changing settings on this page may prevent you from using "
+"Syncthing-GTK"
+msgstr ""
+"<b>تحذير:</b> تغيير الإعدادات في هذه الصفحة قد يمنعك من استخدام Syncthing-GTK"
+
+#: syncthing_gtk/app.py:268
+msgid "Syncthing-GTK started and running in notification area"
+msgstr "تم تشغيل Syncthing-GTK وهو يعمل في منطقة الإشعارات"
+
+#: syncthing_gtk/app.py:369
+#, python-format
+msgid "%s kB/s"
+msgstr "%s كيلوبايت/الثانية"
+
+#: syncthing_gtk/app.py:385 syncthing_gtk/wizard.py:62
+msgid "Syncthing-GTK"
+msgstr "Syncthing-GTK"
+
+#: syncthing_gtk/app.py:454 syncthing_gtk/app.py:457 syncthing_gtk/app.py:1110
+msgid "Syncing"
+msgstr "المزامنة"
+
+#: syncthing_gtk/app.py:461 syncthing_gtk/app.py:464
+msgid "Scanning"
+msgstr "المسح"
+
+#. ... or already gave permission ...
+#: syncthing_gtk/app.py:490 syncthing_gtk/app.py:770
+msgid "Starting Syncthing daemon"
+msgstr "بدء تشغيل برنامج Syncthing"
+
+#: syncthing_gtk/app.py:530
+msgid "Allow Anonymous Usage Reporting?"
+msgstr "هل تسمح بإرسال تقارير الاستخدام بشكل مجهول؟"
+
+#: syncthing_gtk/app.py:532
+msgid "The encrypted usage report is sent daily."
+msgstr "يتم إرسال تقرير الاستخدام المشفر يومياً."
+
+#: syncthing_gtk/app.py:534
+msgid "It is used to track common platforms, folder sizes and app versions."
+msgstr "يُستخدم لتتبع المنصات الشائعة وأحجام المجلدات وإصدارات التطبيقات."
+
+#: syncthing_gtk/app.py:536
+msgid ""
+"If the reported data set is changed you will be prompted with this dialog again."
+msgstr "إذا تم تغيير مجموعة البيانات المبلغ عنها، فستظهر لك هذه النافذة مرة أخرى."
+
+#: syncthing_gtk/app.py:538
+msgid "The aggregated statistics are publicly available at"
+msgstr "تتوفر الإحصاءات المجمعة للجمهور على الرابط التالي"
+
+#: syncthing_gtk/app.py:589
+#, python-format
+msgid ""
+"Your Windows version doesn't supports cryptographic standards needed\n"
+"for Syncthing-GTK to check for Syncthing updates.\n"
+"Please, install <a href='%(url)s'>this Windows update</a> or disable update "
+"feature."
+msgstr ""
+"إصدار نظام التشغيل Windows لديك لا يدعم معايير التشفير اللازمة\n"
+"لتمكين Syncthing-GTK من التحقق من وجود تحديثات لـ Syncthing.\n"
+"\n"
+"يرجى تثبيت <a href='%(url)s'>تحديث Windows هذا</a> أو تعطيل ميزة التحديث."
+
+#: syncthing_gtk/app.py:603
+msgid "Extracting update..."
+msgstr "جارٍ استخراج التحديث..."
+
+#: syncthing_gtk/app.py:608
+msgid "Restarting daemon..."
+msgstr "إعادة تشغيل الخدمة الخلفية..."
+
+#: syncthing_gtk/app.py:624
+#, python-format
+msgid "Failed to download upgrade: %s"
+msgstr "فشل تنزيل التحديث: %s"
+
+#: syncthing_gtk/app.py:642
+#, python-format
+msgid "Downloading Syncthing %s"
+msgstr "جار تنزيل Syncthing %s"
+
+#. Stupid way to reconfigure window content and keep windows
+#. decorations visible on Windows
+#: syncthing_gtk/app.py:720
+msgid "Connected to Syncthing daemon"
+msgstr "متصل ببرنامج Syncthing الخدمة الخلفية"
+
+#: syncthing_gtk/app.py:727
+msgid "Connection to Syncthing daemon lost."
+msgstr "انقطع الاتصال ببرنامج Syncthing."
+
+#: syncthing_gtk/app.py:728
+msgid "Syncthing is probably restarting or has been shut down."
+msgstr "ربما تتم إعادة تشغيل Syncthing أو تم إيقاف تشغيله."
+
+#: syncthing_gtk/app.py:731
+msgid "Syncthing has been shut down."
+msgstr "تم إيقاف تشغيل Syncthing."
+
+#: syncthing_gtk/app.py:735 syncthing_gtk/app.py:1695
+msgid "Syncthing is restarting."
+msgstr "يتم إعادة تشغيل Syncthing."
+
+#: syncthing_gtk/app.py:735 syncthing_gtk/app.py:1695
+msgid "Please wait"
+msgstr "الرجاء الانتظار"
+
+#: syncthing_gtk/app.py:759
+#, python-format
+msgid "Connecting to Syncthing daemon at %s..."
+msgstr "جارٍ الاتصال بخادم Syncthing على %s..."
+
+#: syncthing_gtk/app.py:766
+#, python-format
+msgid "Waiting for Syncthing daemon at %s..."
+msgstr "جارٍ انتظار برنامج Syncthing الخدمة الخلفية في %s..."
+
+#: syncthing_gtk/app.py:784
+msgid "Your syncthing daemon is too old."
+msgstr "نسخة محرك Syncthing لديك قديمة جداً."
+
+#: syncthing_gtk/app.py:784
+msgid "Attempting to download recent, please wait..."
+msgstr "جارٍ محاولة تنزيل الملفات الأخيرة، يرجى الانتظار..."
+
+#: syncthing_gtk/app.py:792
+msgid ""
+"Cannot authorize with daemon. Please, use WebUI to generate API key or disable "
+"password authentication."
+msgstr ""
+"لا يمكن المصادقة باستخدام البرنامج الخفي. يُرجى استخدام واجهة المستخدم الرسومية "
+"لإنشاء مفتاح واجهة برمجة التطبيقات (API) أو تعطيل مصادقة كلمة المرور."
+
+#: syncthing_gtk/app.py:796
+#, python-format
+msgid ""
+"Your syncthing daemon is too old.\n"
+"Please, upgrade syncthing package at least to version %s and try again."
+msgstr ""
+"برنامج Syncthing لديك قديم جدًا.\n"
+"يرجى ترقية حزمة Syncthing إلى الإصدار %s على الأقل، ثم حاول مرة أخرى."
+
+#: syncthing_gtk/app.py:800
+msgid ""
+"Sorry, connecting to HTTPS is not supported on this platform.\n"
+"Please, use WebUI to disable HTTPS try again."
+msgstr ""
+"عذرًا، لا يدعم هذا النظام الاتصال ببروتوكول HTTPS.\n"
+"يرجى استخدام واجهة المستخدم الرسومية لتعطيل HTTPS، ثم حاول مرة أخرى."
+
+#: syncthing_gtk/app.py:804
+msgid "Connection to daemon failed. Check your configuration and try again."
+msgstr "فشل الاتصال بالخادم. تحقق من إعداداتك وحاول مرة أخرى."
+
+#: syncthing_gtk/app.py:805 syncthing_gtk/app.py:2253
+#: syncthing_gtk/editordialog.py:336
+msgid "Error message:"
+msgstr "رسالة الخطأ:"
+
+#: syncthing_gtk/app.py:812
+msgid "Possible cause: Is there another web server running on Syncthing port?"
+msgstr "السبب المحتمل: هل يوجد خادم ويب آخر يعمل على منفذ Syncthing؟"
+
+#. Anything derived from HTTPError, where full server
+#. response is attached
+#: syncthing_gtk/app.py:824
+msgid "More info"
+msgstr "مزيد من المعلومات"
+
+#: syncthing_gtk/app.py:852
+msgid ""
+"The configuration has been saved but not activated.\n"
+"Syncthing must restart to activate the new configuration."
+msgstr ""
+"تم حفظ الإعدادات ولكن لم يتم تفعيلها.\n"
+"يجب إعادة تشغيل Syncthing لتفعيل الإعدادات الجديدة."
+
+#: syncthing_gtk/app.py:855
+msgid "_Restart"
+msgstr "إعادة التشغيل"
+
+#: syncthing_gtk/app.py:911
+msgid "Incompatible"
+msgstr "غير متوافق"
+
+#: syncthing_gtk/app.py:916
+#, python-format
+msgid ""
+"Connecting to <b>%s</b> failed; the remote device speaks an older version of "
+"the protocol (%s) not compatible with this version"
+msgstr ""
+"فشل الاتصال بـ <b>%s</b>؛ يستخدم الجهاز البعيد إصدارًا قديمًا من البروتوكول (%s) "
+"غير متوافق مع هذا الإصدار"
+
+#: syncthing_gtk/app.py:954
+#, python-format
+msgid "%(device)s wants to share folder \"%(folder)s\". Add new folder?"
+msgstr ""
+"يرغب الجهاز %(device)s في مشاركة المجلد \"%(folder)s\". هل تريد إضافة مجلد جديد؟"
+
+#: syncthing_gtk/app.py:964 syncthing_gtk/app.py:991
+msgid "_Ignore"
+msgstr "تجاهل"
+
+#: syncthing_gtk/app.py:965 syncthing_gtk/app.py:990
+msgid "_Add"
+msgstr "إضافة"
+
+#: syncthing_gtk/app.py:980
+#, python-format
+msgid ""
+"Device \"<b>%(name)s</b>\" (%(device)s) at IP \"<b>%(ip)s</b>\" wants to "
+"connect. Add new device?"
+msgstr ""
+"الجهاز \"<b>%(name)s</b>\" (%(device)s) على عنوان IP \"<b>%(ip)s</b>\" يريد "
+"الاتصال. هل تريد إضافة جهاز جديد؟"
+
+#: syncthing_gtk/app.py:1009
+msgid "RAM Utilization"
+msgstr "استخدام ذاكرة الوصول العشوائي"
+
+#: syncthing_gtk/app.py:1010
+msgid "CPU Utilization"
+msgstr "استخدام وحدة المعالجة المركزية"
+
+#: syncthing_gtk/app.py:1011 syncthing_gtk/app.py:1554
+msgid "Download Rate"
+msgstr "معدل التنزيل"
+
+#: syncthing_gtk/app.py:1012 syncthing_gtk/app.py:1555
+msgid "Upload Rate"
+msgstr "معدل التحميل"
+
+#: syncthing_gtk/app.py:1013
+msgid "Announce Server"
+msgstr "خادم الإعلان"
+
+#: syncthing_gtk/app.py:1014 syncthing_gtk/app.py:1557
+msgid "Version"
+msgstr "الإصدار"
+
+#: syncthing_gtk/app.py:1037 syncthing_gtk/editordialog.py:415
+msgid "disabled"
+msgstr "معطل"
+
+#: syncthing_gtk/app.py:1059 syncthing_gtk/app.py:1558 syncthing_gtk/app.py:1586
+msgid "Never"
+msgstr "أبداً"
+
+#: syncthing_gtk/app.py:1067 syncthing_gtk/app.py:1927 syncthing_gtk/app.py:1928
+msgid "Paused"
+msgstr "توقف مؤقتًا"
+
+#. Update color & header
+#: syncthing_gtk/app.py:1067 syncthing_gtk/app.py:1092 syncthing_gtk/app.py:1107
+#: syncthing_gtk/infobox.py:67
+msgid "Disconnected"
+msgstr "غير متصل"
+
+#. Update color & header
+#: syncthing_gtk/app.py:1084
+msgid "Connected"
+msgstr "متصل"
+
+#. Daemon is online and idle
+#: syncthing_gtk/app.py:1113 syncthing_gtk/app.py:1152 syncthing_gtk/app.py:1204
+#: syncthing_gtk/app.py:1205 syncthing_gtk/app.py:1251
+msgid "Up to Date"
+msgstr "محدّث"
+
+#: syncthing_gtk/app.py:1137 syncthing_gtk/app.py:1138 syncthing_gtk/app.py:1139
+msgid "Files"
+msgstr "الملفات"
+
+#: syncthing_gtk/app.py:1145
+msgid "Cluster out of sync"
+msgstr "المجموعة غير متزامنة"
+
+#: syncthing_gtk/app.py:1145
+msgid "Local changes"
+msgstr "التغييرات المحلية"
+
+#: syncthing_gtk/app.py:1169
+msgid "Stopped"
+msgstr "متوقف"
+
+#. Color, theme-based icon is used here. It's intentional and
+#. supposed to draw attention
+#: syncthing_gtk/app.py:1172 syncthing_gtk/app.py:1179
+msgid "Error"
+msgstr "خطأ"
+
+#: syncthing_gtk/app.py:1198
+#, python-format
+msgid "Synchronizing '%s'"
+msgstr "جارٍ مزامنة '%s'"
+
+#: syncthing_gtk/app.py:1200
+#, python-format
+msgid "Synchronizing %s folders"
+msgstr "جارٍ مزامنة مجلدات %s"
+
+#. Daemon is online, but there is no remote device connected
+#: syncthing_gtk/app.py:1209 syncthing_gtk/app.py:1210
+msgid "All devices offline"
+msgstr "جميع الأجهزة غير متصلة بالإنترنت"
+
+#. Still connecting to syncthing daemon
+#: syncthing_gtk/app.py:1214 syncthing_gtk/app.py:1215
+msgid "Connecting to Syncthing daemon..."
+msgstr "جارٍ الاتصال ببرنامج Syncthing..."
+
+#. No device to share folder with
+#: syncthing_gtk/app.py:1260
+msgid "Unshared"
+msgstr "غير مشترك"
+
+#. Folder is shared, but all devices are offline
+#: syncthing_gtk/app.py:1263
+msgid "Offline"
+msgstr "غير متصلة"
+
+#: syncthing_gtk/app.py:1364
+msgid "Hide Window"
+msgstr "إخفاء النافذة"
+
+#: syncthing_gtk/app.py:1434
+msgid "Syncthing daemon doesn't appear to be running."
+msgstr "يبدو أن برنامج Syncthing daemon لا يعمل."
+
+#: syncthing_gtk/app.py:1434
+msgid "Start it now?"
+msgstr "هل نبدأ الآن؟"
+
+#: syncthing_gtk/app.py:1436
+msgid "Always start daemon automatically"
+msgstr "ابدأ تشغيل الخدمة تلقائيًا دائماً"
+
+#. Add visible lines
+#: syncthing_gtk/app.py:1489
+msgid "Folder ID"
+msgstr "معرف المجلد"
+
+#: syncthing_gtk/app.py:1490
+msgid "Path"
+msgstr "المسار"
+
+#: syncthing_gtk/app.py:1491
+msgid "Global State"
+msgstr "الحالة العالمية"
+
+#: syncthing_gtk/app.py:1492
+msgid "Local State"
+msgstr "الحالة المحلية"
+
+#: syncthing_gtk/app.py:1493
+msgid "Out Of Sync"
+msgstr "غير متزامن"
+
+#: syncthing_gtk/app.py:1494
+msgid "Folder Type"
+msgstr "نوع المجلد"
+
+#: syncthing_gtk/app.py:1495
+msgid "Ignore Permissions"
+msgstr "تجاهل الأذونات"
+
+#: syncthing_gtk/app.py:1496
+msgid "Rescan Interval"
+msgstr "فترة إعادة المسح"
+
+#: syncthing_gtk/app.py:1497
+msgid "Shared With"
+msgstr "تمت المشاركة مع"
+
+#: syncthing_gtk/app.py:1524
+msgid "Receive Only"
+msgstr "للاستقبال فقط"
+
+#: syncthing_gtk/app.py:1526
+msgid "Send Only"
+msgstr "للإرسال فقط"
+
+#: syncthing_gtk/app.py:1528
+msgid "Send & Receive"
+msgstr "للإرسال والاستقبال"
+
+#: syncthing_gtk/app.py:1529 syncthing_gtk/app.py:1585
+msgid "Yes"
+msgstr "نعم"
+
+#: syncthing_gtk/app.py:1529 syncthing_gtk/app.py:1585
+msgid "No"
+msgstr "لا"
+
+#: syncthing_gtk/app.py:1530
+msgid "(watch)"
+msgstr "(مراقبة)"
+
+#: syncthing_gtk/app.py:1542
+msgid "Unused"
+msgstr "غير مستخدم"
+
+#. Add visible lines
+#: syncthing_gtk/app.py:1551
+msgid "Address"
+msgstr "عنوان"
+
+#: syncthing_gtk/app.py:1552
+msgid "Synchronization"
+msgstr "التزامن"
+
+#: syncthing_gtk/app.py:1553
+msgid "Compression"
+msgstr "ضغط"
+
+#: syncthing_gtk/app.py:1556
+msgid "Introducer"
+msgstr "وسيط التعارف"
+
+#: syncthing_gtk/app.py:1558
+msgid "Last Seen"
+msgstr "آخر ظهور"
+
+#: syncthing_gtk/app.py:1724
+msgid "Exiting."
+msgstr "الخروج."
+
+#: syncthing_gtk/app.py:1724
+msgid "Shutdown Syncthing daemon as well?"
+msgstr "هل يجب إيقاف تشغيل برنامج Syncthing أيضًا؟"
+
+#: syncthing_gtk/app.py:1728
+msgid "Always do same; Don't show this window again"
+msgstr "افعل الشيء نفسه دائمًا؛ لا تُظهر هذه النافذة مرة أخرى"
+
+#: syncthing_gtk/app.py:2013
+#, python-format
+msgid "Do you really want to permanently stop synchronizing directory '%s'?"
+msgstr "هل تريد حقاً إيقاف مزامنة الدليل '%s' بشكل دائم؟"
+
+#: syncthing_gtk/app.py:2015
+#, python-format
+msgid "Do you really want remove device '%s' from Syncthing?"
+msgstr "هل تريد حقاً إزالة الجهاز '%s' من Syncthing؟"
+
+#: syncthing_gtk/app.py:2252
+msgid "Failed to start Syncthing daemon."
+msgstr "فشل بدء تشغيل برنامج Syncthing daemon."
+
+#: syncthing_gtk/app.py:2255
+msgid ""
+"Please, check your installation or set new path to Syncthing daemon binary."
+msgstr "يرجى التحقق من التثبيت أو تعيين مسار جديد لملف Syncthing daemon البرمجي."
+
+#: syncthing_gtk/daemonsettings.py:30
+msgid "Syncthing Daemon Settings"
+msgstr "إعدادات برنامج Syncthing Daemon"
+
+#: syncthing_gtk/deviceeditor.py:27
+msgid ""
+"The entered device ID does not look valid. It should be a 52 character string "
+"consisting of letters and numbers, with spaces and dashes being optional."
+msgstr ""
+"يبدو أن معرّف الجهاز المُدخل غير صالح. يجب أن يكون سلسلة نصية مكونة من 52 حرفًا "
+"وأرقامًا، مع إمكانية استخدام المسافات والشرطات."
+
+#: syncthing_gtk/editordialog.py:336
+msgid "Failed to load configuration from daemon."
+msgstr "فشل تحميل الإعدادات من البرنامج الخفي."
+
+#: syncthing_gtk/editordialog.py:336
+msgid "Try again."
+msgstr "حاول مرة أخرى."
+
+#: syncthing_gtk/editordialog.py:408 syncthing_gtk/editordialog.py:417
+#, python-format
+msgid "%ss"
+msgstr "%ss"
+
+#: syncthing_gtk/editordialog.py:423
+#, python-format
+msgid "%s%%"
+msgstr "%s%%"
+
+#: syncthing_gtk/editordialog.py:430
+msgid "no limit"
+msgstr "بلا حدود"
+
+#: syncthing_gtk/editordialog.py:432
+#, python-format
+msgid "%s KiB/s"
+msgstr "%s كيلوبايت/ثانية"
+
+#: syncthing_gtk/editordialog.py:439
+msgid "never delete"
+msgstr "لا تحذف أبداً"
+
+#: syncthing_gtk/editordialog.py:441
+#, python-format
+msgid "%s day"
+msgstr "%s يوم"
+
+#: syncthing_gtk/editordialog.py:443
+#, python-format
+msgid "%s days"
+msgstr "%s أيام"
+
+#: syncthing_gtk/editordialog.py:471
+msgid "Failed to save configuration."
+msgstr "فشل حفظ الإعدادات."
+
+#: syncthing_gtk/finddaemondialog.py:29
+msgid "Syncthing binary"
+msgstr "ملف Syncthing البرمجي"
+
+#: syncthing_gtk/finddaemondialog.py:33 syncthing_gtk/finddaemondialog.py:48
+msgid "Syncthing daemon binary cannot be found."
+msgstr "لم يتم العثور على الملف البرمجي لبرنامج Syncthing daemon."
+
+#: syncthing_gtk/finddaemondialog.py:35
+#, python-format
+msgid ""
+"If you have Syncthing installed, please, set path to %s below or click on "
+"<b>Download</b> button to download latest Syncthing package."
+msgstr ""
+"إذا كان لديك برنامج Syncthing مثبتًا، فيرجى تعيين المسار إلى %s أدناه أو النقر "
+"على زر <b>تنزيل</b> لتنزيل أحدث حزمة Syncthing."
+
+#: syncthing_gtk/finddaemondialog.py:49
+#, python-format
+msgid "If you have Syncthing installed, please, set path to %s below"
+msgstr "إذا كان لديك برنامج Syncthing مثبتًا، فيرجى تعيين المسار إلى %s أدناه"
+
+#: syncthing_gtk/finddaemondialog.py:90 syncthing_gtk/wizard.py:470
+msgid "Cannot download Syncthing daemon."
+msgstr "لا يمكن تنزيل برنامج Syncthing daemon."
+
+#: syncthing_gtk/finddaemondialog.py:91 syncthing_gtk/wizard.py:470
+#, python-format
+msgid "This platform (%s) is not supported"
+msgstr "هذه المنصة (%s) غير مدعومة"
+
+#. Display message and start downloading
+#: syncthing_gtk/finddaemondialog.py:106
+msgid "Downloading..."
+msgstr "جارٍ التنزيل..."
+
+#: syncthing_gtk/finddaemondialog.py:166 syncthing_gtk/stdownloader.py:259
+#: syncthing_gtk/stdownloader.py:288
+msgid "Download failed."
+msgstr "فشل التنزيل."
+
+# الحمد لله وحده لا شريك له، وتعالى الله علواً كبيراً
+#. Everything done. Praise supernatural entities...
+#: syncthing_gtk/finddaemondialog.py:188 syncthing_gtk/wizard.py:508
+msgid "Download finished."
+msgstr "تم التنزيل."
+
+#: syncthing_gtk/foldereditor.py:62
+msgid "Select Folder for new Folder"
+msgstr "حدد المجلد لإنشاء مجلد جديد"
+
+#: syncthing_gtk/ignoreeditor.py:48
+msgid "File location:"
+msgstr "موقع الملف:"
+
+#: syncthing_gtk/notifications.py:125 syncthing_gtk/notifications.py:126
+#, python-format
+msgid "Accept device \"%s\""
+msgstr "قبول الجهاز \"%s\""
+
+#: syncthing_gtk/notifications.py:127
+#, python-format
+msgid "Ignore device \"%s\""
+msgstr "تجاهل الجهاز \"%s\""
+
+#: syncthing_gtk/notifications.py:129
+msgid "Unknown Device"
+msgstr "جهاز غير معروف"
+
+#: syncthing_gtk/notifications.py:130
+#, python-format
+msgid "Device \"%s\" is trying to connect to syncthing daemon."
+msgstr "يحاول الجهاز \"%s\" الاتصال ببرنامج Syncthing daemon."
+
+#: syncthing_gtk/notifications.py:173 syncthing_gtk/notifications.py:174
+#, python-format
+msgid "Accept folder \"%s\""
+msgstr "قبول المجلد \"%s\""
+
+#: syncthing_gtk/notifications.py:175
+#, python-format
+msgid "Ignore folder \"%s\""
+msgstr "تجاهل المجلد \"%s\""
+
+#: syncthing_gtk/notifications.py:181
+msgid "Folder rejected"
+msgstr "تم رفض المجلد"
+
+#: syncthing_gtk/notifications.py:182
+#, python-format
+msgid "Unexpected folder \"%(folder)s\" sent from device \"%(device)s\"."
+msgstr "تم إرسال مجلد غير متوقع \"%(folder)s\" من الجهاز \"%(device)s\"."
+
+#: syncthing_gtk/notifications.py:214
+#, python-format
+msgid "Completed synchronization in \"%s\""
+msgstr "اكتملت عملية المزامنة في \"%s\""
+
+#: syncthing_gtk/notifications.py:216
+#, python-format
+msgid "Updates in folder \"%s\""
+msgstr "التحديثات في المجلد \"%s\""
+
+#: syncthing_gtk/notifications.py:228
+#, python-format
+msgid "%(hostname)s: Downloaded '%(filename)s' to reflect remote changes."
+msgstr "%(hostname)s: تم تنزيله '%(filename)s' ليعكس التغييرات البعيدة."
+
+#: syncthing_gtk/notifications.py:232
+#, python-format
+msgid "%(hostname)s: Deleted '%(filename)s' to reflect remote changes."
+msgstr "%(hostname)s: تم حذفه '%(filename)s' ليعكس التغييرات البعيدة."
+
+#: syncthing_gtk/notifications.py:234
+#, python-format
+msgid "%(hostname)s: Downloaded %(updated)s files to reflect remote changes."
+msgstr "%(hostname)s: تم تنزيله %(updated)s من الملفات لتعكس التغييرات البعيدة."
+
+#: syncthing_gtk/notifications.py:236
+#, python-format
+msgid "%(hostname)s: Deleted %(deleted)s files to reflect remote changes."
+msgstr "%(hostname)s: تم حذفه %(deleted)s ملفًا ليعكس التغييرات البعيدة."
+
+#: syncthing_gtk/notifications.py:239
+#, python-format
+msgid ""
+"%(hostname)s: downloaded %(updated)s files and deleted %(deleted)s files to "
+"reflect remote changes."
+msgstr ""
+"%(hostname)s: تم تنزيله %(updated)s من الملفات وحذف %(deleted)s من الملفات "
+"لتعكس التغييرات البعيدة."
+
+#: syncthing_gtk/notifications.py:266
+#, python-format
+msgid "Conflicting file in \"%s\""
+msgstr "ملف متعارض في \"%s\""
+
+#: syncthing_gtk/notifications.py:267
+#, python-format
+msgid "Conflict in path \"%s\" detected."
+msgstr "تم اكتشاف تعارض في المسار \"%s\"."
+
+#: syncthing_gtk/notifications.py:271
+msgid "Open Conflicting file in filemanager"
+msgstr "فتح ملف متعارض في مدير الملفات"
+
+#: syncthing_gtk/notifications.py:346
+msgid "An error occurred in Syncthing!"
+msgstr "حدث خطأ في Syncthing!"
+
+#: syncthing_gtk/statusicon.py:46
+msgid "Syncthing"
+msgstr "Syncthing"
+
+#: syncthing_gtk/stdownloader.py:183 syncthing_gtk/stdownloader.py:229
+#: syncthing_gtk/stdownloader.py:327 syncthing_gtk/stdownloader.py:357
+msgid "Failed to determine latest Syncthing version."
+msgstr "فشل تحديد أحدث إصدار من Syncthing."
+
+#: syncthing_gtk/stdownloader.py:245
+msgid "Failed to create temporary file."
+msgstr "فشل إنشاء الملف المؤقت."
+
+#. Unrecognized format
+#: syncthing_gtk/stdownloader.py:303
+msgid "Downloaded file is corrupted."
+msgstr "الملف الذي تم تنزيله تالف."
+
+#: syncthing_gtk/tools.py:222
+#, python-format
+msgid "~%s hours ago"
+msgstr "منذ حوالي ~%s ساعة"
+
+#: syncthing_gtk/tools.py:224
+#, python-format
+msgid "%s minutes ago"
+msgstr "قبل %s دقيقة"
+
+#: syncthing_gtk/tools.py:226
+#, python-format
+msgid "%s seconds ago"
+msgstr "منذ %s ثانية"
+
+#: syncthing_gtk/tools.py:227
+msgid "just now"
+msgstr "الآن"
+
+#: syncthing_gtk/tools.py:229
+#, python-format
+msgid "%s days ago"
+msgstr "قبل %s يومًا"
+
+#: syncthing_gtk/tools.py:233
+#, python-format
+msgid "in %s days"
+msgstr "في غضون %s يومًا"
+
+#: syncthing_gtk/tools.py:235
+#, python-format
+msgid "~%s hours from now"
+msgstr "بعد حوالي ~%s ساعة من الآن"
+
+#: syncthing_gtk/tools.py:237
+#, python-format
+msgid "%s minutes from now"
+msgstr "بعد مرور %s دقيقة"
+
+#: syncthing_gtk/tools.py:239
+#, python-format
+msgid "%s seconds from now"
+msgstr "من الآن %s ثانية"
+
+#: syncthing_gtk/tools.py:240
+msgid "in a moment"
+msgstr "في لحظة"
+
+#: syncthing_gtk/uisettingsdialog.py:80
+msgid "UI Settings"
+msgstr "إعدادات واجهة المستخدم"
+
+#: syncthing_gtk/uisettingsdialog.py:92
+msgid "Unlimited"
+msgstr "غير محدود"
+
+#: syncthing_gtk/uisettingsdialog.py:131
+#, python-format
+msgid "Install %(package)s package to enable %(feature)s support"
+msgstr "قم بتثبيت حزمة %(package)s لتمكين دعم %(feature)s"
+
+#: syncthing_gtk/uisettingsdialog.py:352
+msgid "Browse for Syncthing binary"
+msgstr "ابحث عن ملف Syncthing البرمجي"
+
+#: syncthing_gtk/wizard.py:62
+msgid "First run wizard"
+msgstr "مساعد الإعداد الأول"
+
+#: syncthing_gtk/wizard.py:155
+#, python-format
+msgid "Please, check error log and fill bug report on %s."
+msgstr "يرجى مراجعة سجل الأخطاء وملء تقرير الأخطاء على %s."
+
+#. 'Display error log' button
+#: syncthing_gtk/wizard.py:158
+msgid "Display error log"
+msgstr "عرض سجل الأخطاء"
+
+#: syncthing_gtk/wizard.py:222
+msgid "Next"
+msgstr "التالي"
+
+#. TODO: Temporal solution, remove later
+#: syncthing_gtk/wizard.py:235
+msgid ""
+"Continue this wizard to create a Syncthing configuration file or abort it to "
+"exit."
+msgstr "تابع هذا المساعد لإنشاء ملف تكوين Syncthing أو قم بإيقافه للخروج."
+
+#: syncthing_gtk/wizard.py:242
+msgid "Welcome to Syncthing-GTK first run wizard!"
+msgstr "مرحباً بك في مساعد التشغيل الأول لبرنامج Syncthing-GTK!"
+
+#: syncthing_gtk/wizard.py:245
+msgid "It looks like you never have used Syncthing."
+msgstr "يبدو أنك لم تستخدم Syncthing من قبل."
+
+#: syncthing_gtk/wizard.py:247
+msgid "Initial configuration should be created."
+msgstr "يجب إنشاء التكوين الأولي."
+
+#: syncthing_gtk/wizard.py:253
+#, python-format
+msgid ""
+"If you already had Syncthing daemon configured, please, exit this wizard and "
+"check your %s folder"
+msgstr ""
+"إذا كنت قد قمت بالفعل بتكوين برنامج Syncthing daemon، فيُرجى الخروج من هذا "
+"المساعد والتحقق من مجلد %s الخاص بك"
+
+#: syncthing_gtk/wizard.py:278
+msgid "Searching for Syncthing daemon."
+msgstr "جارٍ البحث عن برنامج Syncthing daemon."
+
+#: syncthing_gtk/wizard.py:278 syncthing_gtk/wizard.py:451
+msgid "Please wait..."
+msgstr "انتظر من فضلك..."
+
+#: syncthing_gtk/wizard.py:333
+msgid "download latest binary"
+msgstr "قم بتنزيل أحدث ملف برمجي"
+
+#. No binary was found
+#: syncthing_gtk/wizard.py:338
+msgid "Syncthing daemon not found."
+msgstr "لم يتم العثور على برنامج Syncthing daemon."
+
+#: syncthing_gtk/wizard.py:340 syncthing_gtk/wizard.py:352
+#, python-format
+msgid ""
+"Please, use package manager to install the Syncthing package or "
+"%(download_link)s from Syncthing page and save it to your %(target)s directory."
+msgstr ""
+"يرجى استخدام مدير الحزم لتثبيت حزمة Syncthing أو %(download_link)s من صفحة "
+"Syncthing وحفظها في دليل %(target)s الخاص بك."
+
+#. Binary was found, but it was too old to be usable
+#: syncthing_gtk/wizard.py:346
+msgid "Syncthing daemon is too old."
+msgstr "برنامج Syncthing daemon قديم جدًا."
+
+#: syncthing_gtk/wizard.py:348
+#, python-format
+msgid ""
+"Syncthing-GTK needs Syncthing daemon %(min)s or newer, but only %(actual)s were "
+"found."
+msgstr ""
+"يحتاج Syncthing-GTK إلى برنامج Syncthing daemon %(min)s أو أحدث، ولكن تم العثور "
+"على %(actual)s فقط."
+
+#: syncthing_gtk/wizard.py:357
+msgid "Alternatively, Syncthing-GTK can download Syncthing binary"
+msgstr "بدلاً من ذلك، يمكن لـ Syncthing-GTK تنزيل ملف Syncthing الثنائي"
+
+#: syncthing_gtk/wizard.py:358
+#, python-format
+msgid "to %s and keep it up-to-date, but this option is meant as"
+msgstr "إلى %s والحفاظ على تحديثه، ولكن هذا الخيار مخصص لـ"
+
+#: syncthing_gtk/wizard.py:359
+msgid "last resort and generally not suggested."
+msgstr "الحل الأخير ولا يُنصح به عموماً."
+
+#. Attach [ ] Download Syncthing checkbox
+#: syncthing_gtk/wizard.py:362
+msgid "_Download Syncthing binary"
+msgstr "قم بتنزيل ملف Syncthing البرمجي"
+
+#. Attach [ ] Autoupdate checkbox
+#: syncthing_gtk/wizard.py:366
+msgid "Auto_update downloaded binary"
+msgstr "تحديث الملف البرمجي المنزل تلقائياً"
+
+#: syncthing_gtk/wizard.py:425
+msgid "Syncthing daemon binary found."
+msgstr "تم العثور على الملف البرمجي لبرنامج Syncthing daemon."
+
+#: syncthing_gtk/wizard.py:428 syncthing_gtk/wizard.py:510
+msgid "Binary path:"
+msgstr "مسار الملف البرمجي:"
+
+#: syncthing_gtk/wizard.py:432
+msgid "Version:"
+msgstr "الإصدار:"
+
+#: syncthing_gtk/wizard.py:450
+msgid "Downloading Syncthing daemon."
+msgstr "جارٍ تنزيل برنامج Syncthing daemon."
+
+#: syncthing_gtk/wizard.py:492
+msgid "Failed to download Syncthing daemon package."
+msgstr "فشل تنزيل حزمة برنامج Syncthing daemon."
+
+#: syncthing_gtk/wizard.py:522
+msgid "Syncthing is generating RSA key and certificate."
+msgstr "يقوم برنامج Syncthing بإنشاء مفتاح تشفير RSA وشهادة."
+
+#: syncthing_gtk/wizard.py:522
+msgid "This may take a while..."
+msgstr "قد يستغرق هذا بعض الوقت..."
+
+#: syncthing_gtk/wizard.py:566
+msgid "Failed to generate keys"
+msgstr "فشل في إنشاء المفاتيح"
+
+#: syncthing_gtk/wizard.py:567
+msgid "Syncthing daemon failed to generate RSA key or certificate."
+msgstr "فشل برنامج Syncthing daemon في إنشاء مفتاح التشفير RSA أو شهادة."
+
+#: syncthing_gtk/wizard.py:581
+msgid "WebUI setup"
+msgstr "إعداد واجهة المستخدم الرسومية على المتصفح"
+
+#: syncthing_gtk/wizard.py:585
+msgid ""
+"Syncthing can be managed remotely using WebUI and even if you are going to use "
+"Syncthing-GTK, WebUI needs to be enabled, as Syncthing-GTK uses it to "
+"communicate with the Syncthing daemon."
+msgstr ""
+"يمكن إدارة Syncthing عن بعد باستخدام واجهة المستخدم الرسومية (WebUI)، وحتى إذا "
+"كنت ستستخدم Syncthing-GTK، فيجب تمكين واجهة المستخدم الرسومية (WebUI)، حيث "
+"يستخدمها Syncthing-GTK للتواصل مع برنامج Syncthing daemon."
+
+#: syncthing_gtk/wizard.py:592
+msgid ""
+"If you prefer to be able to manage Syncthing remotely, over the internet or on "
+"your local network, select <b>listen on all interfaces</b> and set username and "
+"password to protect Syncthing from unauthorized access."
+msgstr ""
+"إذا كنت تفضل أن تتمكن من إدارة Syncthing عن بعد، عبر الإنترنت أو على شبكتك "
+"المحلية، فحدد <b>الاستماع على جميع الواجهات</b> وقم بتعيين اسم المستخدم وكلمة "
+"المرور لحماية Syncthing من الوصول غير المصرح به."
+
+#: syncthing_gtk/wizard.py:599
+msgid ""
+"Otherwise, select <b>listen on localhost</b>, so only users and programs on "
+"this computer will be able to interact with Syncthing."
+msgstr ""
+"وإلا، حدد <b>استمع على المضيف المحلي</b>، بحيث لا يتمكن من التفاعل مع Syncthing "
+"إلا المستخدمون والبرامج الموجودة على هذا الكمبيوتر."
+
+#. Radiobuttons
+#: syncthing_gtk/wizard.py:606
+msgid "WebUI Listen Addresses"
+msgstr "عناوين الاستماع لواجهة المستخدم الرسومية"
+
+#: syncthing_gtk/wizard.py:607
+msgid "Listen on _localhost"
+msgstr "استمع على المضيف المحلي"
+
+#: syncthing_gtk/wizard.py:609
+msgid "Listen on _all interfaces"
+msgstr "الاستماع على جميع الواجهات"
+
+#: syncthing_gtk/wizard.py:616
+msgid "_Username"
+msgstr "اسم المستخدم"
+
+#: syncthing_gtk/wizard.py:617
+msgid "_Password"
+msgstr "كلمة المرور"
+
+#: syncthing_gtk/wizard.py:675
+msgid "Saving settings..."
+msgstr "جارٍ حفظ الإعدادات..."
+
+#: syncthing_gtk/wizard.py:676
+msgid "Checking for available port..."
+msgstr "جارٍ التحقق من المنفذ المتاح..."
+
+#: syncthing_gtk/wizard.py:698
+msgid "Failed to find unused port for listening."
+msgstr "فشل في العثور على منفذ غير مستخدم للاستماع."
+
+#: syncthing_gtk/wizard.py:699
+msgid "Please, check your firewall settings and try again."
+msgstr "يرجى التحقق من إعدادات جدار الحماية الخاص بك والمحاولة مرة أخرى."
+
+#: syncthing_gtk/wizard.py:713
+msgid "Saving..."
+msgstr "جار الجفظ..."
+
+#: syncthing_gtk/wizard.py:746
+msgid "Failed to load Syncthing configuration"
+msgstr "فشل تحميل إعدادات Syncthing"
+
+#: syncthing_gtk/wizard.py:784
+msgid "Failed to modify Syncthing configuration"
+msgstr "فشل تعديل إعدادات Syncthing"
+
+#: syncthing_gtk/wizard.py:792
+msgid "Failed to save Syncthing configuration"
+msgstr "فشل حفظ إعدادات Syncthing"
+
+#: syncthing_gtk/wizard.py:807
+msgid "Done."
+msgstr "منتهي."
+
+#: syncthing_gtk/wizard.py:810
+msgid "Syncthing has been successfully configured."
+msgstr "تم إعداد Syncthing بنجاح."
+
+#: syncthing_gtk/wizard.py:813
+msgid ""
+"You can configure more details later, in <b>UI Settings</b> and <b>Daemon "
+"Settings</b> menus in main window of application."
+msgstr ""
+"يمكنك ضبط المزيد من التفاصيل لاحقًا، في قوائم <b>إعدادات واجهة المستخدم</b> و "
+"<b>إعدادات البرنامج الخفي</b> في النافذة الرئيسية للتطبيق."
