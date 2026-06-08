@@ -35,8 +35,8 @@ sources:
   - syncthing-go-sources.json
 
   - type: archive
-    url: https://github.com/syncthing/syncthing/releases/download/v2.0.14/syncthing-source-v2.0.14.tar.gz
-    sha256: fec36ce20bbcd6e6d1cb70cfb0af7a45c6221581361d9bb92807389b24703a02
+    url: https://github.com/syncthing/syncthing/releases/download/v2.1.1/syncthing-source-v2.1.1.tar.gz
+    sha256: 418a99452f484abf30e403b769d0cf914a038142cd1a7e10be85b68f45d9f42a
     x-checker-data:
       type: anitya
       project-id: 11814
